@@ -85,6 +85,12 @@
     
     # Enable CUPS to print documents.
     printing.enable = true;
+
+
+    # Give Vial access to all keyboard devices
+	udev.extraRules = ''
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+'';
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -118,6 +124,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    chromium
     element-desktop
     git
     home-manager
@@ -125,12 +132,13 @@
 	konsole
     librewolf
     mako
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
     pass
     protonmail-bridge
     protonmail-bridge-gui
     signal-desktop
     swayfx
+    syncthing
     thunderbird
     vial
 	wget
