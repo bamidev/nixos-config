@@ -34,6 +34,7 @@
       terminal = "konsole";
       startup = [
         # Launch applications on startup
+        {command = "wlsunset -l 51.0 -L 5.4";}
         {command = "protonmail-bridge-gui";}
         {command = "thunderbird";}
         {command = "element-desktop";}
