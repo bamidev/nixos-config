@@ -129,7 +129,8 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     git
     home-manager
     killall
-	konsole
+    konsole
+    libreoffice
     librewolf
     mako
     neovim
