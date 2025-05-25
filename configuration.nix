@@ -4,11 +4,13 @@
 
 { config, lib, pkgs, ... }:
 
+let home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      <home-manager/nixos>
+      (import "${home-manager}/nixos")
 	  ./librewolf.nix
       ./neovim.nix
     ];
@@ -93,8 +95,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
 '';
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-
+  # Users
   users = {
     mutableUsers = true;
     users = {
@@ -109,9 +110,9 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
         #packages = with pkgs; [];
       };
 
-      bamidev = {      
+      therp = {      
         description = "Work";
-        home = "/home/bamidev";
+        home = "/home/therp";
         isNormalUser = true;
         extraGroups = [
           "video"
@@ -119,6 +120,11 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
         ];
       };
     };
+  };
+
+  home-manager.users = {
+	  bamilab = import ./users/bamilab/home.nix;
+	  therp = import ./users/therp/home.nix;
   };
 
   # List packages installed in system profile. To search, run:
