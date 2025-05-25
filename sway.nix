@@ -15,12 +15,12 @@
         DP-3 = {
           #bg = "~/Pictures/wallpaper.jpg fill";
           resolution = "2560x1440";
-          position = "0,440";
+          position = "1680,560";
         };
         HDMI-A-1 = {
           #bg = "~/Pictures/wallpaper.jpg fill";
           resolution = "2560x1440";
-          position = "2000,2000";
+          position = "1680,560";
         };
       };
       keybindings = lib.mkOptionDefault{
