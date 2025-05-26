@@ -14,7 +14,14 @@
 
 
   programs = {
-    bash = true;
+    home-manager.enable = true;
+
+    bash = {
+      enable = true;
+	  profileExtra = ''
+sway
+'';
+	};
 
 	# For some reason, neovim will not be invoked with the -u flag for the customRC code as non-root users,
     # which should load our init.lua file.

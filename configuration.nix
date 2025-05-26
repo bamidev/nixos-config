@@ -13,6 +13,7 @@ in
       (import "${home-manager}/nixos")
 	  ./librewolf.nix
       ./neovim.nix
+	  ./syncthing.nix
     ];
 
   system.stateVersion = "24.11";
@@ -133,7 +134,6 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     chromium
     element-desktop
     git
-    home-manager
     killall
     konsole
     libreoffice
@@ -143,12 +143,13 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     pass
     protonmail-bridge
     protonmail-bridge-gui
+    #python313Packages.pygls
     signal-desktop
     swayfx
     syncthing
     thunderbird
     vial
-	wget
+    wget
     wl-clipboard
     wlsunset
   ];
