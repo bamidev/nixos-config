@@ -24,8 +24,7 @@ vim.o.foldlevel = 1
 vim.o.foldnestmax = 2
 
 
---
-require'lspconfig'.pylsp.setup{}
+--require'lspconfig'.pylsp.setup{}
 
 '';
       };

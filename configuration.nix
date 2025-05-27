@@ -123,9 +123,13 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     };
   };
 
-  home-manager.users = {
-	  bamilab = import ./users/bamilab/home.nix;
-	  therp = import ./users/therp/home.nix;
+  home-manager.users = let defaults = import ./users/defaults.nix; in {
+    bamilab = { path, lib, ... }: lib.attrsets.recursiveUpdate
+      defaults
+      (import ./users/bamilab/home.nix { pkgs=pkgs; lib=lib; });
+    therp = { path, lib, ... }: lib.attrsets.recursiveUpdate
+      defaults
+      (import ./users/therp/home.nix { pkgs=pkgs; lib=lib; });
   };
 
   # List packages installed in system profile. To search, run:
@@ -133,6 +137,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
   environment.systemPackages = with pkgs; [
     chromium
     element-desktop
+    freetube
     git
     killall
     konsole
@@ -141,6 +146,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     mako
     neovim
     pass
+    pre-commit
     protonmail-bridge
     protonmail-bridge-gui
     #python313Packages.pygls
