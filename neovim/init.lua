@@ -22,10 +22,15 @@ if vim.fn.isdirectory(user_install_path) == 0 then
 end
 vim.api.nvim_command("packadd " .. vim.fn.fnameescape(user_packadd_path))
 local user = require "user"
-user.setup { parallel = true }
+user.setup()
 local use = user.use
 
 
 -- Plugin list
 use "neovim/nvim-lspconfig"
 use "vim-airline/vim-airline"
+
+
+
+--local lspconfig = require('lspconfig')
+--lspconfig.pylsp.setup({})

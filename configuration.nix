@@ -19,14 +19,6 @@ in
   system.stateVersion = "24.11";
 
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  #boot.loader.grub.efiSupport = true;
-  #boot.loader.grub.efiInstallAsRemovable = true;
-  #boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-
   networking.hostName = "baminix"; # Define your hostname.
   # Pick only one of the below networking options.
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -39,10 +31,6 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
   # console = {
@@ -50,17 +38,6 @@ in
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-
-  
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
 
   # Enable sound.
   # hardware.pulseaudio.enable = true;
@@ -149,7 +126,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     pre-commit
     protonmail-bridge
     protonmail-bridge-gui
-    #python313Packages.pygls
+    pyright
     signal-desktop
     swayfx
     syncthing
@@ -158,6 +135,12 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     wget
     wl-clipboard
     wlsunset
+
+    (python3.withPackages (python-pkgs: with python-pkgs; [
+      psycopg
+      psycopg2
+      #pylint-odoo
+    ]))
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
