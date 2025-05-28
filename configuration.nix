@@ -139,6 +139,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     (python3.withPackages (python-pkgs: with python-pkgs; [
       psycopg
       psycopg2
+	  python-lsp-server
       #pylint-odoo
     ]))
   ];
@@ -198,6 +199,9 @@ s = "status"
 
 [core]
 editor = "nvim"
+
+[push]
+autoSetupRemote = true
 '';
     };
   };
