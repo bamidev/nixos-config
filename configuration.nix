@@ -128,7 +128,6 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     protonmail-bridge-gui
     pyright
     signal-desktop
-    swayfx
     syncthing
     thunderbird
     vial
@@ -156,6 +155,8 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
 
     sway = {
       enable = true;
+
+      package = pkgs.swayfx;
       wrapperFeatures.gtk = true;
 	  extraSessionCommands = ''
         # SDL:
