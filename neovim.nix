@@ -5,6 +5,8 @@
     defaultEditor = true;
     enable = true;
 
+	withPython3 = false;
+
     configure = {
        # Vim configuration for root user only
       customRC = ''
@@ -26,7 +28,27 @@ vim.o.foldnestmax = 2
 
 -- The language server
 local lspconfig = require('lspconfig')
-lspconfig.pyright.setup({})
+--lspconfig.pyright.setup({})
+
+lspconfig.pylsp.setup({
+	cmd = {'pylsp'},
+	settings = {
+		pylsp = {
+			configurationSources = {'flake8'},
+			plugins = {
+				flake8 = {
+					enabled = true,
+        		},
+				pyflakes = {
+					enabled = true,
+				},
+				pylint = {
+					enabled = true, 
+				}
+			}
+		}
+	}
+})
 vim.api.nvim_command('LspStart')
 '';
       };

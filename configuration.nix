@@ -130,6 +130,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     signal-desktop
     syncthing
     thunderbird
+	tor-browser
     vial
     wget
     wl-clipboard
@@ -138,8 +139,12 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     (python3.withPackages (python-pkgs: with python-pkgs; [
       psycopg
       psycopg2
-	  python-lsp-server
-      #pylint-odoo
+	  python-lsp-server[all]
+      
+	  #pylint_odoo
+	  pyflakes
+	  pylint
+	  flake8
     ]))
   ];
 
