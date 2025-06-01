@@ -11,9 +11,10 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       (import "${home-manager}/nixos")
-	  ./librewolf.nix
+      ./librewolf.nix
+      ./my-scripts.nix
       ./neovim.nix
-	  ./syncthing.nix
+      ./syncthing.nix
     ];
 
   system.stateVersion = "24.11";
@@ -112,6 +113,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    bc
     chromium
     element-desktop
     freetube

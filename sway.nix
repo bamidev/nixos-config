@@ -3,12 +3,13 @@
 {
   wayland.windowManager.sway = {
     enable = true;
-	#package = pkgs.swayfx;
-	package = null;
+    #package = pkgs.swayfx;
+    package = null;
 
     config = rec {
       modifier = "Mod4";
-      output = {
+
+	  output = {
         eDP-1 = {
           #bg = "~/Pictures/wallpaper.jpg fill";
           resolution = "1920x1080";
@@ -27,8 +28,8 @@
       };
       keybindings = lib.mkOptionDefault{
         "${modifier}+q" = "exec librewolf";
-		"XF86MonBrightnessDown" = "exec light -U 10";
-		"XF86MonBrightnessUp" = "exec light -A 10";
+		"XF86MonBrightnessDown" = "exec sudo-brightness-down";
+		"XF86MonBrightnessUp" = "exec sudo-brightness-up";
 		"XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%''";
 		"XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
 		"XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
