@@ -121,9 +121,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     killall
     konsole
     libreoffice
-    librewolf
     mako
-    neovim
     pass
     pre-commit
     protonmail-bridge
