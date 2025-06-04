@@ -63,6 +63,25 @@ in
       enable = true;
       pulse.enable = true;
     };
+
+    postgresql = {
+      enable = true;
+
+      authentication = pkgs.lib.mkOverride 10 ''
+#type database  DBuser  auth-method
+local all       all     trust
+'';
+
+      ensureUsers = [
+        {
+          name = "therp";
+          ensureClauses = {
+            createdb = true;
+            login = true;
+          };
+        }
+      ];
+    };
     
     # Enable CUPS to print documents.
     printing.enable = true;
@@ -97,7 +116,11 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
           "video"
           "wheel"
         ];
+        packages = with pkgs; [
+          postgresql_17
+        ];
       };
+
     };
   };
 
