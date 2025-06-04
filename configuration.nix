@@ -146,6 +146,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     libreoffice
     mako
     pass
+    pavucontrol
     pre-commit
     protonmail-bridge
     protonmail-bridge-gui
@@ -155,6 +156,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     thunderbird
 	tor-browser
     vial
+    w3m
     wget
     wl-clipboard
     wlsunset
