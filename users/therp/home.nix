@@ -1,5 +1,9 @@
 { pkgs, lib, ... }:
 {
+  home.packages = with pkgs; [
+    postgres-lsp
+  ];
+
   programs = {
     git = {
       enable = true;

@@ -19,6 +19,7 @@ luafile ${./neovim/init.lua}
         enable = true;
         text = ''
 vim.o.expandtab = true
+vim.o.smartindent = true
 vim.o.textwidth = 79
 vim.o.colorcolumn = "73,+1"
 vim.o.foldmethod = "indent"

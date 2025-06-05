@@ -15,10 +15,12 @@ in
       ./my-scripts.nix
       ./neovim.nix
       ./syncthing.nix
+      ./therp.nix
     ];
 
   system.stateVersion = "24.11";
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "baminix"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -64,28 +66,8 @@ in
       pulse.enable = true;
     };
 
-    postgresql = {
-      enable = true;
-
-      authentication = pkgs.lib.mkOverride 10 ''
-#type database  DBuser  auth-method
-local all       all     trust
-'';
-
-      ensureUsers = [
-        {
-          name = "therp";
-          ensureClauses = {
-            createdb = true;
-            login = true;
-          };
-        }
-      ];
-    };
-    
     # Enable CUPS to print documents.
     printing.enable = true;
-
 
     # Give Vial access to all keyboard devices
 	udev.extraRules = ''

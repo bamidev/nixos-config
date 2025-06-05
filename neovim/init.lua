@@ -1,6 +1,8 @@
 -- Default settings
+vim.o.autoindent = false
+vim.o.cindent = false
 vim.o.number = true
-vim.o.smartindent = true
+vim.o.smartindent = false
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.termguicolors = true
@@ -30,7 +32,3 @@ local use = user.use
 use "neovim/nvim-lspconfig"
 use "vim-airline/vim-airline"
 
-
-
---local lspconfig = require('lspconfig')
---lspconfig.pylsp.setup({})
