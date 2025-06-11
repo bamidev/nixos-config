@@ -150,10 +150,12 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     element-desktop
     freetube
     git
+    gnome-terminal
     killall
     konsole
     libreoffice
     mako
+    nix-index
     pass
     pavucontrol
     pre-commit
