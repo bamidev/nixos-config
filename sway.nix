@@ -15,15 +15,19 @@
           resolution = "1920x1080";
           position = "2000,2000";
         };
-        DP-3 = {
+        #DP-3 = {
+          #bg = "~/Pictures/wallpaper.jpg fill";
+          #resolution = "2560x1440";
+          #position = "1680,560";
+        #};
+        "BNQ BenQ GW3290QT H9P00939019" = {
           #bg = "~/Pictures/wallpaper.jpg fill";
           resolution = "2560x1440";
           position = "1680,560";
         };
-        HDMI-A-1 = {
-          #bg = "~/Pictures/wallpaper.jpg fill";
-          resolution = "2560x1440";
-          position = "1680,560";
+        Eizo = {
+          resolution = "1920x1200";
+          position = "80,2000";
         };
       };
       keybindings = lib.mkOptionDefault{
