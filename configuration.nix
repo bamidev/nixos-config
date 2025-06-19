@@ -149,12 +149,13 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
     chromium
     element-desktop
     freetube
-    git
+    gitFull
     gnome-terminal
     killall
     konsole
     libreoffice
     mako
+    nautilus
     nix-index
     pass
     pavucontrol
@@ -247,5 +248,7 @@ autoSetupRemote = true
 '';
     };
   };
+
+  virtualisation.docker.enable = true;
 }
 
