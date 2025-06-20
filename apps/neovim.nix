@@ -5,13 +5,13 @@
     defaultEditor = true;
     enable = true;
 
-	withPython3 = false;
+    withPython3 = false;
 
     configure = {
        # Vim configuration for root user only
       customRC = ''
-luafile ${./neovim/init.lua}
-'';
+        luafile ${./neovim/init.lua}
+      '';
     };
 
     runtime = {

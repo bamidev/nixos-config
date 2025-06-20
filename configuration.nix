@@ -8,13 +8,11 @@ let home-manager = builtins.fetchTarball https://github.com/nix-community/home-m
 in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       (import "${home-manager}/nixos")
-      ./librewolf.nix
+      ./apps.nix
       ./my-scripts.nix
-      ./neovim.nix
-      ./syncthing.nix
       ./therp.nix
     ];
 
@@ -23,8 +21,6 @@ in
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   networking.hostName = "baminix"; # Define your hostname.
-  # Pick only one of the below networking options.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   networking.resolvconf = {
     enable = true;
@@ -41,66 +37,6 @@ in
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
-
-  # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # OR
-  services = {
-    gnome.gnome-keyring.enable = true;
-
-    # Keyboard remapping
-    input-remapper.enable = true;
-
-    # Touchpad
-    libinput.enable = true;
-
-    openvpn = {
-      servers = {
-        protonvpn = { config = '' config /root/nixos/openvpn/protonvpn.conf ''; };
-      };
-    };
-
-    # Sound server
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-    };
-
-    postgresql = {
-      enable = true;
-      package = pkgs.postgresql_17;
-
-      authentication = pkgs.lib.mkOverride 10 ''
-#type database  DBuser  auth-method
-local all       all     trust
-'';
-
-      ensureUsers = [
-        {
-          name = "bamilab";
-          ensureClauses = {
-            createdb = true;
-            login = true;
-          };
-        }
-        {
-          name = "therp";
-          ensureClauses = {
-            createdb = true;
-            login = true;
-          };
-        }
-      ];
-    };
-
-    # Enable CUPS to print documents.
-    printing.enable = true;
-
-    # Give Vial access to all keyboard devices
-	udev.extraRules = ''
-KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-'';
-  };
 
   # Users
   users = {
@@ -142,113 +78,6 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uacces
       (import ./users/therp/home.nix { pkgs=pkgs; lib=lib; });
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    bc
-    chromium
-    element-desktop
-    freetube
-    gitFull
-    gnome-terminal
-    killall
-    konsole
-    libreoffice
-    mako
-    nautilus
-    nix-index
-    pass
-    pavucontrol
-    pre-commit
-    protonmail-bridge
-    protonmail-bridge-gui
-    pyright
-    signal-desktop
-    syncthing
-    thunderbird
-	tor-browser
-    vial
-    w3m
-    wget
-    wl-clipboard
-    wlsunset
-
-    (python3.withPackages (python-pkgs: with python-pkgs; [
-      psycopg
-      psycopg2
-	  python-lsp-server[all]
-      
-	  #pylint_odoo
-	  pyflakes
-	  pylint
-	  flake8
-    ]))
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  programs = {
-
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-
-    sway = {
-      enable = true;
-
-      package = pkgs.swayfx;
-      wrapperFeatures.gtk = true;
-	  extraSessionCommands = ''
-        # SDL:
-        export SDL_VIDEODRIVER=wayland
-        # QT (needs qt5.qtwayland in systemPackages):
-        export QT_QPA_PLATFORM=wayland-egl
-        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-        # Fix for some Java AWT applications (e.g. Android Studio),
-        # use this if they aren't displayed properly:
-        export _JAVA_AWT_WM_NONREPARENTING=1
-'';
-    };
-  };
-
   security.polkit.enable = true;
-
-  environment.shellAliases = {
-    g = "git";
-    gb = "git branch";
-    gd = "git diff";
-    gs = "git status";
-    vi = "nvim";
-  };
-
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-  };
-
-  environment.etc = {
-    gitconfig = {
-       text = ''
-[alias]
-a = "add"
-b = "branch"
-c = "checkout"
-cm = "commit"
-d = "diff"
-l = "log"
-p = "pull"
-s = "status"
-
-[core]
-editor = "nvim"
-
-[push]
-autoSetupRemote = true
-'';
-    };
-  };
-
-  virtualisation.docker.enable = true;
 }
 

@@ -13,6 +13,9 @@
 	    BehaviorPrivateBrowsing = "reject-foreign";
 	  };
 	  Preferences = {
+		#"browser.theme.content-theme" = 0;
+		#"browser.theme.toolbar-theme" = 0;
+		#"extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
 	    #"cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
 	    #"cookiebanners.service.mode" = 2; # Block cookie banners
 	    "privacy.donottrackheader.enabled" = true;

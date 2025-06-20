@@ -9,9 +9,9 @@
     config = rec {
       modifier = "Mod4";
 
-	  output = {
+	  output = rec {
         eDP-1 = {
-          #bg = "~/Pictures/wallpaper.jpg fill";
+          bg = "~/Pictures/laptop-wallpaper.jpg fill";
           resolution = "1920x1080";
           position = "2000,2000";
         };
@@ -20,14 +20,20 @@
           #resolution = "2560x1440";
           #position = "1680,560";
         #};
+		"Ancor Communications Inc ASUS PB278 D1LMTF019074" = {
+            bg = "~/Pictures/wallpaper.jpg fill";
+            resolution = "2560x1440";
+            position = "1680,560";
+        };
         "BNQ BenQ GW3290QT H9P00939019" = {
-          #bg = "~/Pictures/wallpaper.jpg fill";
+          bg = "~/Pictures/wallpaper.jpg fill";
           resolution = "2560x1440";
           position = "1680,560";
         };
-        Eizo = {
+        "Eizo Nanao Corporation S2402W 68610031" = {
+		  bg = "~/Pictures/wallpaper.jpg fill";
           resolution = "1920x1200";
-          position = "80,2000";
+          position = "2000,800";
         };
       };
       keybindings = lib.mkOptionDefault{
@@ -38,7 +44,7 @@
 		"XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
 		"XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
       };
-      terminal = "konsole";
+      terminal = "bash -c \"$(printenv TERMINAL)\"";
       startup = [
         # Launch applications on startup
         {command = "wlsunset -l 51.0 -L 5.4";}
@@ -69,12 +75,12 @@ assign [title=".*Mozilla Thunderbird"] workspace 1
 
 
 # Some visual settings and effects
-gaps outer 10
+gaps outer 5
 
 blur enable
 blur_xray disable
 blur_passes 10
-blur_radius 10
+blur_radius 5
 blur_noise 1
 blur_brightness 2
 blur_contrast 2

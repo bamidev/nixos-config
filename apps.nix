@@ -1,0 +1,204 @@
+{ config, lib, pkgs, ... }: {
+  imports =
+    [
+      ./apps/librewolf.nix
+      ./apps/neovim.nix
+      ./apps/syncthing.nix
+    ];
+
+  services = {
+    gnome.gnome-keyring.enable = true;
+
+    # Touchpad
+    libinput.enable = true;
+
+    openvpn = {
+      servers = {
+        protonvpn = { config = '' config /root/nixos/openvpn/protonvpn.conf ''; };
+      };
+    };
+
+    # Sound server
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+    };
+
+    postgresql = {
+      enable = true;
+      package = pkgs.postgresql_17;
+
+      authentication = pkgs.lib.mkOverride 10 ''
+#type database  DBuser  auth-method
+local all       all     trust
+'';
+
+      ensureUsers = [
+        {
+          name = "bamilab";
+          ensureClauses = {
+            createdb = true;
+            login = true;
+          };
+        }
+        {
+          name = "therp";
+          ensureClauses = {
+            createdb = true;
+            login = true;
+          };
+        }
+      ];
+    };
+
+    # Enable CUPS to print documents.
+    printing.enable = true;
+
+    # Give Vial access to all keyboard devices
+    udev.extraRules = ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+    '';
+  };
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment = {
+    etc = {
+      gitconfig.text = ''
+        [alias]
+        a = "add"
+        b = "branch"
+        c = "checkout"
+        cm = "commit"
+        d = "diff"
+        l = "log"
+        p = "pull"
+        s = "status"
+
+        [core]
+        editor = "nvim"
+
+        [push]
+        autoSetupRemote = true
+      '';
+
+      "gtk-3.0/settings.ini".text = ''
+        [Settings]
+        gtk-theme-name=Adwaita:dark
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    extraInit = with pkgs; ''
+      ${glib}/bin/gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+      ${glib}/bin/gsettings set org.gnome.desktop.interface text-scaling-factor 1.1
+    '';
+
+    sessionVariables = with pkgs; rec {
+      BROWSER = "${librewolf}/bin/librewolf";
+      DEFAULT_BROWSER = BROWSER; # Electron based apps use this variable
+      EDITOR = "${neovim}/bin/nvim";
+      GTK_THEME = "Adwaita:dark";
+      NIXOS_OZONE_WL = "1";
+      TERMINAL = "${alacritty}/bin/alacritty";
+      VISUAL = EDITOR;
+    };
+
+
+    shellAliases = {
+      g = "git";
+      gb = "git branch";
+      gd = "git diff";
+      gs = "git status";
+    };
+
+    systemPackages = with pkgs; [
+      alacritty
+      bc
+      chromium
+      element-desktop
+      freetube
+      gitFull	# Pulls in `git gui`, for staging
+      glib	# For configuring gtk-4 settings with gsettings
+      killall
+      libreoffice
+      mako
+      nautilus
+      nix-index
+      pass
+      pavucontrol
+      powerline-fonts
+      pre-commit
+      protonmail-bridge
+      protonmail-bridge-gui
+      signal-desktop
+      syncthing
+      tor-browser
+      vial
+      w3m
+      wget
+      wl-clipboard
+      wlsunset
+
+      (python3.withPackages (python-pkgs: with python-pkgs; [
+        psycopg
+        psycopg2
+        python-lsp-server[all]
+      
+        #pylint_odoo
+        pyflakes
+        pylint
+        flake8
+      ]))
+    ];
+  };
+
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+
+    sway = {
+      enable = true;
+
+      package = pkgs.swayfx;
+      wrapperFeatures.gtk = true;
+      extraSessionCommands = ''
+        # SDL:
+        export SDL_VIDEODRIVER=wayland
+        # QT (needs qt5.qtwayland in systemPackages):
+        export QT_QPA_PLATFORM=wayland-egl
+        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+        # Fix for some Java AWT applications (e.g. Android Studio),
+        # use this if they aren't displayed properly:
+        export _JAVA_AWT_WM_NONREPARENTING=1
+      '';
+    };
+
+    thunderbird = {
+      enable = true;
+
+      preferencesStatus = "locked";
+      preferences = {};
+    };
+  };
+
+  virtualisation.docker.enable = true;
+
+  xdg.mime = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "librewolf.desktop";
+      "x-scheme-handler/http" = "librewolf.desktop";
+      "x-scheme-handler/https" = "librewolf.desktop";
+      "x-scheme-handler/about" = "librewolf.desktop";
+      "x-scheme-handler/unknown" = "librewolf.desktop";
+    };
+  };
+}
+
