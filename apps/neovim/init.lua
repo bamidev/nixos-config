@@ -7,6 +7,13 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.termguicolors = true
 
+vim.diagnostic.config({
+	--virtual_lines = true,
+	virtual_text = true,
+})
+
+-- Autocomplete
+vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 -- Map keys
 vim.keymap.set('n', ';', ':')

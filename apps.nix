@@ -29,9 +29,9 @@
       package = pkgs.postgresql_17;
 
       authentication = pkgs.lib.mkOverride 10 ''
-#type database  DBuser  auth-method
-local all       all     trust
-'';
+        #type database  DBuser  auth-method
+        local all       all     trust
+      '';
 
       ensureUsers = [
         {
@@ -143,9 +143,9 @@ local all       all     trust
       (python3.withPackages (python-pkgs: with python-pkgs; [
         psycopg
         psycopg2
-        python-lsp-server[all]
+        python-lsp-server
       
-        #pylint_odoo
+        pylint-odoo
         pyflakes
         pylint
         flake8

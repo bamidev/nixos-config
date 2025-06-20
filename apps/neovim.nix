@@ -28,10 +28,10 @@ vim.o.foldnestmax = 2
 
 
 -- The language server
-local lspconfig = require('lspconfig')
+--local lspconfig = require('lspconfig')
 --lspconfig.pyright.setup({})
 
-lspconfig.pylsp.setup({
+vim.lsp.start({
 	cmd = {'pylsp'},
 	settings = {
 		pylsp = {
@@ -50,7 +50,8 @@ lspconfig.pylsp.setup({
 		}
 	}
 })
-vim.api.nvim_command('LspStart')
+--vim.lsp.start('pylsp')
+--vim.api.nvim_command('LspStart')
 '';
       };
     };
