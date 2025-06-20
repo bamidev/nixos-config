@@ -17,14 +17,13 @@
         '';
       };
 
-    # Available in 25.05
-	#element-desktop = {
-    #  enable = true;
+	element-desktop = {
+      enable = true;
 
-	#  settings = {
-    #    default_theme = "dark";
-	#  };
-	#};
+	  settings = {
+        default_theme = "dark";
+	  };
+	};
 
 	# For some reason, neovim will not be invoked with the -u flag for the customRC code as non-root users,
     # which should load our init.lua file.
