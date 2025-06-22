@@ -89,11 +89,6 @@
       '';
     };
 
-    extraInit = with pkgs; ''
-      ${glib}/bin/gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-      ${glib}/bin/gsettings set org.gnome.desktop.interface text-scaling-factor 1.1
-    '';
-
     sessionVariables = with pkgs; rec {
       BROWSER = "${librewolf}/bin/librewolf";
       DEFAULT_BROWSER = BROWSER; # Electron based apps use this variable
