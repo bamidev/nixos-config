@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.neovim = {
@@ -15,6 +15,24 @@
     };
 
     runtime = {
+      "ftplugin/bash.lua" = {
+        enable = true;
+	    text = ''
+	      vim.lsp.start({
+              cmd = { "bash-language-server", "start" },
+	      })
+		  '';
+	  };
+
+      "ftplugin/lua.lua" = {
+        enable = true;
+	    text = ''
+	      vim.lsp.start({
+              cmd = {'lua-language-server'},
+	      })
+		  '';
+	  };
+
       "ftplugin/python.lua" = {
         enable = true;
         text = ''
@@ -28,9 +46,6 @@ vim.o.foldnestmax = 2
 
 
 -- The language server
---local lspconfig = require('lspconfig')
---lspconfig.pyright.setup({})
-
 vim.lsp.start({
 	cmd = {'pylsp'},
 	settings = {
@@ -50,9 +65,47 @@ vim.lsp.start({
 		}
 	}
 })
---vim.lsp.start('pylsp')
---vim.api.nvim_command('LspStart')
 '';
+      };
+
+      "ftplugin/nix.lua" = {
+        enable = true;
+        text = ''
+          vim.o.expandtab = true
+
+          vim.lsp.start({
+              cmd = {'nixd'},
+          })
+        '';
+      };
+      
+      "ftplugin/sh.lua" = {
+        enable = true;
+	    text = ''
+          --local folderOfThisFile = (...):match("(.-)[^%.]+$")
+	      --require('./bash')
+	      vim.lsp.start({
+              cmd = {'bash-language-server'},
+	      })
+		'';
+	  };
+
+      "ftplugin/sql.lua" = {
+        enable = true;
+        text = ''
+          vim.lsp.start({
+              cmd = { "postgrestools", "lsp-proxy" },
+          })
+        '';
+      };
+
+      "ftplugin/vim.lua" = {
+        enable = true;
+        text = ''
+          vim.lsp.start({
+              cmd = {'vim-language-server'},
+          })
+        '';
       };
     };
 

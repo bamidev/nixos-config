@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ pkgs, ... }: {
   imports =
     [
       ./apps/librewolf.nix
@@ -109,6 +109,7 @@
 
     systemPackages = with pkgs; [
       alacritty
+      bash-language-server
       bc
       chromium
       element-desktop
@@ -117,11 +118,14 @@
       glib	# For configuring gtk-4 settings with gsettings
       killall
       libreoffice
+      lua-language-server
       mako
       nautilus
       nix-index
+      nixd
       pass
       pavucontrol
+      postgres-lsp
       powerline-fonts
       pre-commit
       protonmail-bridge
@@ -130,6 +134,7 @@
       syncthing
       tor-browser
       vial
+      vim-language-server
       w3m
       wget
       wl-clipboard
