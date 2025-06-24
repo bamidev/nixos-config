@@ -18,7 +18,15 @@ in
 
   system.stateVersion = "24.11";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "monthly";
+      options = "--delete-older-than 90d";
+    };
+
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
 
   networking.hostName = "baminix"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
