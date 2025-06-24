@@ -55,6 +55,7 @@ in
         home = "/home/bamilab";
         isNormalUser = true;
         extraGroups = [
+          "audio"
           "video"
           "wheel"	# Enable ‘sudo’ for the user.
         ];
@@ -66,6 +67,7 @@ in
         home = "/home/therp";
         isNormalUser = true;
         extraGroups = [
+          "audio"
           "video"
           "wheel"
         ];
