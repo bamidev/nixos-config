@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   wayland.windowManager.sway = {
@@ -7,19 +7,15 @@
     package = null;
 
     config = rec {
+      menu = "${pkgs.dmenu}/bin/dmenu_run";
       modifier = "Mod4";
 
-	  output = rec {
+	  output = {
         eDP-1 = {
           bg = "~/Pictures/laptop-wallpaper.jpg fill";
           resolution = "1920x1080";
           position = "2000,2000";
         };
-        #DP-3 = {
-          #bg = "~/Pictures/wallpaper.jpg fill";
-          #resolution = "2560x1440";
-          #position = "1680,560";
-        #};
 		"Ancor Communications Inc ASUS PB278 D1LMTF019074" = {
             bg = "~/Pictures/wallpaper.jpg fill";
             resolution = "2560x1440";
@@ -80,7 +76,7 @@ gaps outer 5
 blur enable
 blur_xray disable
 blur_passes 10
-blur_radius 5
+blur_radius 3
 blur_noise 1
 blur_brightness 2
 blur_contrast 2
