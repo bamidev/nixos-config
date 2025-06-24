@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 let home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
 in
@@ -70,10 +70,10 @@ in
   };
 
   home-manager.users = let defaults = import ./users/defaults.nix; in {
-    bamilab = { path, lib, ... }: lib.attrsets.recursiveUpdate
+    bamilab = { lib, ... }: lib.attrsets.recursiveUpdate
       defaults
       (import ./users/bamilab/home.nix { pkgs=pkgs; lib=lib; });
-    therp = { path, lib, ... }: lib.attrsets.recursiveUpdate
+    therp = { lib, ... }: lib.attrsets.recursiveUpdate
       defaults
       (import ./users/therp/home.nix { pkgs=pkgs; lib=lib; });
   };

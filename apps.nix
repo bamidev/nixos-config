@@ -158,6 +158,17 @@
   # started in user sessions.
   # programs.mtr.enable = true;
   programs = {
+    dconf.profiles.user.databases = [{
+      lockAll = true;
+      settings = {
+        "org/gnome/desktop/interface" = {
+          accent-color = "blue";
+          color-scheme = "prefer-dark";
+          text-scaling-factor = 1.1;
+        };
+      };
+    }];
+
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
