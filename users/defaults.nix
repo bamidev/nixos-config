@@ -13,8 +13,6 @@
     bash = {
       enable = true;
       profileExtra = ''
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-        gsettings set org.gnome.desktop.interface text-scaling-factor 1.1
         sway
       '';
     };

@@ -115,17 +115,13 @@
       element-desktop
       freetube
       gitFull	# Pulls in `git gui`, for staging
-      glib	# For configuring gtk-4 settings with gsettings
       killall
       libreoffice
-      lua-language-server
       mako
       nautilus
       nix-index
-      nixd
       pass
       pavucontrol
-      postgres-lsp
       powerline-fonts
       pre-commit
       protonmail-bridge
@@ -134,21 +130,23 @@
       syncthing
       tor-browser
       vial
-      vim-language-server
       w3m
       wget
       wl-clipboard
       wlsunset
 
+      # Install a bunch of python packages so that they are available to pylsp
       (python3.withPackages (python-pkgs: with python-pkgs; [
         psycopg
         psycopg2
         python-lsp-server
       
+        flake8
+        pydocstyle
         pylint-odoo
         pyflakes
         pylint
-        flake8
+        rope
       ]))
     ];
   };

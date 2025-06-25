@@ -6,6 +6,8 @@ vim.o.smartindent = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.termguicolors = true
+vim.opt.list = true
+vim.opt.listchars = {eol = '↵', space = '.', tab = '>~'}
 
 vim.diagnostic.config({
 	--virtual_lines = true,
@@ -38,4 +40,5 @@ local use = user.use
 -- Plugin list
 use "neovim/nvim-lspconfig"
 use "vim-airline/vim-airline"
-
+use "kevinhwang91/promise-async"
+use "kevinhwang91/nvim-ufo"
