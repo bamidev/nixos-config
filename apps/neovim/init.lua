@@ -9,7 +9,7 @@ vim.o.termguicolors = true
 vim.o.winborder = 'rounded'
 vim.opt.completeopt = { "fuzzy", "menuone", "noinsert", "popup" }
 vim.opt.list = true
-vim.opt.listchars = {eol = '↵', space = '.', tab = '>~'}
+vim.opt.listchars = {eol = '↵', space = '·', tab = '>~'}
 
 
 vim.diagnostic.config({
