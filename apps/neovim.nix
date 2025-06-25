@@ -1,6 +1,18 @@
 { pkgs, ... }:
 
-{
+let
+  # Lua code to enable autocompletion
+  lspCompletion = ''
+    on_attach = function(client, bufnr)
+      vim.lsp.completion.enable(true, client.id, bufnr, {
+        autotrigger = true,
+      })
+      vim.keymap.set("i", "<C-space>", vim.lsp.completion.get, {
+        desc = "Trigger autocompletion"
+      })
+    end,
+  '';
+in {
   programs.neovim = {
     defaultEditor = true;
     enable = true;
@@ -15,20 +27,12 @@
     };
 
     runtime = {
-      "ftplugin/bash.lua" = {
-        enable = true;
-        text = ''
-          vim.lsp.start({
-              cmd = { "${pkgs.bash-language-server}/bin/bash-language-server", "start" },
-          })
-        '';
-      };
-
       "ftplugin/c.lua" = {
         enable = true;
         text = ''
           vim.lsp.start({
               cmd = {'${pkgs.ccls}/bin/ccls'},
+              ${lspCompletion}
           })
         '';
       };
@@ -38,6 +42,7 @@
         text = ''
           vim.lsp.start({
               cmd = {'${pkgs.lua-language-server}/bin/lua-language-server'},
+              ${lspCompletion}
           })
         '';
       };
@@ -57,15 +62,7 @@
           -- The language server
           vim.lsp.start({
             cmd = {'pylsp'},
-            on_attach = function(client, bufnr)
-              -- Enable autocompletion suggestions
-              vim.lsp.completion.enable(true, client.id, bufnr, {
-                convert = function(item)
-                  return { abbr = item.label:gsub("%b()", "") }
-                end,
-              })
-            end,
-            autocomplete = true,
+            ${lspCompletion}
             settings = {
               pylsp = {
                 configurationSources = {'flake8'},
@@ -106,7 +103,8 @@
           vim.o.textwidth = 100
 
           vim.lsp.start({
-              cmd = {'${pkgs.nixd}/bin/nixd'},
+            cmd = {'${pkgs.nixd}/bin/nixd'},
+            ${lspCompletion}
           })
         '';
       };
@@ -115,7 +113,8 @@
         enable = true;
         text = ''
           vim.lsp.start({
-              cmd = {'${pkgs.rust-analyzer}/bin/rust-analyzer'},
+            cmd = {'${pkgs.rust-analyzer}/bin/rust-analyzer'},
+            ${lspCompletion}
           })
         '';
       };
@@ -123,19 +122,10 @@
       "ftplugin/sh.lua" = {
         enable = true;
         text = ''
-          --local folderOfThisFile = (...):match("(.-)[^%.]+$")
-          --require('./bash')
-
-          lines = vim.api.nvim_buf_get_lines(0, 0, 1, false)
-          if #lines > 0 then
-              local first_line = lines[0]
-              io.stdout:write(first_line)
-              if first_line == '#!/bin/bash' or first_line == '#!/usr/bin/bash' or first_line == '#!/usr/bin/env bash' then
-                vim.lsp.start({
-                    cmd = {'${pkgs.bash-language-server}/bin/bbash-language-server'},
-                })
-              end
-          end
+          vim.lsp.start({
+              cmd = { "${pkgs.bash-language-server}/bin/bash-language-server", "start" },
+              ${lspCompletion}
+          })
         '';
       };
 
@@ -143,7 +133,8 @@
         enable = true;
         text = ''
           vim.lsp.start({
-              cmd = { '${pkgs.postgres-lsp}/bin/postgrestools', 'lsp-proxy' },
+            cmd = { '${pkgs.postgres-lsp}/bin/postgrestools', 'lsp-proxy' },
+            ${lspCompletion}
           })
         '';
       };
@@ -152,13 +143,13 @@
         enable = true;
         text = ''
           vim.lsp.start({
-              cmd = {'${pkgs.vim-language-server}/bin/vim-language-server'},
+            cmd = {'${pkgs.vim-language-server}/bin/vim-language-server'},
+            ${lspCompletion}
           })
         '';
       };
     };
 
     viAlias = true;
-    vimAlias = true;
   };
 }

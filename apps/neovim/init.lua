@@ -2,20 +2,22 @@
 vim.o.autoindent = false
 vim.o.cindent = false
 vim.o.number = true
+vim.o.shiftwidth = 4
 vim.o.smartindent = true
 vim.o.tabstop = 4
-vim.o.shiftwidth = 4
 vim.o.termguicolors = true
+vim.o.winborder = 'rounded'
+vim.opt.completeopt = { "fuzzy", "menuone", "noinsert", "popup" }
 vim.opt.list = true
 vim.opt.listchars = {eol = '↵', space = '.', tab = '>~'}
 
+
 vim.diagnostic.config({
-	--virtual_lines = true,
-	virtual_text = true,
+	virtual_lines = true,
+	--virtual_text = true,
 })
 
 -- Autocomplete
-vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 -- Map keys
 vim.keymap.set('n', ';', ':')
