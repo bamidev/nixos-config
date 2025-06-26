@@ -130,6 +130,7 @@
       pre-commit
       protonmail-bridge
       protonmail-bridge-gui
+      session-desktop
       signal-desktop
       syncthing
       tor-browser
