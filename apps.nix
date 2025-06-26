@@ -112,6 +112,10 @@
       bash-language-server
       bc
       chromium
+      # The regular dmenu is buggy (probably only on wayland), and dmenu-rs uses no absolute paths
+      # in it's shell file dmenu_run. So I need to install it globally rather than keeping it's
+      # installation implied.
+      dmenu-rs
       element-desktop
       freetube
       gitFull	# Pulls in `git gui`, for staging

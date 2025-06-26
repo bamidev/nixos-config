@@ -7,16 +7,16 @@
     package = null;
 
     config = rec {
-      menu = "${pkgs.dmenu}/bin/dmenu_run";
+      menu = "dmenu_run";
       modifier = "Mod4";
 
-	  output = {
+    output = {
         eDP-1 = {
           bg = "~/Pictures/laptop-wallpaper.jpg fill";
           resolution = "1920x1080";
           position = "2000,2000";
         };
-		"Ancor Communications Inc ASUS PB278 D1LMTF019074" = {
+      "Ancor Communications Inc ASUS PB278 D1LMTF019074" = {
             bg = "~/Pictures/wallpaper.jpg fill";
             resolution = "2560x1440";
             position = "1680,560";
@@ -27,18 +27,18 @@
           position = "1680,560";
         };
         "Eizo Nanao Corporation S2402W 68610031" = {
-		  bg = "~/Pictures/wallpaper.jpg fill";
+        bg = "~/Pictures/wallpaper.jpg fill";
           resolution = "1920x1200";
           position = "2000,800";
         };
       };
       keybindings = lib.mkOptionDefault{
         "${modifier}+q" = "exec librewolf";
-		"XF86MonBrightnessDown" = "exec sudo-brightness-down";
-		"XF86MonBrightnessUp" = "exec sudo-brightness-up";
-		"XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%''";
-		"XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
-		"XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
+        "XF86MonBrightnessDown" = "exec sudo-brightness-down";
+        "XF86MonBrightnessUp" = "exec sudo-brightness-up";
+        "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%''";
+        "XF86AudioRaiseVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
+        "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
       };
       terminal = "bash -c \"$(printenv TERMINAL)\"";
       startup = [
@@ -47,7 +47,7 @@
         {command = "protonmail-bridge-gui";}
         {command = "thunderbird";}
         {command = "element-desktop";}
-        {command = "signal-desktop --password-store=gnome-libsecret --use-tray-icon";}
+        {command = "signal-desktop --password-store=\"gnome-libsecret\" --use-tray-icon";}
 
         # Lock screen when idle
         {command = ''
