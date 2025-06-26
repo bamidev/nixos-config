@@ -60,29 +60,35 @@ before-sleep 'swaylock -f -c 000000'
     };
 
     extraConfig = ''
+# Cool transparant windows for certain apps
+for_window [app_id="Alacritty"] opacity 0.95
+for_window [app_id="Element"] opacity 0.95
+for_window [app_id="Session"] opacity 0.95
+for_window [app_id="signal"] opacity 0.95
+
 # Assign the applications started at startup at workspace 1 in a tabbed layout
 workspace 1
 workspace_layout tabbed
 
 assign [title="Proton"] workspace 1
-assign [title="Signal"] workspace 1
-assign [title="Element.*"] workspace 1
-assign [title=".*Mozilla Thunderbird"] workspace 1
+assign [app_id="signal"] workspace 1
+assign [app_id="Element"] workspace 1
+assign [app_id="Session"] workspace 1
+assign [app_id="thunderbird"] workspace 1
 
 
 # Some visual settings and effects
 gaps outer 5
 
-blur enable
-blur_xray disable
-blur_passes 10
-blur_radius 3
-blur_noise 1
-blur_brightness 2
-blur_contrast 2
-blur_saturation 2
-corner_radius 15
-default_dim_inactive 0.05
+#blur enable
+#blur_xray disable
+#blur_passes 10
+#blur_radius 3
+#blur_noise 1
+#blur_brightness 2
+#blur_contrast 2
+#blur_saturation 2
+corner_radius 5
 shadows enable
 shadows_on_csd enable
 shadow_blur_radius 25
