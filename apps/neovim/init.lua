@@ -33,27 +33,54 @@ if vim.fn.isdirectory(user_install_path) == 0 then
 end
 vim.api.nvim_command("packadd " .. vim.fn.fnameescape(user_packadd_path))
 local user = require "user"
-user.setup()
+user.setup { parallel = true }
 local use = user.use
 
 
+-- Pick the theme variant depending on the time of year
+local season = "winter"
+local month = os.date("*t")["month"]
+if month >= 4 and month <= 6 then
+	season = "spring"
+else if month >= 7 and month <= 9 then
+	season = "summer"
+else if month >= 9 and month <= 11 then
+	season = "fall"
+end end end
+
 -- Plugin list
 use {
-	"sainnhe/everforest",
+	"morhetz/gruvbox",
+	pin = "697c00291db857ca0af00ec154e5bd514a79191f",
 	config = function()
-		-- Pick the theme variant depending on the time of year
-		local month = os.date("*t")["month"]
-		local mode = "dark"
-		if month >= 5 and month < 10 then
-			mode = "light"
-		end
-		vim.o.background = mode
+		if season == "fall" then
+			vim.o.background = "dark"
+		else if season == "spring" then
+			vim.o.background = "light"
+		else
+			return
+		end end
+		vim.cmd.colorscheme("gruvbox")
+	end
+}
+use {
+	"sainnhe/everforest",
+	pin = "f40c2e6c8784c99c57c79edc94cd180e76450222",
+	config = function()
+		if season == "winter" then
+			vim.o.background = "dark"
+		else if season == "summer" then
+			vim.o.background = "light"
+		else
+			return
+		end end
 		vim.g.everforest_enable_italic = true
 		vim.cmd.colorscheme("everforest")
 	end
 }
 use {
 	"lukas-reineke/indent-blankline.nvim",
+	pin = "005b56001b2cb30bfa61b7986bc50657816ba4ba",
 	config = function()
 		local highlight = {
 			"CursorColumn",
@@ -72,6 +99,7 @@ use {
 use "neovim/nvim-lspconfig"
 use {
 	"vim-airline/vim-airline",
+	pin = "6bba673aa8993eceec233be17b42ddfb9540794b",
 	config = function()
 		vim.g.airline_left_sep = ''
 		vim.g.airline_left_alt_sep = ''
@@ -82,4 +110,8 @@ use {
 		vim.g.airline_symbols.linenr = ''
 	end
 }
+
+
+user.flush()
+user.clean()
 
