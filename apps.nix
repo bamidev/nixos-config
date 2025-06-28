@@ -118,6 +118,7 @@
       dmenu-rs
       element-desktop
       freetube
+      gcc
       gitFull	# Pulls in `git gui`, for staging
       killall
       libreoffice

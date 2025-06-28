@@ -1,3 +1,4 @@
+{ pkgs }: ''
 -- Default settings
 vim.o.autoindent = false
 vim.o.cindent = false
@@ -29,6 +30,17 @@ vim.keymap.set('v', ';', ':')
 vim.keymap.set('x', ';', ':')
 
 
+-- LSP autocomplete setup
+local lsp_autocomplete_setup = function(client, bufnr)
+    vim.lsp.completion.enable(true, client.id, bufnr, {
+        autotrigger = true,
+    })
+    vim.keymap.set("i", "<C-space>", vim.lsp.completion.get, {
+        desc = "Trigger autocompletion"
+    })
+end
+
+
 -- Bootstrap and set up user.nvim
 local user_packadd_path = "faerryn_user.nvim/default/default/default/default"
 local user_install_path = vim.fn.stdpath "data" .. "/site/pack/user/opt/" .. user_packadd_path
@@ -54,7 +66,7 @@ else if month >= 9 and month <= 11 then
 	season = "fall"
 end end end
 
--- Plugin list
+-- Plugins
 use {
 	"morhetz/gruvbox",
 	pin = "697c00291db857ca0af00ec154e5bd514a79191f",
@@ -119,7 +131,20 @@ use {
 		}
 	end
 }
-use "neovim/nvim-lspconfig"
+use {
+	"neovim/nvim-lspconfig",
+	pin = "6bba673aa8993eceec233be17b42ddfb9540794b",
+	config = function()
+		-- Configure the language server for both C and C++
+		vim.lsp.config("ccls", {
+      cmd = "${pkgs.ccls}/bin/ccls",
+			init_options = {
+    			compilationDatabaseDirectory = "build"
+			},
+			on_attach = lsp_autocomplete_setup
+		})
+	end
+}
 use {
 	"vim-airline/vim-airline",
 	pin = "6bba673aa8993eceec233be17b42ddfb9540794b",
@@ -158,4 +183,5 @@ use {
 
 
 user.flush()
---user.clean()
+user.clean()
+''

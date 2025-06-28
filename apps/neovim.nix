@@ -23,7 +23,9 @@ in {
     configure = {
        # Vim configuration for root user only
       customRC = ''
-        luafile ${./neovim/init.lua}
+        lua << EOF
+          ${import ./neovim/init.nix { pkgs = pkgs; }}
+        EOF
       '';
     };
 
@@ -31,10 +33,14 @@ in {
       "ftplugin/c.lua" = {
         enable = true;
         text = ''
-          vim.lsp.start({
-              cmd = {'${pkgs.ccls}/bin/ccls'},
-              ${lspCompletion}
-          })
+          vim.lsp.enable("ccls")
+        '';
+      };
+
+      "ftplugin/cpp.lua" = {
+        enable = true;
+        text = ''
+          vim.lsp.enable("ccls")
         '';
       };
 

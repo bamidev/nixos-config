@@ -79,7 +79,7 @@ in
     };
   };
 
-  home-manager.users = let defaults = import ./users/defaults.nix; in {
+  home-manager.users = let defaults = import ./users/defaults.nix { pkgs=pkgs; }; in {
     bamilab = { lib, ... }: lib.attrsets.recursiveUpdate
       defaults
       (import ./users/bamilab/home.nix { pkgs=pkgs; lib=lib; });
