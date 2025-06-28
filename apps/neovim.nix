@@ -18,6 +18,7 @@ in {
     enable = true;
 
     withPython3 = false;
+    withRuby = false;
 
     configure = {
        # Vim configuration for root user only
@@ -80,7 +81,7 @@ in {
                   },
                   rope_completion = {
                     enabled = true,
-                    eager = true,
+                    eager = false,
                   }
                 }
               }
