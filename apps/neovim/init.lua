@@ -9,12 +9,18 @@ vim.o.termguicolors = true
 vim.o.winborder = 'rounded'
 vim.opt.completeopt = { "fuzzy", "menuone", "noinsert", "popup" }
 vim.opt.list = true
-vim.opt.listchars = {eol = '↵', space = '·', tab = '>┄'}
+vim.opt.listchars = {eol = '↵', space = '·', tab = '┄┄'}
+
+
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
 
 vim.diagnostic.config({
-	virtual_lines = true,
-	--virtual_text = true,
+	--virtual_lines = true,
+	virtual_text = true,
 })
 
 -- Map keys
@@ -33,7 +39,7 @@ if vim.fn.isdirectory(user_install_path) == 0 then
 end
 vim.api.nvim_command("packadd " .. vim.fn.fnameescape(user_packadd_path))
 local user = require "user"
-user.setup { parallel = true }
+user.setup { parallel = false }
 local use = user.use
 
 
@@ -61,6 +67,23 @@ use {
 			return
 		end end
 		vim.cmd.colorscheme("gruvbox")
+		--vim.g.airline_theme = 'gruvbox'
+	end
+}
+use {
+	"nvim-treesitter/nvim-treesitter",
+	pin = "42fc28ba918343ebfd5565147a42a26580579482",
+	config = function()
+		require('nvim-treesitter.configs').setup {
+			ensure_installed = { "c", "cpp", "lua", "markdown", "markdown_inline", "nix", "python", "vim", "vimdoc", "query" },
+
+			auto_install = true,
+			sync_install = false,
+
+			highlight = {
+				enable = true,
+			},
+		}
 	end
 }
 use {
@@ -101,17 +124,38 @@ use {
 	"vim-airline/vim-airline",
 	pin = "6bba673aa8993eceec233be17b42ddfb9540794b",
 	config = function()
-		vim.g.airline_left_sep = ''
-		vim.g.airline_left_alt_sep = ''
-		vim.g.airline_right_sep = ''
-		vim.g.airline_right_alt_sep = ''
-		vim.g.airline_symbols.branch = ''
-		vim.g.airline_symbols.readonly = ''
-		vim.g.airline_symbols.linenr = ''
+		-- The gruvbox theme doesn't work well with airline
+		if vim.g.colors_name ~= "gruvbox" then
+			vim.g.airline_left_sep = ''
+			vim.g.airline_left_alt_sep = ''
+			vim.g.airline_right_sep = ''
+			vim.g.airline_right_alt_sep = ''
+			vim.g.airline_symbols.branch = ''
+			vim.g.airline_symbols.readonly = ''
+			vim.g.airline_symbols.linenr = ''
+		end
+	end
+}
+use {
+	"kevinhwang91/promise-async",
+	pin = "119e8961014c9bfaf1487bf3c2a393d254f337e2"
+}
+use {
+	"kevinhwang91/nvim-ufo",
+	pin = "80fe8215ba566df2fbf3bf4d25f59ff8f41bc0e1",
+	config = function()
+		require('ufo').setup({
+			provider_selector = function(bufnr, filetype, buftype)
+				return {'treesitter', 'indent'}
+			end,
+			close_fold_kinds_for_ft = {
+				default = {"class_definition", "function_definition"},
+				python = {"function_definition"}
+			}
+		})
 	end
 }
 
 
 user.flush()
-user.clean()
-
+--user.clean()

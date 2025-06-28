@@ -54,10 +54,6 @@ in {
           vim.o.smartindent = true
           vim.o.textwidth = 79
           vim.o.colorcolumn = "73,+1"
-          vim.o.foldmethod = "indent"
-          vim.o.foldlevel = 1
-          vim.o.foldnestmax = 2
-
 
           -- The language server
           vim.lsp.start({
