@@ -1,10 +1,18 @@
 { pkgs, lib, ... }:
 {
+  home.file.".init.sh".text = ''
+    #!${pkgs.bash}/bin/bash
+    if [ ! -d "~/.ssh/config.d" ]; then
+      (cd ~/.ssh; git clone git@gitlab.therp.nl:therp/ssh-config.git config.d)
+    else
+      (cd ~/.ssh/config.d; git pull)
+    fi
+  '';
+
   home.packages = with pkgs; [
     black
     gcc14
     gnumake
-    postgres-lsp
 
     # Required to build Python
     bzip2
@@ -18,17 +26,6 @@
   ];
 
   programs = {
-    #element-desktop = {
-    #  settings = {
-    #    default_server_config = {
-    #      "m.identity" = {
-    #        base_url = "https://welcome.therp.nl";
-    #        server_name = "welcome.therp.nl";
-    #      };
-    #	};
-    #  };
-    #};
-
     git = {
       enable = true;
       

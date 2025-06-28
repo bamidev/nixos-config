@@ -13,6 +13,11 @@
     bash = {
       enable = true;
       profileExtra = ''
+        #!${pkgs.bash}/bin/bash
+        if [ -e ~/.init.sh ]; then
+          . ~/.init.sh
+        fi
+
         sway
       '';
     };
