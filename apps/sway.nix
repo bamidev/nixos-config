@@ -47,6 +47,7 @@
         {command = "protonmail-bridge-gui";}
         {command = "thunderbird";}
         {command = "element-desktop";}
+        {command = "session-desktop";}
         {command = "signal-desktop --password-store=\"gnome-libsecret\" --use-tray-icon";}
 
         # Lock screen when idle
