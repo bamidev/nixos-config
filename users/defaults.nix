@@ -3,7 +3,7 @@
 
   imports = [
     ../apps/alacritty.nix
-    ../apps/sway.nix
+    ../apps/sway/home.nix
   ];
 
 

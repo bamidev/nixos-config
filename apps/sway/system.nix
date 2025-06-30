@@ -1,0 +1,77 @@
+{
+  environment.etc."i3status.conf".text = ''
+    general {
+      output_format = "i3bar"
+      colors = true
+      interval = 1
+    }
+
+    order += "ipv6"
+    order += "disk /"
+    order += "run_watch DHCP"
+    order += "run_watch VPNC"
+    order += "path_exists VPN"
+    order += "wireless _first_"
+    order += "ethernet eth0"
+    order += "battery 0"
+    order += "cpu_temperature 0"
+    order += "memory"
+    order += "read_file uptime"
+    order += "tztime local"
+
+    wireless _first_ {
+      format_up = "WiFi: (%quality at %essid, %bitrate) %ip"
+      format_down = "WiFi: down"
+    }
+
+    ethernet eth0 {
+      format_up = "Ethernet: %ip (%speed)"
+      format_down = "Ethernet: down"
+    }
+
+    battery 0 {
+      format = "%status %percentage %remaining"
+      format_down = "No battery"
+      status_chr = "Battery Charging"
+      status_bat = "Battery"
+      status_unk = "? UNK"
+      status_full = "Battery Full"
+      status_idle = "Battery Idle"
+      path = "/sys/class/power_supply/BAT%d/uevent"
+      low_threshold = 10
+    }
+
+    run_watch DHCP {
+      pidfile = "/var/run/dhclient*.pid"
+    }
+
+    path_exists VPN {
+      path = "/proc/sys/net/ipv4/conf/tun0"
+    }
+
+    tztime local {
+      format = "%Y-%m-%d %H:%M:%S"
+      timezone = "Europe/Amsterdam"
+    }
+
+    cpu_temperature 0 {
+      format = "CPU: %degrees °C"
+      path = "/sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input"
+    }
+
+    memory {
+      format = "Memory: %used"
+      threshold_degraded = "10%"
+      format_degraded = "Memory Free: %free"
+    }
+
+    disk "/" {
+      format = "Diskspace: %free"
+    }
+
+    read_file uptime {
+      format = "Uptime: %content"
+      path = "/proc/uptime"
+    }
+  '';
+}
