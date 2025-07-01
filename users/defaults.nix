@@ -12,6 +12,7 @@
 
     bash = {
       enable = true;
+      
       profileExtra = ''
         #!${pkgs.bash}/bin/bash
         if [ -e ~/.init.sh ]; then
@@ -20,6 +21,9 @@
 
         sway
       '';
+      shellAliases = {
+        "todo" = "todo.sh";
+      };
     };
 
     element-desktop = {
