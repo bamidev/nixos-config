@@ -1,6 +1,18 @@
 { pkgs, lib, ... }:
-
-{
+let
+  i3status-wrapper = pkgs.writers.writeBashBin "i3status-wrapper" ''
+    ${pkgs.i3status}/bin/i3status -c /etc/i3status.conf | while :
+    do
+      read -r LINE
+      if [ "''${LINE:0:3}" == ",[{" ]; then
+        TODO_COUNT=$(cat $HOME/todo.txt | wc -l)
+        echo ",[{\"name\":\"todo\",\"full_text\":\"TODOs: $TODO_COUNT\"},''${LINE:2}"
+      else
+        echo "$LINE"
+      fi
+     done
+  '';
+in {
   wayland.windowManager.sway = {
     enable = true;
     #package = pkgs.swayfx;
@@ -64,7 +76,7 @@
       bars = [
         {
           command = "${pkgs.sway}/bin/swaybar";
-          statusCommand = "${pkgs.i3status}/bin/i3status -c /etc/i3status.conf";
+          statusCommand = "${i3status-wrapper}/bin/i3status-wrapper";
           position = "top";
           trayOutput = "*";
           workspaceButtons = true;

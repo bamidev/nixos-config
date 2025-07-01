@@ -135,6 +135,7 @@
       session-desktop
       signal-desktop
       syncthing
+      todo-txt-cli
       tor-browser
       vial
       w3m
