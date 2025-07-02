@@ -58,7 +58,7 @@ in {
         { command = "wlsunset -l 51.0 -L 5.4"; }
         { command = "protonmail-bridge-gui"; }
         { command = "thunderbird"; }
-        { command = "element-desktop"; }
+        { command = "element-desktop --hidden"; }
         { command = "session-desktop"; }
         { command = "signal-desktop --password-store=\"gnome-libsecret\" --use-tray-icon"; }
 
