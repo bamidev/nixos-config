@@ -24,6 +24,12 @@
       shellAliases = {
         "todo" = "todo.sh";
       };
+      initExtra = ''
+        CURRENT_WORKSPACE=$(current-workspace)
+        if [ -f ~/.here/$CURRENT_WORKSPACE ]; then
+          cd $(cat ~/.here/$CURRENT_WORKSPACE)
+        fi
+      '';
     };
 
     element-desktop = {
