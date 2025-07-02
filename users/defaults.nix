@@ -4,6 +4,7 @@
   imports = [
     ../apps/alacritty.nix
     ../apps/sway/home.nix
+    ../apps/todo-txt.nix
   ];
 
 
