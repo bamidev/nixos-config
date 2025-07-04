@@ -150,11 +150,11 @@
         python-lsp-server
       
         flake8
+        jedi
         pydocstyle
         pylint-odoo
         pyflakes
         pylint
-        rope
       ]))
     ];
   };
