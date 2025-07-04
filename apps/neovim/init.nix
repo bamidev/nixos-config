@@ -25,19 +25,17 @@ vim.diagnostic.config({
 })
 
 -- Map keys
-vim.keymap.set('n', ';', ':')
-vim.keymap.set('v', ';', ':')
-vim.keymap.set('x', ';', ':')
+vim.keymap.set({'n', 'v', 'x'}, ';', ':')
 
 
 -- LSP autocomplete setup
 local lsp_autocomplete_setup = function(client, bufnr)
-    vim.lsp.completion.enable(true, client.id, bufnr, {
-        autotrigger = true,
-    })
-    vim.keymap.set("i", "<C-space>", vim.lsp.completion.get, {
-        desc = "Trigger autocompletion"
-    })
+		vim.lsp.completion.enable(true, client.id, bufnr, {
+				autotrigger = true,
+		})
+		vim.keymap.set("i", "<C-space>", vim.lsp.completion.get, {
+				desc = "Trigger autocompletion"
+		})
 end
 
 
