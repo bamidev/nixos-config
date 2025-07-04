@@ -99,6 +99,14 @@ use {
 	end
 }
 use {
+  "preservim/nerdtree",
+  pin = "9b465acb2745beb988eff3c1e4aa75f349738230",
+  config = function()
+    vim.keymap.set({'n', 'v', 'x'}, '<C-t>', ':NERDTreeToggle<cr>')
+    vim.keymap.set({'n', 'v', 'x'}, '<C-f>', ':NERDTreeFind<cr>')
+  end
+}
+use {
 	"sainnhe/everforest",
 	pin = "f40c2e6c8784c99c57c79edc94cd180e76450222",
 	config = function()
