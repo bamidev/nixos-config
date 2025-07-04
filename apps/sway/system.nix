@@ -16,7 +16,6 @@
     order += "battery 0"
     order += "cpu_temperature 0"
     order += "memory"
-    order += "read_file uptime"
     order += "tztime local"
 
     wireless _first_ {
@@ -67,11 +66,6 @@
 
     disk "/" {
       format = "Diskspace: %free"
-    }
-
-    read_file uptime {
-      format = "Uptime: %content"
-      path = "/proc/uptime"
     }
   '';
 }
