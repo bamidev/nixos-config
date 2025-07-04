@@ -47,10 +47,7 @@ in {
       "ftplugin/lua.lua" = {
         enable = true;
         text = ''
-          vim.lsp.start({
-              cmd = {'${pkgs.lua-language-server}/bin/lua-language-server'},
-              ${lspCompletion}
-          })
+          vim.lsp.enable("lua_ls")
         '';
       };
 
