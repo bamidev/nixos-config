@@ -85,7 +85,9 @@ use {
 	pin = "42fc28ba918343ebfd5565147a42a26580579482",
 	config = function()
 		require('nvim-treesitter.configs').setup {
-			ensure_installed = { "c", "cpp", "lua", "markdown", "markdown_inline", "nix", "python", "vim", "vimdoc", "query" },
+			ensure_installed = {
+        "c", "cpp", "lua", "markdown", "markdown_inline", "nix", "python", "vim", "vimdoc", "query"
+      },
 
 			auto_install = true,
 			sync_install = false,
@@ -229,8 +231,8 @@ use {
 				return {'treesitter', 'indent'}
 			end,
 			close_fold_kinds_for_ft = {
-				default = {"class_definition", "function_definition"},
-				python = {"function_definition"}
+				default = {"class_definition", "function_definition", "imports"},
+				cpp = {"class_specifier", "function_definition"},
 			}
 		})
 	end
