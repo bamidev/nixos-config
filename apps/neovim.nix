@@ -67,25 +67,19 @@ in {
               pylsp = {
                 configurationSources = {'flake8'},
                 plugins = {
-                  flake8 = {
+                  flake8 = { enabled = false },
+                  jedi_completion = {
                     enabled = true,
+                    fuzzy = true,
                   },
-                  pydocstyle = {
-                    enabled = true,
-                  },
-                  pyflakes = {
-                    enabled = true,
-                  },
-                  pylint = {
-                    enabled = true, 
-                  },
-                  rope_autoimport = {
-                    enabled = true,
-                  },
-                  rope_completion = {
-                    enabled = true,
-                    eager = false,
-                  }
+                  jedi_definition = { enabled = true },
+                  jedi_hover = { enabled = true },
+                  jedi_references = { enabled = true },
+                  jedi_signature_help = { enabled = true },
+                  jedi_symbols = { enabled = true },
+                  pydocstyle = { enabled = true },
+                  pyflakes = { enabled = true },
+                  pylint = { enabled = true },
                 }
               }
             }
