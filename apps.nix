@@ -132,6 +132,7 @@
       pre-commit
       protonmail-bridge
       protonmail-bridge-gui
+      rustup
       session-desktop
       signal-desktop
       syncthing
