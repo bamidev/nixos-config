@@ -30,5 +30,4 @@
 
 
   require('plugins') -- Load all plugins
-  require('lsp')     -- Enable all lsp configs
 ''
