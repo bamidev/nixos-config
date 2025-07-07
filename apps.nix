@@ -211,6 +211,7 @@
     enable = true;
     defaultApplications = {
       "text/html" = "librewolf.desktop";
+      "text/plain" = "nvim.desktop";
       "x-scheme-handler/http" = "librewolf.desktop";
       "x-scheme-handler/https" = "librewolf.desktop";
       "x-scheme-handler/about" = "librewolf.desktop";

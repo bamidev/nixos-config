@@ -46,9 +46,7 @@
     neovim = {
       enable = true;
       extraConfig = ''
-        lua << EOF
-          ${import ../apps/neovim/init.nix { pkgs = pkgs; }}
-        EOF
+        luafile /etc/xdg/nvim/init.lua
       '';
     };
   };
