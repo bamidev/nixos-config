@@ -1,26 +1,29 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
+-- Bootstrap pckr.nvim
+local function bootstrap_pckr()
+  local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
+
+  if not (vim.uv or vim.loop).fs_stat(pckr_path) then
+    vim.fn.system({
+      'git',
+      'clone',
+      "--filter=blob:none",
+      'https://github.com/lewis6991/pckr.nvim',
+      pckr_path
+    })
+
+    -- Pin pckr to a specific commit
+    vim.fn.system({
+      'git',
+	  'reset',
+	  '--hard',
+	  'dcc0e2766d7a3a1911287fef7060ac07908cf376'
+    })
   end
+
+  vim.opt.rtp:prepend(pckr_path)
 end
-vim.opt.rtp:prepend(lazypath)
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
+bootstrap_pckr()
 
 
 -- Pick the theme variant depending on the time of year
@@ -30,18 +33,34 @@ if month >= 4 and month <= 6 then
 	season = "spring"
 else if month >= 7 and month <= 9 then
 	season = "summer"
-else if month >= 9 and month <= 11 then
+else if month >= 10 and month <= 12 then
 	season = "fall"
 end end end
 
 
 -- Plugins
-require("lazy").setup({
-  spec = {
+require('pckr').add{
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		tag = "v3.9.0",
+		config = function()
+			local highlight = {
+				"CursorColumn",
+				"Whitespace",
+			}
+			require("ibl").setup {
+				indent = { highlight = highlight, char = "" },
+				whitespace = {
+					highlight = highlight,
+					remove_blankline_trail = false,
+				},
+				scope = { enabled = false },
+			}
+		end
+	},
 	{
 		"morhetz/gruvbox",
-		commit = "697c00291db857ca0af00ec154e5bd514a79191f",
-		pin = true,
+		tag = "v3.0.1-rc.0",
 		config = function()
 			if season == "fall" then
 				vim.o.background = "dark"
@@ -56,8 +75,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		commit = "42fc28ba918343ebfd5565147a42a26580579482",
-		pin = true,
+		tag = "v0.10.0",
 		config = function()
 			require('nvim-treesitter.configs').setup {
 				ensure_installed = {
@@ -75,8 +93,7 @@ require("lazy").setup({
 	},
 	{
 		"preservim/nerdtree",
-		commit = "9b465acb2745beb988eff3c1e4aa75f349738230",
-		pin = true,
+		tag = "7.1.3",
 		config = function()
 			vim.keymap.set({'n', 'v', 'x'}, '<C-t>', ':NERDTreeToggle<cr>')
 			vim.keymap.set({'n', 'v', 'x'}, '<C-f>', ':NERDTreeFind<cr>')
@@ -84,8 +101,7 @@ require("lazy").setup({
 	},
 	{
 		"sainnhe/everforest",
-		commit = "f40c2e6c8784c99c57c79edc94cd180e76450222",
-		pin = true,
+		tag = "v0.3.0",
 		config = function()
 			if season == "winter" then
 				vim.o.background = "dark"
@@ -99,28 +115,8 @@ require("lazy").setup({
 		end
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		commit = "005b56001b2cb30bfa61b7986bc50657816ba4ba",
-		pin = true,
-		config = function()
-			local highlight = {
-				"CursorColumn",
-				"Whitespace",
-			}
-			require("ibl").setup {
-				indent = { highlight = highlight, char = "" },
-				whitespace = {
-					highlight = highlight,
-					remove_blankline_trail = false,
-				},
-				scope = { enabled = false },
-			}
-		end
-	},
-	{
 		"vim-airline/vim-airline",
-		pin = "6bba673aa8993eceec233be17b42ddfb9540794b",
-		pin = true,
+		tag = "v0.11",
 		config = function()
 			-- The gruvbox theme doesn't work well with airline
 			if vim.g.colors_name ~= "gruvbox" then
@@ -128,16 +124,15 @@ require("lazy").setup({
 				vim.g.airline_left_alt_sep = ''
 				vim.g.airline_right_sep = ''
 				vim.g.airline_right_alt_sep = ''
-				vim.g.airline_symbols.branch = ''
-				vim.g.airline_symbols.readonly = ''
-				vim.g.airline_symbols.linenr = ''
+				--vim.g.airline_symbols.branch = ''
+				--vim.g.airline_symbols.readonly = ''
+				--vim.g.airline_symbols.linenr = ''
 			end
 		end
 	},
 	{
 		"kevinhwang91/nvim-ufo",
-		pin = "80fe8215ba566df2fbf3bf4d25f59ff8f41bc0e1",
-		pin = true,
+		tag = "v1.5.0",
 		requires = "kevinhwang91/promise-async",
 		config = function()
 			require('ufo').setup({
@@ -153,15 +148,8 @@ require("lazy").setup({
 			})
 		end
 	},
-	{
-		"kevinhwang91/promise-async",
-		pin = true,
-		commit = "119e8961014c9bfaf1487bf3c2a393d254f337e2",
-	}
-  },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  --install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  checker = { enabled = false },
-})
+	--{
+	--	"kevinhwang91/promise-async",
+	--	tag = "v1.0.0",
+	--}
+}

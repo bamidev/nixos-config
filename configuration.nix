@@ -4,7 +4,8 @@
 
 { pkgs, ... }:
 
-let home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
+let
+  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
 in
 {
   imports =
@@ -32,7 +33,6 @@ in
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   networking.resolvconf = {
     enable = true;
-    #package = pkgs.openresolv;
   };
 
   # Set your time zone.
