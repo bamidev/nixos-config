@@ -75,6 +75,11 @@ in {
 
       bars = [
         {
+          colors = {
+            background = "#141617ff";
+            statusline = "#e2cca9";
+            separator = "#504945";
+          };
           command = "${pkgs.sway}/bin/swaybar";
           statusCommand = "${i3status-wrapper}/bin/i3status-wrapper";
           position = "top";
@@ -122,6 +127,6 @@ in {
       shadow_color #0000007F
       shadow_offset 5 10
       shadow_inactive_color #0000007F
-      '';
+    '';
   };
 }
