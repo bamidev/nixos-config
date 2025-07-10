@@ -1,11 +1,13 @@
-{
-  environment.etc."i3status.conf".text = ''
+let
+  theme = import ../../theme.nix;
+in {
+  environment.etc."i3status.conf".text = with theme; ''
     general {
       output_format = "i3bar"
       colors = true
-      color_good = "#b0b846"
-      color_bad = "#f2594b"
-      color_degraded = "#504945"
+      color_good = "${bright.green}"
+      color_bad = "${bright.red}"
+      color_degraded = "${bg.white}"
       interval = 1
     }
 

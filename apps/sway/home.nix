@@ -12,6 +12,7 @@ let
       fi
      done
   '';
+  theme = import ../../theme.nix;
 in {
   wayland.windowManager.sway = {
     enable = true;
@@ -21,6 +22,45 @@ in {
     config = rec {
       menu = "dmenu_run";
       modifier = "Mod4";
+
+      colors = {
+        background = theme.background;
+        focused = {
+          background = theme.bg.blue;
+          border = theme.normal.blue;
+          childBorder = "#285577";
+          indicator = "#2e9ef4";
+          text = theme.foreground;
+        };
+        focusedInactive = {
+          background = "#5f676a";
+          border = "#333333";
+          childBorder = "#5f676a";
+          indicator = "#484e50";
+          text = "#ffffff";
+        };
+        placeholder = {
+          background = "#0c0c0c";
+          border = "#000000";
+          childBorder = "#0c0c0c";
+          indicator = "#000000";
+          text = "#ffffff";
+        };
+        unfocused = {
+          background = "#222222";
+          border = "#333333";
+          childBorder = "#222222";
+          indicator = "#292d2e";
+          text = "#888888";
+        };
+        urgent = {
+          background = theme.bg.red;
+          border = theme.normal.red;
+          childBorder = "#900000";
+          indicator = "#900000";
+          text = theme.foreground;
+        };
+      };
 
       output = {
         eDP-1 = {
@@ -76,9 +116,9 @@ in {
       bars = [
         {
           colors = {
-            background = "#141617ff";
-            statusline = "#e2cca9";
-            separator = "#504945";
+            background = "${theme.background}ff";
+            statusline = theme.foreground;
+            separator = theme.bg.white;
           };
           command = "${pkgs.sway}/bin/swaybar";
           statusCommand = "${i3status-wrapper}/bin/i3status-wrapper";
@@ -92,11 +132,11 @@ in {
 
     extraConfig = ''
       # Cool transparant windows for certain apps
-      for_window [app_id="Alacritty"] opacity 0.95
-      for_window [app_id="Element"] opacity 0.95
-      for_window [app_id="Session"] opacity 0.95
-      for_window [app_id="signal"] opacity 0.95
-      for_window [app_id="thunderbird"] opacity 0.95
+      for_window [app_id="Alacritty"] opacity 0.85
+      for_window [app_id="Element"] opacity 0.9
+      for_window [app_id="Session"] opacity 0.9
+      for_window [app_id="signal"] opacity 0.9
+      for_window [app_id="thunderbird"] opacity 0.9
 
       # Assign the applications started at startup at workspace 1 in a tabbed layout
       workspace 1
@@ -112,15 +152,15 @@ in {
       # Some visual settings and effects
       gaps outer 7
 
-      #blur enable
-      #blur_xray disable
-      #blur_passes 10
-      #blur_radius 3
-      #blur_noise 1
-      #blur_brightness 2
-      #blur_contrast 2
-      #blur_saturation 2
-      corner_radius 7
+      blur enable
+      blur_xray disable
+      blur_passes 2
+      blur_radius 7
+      blur_noise 0.2
+      blur_brightness 1
+      blur_contrast 0.7
+      blur_saturation 1.2
+      corner_radius 5
       shadows enable
       shadows_on_csd enable
       shadow_blur_radius 25

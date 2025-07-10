@@ -15,6 +15,7 @@
     bash = {
       enable = true;
       
+      enableCompletion = true;
       profileExtra = ''
         #!${pkgs.bash}/bin/bash
         if [ -e ~/.init.sh ]; then

@@ -1,4 +1,6 @@
-{
+let
+  theme = import ../theme.nix;
+in {
   programs.alacritty.enable = true;
 
   home.file = {
@@ -18,35 +20,35 @@
       regex = "[^ ]+\\.rs:\\d+:\\d+"
     '';
 
-    ".config/alacritty/theme.toml".text = ''
+    ".config/alacritty/theme.toml".text = with theme; ''
       # Source: https://github.com/alacritty/alacritty-theme/blob/master/themes/gruvbox_material_hard_dark.toml
 
       # Default colors
       [colors.primary]
-      background = '#141617'
-      foreground = '#e2cca9'
+      background = '${background}'
+      foreground = '${foreground}'
 
       # Normal colors
       [colors.normal]
-      black   = '#32302f'
-      red     = '#db4740'
-      green   = '#b0b846'
-      yellow  = '#e9b143'
-      blue    = '#80aa9e'
-      magenta = '#d3869b'
-      cyan    = '#8bba7f'
-      white   = '#a89984'
+      black   = '${normal.black}'
+      red     = '${normal.red}'
+      green   = '${normal.green}'
+      yellow  = '${normal.yellow}'
+      blue    = '${normal.blue}'
+      magenta = '${normal.magenta}'
+      cyan    = '${normal.cyan}'
+      white   = '${normal.white}'
 
       # Bright colors (same as normal colors)
       [colors.bright]
-      black   = '#32302f'
-      red     = '#f2584b'
-      green   = '#b0b846'
-      yellow  = '#e9b143'
-      blue    = '#80aa9e'
-      magenta = '#d3869b'
-      cyan    = '#8bba7f'
-      white   = '#e2cca9'
+      black   = '${bright.black}'
+      red     = '${bright.red}'
+      green   = '${bright.green}'
+      yellow  = '${bright.yellow}'
+      blue    = '${bright.blue}'
+      magenta = '${bright.magenta}'
+      cyan    = '${bright.cyan}'
+      white   = '${bright.white}'
 '';
   };
 }

@@ -6,7 +6,7 @@ return {
     pylsp = {
       configurationSources = {'flake8'},
       plugins = {
-        flake8 = { enabled = false },
+        flake8 = { enabled = false },	-- Doesn't know about builtin variables
         jedi_completion = {
           enabled = true,
           fuzzy = true,
@@ -17,7 +17,7 @@ return {
         jedi_signature_help = { enabled = true },
         jedi_symbols = { enabled = true },
         pydocstyle = { enabled = true },
-        pyflakes = { enabled = true },
+        pyflakes = { enabled = false },	-- Doesn't know about builtin variables
         pylint = { enabled = true },
       }
     }
