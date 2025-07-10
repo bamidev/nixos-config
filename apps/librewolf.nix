@@ -6,46 +6,91 @@
 
     package = pkgs.librewolf;
     policies = {
-	  DisableTelemetry = true;
-	  DisableFirefoxStudies = true;
-	  Cookies = {
-	    Allow = ["https://therp.nl"];
-	    BehaviorPrivateBrowsing = "reject-foreign";
-	  };
-	  Preferences = {
-		#"browser.theme.content-theme" = 0;
-		#"browser.theme.toolbar-theme" = 0;
-		#"extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
-	    #"cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
-	    #"cookiebanners.service.mode" = 2; # Block cookie banners
-	    "privacy.donottrackheader.enabled" = true;
-	    "privacy.fingerprintingProtection" = true;
-	    "privacy.resistFingerprinting" = true;
-	    "privacy.trackingprotection.emailtracking.enabled" = true;
-	    "privacy.trackingprotection.enabled" = true;
-	    "privacy.trackingprotection.fingerprinting.enabled" = true;
-	    "privacy.trackingprotection.socialtracking.enabled" = true;
-	  };
-	  SanitizeOnShutdown = {
-	    Cache = true;
-	    Cookies = true;
-	    FormData = true;
-	    History = true;
-	    Sessions = true;
-	    SiteSettings = true;
-	    Locked = true;
-	  };
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+      Cookies = {
+        Allow = []; # Override this on a per-user basis
+        BehaviorPrivateBrowsing = "reject-foreign";
+        Locked = true;
+      };
+      Preferences = {
+        "browser.policies.runOncePerModification.setDefaultSearchEngine" = "DuckDuckGo";
+        "browser.translations.enable" = false;
+        "extensions.activeThemeID" = "{dfb93b31-21ba-46fc-977d-46300ce0a76b}";
+        "privacy.donottrackheader.enabled" = true;
+        "privacy.fingerprintingProtection" = false;
+        "privacy.resistFingerprinting" = true;
+        "privacy.trackingprotection.emailtracking.enabled" = true;
+        "privacy.trackingprotection.enabled" = true;
+        "privacy.trackingprotection.fingerprinting.enabled" = true;
+        "privacy.trackingprotection.socialtracking.enabled" = true;
+      };
+      SanitizeOnShutdown = {
+        Cache = true;
+        Cookies = true;
+        FormData = true;
+        History = true;
+        Sessions = true;
+        SiteSettings = true;
+        Locked = true;
+      };
 
-	  ExtensionSettings = {
-	    "uBlock0@raymondhill.net" = {
-		  install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-		  installation_mode = "force_installed";
-	    };
-	    "Authenticator" = {
-		  install_url = "https://addons.mozilla.org/firefox/downloads/latest/auth-helper/latest.xpi";
-		  installation_mode = "force_installed";
-	    };
-	  };
+      ExtensionSettings = {
+        "{dfb93b31-21ba-46fc-977d-46300ce0a76b}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/file/3783661/running_foxes_by_madonna-8.0.xpi";
+          installation_mode = "force_installed";
+        };
+        "uBlock0@raymondhill.net" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "Authenticator" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/auth-helper/latest.xpi";
+          installation_mode = "force_installed";
+        };
+      };
+    };
+
+    profiles.default = {
+      isDefault = true;
+
+      #bookmarks = {};
+
+      search = {
+        default = "ddg";
+        force = true;
+
+        order = [
+          "ddg"
+          "google"
+        ];
+
+        engines = {
+          nix-packages = {
+            name = "Nix Packages";
+            urls = [{
+              template = "https://search.nixos.org/packages";
+              params = [
+                { name = "type"; value = "packages"; }
+                { name = "query"; value = "{searchTerms}"; }
+              ];
+            }];
+
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@np" ];
+          };
+
+          nixos-wiki = {
+            name = "NixOS Wiki";
+            urls = [{ template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; }];
+            iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+            definedAliases = [ "@nw" ];
+          };
+
+          bing.metaData.hidden = true;
+          google.metaData.alias = "@g";
+        };
+      };
     };
   };
 }

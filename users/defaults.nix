@@ -3,6 +3,7 @@
 
   imports = [
     ../apps/alacritty.nix
+    ../apps/librewolf.nix
     ../apps/sway/home.nix
     ../apps/todo-txt.nix
   ];

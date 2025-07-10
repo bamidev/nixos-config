@@ -26,6 +26,8 @@
   ];
 
   programs = {
+    firefox.policies.Cookies.Allow = ["https://therp.nl"];
+
     git = {
       enable = true;
       

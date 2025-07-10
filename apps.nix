@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   imports =
     [
-      ./apps/librewolf.nix
       ./apps/neovim.nix
       ./apps/sway/system.nix
       ./apps/syncthing.nix
