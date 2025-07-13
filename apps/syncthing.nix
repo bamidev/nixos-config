@@ -13,9 +13,9 @@ in {
     overrideFolders = true;
     settings = {
       devices = {
-        "main-laptop" = { id = "GEPWQIW-4T6AHO3-DY2Q7FJ-BILJROF-Y7J4TA7-JGWTJ2R-TNMG5BP-5CRT2AF"; };
+        "main-laptop" = { id = "YDRIMGC-TRJJZRQ-CIUQEGL-EDVFU46-VCQV5SV-WIVCSXX-455BVW5-LFDRGAN"; };
         "desktop" = { id = "DEVICE-ID-GOES-HERE"; };
-        "nas" = { id = "DEVICE-ID-GOES-HERE"; };
+        "nas" = { id = "743FG5Y-CHZCF6C-ZQCY4XX-JH2RDVX-ZH6JUYO-GHKU5QQ-LHHVF5B-OUP7TAA"; };
       };
 
       options = {
