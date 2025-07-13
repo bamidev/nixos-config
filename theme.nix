@@ -6,7 +6,7 @@ rec {
 
   bg = {
     black = "#1d2021";
-    blue = "#0d3138";
+    blue = dark.blue;
     cyan = "#2e3b3b";
     green = "#32361a";
     magenta = "#333e34";
@@ -14,9 +14,12 @@ rec {
     white = "#504945";
     yellow = "#473c29";
   };
-  border = {
+  dim = {
     blue = "#374141";
     red = "#4c3432";
+  };
+  dark = {
+    blue = "#0e363e";
   };
   bright = {
     black = "#928374";

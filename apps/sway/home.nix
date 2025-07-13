@@ -26,9 +26,9 @@ in {
       colors = {
         background = theme.background;
         focused = {
-          background = theme.bg.blue;
-          border = theme.normal.blue;
-          childBorder = "#285577";
+          background = theme.dark.blue;
+          border = theme.dark.blue;
+          childBorder = theme.dark.blue;
           indicator = "#2e9ef4";
           text = theme.foreground;
         };
