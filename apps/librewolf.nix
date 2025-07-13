@@ -4,6 +4,8 @@
   programs.firefox = {
     enable = true;
 
+    configPath = ".librewolf";
+
     package = pkgs.librewolf;
     policies = {
       DisableTelemetry = true;
@@ -57,11 +59,16 @@
       #bookmarks = {};
 
       search = {
-        default = "DuckDuckGo Lite";
+        default = "SearXNG";
         force = true;
 
         order = [
-          "ddg"
+          "policy-DuckDuckGo Lite"
+          "wikipedia"
+          "Nix Packages"
+          "Nix Options"
+          "NixOS Wiki"
+          "bing"
           "google"
         ];
 
@@ -107,8 +114,23 @@
             definedAliases = [ "@nw" ];
           };
 
-          bing.metaData.hidden = true;
+          "SearXNG" = {
+            urls = [
+              {
+                template = "https://search.rhscz.eu/search";
+                params = [
+                  { name = "q"; value = "{searchTerms}"; }
+                ];
+              }
+            ];
+            definedAliases = [ "@s" ];
+          };
+
+          bing.metaData.alias = "@b";
           google.metaData.alias = "@g";
+          ddg.metaData.alias = "@ddg";
+          "policy-DuckDuckGo Lite".metaData.alias = "@d";
+          wikipedia.metaData.alias = "@w";
         };
       };
     };
