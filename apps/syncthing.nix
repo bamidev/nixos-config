@@ -1,12 +1,14 @@
-{
-  services.syncthing = { 
+let
+  config = import ../config.nix;
+in {
+  services.syncthing = rec { 
     enable = true;
 
     group = "users";
-    user = "bamilab";
+    user = if config.environmentType == "desktop" then "bamilab" else "admin";
 
-    dataDir = "/home/bamilab/";
-    configDir = "/home/bamilab/.config/syncthing";
+    dataDir = "/home/${user}/";
+    configDir = "/home/${user}/.config/syncthing";
     openDefaultPorts = true;
     overrideFolders = true;
     settings = {
@@ -22,17 +24,17 @@
 
       folders = {
         ".password-store" = {
-          path = "/home/bamilab/.password-store";
+          path = "/home/${user}/.password-store";
           devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = false;
         };
         "Documents" = {
-          path = "/home/bamilab/Documents";
+          path = "/home/${user}/Documents";
           devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = true;
         };
         "Pictures" = {
-          path = "/home/bamilab/Pictures";
+          path = "/home/${user}/Pictures";
           devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = true;
         };
