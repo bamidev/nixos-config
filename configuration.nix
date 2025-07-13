@@ -20,6 +20,11 @@ in
   system.stateVersion = "24.11";
 
   nix = {
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
+
     gc = {
       automatic = true;
       dates = "weekly";
