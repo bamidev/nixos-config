@@ -125,9 +125,9 @@
       mako
       nautilus
       nix-index
+      nixfmt-rfc-style
       pass
       pavucontrol
-      powerline-fonts
       pre-commit
       protonmail-bridge
       protonmail-bridge-gui
@@ -137,6 +137,7 @@
       syncthing
       todo-txt-cli
       tor-browser
+      transmission_4-gtk
       vial
       w3m
       wget
