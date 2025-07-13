@@ -10,6 +10,7 @@ in {
     dataDir = "/home/${user}/";
     configDir = "/home/${user}/.config/syncthing";
     openDefaultPorts = true;
+    overrideDevices = true;
     overrideFolders = true;
     settings = {
       devices = {
