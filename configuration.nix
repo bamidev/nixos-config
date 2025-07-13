@@ -117,7 +117,7 @@ in
               );
           }
         else {
-          admin = { lib, ... }: lib.attrsits.recursiveUpdate
+          admin = { lib, ... }: lib.attrsets.recursiveUpdate
             defaults
             (import ./users/admin.nix { pkgs=pkgs; lib=lib; });
         };
