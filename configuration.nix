@@ -90,6 +90,10 @@ in
         home = "/home/admin";
         isNormalUser = true;
         extraGroups = [ "wheel" ];
+
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO4gv0OF52jorRoiylqIcsgZRtYp1aRmR9FQD7AwTt6Q bamidev@pm.me"
+        ];
       };
     };
   };

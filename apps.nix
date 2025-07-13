@@ -9,7 +9,7 @@ in {
     ] ++ lib.optionals (config.environmentType == "desktop") [
       ./apps/desktop.nix
     ] ++ lib.optionals (config.environmentType == "nas") [
-      ./apps/nas.nix
+      ./apps/server.nix
     ];
 
   services = {
