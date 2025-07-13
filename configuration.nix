@@ -84,13 +84,17 @@ in
     };
   };
 
-  home-manager.users = let defaults = import ./users/defaults.nix { pkgs=pkgs; }; in {
-    bamilab = { lib, ... }: lib.attrsets.recursiveUpdate
-      defaults
-      (import ./users/bamilab/home.nix { pkgs=pkgs; lib=lib; });
-    therp = { lib, ... }: lib.attrsets.recursiveUpdate
-      defaults
-      (import ./users/therp/home.nix { pkgs=pkgs; lib=lib; });
+  home-manager = {
+    backupFileExtension = "backup";
+
+    users = let defaults = import ./users/defaults.nix { pkgs=pkgs; }; in {
+      bamilab = { lib, ... }: lib.attrsets.recursiveUpdate
+        defaults
+        (import ./users/bamilab/home.nix { pkgs=pkgs; lib=lib; });
+      therp = { lib, ... }: lib.attrsets.recursiveUpdate
+        defaults
+        (import ./users/therp/home.nix { pkgs=pkgs; lib=lib; });
+    };
   };
 
   security.polkit.enable = true;
