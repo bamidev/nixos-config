@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   config = import ./config.nix;
@@ -10,14 +10,14 @@ let
     "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
 in
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      (import "${home-manager}/nixos")
-      ./apps.nix
-      ./my-scripts.nix
-      ./therp.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    (import "${home-manager}/nixos")
+    ./apps.nix
+    ./therp.nix
+  ] ++ lib.optionals (config.environmentType == "desktop") [
+    ./my-scripts.nix
+  ];
 
   system.stateVersion = "24.11";
 
