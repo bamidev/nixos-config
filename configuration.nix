@@ -5,7 +5,9 @@
 { pkgs, ... }:
 
 let
-  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
+  config = import ./config.nix;
+  home-manager = builtins.fetchTarball
+    "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
 in
 {
   imports =
@@ -54,7 +56,7 @@ in
   # Users
   users = {
     mutableUsers = true;
-    users = {
+    users = if config.environmentType == "desktop" then {
       bamilab = {
         description = "Personal";
         home = "/home/bamilab";
@@ -81,20 +83,44 @@ in
         ];
       };
 
+    } else {
+
+      admin = {
+        description = "Administrator";
+        home = "/home/admin";
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
+      };
     };
   };
 
   home-manager = {
     backupFileExtension = "backup";
 
-    users = let defaults = import ./users/defaults.nix { pkgs=pkgs; }; in {
-      bamilab = { lib, ... }: lib.attrsets.recursiveUpdate
-        defaults
-        (import ./users/bamilab/home.nix { pkgs=pkgs; lib=lib; });
-      therp = { lib, ... }: lib.attrsets.recursiveUpdate
-        defaults
-        (import ./users/therp/home.nix { pkgs=pkgs; lib=lib; });
-    };
+    users =
+      let
+        defaults = import ./users/defaults.nix { pkgs=pkgs; };
+      in
+        if config.environmentType == "desktop" then
+          let
+            desktop = import ./users/desktop.nix { pkgs=pkgs; };
+          in {
+            bamilab = { lib, ... }: with lib.attrsets; recursiveUpdate 
+              defaults (recursiveUpdate
+                desktop
+                (import ./users/bamilab.nix { pkgs=pkgs; lib=lib; })
+              );
+            therp = { lib, ... }: with lib.attrsets; recursiveUpdate 
+              defaults (recursiveUpdate
+                desktop
+                (import ./users/therp.nix { pkgs=pkgs; lib=lib; })
+              );
+          }
+        else {
+          admin = { lib, ... }: lib.attrsits.recursiveUpdate
+            defaults
+            (import ./users/admin.nix { pkgs=pkgs; lib=lib; });
+        };
   };
 
   security.polkit.enable = true;

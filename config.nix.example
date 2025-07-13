@@ -1,4 +1,4 @@
 {
   # One of: "desktop", "nas"
-  deviceType = "desktop";
+  environmentType = "desktop";
 }
