@@ -29,7 +29,7 @@
       };
       initExtra = ''
         CURRENT_WORKSPACE=$(current-workspace)
-        if [ -f ~/.here/$CURRENT_WORKSPACE ]; then
+        if [ "$PWD" == "$HOME" ] && [ -f ~/.here/$CURRENT_WORKSPACE ]; then
           cd $(cat ~/.here/$CURRENT_WORKSPACE)
         fi
       '';
