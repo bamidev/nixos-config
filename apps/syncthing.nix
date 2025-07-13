@@ -33,11 +33,27 @@ in {
           path = "/home/${user}/Documents";
           devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = true;
+          versioning = {
+            type = "staggered";
+            params = {
+              cleanInterval = 3600;
+              keep = 5;
+              maxAge = 7776000;
+            };
+          };
         };
         "Pictures" = {
           path = "/home/${user}/Pictures";
           devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = true;
+          versioning = {
+            type = "staggered";
+            params = {
+              cleanInterval = 3600;
+              keep = 5;
+              maxAge = 7776000;
+            };
+          };
         };
       };
     };
