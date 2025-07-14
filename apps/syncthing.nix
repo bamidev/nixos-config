@@ -36,9 +36,9 @@ in {
           versioning = {
             type = "staggered";
             params = {
-              cleanInterval = 3600;
-              keep = 5;
-              maxAge = 7776000;
+              cleanInterval = "3600";
+              keep = "5";
+              maxAge = "7776000";
             };
           };
         };
@@ -49,9 +49,9 @@ in {
           versioning = {
             type = "staggered";
             params = {
-              cleanInterval = 3600;
-              keep = 5;
-              maxAge = 7776000;
+              cleanInterval = "3600";
+              keep = "5";
+              maxAge = "7776000";
             };
           };
         };
