@@ -7,6 +7,8 @@
   services = {
     gnome.gnome-keyring.enable = true;
 
+    libinput.enable = true;
+
     openvpn = {
       servers = {
         protonvpn = { config = '' config /root/nixos/openvpn/protonvpn.conf ''; };
