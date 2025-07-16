@@ -55,6 +55,19 @@ in {
             };
           };
         };
+        "Music" = {
+          path = "/home/${user}/Music";
+          devices = [ "main-laptop" "nas" ];
+          ignorePerms = true;
+          versioning = {
+            type = "staggered";
+            params = {
+              cleanInterval = "3600";
+              keep = "5";
+              maxAge = "7776000";
+            };
+          };
+        };
       };
     };
   };
