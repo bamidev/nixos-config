@@ -2,6 +2,7 @@
   -- Default settings
   vim.o.autoindent = false
   vim.o.cindent = false
+  vim.o.colorcolumn = "100"
   vim.o.number = true
   vim.o.shiftwidth = 4
   vim.o.smartindent = true
