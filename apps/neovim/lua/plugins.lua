@@ -78,10 +78,6 @@ require('pckr').add{
 		tag = "v0.10.0",
 		config = function()
 			require('nvim-treesitter.configs').setup {
-				ensure_installed = {
-					"c", "cpp", "lua", "markdown", "markdown_inline", "nix", "python", "rust", "vim", "vimdoc", "query"
-				},
-
 				auto_install = true,
 				sync_install = false,
 
@@ -148,8 +144,4 @@ require('pckr').add{
 			})
 		end
 	},
-	--{
-	--	"kevinhwang91/promise-async",
-	--	tag = "v1.0.0",
-	--}
 }
