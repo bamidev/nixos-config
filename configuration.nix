@@ -16,7 +16,7 @@ in
     ./apps.nix
     ./therp.nix
   ] ++ lib.optionals (config.environmentType == "desktop") [
-    ./my-scripts.nix
+    ./desktop/my-scripts.nix
   ];
 
   system.stateVersion = "24.11";
