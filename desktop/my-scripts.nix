@@ -23,6 +23,15 @@ let
     echo $PWD > ~/.here/$CURRENT_WORKSPACE
     echo Remembered the working dir \"$PWD\" for workspace $CURRENT_WORKSPACE.
   '';
+  install-ssh-keys = pkgs.writers.writeBashBin "install-ssh-keys" ''
+    set -e
+    pass ssh/bamilab/public > /home/bamilab/.ssh/id_25519.pub
+    pass ssh/bamilab/private > /home/bamilab/.ssh/id_25519
+    ssh-add || true
+    pass ssh/therp/public | sudo -u therp tee /home/therp/.ssh/id_rsa.pub > /dev/null
+    pass ssh/therp/private | sudo -u therp tee /home/therp/.ssh/id_rsa > /dev/null
+    # TODO: Add the therp ssh key to the ssh-agent
+  '';
   sudo-brightness-down = pkgs.writeShellScriptBin "sudo-brightness-down" ''
     #!/bin/bash
     sudo ${brightness-down}/bin/brightness-down
@@ -53,16 +62,18 @@ in {
           command = "${brightness-down}/bin/brightness-down";
           options = [ "NOPASSWD" ];
         }
-	  ];
-	  groups = ["wheel"];
-	}];
-	extraConfig = with pkgs; ''
-    Defaults:picloud secure_path="${lib.makeBinPath [
-      brightness-up
-	  brightness-down
-      sudo-brightness-up
-	  sudo-brightness-down
-    ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
-  '';
+      ];
+      groups = ["wheel"];
+    }];
+    extraConfig = with pkgs; ''
+      Defaults:picloud secure_path="${lib.makeBinPath [
+        brightness-up
+        brightness-down
+        sudo-brightness-up
+        sudo-brightness-down
+      ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+    '';
   };
+
+  users.users.bamilab.packages = [ install-ssh-keys ];
 }
