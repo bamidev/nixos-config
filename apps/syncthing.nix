@@ -1,5 +1,13 @@
 let
   config = import ../config.nix;
+  defaultVersioning = {
+    type = "staggered";
+    params = {
+      cleanInterval = "3600";
+      keep = "5";
+      maxAge = "157680000"; # About 5 years
+    };
+  };
 in {
   services.syncthing = rec { 
     enable = true;
@@ -28,45 +36,25 @@ in {
           path = "/home/${user}/.password-store";
           devices = [ "main-laptop" "nas" ];
           ignorePerms = false;
+          versioning = defaultVersioning;
         };
         "Documents" = {
           path = "/home/${user}/Documents";
           devices = [ "main-laptop" "nas" ];
           ignorePerms = true;
-          versioning = {
-            type = "staggered";
-            params = {
-              cleanInterval = "3600";
-              keep = "5";
-              maxAge = "7776000";
-            };
-          };
+          versioning = defaultVersioning;
         };
         "Pictures" = {
           path = "/home/${user}/Pictures";
           devices = [ "main-laptop" "nas" ];
           ignorePerms = true;
-          versioning = {
-            type = "staggered";
-            params = {
-              cleanInterval = "3600";
-              keep = "5";
-              maxAge = "7776000";
-            };
-          };
+          versioning = defaultVersioning;
         };
         "Music" = {
           path = "/home/${user}/Music";
           devices = [ "main-laptop" "nas" ];
           ignorePerms = true;
-          versioning = {
-            type = "staggered";
-            params = {
-              cleanInterval = "3600";
-              keep = "5";
-              maxAge = "7776000";
-            };
-          };
+          versioning = defaultVersioning;
         };
       };
     };
