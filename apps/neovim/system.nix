@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  config = import ../config.nix;
+  config = import ../../config.nix;
 in {
   programs.neovim = {
     defaultEditor = true;
@@ -17,7 +17,7 @@ in {
     };
 
     runtime = {
-      "init.lua".text = import ./neovim/init.nix { pkgs = pkgs; };
+      "init.lua".text = import ./init.nix { pkgs = pkgs; };
 
       "ftplugin/python.lua".text = ''
         vim.o.expandtab = true
@@ -33,22 +33,22 @@ in {
         vim.o.textwidth = 100
       '';
 
-      "lsp/bashls.lua".text = import ./neovim/lsp/bashls.nix { pkgs=pkgs; };
-      "lsp/nixd.lua".text = import ./neovim/lsp/nixd.nix { pkgs=pkgs; };
+      "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };
+      "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
 
-      "lua/autocomplete.lua".text = builtins.readFile ./neovim/lua/autocomplete.lua;
-      "lua/plugins.lua".text = builtins.readFile ./neovim/lua/plugins.lua;
-      "lua/lsp.lua".text = builtins.readFile ./neovim/lua/lsp.lua;
+      "lua/autocomplete.lua".text = builtins.readFile ./lua/autocomplete.lua;
+      "lua/plugins.lua".text = builtins.readFile ./lua/plugins.lua;
+      "lua/lsp.lua".text = builtins.readFile ./lua/lsp.lua;
 
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)
     } // lib.attrsets.optionalAttrs (config.environmentType == "desktop") {
-      "lsp/ccls.lua".text = import ./neovim/lsp/ccls.nix { pkgs=pkgs; };
-      "lsp/lua_ls.lua".text = import ./neovim/lsp/lua_ls.nix { pkgs=pkgs; };
-      "lsp/postgres_lsp.lua".text = import ./neovim/lsp/postgres_lsp.nix { pkgs=pkgs; };
-      "lsp/pylsp.lua".text = builtins.readFile ./neovim/lsp/pylsp.lua;
-      "lsp/rust_analyzer.lua".text = import ./neovim/lsp/rust_analyzer.nix { pkgs=pkgs; };
-      "lsp/vimls.lua".text = import ./neovim/lsp/vimls.nix { pkgs=pkgs; };
+      "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
+      "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
+      "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
+      "lsp/pylsp.lua".text = builtins.readFile ./lsp/pylsp.lua;
+      "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
+      "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
     };
 
     viAlias = true;

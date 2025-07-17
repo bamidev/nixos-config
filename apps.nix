@@ -4,7 +4,7 @@ let
 in {
   imports =
     [
-      ./apps/neovim.nix
+      ./apps/neovim/system.nix
       ./apps/syncthing.nix
     ] ++ lib.optionals (config.environmentType == "desktop") [
       ./apps/desktop.nix
