@@ -94,6 +94,7 @@
       # installation implied.
       dmenu-rs
       element-desktop
+      file-roller
       freetube
       gcc
       libreoffice
@@ -108,6 +109,7 @@
       signal-desktop
       todo-txt-cli
       tor-browser
+      totem
       transmission_4-gtk
       vial
       wl-clipboard
