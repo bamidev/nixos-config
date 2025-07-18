@@ -23,7 +23,7 @@ in {
     settings = {
       devices = {
         "main-laptop" = { id = "YDRIMGC-TRJJZRQ-CIUQEGL-EDVFU46-VCQV5SV-WIVCSXX-455BVW5-LFDRGAN"; };
-        #"desktop" = { id = "DEVICE-ID-GOES-HERE"; };
+        "desktop" = { id = "AJG3MX7-DTBTZKM-RHR3YQN-HZMYNPT-IAREIAF-UGXRFFU-MPUHO7T-ACO5IAJ"; };
         "nas" = { id = "743FG5Y-CHZCF6C-ZQCY4XX-JH2RDVX-ZH6JUYO-GHKU5QQ-LHHVF5B-OUP7TAA"; };
       };
 
@@ -34,25 +34,25 @@ in {
       folders = {
         ".password-store" = {
           path = "/home/${user}/.password-store";
-          devices = [ "main-laptop" "nas" ];
+          devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = false;
           versioning = defaultVersioning;
         };
         "Documents" = {
           path = "/home/${user}/Documents";
-          devices = [ "main-laptop" "nas" ];
+          devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = true;
           versioning = defaultVersioning;
         };
         "Pictures" = {
           path = "/home/${user}/Pictures";
-          devices = [ "main-laptop" "nas" ];
+          devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = true;
           versioning = defaultVersioning;
         };
         "Music" = {
           path = "/home/${user}/Music";
-          devices = [ "main-laptop" "nas" ];
+          devices = [ "main-laptop" "desktop" "nas" ];
           ignorePerms = true;
           versioning = defaultVersioning;
         };
