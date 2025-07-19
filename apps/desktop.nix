@@ -1,7 +1,11 @@
-{ pkgs, ... }:
-{
+{ pkgs, lib, ... }:
+let
+  config = import ../config.nix;
+in {
   imports = [
     ./sway/system.nix
+  ] ++ lib.optionals config.enableGames [
+    ./steam.nix
   ];
 
   hardware.graphics.enable = true;
