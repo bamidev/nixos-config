@@ -4,6 +4,8 @@
     ./sway/system.nix
   ];
 
+  hardware.graphics.enable = true;
+
   services = {
     gnome.gnome-keyring.enable = true;
 
