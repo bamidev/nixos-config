@@ -21,6 +21,11 @@ in
 
   system.stateVersion = "24.11";
 
+  boot.loader.grub = {
+    splashImage = ./img/grub-wallpaper.png;
+    splashMode = "normal";
+  };
+
   nix = {
     extraOptions = ''
       keep-outputs = true
