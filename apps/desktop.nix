@@ -103,6 +103,7 @@ in {
       file-roller
       freetube
       gcc
+      gimp
       libreoffice
       mako
       nautilus
