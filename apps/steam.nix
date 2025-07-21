@@ -2,12 +2,13 @@
 {
   environment.systemPackages = with pkgs; [
     steamcmd
-    steamtui
+    steam-tui
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "steam"
     "steam-unwrapped"
+    "steamcmd"
   ];
 
   programs = {
