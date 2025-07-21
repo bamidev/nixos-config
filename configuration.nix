@@ -22,8 +22,9 @@ in
   system.stateVersion = "24.11";
 
   boot.loader.grub = {
-    splashImage = ./img/grub-wallpaper.png;
     splashMode = "normal";
+  } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.png) {
+    splashImage = /home/bamilab/Pictures/wallpapers/grub.png;
   };
 
   nix = {
