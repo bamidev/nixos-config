@@ -22,7 +22,7 @@ in
   system.stateVersion = "24.11";
 
   boot.loader.grub = {
-    splashMode = "normal";
+    splashMode = "stretch";
   } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.png) {
     splashImage = /home/bamilab/Pictures/wallpapers/grub.png;
   };
