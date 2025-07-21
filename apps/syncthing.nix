@@ -24,7 +24,7 @@ in {
       devices = {
         "main-laptop" = { id = "YDRIMGC-TRJJZRQ-CIUQEGL-EDVFU46-VCQV5SV-WIVCSXX-455BVW5-LFDRGAN"; };
         "desktop" = { id = "AJG3MX7-DTBTZKM-RHR3YQN-HZMYNPT-IAREIAF-UGXRFFU-MPUHO7T-ACO5IAJ"; };
-        "nas" = { id = "743FG5Y-CHZCF6C-ZQCY4XX-JH2RDVX-ZH6JUYO-GHKU5QQ-LHHVF5B-OUP7TAA"; };
+        "nas" = { id = "EIOYPAQ-2HTFA5J-V2YZE5Q-4PZH3RS-7MX2UAQ-C4I7BVT-VS6XIQR-2JKVTAR"; };
       };
 
       options = {
