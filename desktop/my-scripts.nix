@@ -27,9 +27,11 @@ let
     set -e
     pass ssh/bamilab/public > /home/bamilab/.ssh/id_25519.pub
     pass ssh/bamilab/private > /home/bamilab/.ssh/id_25519
+    chmod 600 /home/bamilab/.ssh/id_25519
     ssh-add || true
     pass ssh/therp/public | sudo -u therp tee /home/therp/.ssh/id_rsa.pub > /dev/null
     pass ssh/therp/private | sudo -u therp tee /home/therp/.ssh/id_rsa > /dev/null
+    sudo chmod 600 /home/therp/.ssh/id_rsa
     # TODO: Add the therp ssh key to the ssh-agent
   '';
   sudo-brightness-down = pkgs.writeShellScriptBin "sudo-brightness-down" ''
