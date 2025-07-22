@@ -25,9 +25,9 @@ let
   '';
   install-ssh-keys = pkgs.writers.writeBashBin "install-ssh-keys" ''
     set -e
-    pass ssh/bamilab/public > /home/bamilab/.ssh/id_25519.pub
-    pass ssh/bamilab/private > /home/bamilab/.ssh/id_25519
-    chmod 600 /home/bamilab/.ssh/id_25519
+    pass ssh/bamilab/public > /home/bamilab/.ssh/id_ed25519.pub
+    pass ssh/bamilab/private > /home/bamilab/.ssh/id_ed25519
+    chmod 600 /home/bamilab/.ssh/id_ed25519
     ssh-add || true
     pass ssh/therp/public | sudo -u therp tee /home/therp/.ssh/id_rsa.pub > /dev/null
     pass ssh/therp/private | sudo -u therp tee /home/therp/.ssh/id_rsa > /dev/null
