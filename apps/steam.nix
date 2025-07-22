@@ -19,7 +19,13 @@
 
     steam = {
       enable = true;
-      gamescopeSession.enable = true;
+      gamescopeSession = {
+        enable = true;
+        args = [
+          "-W 2560"
+          "-H 1440"
+        ];
+      };
     };
   };
 }
