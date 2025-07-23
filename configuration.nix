@@ -42,10 +42,14 @@ in
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
-  networking.hostName = "baminix"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  networking.resolvconf = {
-    enable = true;
+  networking = {
+    hostName = "baminix";
+    networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+    resolvconf = {
+      enable = true;
+    };
+
+    firewall.allowedUDPPorts = [ 53 67 ];
   };
 
   # Set your time zone.

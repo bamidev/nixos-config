@@ -10,6 +10,9 @@ in {
 
   hardware.graphics.enable = true;
 
+  # Disable IPv6 because it does not go through the VPN
+  networking.enableIPv6 = false;
+
   services = {
     gnome.gnome-keyring.enable = true;
 
