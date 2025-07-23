@@ -21,10 +21,30 @@ in
   system.stateVersion = "24.11";
 
   boot.loader.grub = {
-    splashMode = "stretch";
+    enable = true;
   } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.png) {
     splashImage = /home/bamilab/Pictures/wallpapers/grub.png;
+    splashMode = "stretch";
   };
+
+  console.colors = [
+    "1d2021"
+    "cc241d"
+    "98971a"
+    "d79921"
+    "458588"
+    "b16286"
+    "689d6a"
+    "a89984"
+    "282828"
+    "fb4934"
+    "b8bb26"
+    "fabd2f"
+    "83a598"
+    "d3869b"
+    "8ec07c"
+    "ebdbb2"
+  ];
 
   nix = {
     extraOptions = ''
