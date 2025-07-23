@@ -85,6 +85,7 @@ in
         isNormalUser = true;
         extraGroups = [
           "audio"
+          "docker"
           "video"
           "wheel"
         ];
