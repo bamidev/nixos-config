@@ -14,7 +14,6 @@ in
     ./hardware-configuration.nix
     (import "${home-manager}/nixos")
     ./apps.nix
-    ./therp.nix
   ] ++ lib.optionals (config.environmentType == "desktop") [
     ./desktop/my-scripts.nix
   ];
