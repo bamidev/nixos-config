@@ -1,6 +1,7 @@
 { pkgs }: {
   imports = [
     ../apps/alacritty.nix
+    ../apps/freetube.nix
     ../apps/librewolf.nix
     ../apps/neovim/home.nix
     ../apps/sway/home.nix

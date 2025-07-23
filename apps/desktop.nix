@@ -104,7 +104,6 @@ in {
       dmenu-rs
       element-desktop
       file-roller
-      freetube
       gcc
       gimp
       libreoffice
