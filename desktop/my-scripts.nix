@@ -23,6 +23,12 @@ let
     echo $PWD > ~/.here/$CURRENT_WORKSPACE
     echo Remembered the working dir \"$PWD\" for workspace $CURRENT_WORKSPACE.
   '';
+  install-protonvpn = pkgs.writers.writeBashBin "install-protonvpn" ''
+    set -e
+    sudo mkdir -p /root/openvpn
+    pass protonvpn/openvpn-config | sudo tee /root/openvpn/protonvpn.conf > /dev/null
+    pass protonvpn/openvpn-auth | sudo tee /root/openvpn/protonvpn.auth > /dev/null
+  '';
   install-ssh-keys = pkgs.writers.writeBashBin "install-ssh-keys" ''
     set -e
     pass ssh/bamilab/public > /home/bamilab/.ssh/id_ed25519.pub
@@ -77,5 +83,5 @@ in {
     '';
   };
 
-  users.users.bamilab.packages = [ install-ssh-keys ];
+  users.users.bamilab.packages = [ install-protonvpn install-ssh-keys ];
 }

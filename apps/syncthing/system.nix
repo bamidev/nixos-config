@@ -1,5 +1,5 @@
 let
-  config = import ../config.nix;
+  config = import ../../config.nix;
   defaultVersioning = {
     type = "staggered";
     params = {
@@ -7,6 +7,12 @@ let
       keep = "5";
       maxAge = "157680000"; # About 5 years
     };
+  };
+  devices = [ "main-laptop" "desktop" "nas" ];
+  defaultFolder = {
+    devices = devices;
+    ignorePerms = false;
+    versioning = defaultVersioning;
   };
 in {
   services.syncthing = rec { 
@@ -32,29 +38,23 @@ in {
       };
 
       folders = {
-        ".password-store" = {
+        ".config" = {
+          path = if config.environmentType == "desktop" then
+            "/home/${user}/.config"
+          else
+            "/home/${user}/synced-config";
+        };
+        ".password-store" = defaultFolder // {
           path = "/home/${user}/.password-store";
-          devices = [ "main-laptop" "desktop" "nas" ];
-          ignorePerms = false;
-          versioning = defaultVersioning;
         };
-        "Documents" = {
+        "Documents" = defaultFolder // {
           path = "/home/${user}/Documents";
-          devices = [ "main-laptop" "desktop" "nas" ];
-          ignorePerms = true;
-          versioning = defaultVersioning;
         };
-        "Pictures" = {
+        "Pictures" = defaultFolder // {
           path = "/home/${user}/Pictures";
-          devices = [ "main-laptop" "desktop" "nas" ];
-          ignorePerms = true;
-          versioning = defaultVersioning;
         };
-        "Music" = {
+        "Music" = defaultFolder // {
           path = "/home/${user}/Music";
-          devices = [ "main-laptop" "desktop" "nas" ];
-          ignorePerms = true;
-          versioning = defaultVersioning;
         };
       };
     };

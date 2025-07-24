@@ -5,7 +5,7 @@ in {
   imports =
     [
       ./apps/neovim/system.nix
-      ./apps/syncthing.nix
+      ./apps/syncthing/system.nix
     ] ++ lib.optionals (config.environmentType == "desktop") [
       ./apps/desktop.nix
     ] ++ lib.optionals (config.environmentType == "nas") [
@@ -29,6 +29,7 @@ in {
 
         [core]
         editor = "nvim"
+        abbrev = 7
 
         [push]
         autoSetupRemote = true

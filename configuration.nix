@@ -131,6 +131,8 @@ in
   home-manager = {
     backupFileExtension = "backup";
 
+    # Use the `imports` feature because now the imports list of users/defaults.nix is being
+    # overriden by the other files.
     users =
       let
         defaults = import ./users/defaults.nix { pkgs=pkgs; };
