@@ -22,8 +22,8 @@ in
 
   boot.loader.grub = {
     enable = true;
-  } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.png) {
-    splashImage = /home/bamilab/Pictures/wallpapers/grub.png;
+  } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.jpg) {
+    splashImage = /home/bamilab/Pictures/wallpapers/grub.jpg;
     splashMode = "stretch";
   };
 
