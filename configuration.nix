@@ -150,7 +150,7 @@ in
           );
       } // lib.attrsets.optionalAttrs (config.environmentType != "desktop") {
         admin = { lib, ... }: lib.attrsets.recursiveUpdate
-          defaults
+          (defaults { pkgs=pkgs; username="admin"; })
           (import ./users/admin.nix { pkgs=pkgs; lib=lib; });
       };
   };
