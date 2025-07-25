@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   home.stateVersion = "24.11";
 
   imports = [];
@@ -8,8 +8,12 @@
 
     bash = {
       enable = true;
-      
       enableCompletion = true;
+    };
+
+    git = {
+      enable = true;
+      package = pkgs.gitFull;
     };
 
     # For some reason, neovim will not be invoked with the -u flag for the customRC code as non-root users,

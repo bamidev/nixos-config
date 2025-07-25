@@ -1,11 +1,10 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, username, ... }:
 {
-	programs = {
-      git = {
-        enable = true;
+  programs = {
+    git = {
+      userName = "Bamidev";
+      userEmail = "bamidev@pm.me";
+    };
+  };
 
-		userName = "Bamidev";
-		userEmail = "bamidev@pm.me";
-	  };
-	};
 }

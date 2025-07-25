@@ -51,7 +51,6 @@ in {
 
     systemPackages = with pkgs; [
       bc
-      git
       killall
       nix-index
       nixfmt-rfc-style
