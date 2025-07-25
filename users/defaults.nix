@@ -1,7 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, lib, username, ... }: {
   home.stateVersion = "24.11";
 
-  imports = [];
+  imports = lib.optionals (username != "admin") [
+    ../apps/syncthing/home.nix
+  ];
 
   programs = {
     home-manager.enable = true;

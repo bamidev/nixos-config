@@ -141,18 +141,18 @@ in
         else {};
       in {
         bamilab = { lib, ... }: with lib.attrsets; recursiveUpdate 
-          (defaults { pkgs=pkgs; username="bamilab"; }) (recursiveUpdate
+          (defaults { pkgs=pkgs; lib=lib; username="bamilab"; }) (recursiveUpdate
             desktop
             (import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; })
           );
         therp = { lib, ... }: with lib.attrsets; recursiveUpdate 
-          (defaults { pkgs=pkgs; username="therp"; }) (recursiveUpdate
+          (defaults { pkgs=pkgs; lib=lib; username="therp"; }) (recursiveUpdate
             desktop
             (import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; })
           );
       } // lib.attrsets.optionalAttrs (config.environmentType != "desktop") {
         admin = { lib, ... }: lib.attrsets.recursiveUpdate
-          (defaults { pkgs=pkgs; username="admin"; })
+          (defaults { pkgs=pkgs; lib=lib; username="admin"; })
           (import ./users/admin.nix { pkgs=pkgs; lib=lib; });
       };
   };
