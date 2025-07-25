@@ -85,7 +85,7 @@ in
   # Users
   users = {
     mutableUsers = true;
-    users = if config.environmentType == "desktop" then {
+    users = {
       bamilab = {
         description = "Personal";
         home = "/home/bamilab";
@@ -113,7 +113,7 @@ in
         ];
       };
 
-    } else {
+    } // lib.attrsets.optionalAttrs (config.environmentType != "desktop") {
 
       admin = {
         description = "Administrator";
@@ -136,7 +136,9 @@ in
     users =
       let
         defaults = import ./users/defaults.nix;
-        desktop = import ./users/desktop.nix { pkgs=pkgs; };
+        desktop = if config.environmentType == "desktop" then
+          import ./users/desktop.nix { pkgs=pkgs; }
+        else {};
       in {
         bamilab = { lib, ... }: with lib.attrsets; recursiveUpdate 
           (defaults { pkgs=pkgs; username="bamilab"; }) (recursiveUpdate
