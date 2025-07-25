@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, username, ... }:
 {
   home.packages = with pkgs; [
     black
@@ -28,5 +28,19 @@
 
       extraConfig = "Include ~/.ssh/config.d/*.conf";
     };
+  };
+
+  services.syncthing = 
+    let
+      homeDir = "/home/${username}";
+    in {
+      settings.folders =
+        let
+          defaults = import ../apps/syncthing/defaults.nix; 
+        in {
+          "Documents" = defaults.defaultFolder // {
+            path = "${homeDir}/Documents";
+          };
+        };
   };
 }

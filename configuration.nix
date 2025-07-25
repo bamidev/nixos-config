@@ -135,28 +135,24 @@ in
     # overriden by the other files.
     users =
       let
-        defaults = import ./users/defaults.nix { pkgs=pkgs; };
-      in
-        if config.environmentType == "desktop" then
-          let
-            desktop = import ./users/desktop.nix { pkgs=pkgs; };
-          in {
-            bamilab = { lib, ... }: with lib.attrsets; recursiveUpdate 
-              defaults (recursiveUpdate
-                desktop
-                (import ./users/bamilab.nix { pkgs=pkgs; lib=lib; })
-              );
-            therp = { lib, ... }: with lib.attrsets; recursiveUpdate 
-              defaults (recursiveUpdate
-                desktop
-                (import ./users/therp.nix { pkgs=pkgs; lib=lib; })
-              );
-          }
-        else {
-          admin = { lib, ... }: lib.attrsets.recursiveUpdate
-            defaults
-            (import ./users/admin.nix { pkgs=pkgs; lib=lib; });
-        };
+        defaults = import ./users/defaults.nix;
+        desktop = import ./users/desktop.nix { pkgs=pkgs; };
+      in {
+        bamilab = { lib, ... }: with lib.attrsets; recursiveUpdate 
+          (defaults { pkgs=pkgs; username="bamilab"; }) (recursiveUpdate
+            desktop
+            (import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; })
+          );
+        therp = { lib, ... }: with lib.attrsets; recursiveUpdate 
+          (defaults { pkgs=pkgs; username="therp"; }) (recursiveUpdate
+            desktop
+            (import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; })
+          );
+      } // lib.attrsets.optionalAttrs (config.environmentType != "desktop") {
+        admin = { lib, ... }: lib.attrsets.recursiveUpdate
+          defaults
+          (import ./users/admin.nix { pkgs=pkgs; lib=lib; });
+      };
   };
 
   security.polkit.enable = true;

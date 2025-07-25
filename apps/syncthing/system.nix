@@ -16,7 +16,7 @@ let
   };
 in {
   services.syncthing = rec { 
-    enable = true;
+    enable = false;
 
     group = "users";
     user = if config.environmentType == "desktop" then "bamilab" else "admin";
