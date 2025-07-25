@@ -1,4 +1,4 @@
-{ pkgs }: {
+{ pkgs, ... }: {
   imports = [
     ../apps/alacritty.nix
     ../apps/freetube.nix
@@ -16,8 +16,6 @@
         if [ -e ~/.init.sh ]; then
           . ~/.init.sh
         fi
-
-        sway
       '';
       shellAliases = {
         "todo" = "todo.sh";

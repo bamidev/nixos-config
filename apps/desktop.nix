@@ -3,6 +3,7 @@ let
   config = import ../config.nix;
 in {
   imports = [
+    ./greetd.nix
     ./sway/system.nix
   ] ++ lib.optionals config.enableGames [
     ./steam.nix
