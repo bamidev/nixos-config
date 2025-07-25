@@ -132,7 +132,7 @@ in {
 
     extraConfig = ''
       # Cool transparant windows for certain apps
-      for_window [app_id="Alacritty"] opacity 0.85
+      for_window [app_id="Alacritty"] opacity 0.8
       for_window [app_id="Element"] opacity 0.9
       for_window [app_id="Session"] opacity 0.9
       for_window [app_id="signal"] opacity 0.9
@@ -156,7 +156,7 @@ in {
       blur_xray disable
       blur_passes 2
       blur_radius 7
-      blur_noise 0.2
+      blur_noise 0.15
       blur_brightness 1
       blur_contrast 0.7
       blur_saturation 1.2
@@ -165,7 +165,7 @@ in {
       shadows_on_csd enable
       shadow_blur_radius 25
       shadow_color #0000007F
-      shadow_offset 5 10
+      shadow_offset 0 5
       shadow_inactive_color #0000007F
     '';
   };
