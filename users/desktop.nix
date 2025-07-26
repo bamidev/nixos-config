@@ -5,7 +5,6 @@
     ../apps/librewolf.nix
     ../apps/neovim/home.nix
     ../apps/sway/home.nix
-    ../apps/syncthing/home.nix
     ../apps/todo-txt.nix
   ];
 

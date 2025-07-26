@@ -1,5 +1,5 @@
+{ pkgs, ... }:
 let
-  config = import ../../config.nix;
   defaultVersioning = {
     type = "staggered";
     params = {
@@ -15,17 +15,16 @@ let
     versioning = defaultVersioning;
   };
 in {
-  services.syncthing = rec { 
-    enable = false;
+  services.syncthing = rec {
+    enable = true;
 
     group = "users";
-    user = if config.environmentType == "desktop" then "bamilab" else "admin";
 
-    dataDir = "/home/${user}/";
-    configDir = "/home/${user}/.config/syncthing";
+    dataDir = "/var/lib/syncthing";
     openDefaultPorts = true;
     overrideDevices = true;
     overrideFolders = true;
+    
     settings = {
       devices = {
         "main-laptop" = { id = "YDRIMGC-TRJJZRQ-CIUQEGL-EDVFU46-VCQV5SV-WIVCSXX-455BVW5-LFDRGAN"; };
@@ -38,25 +37,52 @@ in {
       };
 
       folders = {
-        ".config" = {
-          path = if config.environmentType == "desktop" then
-            "/home/${user}/.config"
-          else
-            "/home/${user}/synced-config";
+        /*"bamilab/.config" = {
+          path = "bamilab/.config";
+        };*/
+        "bamilab/.password-store" = defaultFolder // {
+          path = "${dataDir}/bamilab/.password-store";
         };
-        ".password-store" = defaultFolder // {
-          path = "/home/${user}/.password-store";
+        "bamilab/Documents" = defaultFolder // {
+          path = "${dataDir}/bamilab/Documents";
         };
-        "Documents" = defaultFolder // {
-          path = "/home/${user}/Documents";
+        "bamilab/Pictures" = defaultFolder // {
+          path = "${dataDir}/bamilab/Pictures";
         };
-        "Pictures" = defaultFolder // {
-          path = "/home/${user}/Pictures";
+        "bamilab/Music" = defaultFolder // {
+          path = "${dataDir}/bamilab/Music";
         };
-        "Music" = defaultFolder // {
-          path = "/home/${user}/Music";
+        "therp/Documents" = defaultFolder // {
+          path = "${dataDir}/therp/Documents";
         };
       };
+    };
+  };
+
+  system.activationScripts = {
+    syncthing-permissions = {
+      deps = [  ];
+      text = ''
+        function create_link() {
+          REAL_DIR="/var/lib/syncthing/$1/$2"
+          if [ ! -d "$REAL_DIR" ]; then
+            mkdir -p "$REAL_DIR"
+            chown "$1:users" "$REAL_DIR"
+            ${pkgs.acl}/bin/setfacl -d -m g::rwx "$REAL_DIR"
+          fi
+          if [ ! -e ~/$2 ]; then
+            ln -s "$REAL_DIR" ~/$2
+          fi
+        }
+
+        create_link bamilab .password-store
+        create_link bamilab Documents
+        create_link bamilab Music
+        create_link bamilab Pictures
+        create_link therp Documents
+
+        chmod 710 /var/lib/syncthing
+      '';
     };
   };
 }
