@@ -56,7 +56,6 @@ in {
       nixfmt-rfc-style
       openssh
       pass
-      syncthing
       w3m
       wget
     ];
