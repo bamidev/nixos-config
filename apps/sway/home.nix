@@ -64,7 +64,7 @@ in {
 
       output = {
         eDP-1 = {
-          bg = "~/Pictures/laptop-wallpaper.jpg fill";
+          bg = "~/Pictures/laptop-wallpaper.png fill";
           resolution = "1920x1080";
           position = "2000,2000";
         };
