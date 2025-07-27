@@ -35,7 +35,6 @@ in {
       folders = {
         "Sync" = defaultFolder // {
           path = "${dataDir}/Sync";
-          ignorePerms = true;
         };
         "bamilab/.password-store" = defaultFolder // {
           path = "${dataDir}/bamilab/.password-store";
@@ -70,7 +69,16 @@ in {
       text = ''
         set -e
 
-        function create_link() {
+        function create_file_link() {
+          if [ ! -e "/home/$1/$2" ]; then
+            LINK="/home/$1/$2"
+            mkdir -p $(basename "$LINK")
+            ln -s "/var/lib/syncthing/Sync/$2" "$LINK"
+            chown "$1:users" "$LINK"
+          fi
+        }
+
+        function create_folder_link() {
           USER_DIR="/var/lib/syncthing/$1"
           chown "$1:users" "$USER_DIR"
           chmod 775 "$USER_DIR"
@@ -83,23 +91,19 @@ in {
           fi
         }
 
-        create_link bamilab .password-store
-        create_link bamilab Documents
-        create_link bamilab Music
-        create_link bamilab Pictures
-        create_link therp Documents
+        create_folder_link bamilab .password-store
+        create_folder_link bamilab Documents
+        create_folder_link bamilab Music
+        create_folder_link bamilab Pictures
+        create_folder_link therp Documents
 
         chmod 750 /var/lib/syncthing
         chown syncthing:users /var/lib/syncthing/Sync
         chmod 775 /var/lib/syncthing/Sync
 
-        # Some files synced across users
-        if [ ! -e /home/bamilab/.config/FreeTube/profiles.db ]; then
-          ln -s /var/lib/syncthing/Sync/FreeTube/profiles.db /home/bamilab/.config/FreeTube/profiles.db
-        fi
-        if [ ! -e /home/therp/.config/FreeTube/profiles.db ]; then
-          ln -s /var/lib/syncthing/Sync/FreeTube/profiles.db /home/therp/.config/FreeTube/profiles.db
-        fi
+        # Some files synced across both users and devices
+        create_file_link bamilab .config/FreeTube/profiles.db
+        create_file_link therp .config/FreeTube/profiles.db
       '';
     };
   };
