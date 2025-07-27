@@ -1,5 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  params = import ../config.nix;
+in if params.environmentType == "desktop" then {
   imports = [
+    ./default.nix
     ../apps/alacritty.nix
     ../apps/freetube.nix
     ../apps/librewolf.nix
@@ -34,4 +38,8 @@
       };
     };
   };
+} else {
+  imports = [
+    ./default.nix
+  ];
 }

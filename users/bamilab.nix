@@ -1,5 +1,11 @@
-{ pkgs, lib, username, ... }:
+{ ... }:
 {
+  imports = [
+    ./desktop.nix
+  ];
+
+  home.stateVersion = "24.11";
+
   programs = {
     git = {
       userName = "Bamidev";

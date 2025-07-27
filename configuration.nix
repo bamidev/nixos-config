@@ -134,26 +134,14 @@ in
     # Use the `imports` feature because now the imports list of users/defaults.nix is being
     # overriden by the other files.
     users =
-      let
-        defaults = import ./users/defaults.nix;
-        desktop = if config.environmentType == "desktop" then
-          import ./users/desktop.nix { pkgs=pkgs; }
-        else {};
-      in {
-        bamilab = { lib, ... }: with lib.attrsets; recursiveUpdate 
-          (defaults { pkgs=pkgs; lib=lib; username="bamilab"; }) (recursiveUpdate
-            desktop
-            (import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; })
-          );
-        therp = { lib, ... }: with lib.attrsets; recursiveUpdate 
-          (defaults { pkgs=pkgs; lib=lib; username="therp"; }) (recursiveUpdate
-            desktop
-            (import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; })
-          );
+      {
+        bamilab = { pkgs, lib, ... }:
+          import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; };
+        therp = { pkgs, lib, ... }:
+          import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; };
       } // lib.attrsets.optionalAttrs (config.environmentType != "desktop") {
-        admin = { lib, ... }: lib.attrsets.recursiveUpdate
-          (defaults { pkgs=pkgs; lib=lib; username="admin"; })
-          (import ./users/admin.nix { pkgs=pkgs; lib=lib; });
+        admin = { pkgs, lib, ... }:
+          import ./users/admin.nix { pkgs=pkgs; lib=lib; username="admin"; };
       };
   };
 
