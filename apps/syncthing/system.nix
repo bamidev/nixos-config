@@ -33,9 +33,10 @@ in {
       };
 
       folders = {
-        /*"bamilab/.config" = {
-          path = "bamilab/.config";
-        };*/
+        "Sync" = defaultFolder // {
+          path = "${dataDir}/Sync";
+          ignorePerms = true;
+        };
         "bamilab/.password-store" = defaultFolder // {
           path = "${dataDir}/bamilab/.password-store";
         };
@@ -89,6 +90,16 @@ in {
         create_link therp Documents
 
         chmod 750 /var/lib/syncthing
+        chown syncthing:users /var/lib/syncthing/Sync
+        chmod 775 /var/lib/syncthing/Sync
+
+        # Some files synced across users
+        if [ ! -e /home/bamilab/.config/FreeTube/profiles.db ]; then
+          ln -s /var/lib/syncthing/Sync/FreeTube/profiles.db /home/bamilab/.config/FreeTube/profiles.db
+        fi
+        if [ ! -e /home/therp/.config/FreeTube/profiles.db ]; then
+          ln -s /var/lib/syncthing/Sync/FreeTube/profiles.db /home/therp/.config/FreeTube/profiles.db
+        fi
       '';
     };
   };
