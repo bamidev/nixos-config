@@ -69,11 +69,16 @@ in {
       text = ''
         set -e
 
+        chmod 750 /var/lib/syncthing
+        chown syncthing:users /var/lib/syncthing/Sync
+        chmod 775 /var/lib/syncthing/Sync
+
         function create_file_link() {
-          mkdir -p $(basename "$LINK")
-          if [ ! -e "/home/$1/$2" ]; then
-            LINK="/home/$1/$2"
-            ln -s "/var/lib/syncthing/Sync/$2" "$LINK"
+          LINK="/home/$1/$2"
+          TARGET="/var/lib/syncthing/Sync/$2"
+          mkdir -p $(dirname "$LINK")
+          if [ ! -e "$LINK" ] && [ -e "$TARGET" ]; then
+            ln -s "$TARGET" "$LINK"
             chown "$1:users" "$LINK"
           fi
         }
@@ -96,10 +101,6 @@ in {
         create_folder_link bamilab Music
         create_folder_link bamilab Pictures
         create_folder_link therp Documents
-
-        chmod 750 /var/lib/syncthing
-        chown syncthing:users /var/lib/syncthing/Sync
-        chmod 775 /var/lib/syncthing/Sync
 
         # Some files synced across both users and devices
         create_file_link bamilab .config/FreeTube/profiles.db
