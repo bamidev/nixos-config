@@ -27,7 +27,7 @@ in {
     
     settings = {
       devices = {
-        "main-laptop" = { id = "YDRIMGC-TRJJZRQ-CIUQEGL-EDVFU46-VCQV5SV-WIVCSXX-455BVW5-LFDRGAN"; };
+        "main-laptop" = { id = "NYCX7JQ-6MVJLLS-G4GNLVD-QLFZ4MU-XPZWI66-HUMXO4Z-HWT4AY4-ZSDZ5QE"; };
         "desktop" = { id = "AJG3MX7-DTBTZKM-RHR3YQN-HZMYNPT-IAREIAF-UGXRFFU-MPUHO7T-ACO5IAJ"; };
         "nas" = { id = "EIOYPAQ-2HTFA5J-V2YZE5Q-4PZH3RS-7MX2UAQ-C4I7BVT-VS6XIQR-2JKVTAR"; };
       };
@@ -65,11 +65,8 @@ in {
       text = ''
         function create_link() {
           REAL_DIR="/var/lib/syncthing/$1/$2"
-          if [ ! -d "$REAL_DIR" ]; then
-            mkdir -p "$REAL_DIR"
-            chown "$1:users" "$REAL_DIR"
-            ${pkgs.acl}/bin/setfacl -d -m g::rwx "$REAL_DIR"
-          fi
+          chown "$1:users" "$REAL_DIR"
+          ${pkgs.acl}/bin/setfacl -d -m g::rwx "$REAL_DIR"
           if [ ! -e ~/$2 ]; then
             ln -s "$REAL_DIR" ~/$2
           fi

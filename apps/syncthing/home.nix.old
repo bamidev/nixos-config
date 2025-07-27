@@ -1,0 +1,35 @@
+{ username, ... }:
+{
+  home.file.".config/.stignore".text = ''
+    !FreeTube/profiles.db
+    **
+  '';
+
+  services.syncthing = {
+    enable = true;
+
+    # FIXME: Why isn't the username that is being passed to users/defaults.nix to here as well?
+    #dataDir = "/home/${username}";
+
+    settings = {
+      devices = {
+        "main-laptop" = { id = "YDRIMGC-TRJJZRQ-CIUQEGL-EDVFU46-VCQV5SV-WIVCSXX-455BVW5-LFDRGAN"; };
+        "desktop" = { id = "AJG3MX7-DTBTZKM-RHR3YQN-HZMYNPT-IAREIAF-UGXRFFU-MPUHO7T-ACO5IAJ"; };
+        "nas" = { id = "EIOYPAQ-2HTFA5J-V2YZE5Q-4PZH3RS-7MX2UAQ-C4I7BVT-VS6XIQR-2JKVTAR"; };
+      };
+
+      gui = { theme = "black"; };
+
+      overrideDevices = true;
+      overrideFolders = true;
+
+options = {
+        urAccepted = -1;
+      };
+    };
+    
+    tray = {
+      enable = true;
+    };
+  };
+}
