@@ -1,5 +1,9 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }:
 {
+  imports = [
+    ./desktop.nix
+  ];
+
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
