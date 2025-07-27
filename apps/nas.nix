@@ -4,6 +4,6 @@
   imports = [
     ./server.nix
 
-    ./baikal.nix
+    ./radicale.nix
   ];
 }

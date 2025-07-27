@@ -1,3 +1,0 @@
-{
-  services.baikal.enable = true;
-}
