@@ -9,7 +9,7 @@ in {
     ] ++ lib.optionals (config.environmentType == "desktop") [
       ./apps/desktop.nix
     ] ++ lib.optionals (config.environmentType == "nas") [
-      ./apps/server.nix
+      ./apps/nas.nix
     ];
 
   # List packages installed in system profile. To search, run:

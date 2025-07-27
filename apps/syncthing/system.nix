@@ -70,9 +70,9 @@ in {
         set -e
 
         function create_file_link() {
+          mkdir -p $(basename "$LINK")
           if [ ! -e "/home/$1/$2" ]; then
             LINK="/home/$1/$2"
-            mkdir -p $(basename "$LINK")
             ln -s "/var/lib/syncthing/Sync/$2" "$LINK"
             chown "$1:users" "$LINK"
           fi
