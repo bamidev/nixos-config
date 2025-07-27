@@ -29,7 +29,7 @@ in {
       devices = {
         "main-laptop" = { id = "NYCX7JQ-6MVJLLS-G4GNLVD-QLFZ4MU-XPZWI66-HUMXO4Z-HWT4AY4-ZSDZ5QE"; };
         "desktop" = { id = "AJG3MX7-DTBTZKM-RHR3YQN-HZMYNPT-IAREIAF-UGXRFFU-MPUHO7T-ACO5IAJ"; };
-        "nas" = { id = "EIOYPAQ-2HTFA5J-V2YZE5Q-4PZH3RS-7MX2UAQ-C4I7BVT-VS6XIQR-2JKVTAR"; };
+        "nas" = { id = "YQT6FYO-OGJHF6Q-WEMZWGM-QP3MJLF-F5VJ3IM-QYEEGW3-QULYD7H-ZP7OFAJ"; };
       };
 
       options = {
