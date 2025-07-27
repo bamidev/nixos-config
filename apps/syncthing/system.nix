@@ -32,10 +32,6 @@ in {
         "nas" = { id = "YQT6FYO-OGJHF6Q-WEMZWGM-QP3MJLF-F5VJ3IM-QYEEGW3-QULYD7H-ZP7OFAJ"; };
       };
 
-      options = {
-        urAccepted = -1;
-      };
-
       folders = {
         /*"bamilab/.config" = {
           path = "bamilab/.config";
@@ -55,6 +51,14 @@ in {
         "therp/Documents" = defaultFolder // {
           path = "${dataDir}/therp/Documents";
         };
+      };
+
+      gui = {
+        theme = "black";
+      };
+
+      options = {
+        urAccepted = -1;
       };
     };
   };
