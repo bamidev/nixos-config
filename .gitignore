@@ -1,2 +1,2 @@
-config.nix
+params.nix
 hardware-configuration.nix

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  params = import ../config.nix;
+  params = import ../params.nix;
 in if params.environmentType == "desktop" then {
   imports = [
     ./default.nix

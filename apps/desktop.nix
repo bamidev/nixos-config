@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  config = import ../config.nix;
+  config = import ../params.nix;
 in {
   imports = [
     ./greetd.nix

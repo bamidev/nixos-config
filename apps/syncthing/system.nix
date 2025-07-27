@@ -63,7 +63,7 @@ in {
     syncthing-permissions = {
       deps = [  ];
       text = ''
-        set -ex
+        set -e
 
         function create_link() {
           USER_DIR="/var/lib/syncthing/$1"
