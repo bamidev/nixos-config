@@ -71,8 +71,8 @@ in {
         set -e
 
         chmod 750 /var/lib/syncthing
-        chown syncthing:users /var/lib/syncthing/Sync
-        chmod 775 /var/lib/syncthing/Sync
+        chown -R syncthing:users /var/lib/syncthing/Sync
+        chmod -R 775 /var/lib/syncthing/Sync
         ${pkgs.acl}/bin/setfacl -d -m g::rwx /var/lib/syncthing/Sync
 
         function create_file_link() {
