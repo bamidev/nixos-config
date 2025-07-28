@@ -35,6 +35,7 @@ in {
       folders = {
         "Sync" = defaultFolder // {
           path = "${dataDir}/Sync";
+          ignorePerms = true;
         };
         "bamilab/.password-store" = defaultFolder // {
           path = "${dataDir}/bamilab/.password-store";
