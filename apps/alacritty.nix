@@ -25,30 +25,30 @@ in {
 
       # Default colors
       [colors.primary]
-      background = '${background}'
-      foreground = '${foreground}'
+      background = '#${background}'
+      foreground = '#${foreground}'
 
       # Normal colors
       [colors.normal]
-      black   = '${normal.black}'
-      red     = '${normal.red}'
-      green   = '${normal.green}'
-      yellow  = '${normal.yellow}'
-      blue    = '${normal.blue}'
-      magenta = '${normal.magenta}'
-      cyan    = '${normal.cyan}'
-      white   = '${normal.white}'
+      black   = '#${normal.black}'
+      red     = '#${normal.red}'
+      green   = '#${normal.green}'
+      yellow  = '#${normal.yellow}'
+      blue    = '#${normal.blue}'
+      magenta = '#${normal.magenta}'
+      cyan    = '#${normal.cyan}'
+      white   = '#${normal.white}'
 
       # Bright colors (same as normal colors)
       [colors.bright]
-      black   = '${bright.black}'
-      red     = '${bright.red}'
-      green   = '${bright.green}'
-      yellow  = '${bright.yellow}'
-      blue    = '${bright.blue}'
-      magenta = '${bright.magenta}'
-      cyan    = '${bright.cyan}'
-      white   = '${bright.white}'
+      black   = '#${bright.black}'
+      red     = '#${bright.red}'
+      green   = '#${bright.green}'
+      yellow  = '#${bright.yellow}'
+      blue    = '#${bright.blue}'
+      magenta = '#${bright.magenta}'
+      cyan    = '#${bright.cyan}'
+      white   = '#${bright.white}'
 '';
   };
 }

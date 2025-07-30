@@ -8,6 +8,7 @@ let
   config = import ./params.nix;
   home-manager = builtins.fetchTarball
     "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
+  theme = import ./theme.nix;
 in
 {
   imports = [
@@ -28,23 +29,25 @@ in
   };
 
   console.colors = [
-    "1d2021"
-    "cc241d"
-    "98971a"
-    "d79921"
-    "458588"
-    "b16286"
-    "689d6a"
-    "a89984"
-    "282828"
-    "fb4934"
-    "b8bb26"
-    "fabd2f"
-    "83a598"
-    "d3869b"
-    "8ec07c"
-    "ebdbb2"
-  ];
+    theme.dark.black
+  ] ++ (with theme.normal; [
+    red
+    green
+    yellow
+    blue
+    magenta
+    cyan
+    white
+  ]) ++ (with theme.bright; [
+    black
+    red
+    green
+    yellow
+    blue
+    magenta
+    cyan
+    white
+  ]);
 
   nix = {
     extraOptions = ''

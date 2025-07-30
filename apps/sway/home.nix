@@ -23,42 +23,30 @@ in {
       menu = "dmenu_run";
       modifier = "Mod4";
 
-      colors = {
-        background = theme.background;
+      colors = with theme; rec {
+        background = "#${theme.background}";
         focused = {
-          background = theme.dark.blue;
-          border = theme.dark.blue;
-          childBorder = theme.dark.blue;
+          background = "#${bg.blue}";
+          border = "#${dark.blue}";
+          childBorder = "#${dark.blue}";
           indicator = "#2e9ef4";
-          text = theme.foreground;
+          text = "#${foreground}";
         };
-        focusedInactive = {
-          background = "#5f676a";
-          border = "#333333";
-          childBorder = "#5f676a";
-          indicator = "#484e50";
-          text = "#ffffff";
-        };
-        placeholder = {
-          background = "#0c0c0c";
-          border = "#000000";
-          childBorder = "#0c0c0c";
-          indicator = "#000000";
-          text = "#ffffff";
-        };
+        focusedInactive = focused;
+        placeholder = unfocused;
         unfocused = {
-          background = "#222222";
-          border = "#333333";
-          childBorder = "#222222";
+          background = "#${dim.blue}";
+          border = "#${dim.blue}";
+          childBorder = "#${dim.blue}";
           indicator = "#292d2e";
-          text = "#888888";
+          text = "#${foreground}";
         };
         urgent = {
-          background = theme.bg.red;
-          border = theme.normal.red;
-          childBorder = "#900000";
+          background = "#${bg.red}";
+          border = "#${normal.red}";
+          childBorder = "#${normal.red}";
           indicator = "#900000";
-          text = theme.foreground;
+          text = "#${foreground}";
         };
       };
 
@@ -106,19 +94,35 @@ in {
         {
           command = ''
             swayidle -w \
-            timeout 300 'swaylock -f -c 000000' \
+            timeout 300 'swaylock -f -c ${theme.background}' \
             timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-            before-sleep 'swaylock -f -c 000000'
+            before-sleep 'swaylock -f -c ${theme.background}'
             '';
         }
       ];
 
       bars = [
         {
-          colors = {
-            background = "${theme.background}ff";
-            statusline = theme.foreground;
-            separator = theme.bg.white;
+          # https://mynixos.com/home-manager/options/wayland.windowManager.sway.config.bars.*.colors
+          colors = with theme; {
+            activeWorkspace = {
+              background = "#${bg.blue}";
+              border = "#${normal.blue}";
+              text = "#${foreground}";
+            };
+            background = "#${background}cf";
+            inactiveWorkspace = {
+              background = "#${dim.blue}";
+              border = "#${dim.blue}";
+              text = "#${foreground}";
+            };
+            statusline = "#${foreground}";
+            separator = "#${bg.white}";
+            urgentWorkspace = {
+              background = "#${bg.red}";
+              border = "#${normal.red}";
+              text = "#${foreground}";
+            };
           };
           command = "${pkgs.sway}/bin/swaybar";
           statusCommand = "${i3status-wrapper}/bin/i3status-wrapper";

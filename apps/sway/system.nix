@@ -5,9 +5,9 @@ in {
     general {
       output_format = "i3bar"
       colors = true
-      color_good = "${bright.green}"
-      color_bad = "${bright.red}"
-      color_degraded = "${bg.white}"
+      color_good = "#${bright.green}"
+      color_bad = "#${bright.red}"
+      color_degraded = "#${dim.white}"
       interval = 1
     }
 
