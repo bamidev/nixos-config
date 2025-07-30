@@ -1,0 +1,7 @@
+{
+  # One of: "desktop", "nas"
+  environmentType = "desktop";
+
+  # Set to true to have steam installed
+  enableGames = false;
+}

@@ -1,5 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
+  devices = {
+    "desktop" = { id = "AJG3MX7-DTBTZKM-RHR3YQN-HZMYNPT-IAREIAF-UGXRFFU-MPUHO7T-ACO5IAJ"; };
+    "main-laptop" = { id = "NYCX7JQ-6MVJLLS-G4GNLVD-QLFZ4MU-XPZWI66-HUMXO4Z-HWT4AY4-ZSDZ5QE"; };
+    "nas" = { id = "YQT6FYO-OGJHF6Q-WEMZWGM-QP3MJLF-F5VJ3IM-QYEEGW3-QULYD7H-ZP7OFAJ"; };
+    "travel-laptop" = { id = "NYCX7JQ-6MVJLLS-G4GNLVD-QLFZ4MU-XPZWI66-HUMXO4Z-HWT4AY4-ZSDZ5Q0"; };
+  };
   defaultVersioning = {
     type = "staggered";
     params = {
@@ -8,9 +14,9 @@ let
       maxAge = "157680000"; # About 5 years
     };
   };
-  devices = [ "main-laptop" "desktop" "nas" ];
+  deviceNames = lib.attrsets.mapAttrsToList (name: value: name) devices;
   defaultFolder = {
-    devices = devices;
+    devices = deviceNames;
     ignorePerms = false;
     versioning = defaultVersioning;
   };
@@ -26,12 +32,7 @@ in {
     overrideFolders = true;
     
     settings = {
-      devices = {
-        "main-laptop" = { id = "NYCX7JQ-6MVJLLS-G4GNLVD-QLFZ4MU-XPZWI66-HUMXO4Z-HWT4AY4-ZSDZ5QE"; };
-        "desktop" = { id = "AJG3MX7-DTBTZKM-RHR3YQN-HZMYNPT-IAREIAF-UGXRFFU-MPUHO7T-ACO5IAJ"; };
-        "nas" = { id = "YQT6FYO-OGJHF6Q-WEMZWGM-QP3MJLF-F5VJ3IM-QYEEGW3-QULYD7H-ZP7OFAJ"; };
-      };
-
+      devices = devices;
       folders = {
         "Sync" = defaultFolder // {
           path = "${dataDir}/Sync";
@@ -51,6 +52,9 @@ in {
         };
         "therp/Documents" = defaultFolder // {
           path = "${dataDir}/therp/Documents";
+        };
+        "therp/openvpn" = defaultFolder // {
+          path = "${dataDir}/therp/openvpn";
         };
       };
 
@@ -103,6 +107,7 @@ in {
         create_folder_link bamilab Music
         create_folder_link bamilab Pictures
         create_folder_link therp Documents
+        create_folder_link therp openvpn
 
         # Some files synced across both users and devices
         create_file_link bamilab .config/FreeTube/profiles.db

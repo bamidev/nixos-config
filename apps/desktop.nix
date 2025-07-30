@@ -5,6 +5,7 @@ in {
   imports = [
     ./greetd.nix
     ./sway/system.nix
+    ./thunderbird.nix
   ] ++ lib.optionals config.enableGames [
     ./steam.nix
   ];
@@ -248,13 +249,6 @@ in {
         # use this if they aren't displayed properly:
         export _JAVA_AWT_WM_NONREPARENTING=1
       '';
-    };
-
-    thunderbird = {
-      enable = true;
-
-      preferencesStatus = "locked";
-      preferences = {};
     };
   };
 

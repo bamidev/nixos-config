@@ -5,7 +5,7 @@ let
     do
       read -r LINE
       if [ "''${LINE:0:3}" == ",[{" ]; then
-        TODO_COUNT=$(cat $HOME/todo.txt | wc -l)
+        TODO_COUNT=$(cat $HOME/Documents/todo.txt | wc -l)
         echo ",[{\"name\":\"todo\",\"full_text\":\"TODOs: $TODO_COUNT\"},''${LINE:2}"
       else
         echo "$LINE"
@@ -74,6 +74,7 @@ in {
       };
       keybindings = lib.mkOptionDefault{
         "${modifier}+q" = "exec librewolf";
+        "${modifier}+t" = "exec ${pkgs.alacritty}/bin/alacritty --class floating-terminal";
         "XF86MonBrightnessDown" = "exec sudo-brightness-down";
         "XF86MonBrightnessUp" = "exec sudo-brightness-up";
         "XF86AudioLowerVolume" = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%''";
@@ -132,11 +133,14 @@ in {
           workspaceNumbers = true;
         }
       ];
+
+      workspaceLayout = "tabbed";
     };
 
     extraConfig = ''
       # Cool transparant windows for certain apps
       for_window [app_id="Alacritty"] opacity 0.8
+      for_window [app_id="floating-terminal"] floating enable, sticky enable, opacity 0.85, resize set width 800 height 1000, move right 500
       for_window [app_id="Element"] opacity 0.9
       for_window [app_id="Session"] opacity 0.9
       for_window [app_id="signal"] opacity 0.9
