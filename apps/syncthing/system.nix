@@ -53,6 +53,9 @@ in {
         "therp/Documents" = defaultFolder // {
           path = "${dataDir}/therp/Documents";
         };
+        "therp/Pictures" = defaultFolder // {
+          path = "${dataDir}/therp/Pictures";
+        };
         "therp/openvpn" = defaultFolder // {
           path = "${dataDir}/therp/openvpn";
         };
@@ -107,6 +110,7 @@ in {
         create_folder_link bamilab Music
         create_folder_link bamilab Pictures
         create_folder_link therp Documents
+        create_folder_link therp Pictures
         create_folder_link therp openvpn
 
         # Some files synced across both users and devices
