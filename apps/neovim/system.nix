@@ -3,7 +3,8 @@ let
   config = import ../../params.nix;
 in {
   environment.systemPackages = with pkgs; [
-    gcc # Needed for the treesitter plugin, to be able to compile language parsers.
+    gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
+    ripgrep # Needed for the telescope plugin
   ];
 
   programs.neovim = {
