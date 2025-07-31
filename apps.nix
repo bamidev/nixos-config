@@ -71,5 +71,7 @@ in {
       enableSSHSupport = true;
     };
   };
+
+  services.openssh.enable = true;
 }
 

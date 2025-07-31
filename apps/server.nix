@@ -9,10 +9,6 @@
     };
 
     logind.lidSwitch = "ignore";
-
-    openssh = {
-      enable = true;
-    };
   };
 
   systemd.sleep.extraConfig = ''
