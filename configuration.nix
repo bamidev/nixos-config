@@ -21,11 +21,17 @@ in
 
   system.stateVersion = "24.11";
 
-  boot.loader.grub = {
-    enable = true;
-  } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.jpg) {
-    splashImage = /home/bamilab/Pictures/wallpapers/grub.jpg;
-    splashMode = "stretch";
+  boot = {
+    # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
+    # supported by the VPN.
+    kernelParams = [ "ipv6.disable=1" ];
+
+    loader.grub = {
+      enable = true;
+    } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.jpg) {
+      splashImage = /home/bamilab/Pictures/wallpapers/grub.jpg;
+      splashMode = "stretch";
+    };
   };
 
   console.colors = [
@@ -65,6 +71,7 @@ in
   };
 
   networking = {
+    enableIPv6 = false;
     hostName = "baminix";
     networkmanager.enable = true;  # Easiest to use and most distros use this by default.
     resolvconf = {

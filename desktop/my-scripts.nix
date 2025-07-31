@@ -1,14 +1,12 @@
 { pkgs, ... }:
 
 let
-  brightness-down = pkgs.writeShellScriptBin "brightness-down" ''
-    #!/bin/bash
+  brightness-down = pkgs.writers.writeBashBin "brightness-down" ''
     MIN=10
     B=$(echo $(cat '/sys/class/backlight/intel_backlight/brightness') - 100 | bc)
     echo $(( B > MIN ? B : MIN )) | tee /sys/class/backlight/intel_backlight/brightness
     '';
-  brightness-up = pkgs.writeShellScriptBin "brightness-up" ''
-    #!/bin/bash
+  brightness-up = pkgs.writers.writeBashBin "brightness-up" ''
     B=$(echo $(cat '/sys/class/backlight/intel_backlight/brightness') + 100 | bc)
     M=$(cat /sys/class/backlight/intel_backlight/max_brightness)
     echo $(( B > M ? M : B )) | tee /sys/class/backlight/intel_backlight/brightness
@@ -31,22 +29,27 @@ let
   '';
   install-ssh-keys = pkgs.writers.writeBashBin "install-ssh-keys" ''
     set -e
+    mkdir -p /home/bamilab/.ssh
     pass ssh/bamilab/public > /home/bamilab/.ssh/id_ed25519.pub
     pass ssh/bamilab/private > /home/bamilab/.ssh/id_ed25519
     chmod 600 /home/bamilab/.ssh/id_ed25519
     ssh-add || true
+    sudo -u therp mkdir -p /home/therp/.ssh
     pass ssh/therp/public | sudo -u therp tee /home/therp/.ssh/id_rsa.pub > /dev/null
     pass ssh/therp/private | sudo -u therp tee /home/therp/.ssh/id_rsa > /dev/null
     sudo chmod 600 /home/therp/.ssh/id_rsa
     # TODO: Add the therp ssh key to the ssh-agent
   '';
-  sudo-brightness-down = pkgs.writeShellScriptBin "sudo-brightness-down" ''
-    #!/bin/bash
+  sudo-brightness-down = pkgs.writers.writeBashBin "sudo-brightness-down" ''
     sudo ${brightness-down}/bin/brightness-down
   '';
-  sudo-brightness-up = pkgs.writeShellScriptBin "sudo-brightness-up" ''
-    #!/bin/bash
+  sudo-brightness-up = pkgs.writers.writeBashBin "sudo-brightness-up" ''
     sudo ${brightness-up}/bin/brightness-up
+  '';
+  transfer-pgp-keys = pkgs.writers.writeBashBin "transfer-pgp-keys" ''
+    ${pkgs.gnupg}/bin/gpg --export-secret-keys --armor > /tmp/gpg-secret-keys.pem
+    ${pkgs.openssh}/bin/scp /tmp/gpg-secret-keys.pem bamilab@$1:/tmp/gpg-secret-keys.pem
+    ${pkgs.openssh}/bin/ssh bamilab@$1 gpg --import /tmp/gpg-secret-keys.pem
   '';
 in {
   environment.systemPackages = [
