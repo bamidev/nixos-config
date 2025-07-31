@@ -94,9 +94,10 @@ in {
 
         function create_folder_link() {
           USER_DIR="/var/lib/syncthing/$1"
+          REAL_DIR="$USER_DIR/$2"
+          mkdir -p "$REAL_DIR"
           chown "$1:users" "$USER_DIR"
           chmod 775 "$USER_DIR"
-          REAL_DIR="$USER_DIR/$2"
           chown "$1:users" "$REAL_DIR"
           chmod 775 "$REAL_DIR"
           ${pkgs.acl}/bin/setfacl -d -m g::rwx "$REAL_DIR"
