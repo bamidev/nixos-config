@@ -46,8 +46,12 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
           installation_mode = "force_installed";
         };
-        "Authenticator" = {
+        "authenticator@mymindstorm" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/auth-helper/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "floccus@handmadeideas.org" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
           installation_mode = "force_installed";
         };
       };
