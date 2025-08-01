@@ -6,6 +6,7 @@ in if params.environmentType == "desktop" then {
     ./default.nix
     ../apps/alacritty.nix
     ../apps/freetube.nix
+    ../apps/hyprland.nix
     ../apps/librewolf.nix
     ../apps/neovim/home.nix
     ../apps/sway/home.nix

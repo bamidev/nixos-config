@@ -8,4 +8,10 @@
       };
     };
   };
+
+  environment.etc."greetd/environments".text = ''
+    bash
+    hyprland
+    sway
+  '';
 }
