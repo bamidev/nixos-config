@@ -24,6 +24,8 @@ in {
   services.syncthing = rec {
     enable = true;
 
+    # Give the syncthing process the users group, so that it is able to get some privileges on user
+    # directories.
     group = "users";
 
     dataDir = "/var/lib/syncthing";
@@ -40,6 +42,9 @@ in {
         };
         "bamilab/.password-store" = defaultFolder // {
           path = "${dataDir}/bamilab/.password-store";
+        };
+        "bamilab/code/private" = defaultFolder // {
+          path = "${dataDir}/bamilab/code/private";
         };
         "bamilab/Documents" = defaultFolder // {
           path = "${dataDir}/bamilab/Documents";
@@ -96,17 +101,19 @@ in {
           USER_DIR="/var/lib/syncthing/$1"
           REAL_DIR="$USER_DIR/$2"
           mkdir -p "$REAL_DIR"
+          mkdir -p $(dirname "/home/$1/$2")
           chown "$1:users" "$USER_DIR"
           chmod 775 "$USER_DIR"
           chown "$1:users" "$REAL_DIR"
           chmod 775 "$REAL_DIR"
           ${pkgs.acl}/bin/setfacl -d -m g::rwx "$REAL_DIR"
-          if [ ! -e /home/$1/$2 ]; then
-            ln -s "$REAL_DIR" /home/$1/$2
+          if [ ! -e "/home/$1/$2" ]; then
+            ln -s "$REAL_DIR" "/home/$1/$2"
           fi
         }
 
         create_folder_link bamilab .password-store
+        create_folder_link bamilab code/private
         create_folder_link bamilab Documents
         create_folder_link bamilab Music
         create_folder_link bamilab Pictures
