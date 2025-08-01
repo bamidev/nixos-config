@@ -4,6 +4,7 @@
   imports = [
     ./server.nix
 
+    ./nextcloud.nix
     ./radicale.nix
   ];
 }
