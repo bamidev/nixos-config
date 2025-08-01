@@ -12,6 +12,7 @@ let
       fi
      done
   '';
+  startupCommands = import ../../desktop/startup.nix;
   theme = import ../../theme.nix;
 in {
   wayland.windowManager.sway = {
@@ -82,15 +83,7 @@ in {
         "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
       };
       terminal = "bash -c \"$(printenv TERMINAL)\"";
-      startup = [
-        # Launch applications on startup
-        { command = "wlsunset -l 51.0 -L 5.4 -t 3000"; }
-        { command = "protonmail-bridge-gui"; }
-        { command = "thunderbird"; }
-        { command = "element-desktop --hidden"; }
-        { command = "session-desktop"; }
-        { command = "signal-desktop --password-store=\"gnome-libsecret\" --use-tray-icon"; }
-
+      startup = lib.lists.forEach startupCommands (x: { command = x; }) ++ [
         # Lock screen when idle
         {
           command = ''
