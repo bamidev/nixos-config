@@ -36,7 +36,7 @@
 
         up)
           for optionname in ''${!foreign_option_*} ; do
-            option="$${!optionname}"
+            option="''${!optionname}"
             echo $option
             part1=$(echo "$option" | cut -d " " -f 1)
             if [ "$part1" == "dhcp-option" ] ; then
@@ -61,7 +61,7 @@
           fi
 
           for NS in $IF_DNS_NAMESERVERS ; do
-            R=''${R}nameserver $NS
+            R="''${R}nameserver $NS
         "
           done
           #echo -n "$R" | $RESOLVCONF -x -p -a "''${dev}"
