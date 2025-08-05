@@ -12,6 +12,7 @@ let
       fi
      done
   '';
+  monitors = import ../../desktop/monitors.nix;
   startupCommands = import ../../desktop/startup.nix;
   theme = import ../../theme.nix;
 in {
@@ -51,7 +52,17 @@ in {
         };
       };
 
-      output = {
+      output = builtins.listToAttrs (lib.lists.forEach monitors.all (x:
+        {
+          name = x.id;
+          value = {
+            bg = "~/Pictures/wallpapers/default.jpg fill";
+            position = toString x.position.x + "," + toString x.position.y;
+          };
+        }
+      ));
+
+      /*output = {
         eDP-1 = {
           bg = "~/Pictures/laptop-wallpaper.png fill";
           resolution = "1920x1080";
@@ -72,7 +83,7 @@ in {
           resolution = "1920x1200";
           position = "2000,800";
         };
-      };
+      };*/
       keybindings = lib.mkOptionDefault{
         "${modifier}+q" = "exec librewolf";
         "${modifier}+t" = "exec ${pkgs.alacritty}/bin/alacritty --class floating-terminal";
@@ -91,7 +102,7 @@ in {
             timeout 300 'swaylock -f -c ${theme.background}' \
             timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
             before-sleep 'swaylock -f -c ${theme.background}'
-            '';
+          '';
         }
       ];
 

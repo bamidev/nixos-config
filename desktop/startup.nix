@@ -4,5 +4,5 @@
   "thunderbird"
   "element-desktop --hidden"
   "session-desktop"
-  "signal-desktop --use-tray-icon"
+  "signal-desktop --use-tray-icon --pasword-store=\"gnome-libsecret\""
 ]
