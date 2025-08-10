@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   brightness-down = pkgs.writers.writeBashBin "brightness-down" ''
@@ -40,6 +40,20 @@ let
     sudo chmod 600 /home/therp/.ssh/id_rsa
     # TODO: Add the therp ssh key to the ssh-agent
   '';
+  pick-random-wallpaper = pkgs.writers.writeBashBin "pick-random-wallpaper" ''
+    set -e
+    function pick_random_file() {
+      PICKED=$(find $1 | shuf | head -n 1)
+      if [ -d "$PICKED" ]; then
+        pick_random_file "$PICKED"
+      else
+        echo $PICKED
+      fi
+    }
+
+    WALLPAPER=$(pick_random_file ~/Pictures/wallpapers)
+    ${lib.getExe pkgs.swaybg} -m fill -i "$WALLPAPER"
+  '';
   sudo-brightness-down = pkgs.writers.writeBashBin "sudo-brightness-down" ''
     sudo ${brightness-down}/bin/brightness-down
   '';
@@ -57,6 +71,7 @@ in {
     brightness-down
     current-workspace
     here
+    pick-random-wallpaper
     sudo-brightness-up
     sudo-brightness-down
   ];

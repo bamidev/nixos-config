@@ -21,12 +21,6 @@ in {
 
     libinput.enable = true;
 
-    /*openvpn = {
-      servers = {
-        protonvpn = { config = '' config /root/nixos/openvpn/protonvpn.conf ''; };
-      };
-    };*/
-
     # Sound server
     pipewire = {
       enable = true;

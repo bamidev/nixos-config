@@ -13,7 +13,7 @@ let
      done
   '';
   monitors = import ../../desktop/monitors.nix;
-  startupCommands = import ../../desktop/startup.nix;
+  startupCommands = import ../../desktop/startup.nix {pkgs=pkgs; lib=lib;};
   theme = import ../../theme.nix;
 in {
   wayland.windowManager.sway = {
@@ -56,7 +56,7 @@ in {
         {
           name = x.id;
           value = {
-            bg = "~/Pictures/wallpapers/default.jpg fill";
+            #bg = "~/Pictures/wallpapers/default.jpg fill";
             position = toString x.position.x + "," + toString x.position.y;
           };
         }

@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
   monitors = import ../desktop/monitors.nix;
-  startupCommands = import ../desktop/startup.nix;
+  startupCommands = import ../desktop/startup.nix {lib=lib; pkgs=pkgs;};
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -64,9 +64,7 @@ in {
         };
       };
 
-      exec-once = startupCommands ++ [
-        "hyprctl hyprpaper wallpaper \"~/Pictures/default.jpg\""
-      ];
+      exec-once = startupCommands;
 
       general = {
         layout = "master";

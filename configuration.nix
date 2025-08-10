@@ -28,8 +28,8 @@ in
 
     loader.grub = {
       enable = true;
-    } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/wallpapers/grub.jpg) {
-      splashImage = /home/bamilab/Pictures/wallpapers/grub.jpg;
+    } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
+      splashImage = /home/bamilab/Pictures/grub.png;
       splashMode = "stretch";
     };
   };
