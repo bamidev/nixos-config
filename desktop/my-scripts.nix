@@ -43,7 +43,7 @@ let
   pick-random-wallpaper = pkgs.writers.writeBashBin "pick-random-wallpaper" ''
     set -e
     function pick_random_file() {
-      PICKED=$(find $1 | shuf | head -n 1)
+      PICKED=$(find "$1" | shuf | head -n 1)
       if [ -d "$PICKED" ]; then
         pick_random_file "$PICKED"
       else
