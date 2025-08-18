@@ -142,8 +142,8 @@ in {
     };
 
     extraConfig = ''
-      # Cool transparant windows for certain apps
-      for_window [app_id="Alacritty"] opacity 0.8
+      # Window settings
+      for_window [app_id="Alacritty"] opacity 0.8, resize set width 880 px
       for_window [app_id="floating-terminal"] floating enable, sticky enable, opacity 0.85, resize set width 800 height 1000, move right 500
       for_window [app_id="Element"] opacity 0.9
       for_window [app_id="Session"] opacity 0.9
