@@ -43,7 +43,7 @@ let
   pick-random-wallpaper = pkgs.writers.writeBashBin "pick-random-wallpaper" ''
     set -e
     function pick_random_file() {
-      PICKED=$(find "$1" | shuf | head -n 1)
+      PICKED=$(find "$1" -mindepth 1 -maxdepth 1 | shuf | head -n 1)
       if [ -d "$PICKED" ]; then
         pick_random_file "$PICKED"
       else
@@ -51,7 +51,7 @@ let
       fi
     }
 
-    WALLPAPER=$(pick_random_file ~/Pictures/wallpapers)
+    WALLPAPER=$(pick_random_file /var/lib/syncthing/Sync/wallpapers)
     ${lib.getExe pkgs.swaybg} -m fill -i "$WALLPAPER"
   '';
   sudo-brightness-down = pkgs.writers.writeBashBin "sudo-brightness-down" ''
