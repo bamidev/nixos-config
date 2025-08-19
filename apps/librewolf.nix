@@ -17,6 +17,7 @@
       };
       Preferences = {
         "browser.policies.runOncePerModification.setDefaultSearchEngine" = "DuckDuckGo";
+        "browser.toolbars.bookmarks.visibility" = "newtab";
         "browser.translations.enable" = false;
         "extensions.activeThemeID" = "{dfb93b31-21ba-46fc-977d-46300ce0a76b}";
         "privacy.donottrackheader.enabled" = true;
