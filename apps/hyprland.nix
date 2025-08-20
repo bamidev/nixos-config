@@ -7,6 +7,10 @@ in {
     enable = true;
     xwayland.enable = true;
 
+    plugins = [
+      pkgs.hyprlandPlugins.hy3
+    ];
+
     settings = {
       "$mod" = "SUPER";
       "$modsh" = "SUPER_SHIFT";
@@ -39,6 +43,7 @@ in {
         "$mod, RETURN, exec,        $terminal"
         "$mod, D,      exec,        dmenu_run"
         "$mod, G,      togglegroup,"
+        "$mod, L,      lockactivegroup,"
         "$mod, T,      exec,        $terminal"
         "$mod, Q,      exec,        $browser"
 
@@ -78,6 +83,12 @@ in {
       ) ++ [
         ", preferred, auto, 1"
       ];
+
+      tab_first_window = true;
+
+      /*window-rule = [
+        "opacity 0.9"
+      ];*/
     };
   };
 

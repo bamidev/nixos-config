@@ -61,6 +61,8 @@ in {
     udev.extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
     '';
+
+    udisks2.enable = true;
   };
 
   # List packages installed in system profile. To search, run:
@@ -73,6 +75,10 @@ in {
         gtk-application-prefer-dark-theme=1
       '';
     };
+
+    pathsToLink = [
+      "share/thumbnailers"
+    ];
 
     sessionVariables = with pkgs; rec {
       BROWSER = "${librewolf}/bin/librewolf";
@@ -103,12 +109,13 @@ in {
       file-roller
       gcc
       gimp
+      libheif # For nautilus image preview
+      libheif.out
       libreoffice
       mako
       nautilus
       pavucontrol
       pre-commit
-      protonmail-bridge
       protonmail-bridge-gui
       rustup
       session-desktop
@@ -119,7 +126,6 @@ in {
       transmission_4-gtk
       vial
       wl-clipboard
-      wlsunset
 
       # Install a bunch of python packages so that they are available to pylsp
       (python3.withPackages (python-pkgs: with python-pkgs; [
