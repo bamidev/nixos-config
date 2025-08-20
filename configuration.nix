@@ -58,6 +58,8 @@ in
     white
   ]);
 
+  hardware.enableRedistributableFirmware = lib.mkDefault false;
+
   nix = {
     extraOptions = ''
       keep-outputs = true
