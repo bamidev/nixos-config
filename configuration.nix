@@ -26,11 +26,14 @@ in
     # supported by the VPN.
     kernelParams = [ "ipv6.disable=1" ];
 
-    loader.grub = {
-      enable = true;
-    } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
-      splashImage = /home/bamilab/Pictures/grub.png;
-      splashMode = "stretch";
+    loader = {
+      grub = {
+        enable = true;
+      } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
+        splashImage = /home/bamilab/Pictures/grub.png;
+        splashMode = "stretch";
+      };
+      timeout = 2;
     };
   };
 
