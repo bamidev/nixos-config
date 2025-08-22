@@ -1,0 +1,4 @@
+{
+  enableGames = false;
+  environmentType = "desktop";
+}

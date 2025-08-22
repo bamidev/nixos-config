@@ -5,17 +5,18 @@
 { pkgs, lib, ... }:
 
 let
-  config = import ./params.nix;
+  deviceConfig = import ./device.nix;
+  params = import ./params.nix;
   home-manager = builtins.fetchTarball
     "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
   theme = import ./theme.nix;
 in
 {
   imports = [
-    ./hardware-configuration.nix
+    "/etc/nixos/device/${deviceConfig.name}/hardware.nix"
     (import "${home-manager}/nixos")
     ./apps.nix
-  ] ++ lib.optionals (config.environmentType == "desktop") [
+  ] ++ lib.optionals (params.environmentType == "desktop") [
     ./desktop/my-scripts.nix
   ];
 
@@ -128,7 +129,7 @@ in
         ];
       };
 
-    } // lib.attrsets.optionalAttrs (config.environmentType != "desktop") {
+    } // lib.attrsets.optionalAttrs (params.environmentType != "desktop") {
 
       admin = {
         description = "Administrator";
@@ -154,7 +155,7 @@ in
           import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; };
         therp = { pkgs, lib, ... }:
           import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; };
-      } // lib.attrsets.optionalAttrs (config.environmentType != "desktop") {
+      } // lib.attrsets.optionalAttrs (params.environmentType != "desktop") {
         admin = { pkgs, lib, ... }:
           import ./users/admin.nix { pkgs=pkgs; lib=lib; username="admin"; };
       };
