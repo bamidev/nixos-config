@@ -3,6 +3,10 @@ let
   monitors = import ../desktop/monitors.nix;
   startupCommands = import ../desktop/startup.nix {lib=lib; pkgs=pkgs;};
 in {
+  imports = [
+    ./waybar.nix
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -21,29 +25,32 @@ in {
 
       animation = [
         "global, 1, 1, easeInSine"
-        "fade, 1, 2, easeInSine"
-        "windows, 1, 1, easeInSine, slide"
+        "fade, 1, 0.35, easeInOutQuint"
+        "windows, 1, 0.35, easeInOutQuint, slide"
         "workspaces, 1, 1.2, easeInSine, slidefade"
       ];
 
       bezier = [
         "easeInSine, 0.12, 0, 0.39, 0"
+        "easeInQuart, 0.5, 0, 0.75, 0"
+        "easeInOutQuint, 0.85, 0, 0.15, 1"
       ];
 
       bind = [
-        "$mod,   LEFT,  movefocus,         l"
+        "$mod,   LEFT,  hy3:movefocus,         l"
         "$modsh, LEFT,  changegroupactive, l"
-        "$mod,   RIGHT, movefocus,         r"
+        "$mod,   RIGHT, hy3:movefocus,         r"
         "$modsh, RIGHT, changegroupactive, r"
-        "$mod,   UP,    movefocus,         u"
+        "$mod,   UP,    hy3:movefocus,         u"
         "$modsh, UP,    changegroupactive, u"
-        "$mod,   DOWN,  movefocus,         d"
+        "$mod,   DOWN,  hy3:movefocus,         d"
         "$modsh, DOWN,  changegroupactive, d"
 
         "$mod, RETURN, exec,        $terminal"
+        "$mod, B,      hy3:makegroup, h"
         "$mod, D,      exec,        dmenu_run"
-        "$mod, G,      togglegroup,"
-        "$mod, L,      lockactivegroup,"
+        "$mod, V,      hy3:makegroup, v"
+        "$mod, L,      hy3:locktab,"
         "$mod, T,      exec,        $terminal"
         "$mod, Q,      exec,        $browser"
 
@@ -55,11 +62,22 @@ in {
         "$modsh, SPACE, togglefloating"
       ];
 
+      binde = [
+        ", XF86MonBrightnessDown, exec, sudo-brightness-down"
+        ", XF86MonBrightnessUp, exec, sudo-brightness-up"
+        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -1%"
+        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +1%"
+        ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+      ];
+
       decoration = {
         blur = {
           enabled = true;
-          size = 3;
+          contrast = 0.7;
+          noise = 0.15;
+          size = 7;
           passes = 2;
+          vibrancy = 0.2;
         };
 
         shadow = {
@@ -69,13 +87,17 @@ in {
         };
       };
 
-      exec-once = startupCommands;
+      exec-once = startupCommands ++ [
+        "${lib.getExe pkgs.waybar}"
+      ];
 
       general = {
-        layout = "master";
+        layout = "hy3";
       };
 
       input.touchpad.natural_scroll = true;
+
+      misc.disable_hyprland_logo = true;
 
       monitor = lib.lists.forEach monitors.all (x:
         (if x.idSource == "description" then "desc:" else "") + x.id + ", " +
@@ -84,11 +106,19 @@ in {
         ", preferred, auto, 1"
       ];
 
-      tab_first_window = true;
+      plugin = {
+        hy3 = {
+          tab_first_window = true;
+        };
+      };
 
-      /*window-rule = [
-        "opacity 0.9"
-      ];*/
+      windowrule = [
+        "opacity 0.8, class:^Alacritty$"
+        "opacity 0.9, class:^Element$"
+        "opacity 0.9, class:^Session$"
+        "opacity 0.9, class:^signal$"
+        "opacity 0.9, class:^thunderbird$"
+      ];
     };
   };
 

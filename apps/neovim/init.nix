@@ -32,7 +32,7 @@
   vim.api.nvim_create_autocmd({'BufWinEnter', 'VimResized'}, {
     callback = function(args)
       local width = vim.api.nvim_win_get_width(0)
-      local is_small = width <= (vim.o.textwidth + 50)
+      local is_small = width <= (vim.o.textwidth + 30)
       vim.diagnostic.config({
         virtual_lines = is_small,
         virtual_text = not is_small,

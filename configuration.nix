@@ -17,7 +17,7 @@ in
     (import "${home-manager}/nixos")
     ./apps.nix
   ] ++ lib.optionals (params.environmentType == "desktop") [
-    ./desktop/my-scripts.nix
+    ./desktop.nix
   ];
 
   system.stateVersion = "24.11";
