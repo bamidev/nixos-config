@@ -1,4 +1,4 @@
 {
-  enableGames = false;
   environmentType = "desktop";
+  enableGames = false;
 }
