@@ -2,6 +2,7 @@
 let
   monitors = import ../desktop/monitors.nix;
   startupCommands = import ../desktop/startup.nix {lib=lib; pkgs=pkgs;};
+  theme = import ../theme.nix;
 in {
   imports = [
     ./waybar.nix
@@ -52,7 +53,9 @@ in {
         "$mod, V,      hy3:makegroup, v"
         "$mod, L,      hy3:locktab,"
         "$mod, T,      exec,        $terminal"
-        "$mod, Q,      exec,        $browser"
+        "$mod, W,      exec,        $browser"
+
+        "$modsh, E, exit"
 
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
@@ -87,7 +90,7 @@ in {
         };
       };
 
-      exec-once = startupCommands ++ [
+      exec-once = lib.lists.forEach startupCommands (x: "[workspace 1] ${x}") ++ [
         "${lib.getExe pkgs.waybar}"
       ];
 
@@ -110,6 +113,14 @@ in {
         hy3 = {
           tab_first_window = true;
         };
+      };
+
+      tabs = {
+        /*col = with theme; {
+          active = "rgba(${normal.blue}ff)";
+          active_border = "rgba(${dim.blue}ff)";
+          active_text = "rgba(${foreground}ff)";
+        };*/
       };
 
       windowrule = [
