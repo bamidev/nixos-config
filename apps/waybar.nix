@@ -12,7 +12,7 @@ in {
         height = 20;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "cpu" "memory" "battery" "tray" ];
+        modules-right = [ "custom/vpn" "pulseaudio" "cpu" "memory" "battery" "tray" ];
 
         cpu = { 
           "interval" = 10;
@@ -52,6 +52,14 @@ in {
           "on-click-right" = "pavucontrol";
           "format-muted" = "\uf00d {volume}%";
         };
+
+        "custom/vpn" ={
+          interval = 3;
+          format = "VPN: {}";
+          exec = "ip add show | grep -qF tun0 && echo Connected || echo Disconnected";
+          max-length = 100;
+          on-click = "systemctl restart openvpn-protonvpn";
+        };
       };
     };
 
@@ -73,6 +81,18 @@ in {
       #cpu {
         background-color: #${background};
         color: #${foreground};
+      }
+
+      #taskbar button.active {
+        background-color: #${bg.blue};
+      }
+
+      #workspaces {
+        color: #${foreground};
+      }
+
+      #workspaces button.active {
+        background-color: #${bg.blue};
       }
     '';
   };
