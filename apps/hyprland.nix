@@ -26,8 +26,8 @@ in {
 
       animation = [
         "global, 1, 1, easeInSine"
-        "fade, 1, 0.35, easeInOutQuint"
-        "windows, 1, 0.35, easeInOutQuint, slide"
+        "fade, 1, 1, easeInSine"
+        "windows, 1, 0.35, easeInSine, slide"
         "workspaces, 1, 1.2, easeInSine, slidefade"
       ];
 
@@ -47,23 +47,23 @@ in {
         "$mod,   DOWN,  hy3:movefocus,         d"
         "$modsh, DOWN,  changegroupactive, d"
 
-        "$mod, RETURN, exec,        $terminal"
-        "$mod, B,      hy3:makegroup, h"
-        "$mod, D,      exec,        dmenu_run"
-        "$mod, V,      hy3:makegroup, v"
-        "$mod, L,      hy3:locktab,"
-        "$mod, T,      exec,        $terminal"
-        "$mod, W,      exec,        $browser"
+        "$mod,   RETURN, exec,        $terminal"
+        "$mod,   B,      hy3:makegroup, h"
+        "$mod,   D,      exec,        dmenu_run"
+        "$mod,   V,      hy3:makegroup, v"
+        "$mod,   L,      hy3:locktab,"
+        "$mod,   T,      exec,        $terminal"
+        "$modsh, Q,      killactive,"
+        "$mod,   W,      exec,        $browser"
 
         "$modsh, E, exit"
 
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        
         "$modsh, SPACE, togglefloating"
-      ];
+      ]
+        ++ lib.lists.forEach (lib.range 1 9) (x: "$mod, ${toString x}, workspace, ${toString x}")
+        ++ lib.lists.forEach (lib.range 1 9) (x:
+          "$modsh, ${toString x}, movetoworkspacesilent, ${toString x}"
+        );
 
       binde = [
         ", XF86MonBrightnessDown, exec, sudo-brightness-down"
@@ -83,6 +83,8 @@ in {
           vibrancy = 0.2;
         };
 
+        rounding = 5;
+
         shadow = {
           #enable = true;
           range = 4;
@@ -90,12 +92,15 @@ in {
         };
       };
 
-      exec-once = lib.lists.forEach startupCommands (x: "[workspace 1] ${x}") ++ [
+      exec-once = lib.lists.forEach startupCommands (x: "[workspace 1 silent] ${x}") ++ [
         "${lib.getExe pkgs.waybar}"
       ];
 
       general = {
+        gaps_in = 2;
+        gaps_out = 7;
         layout = "hy3";
+        resize_on_border = true;
       };
 
       input.touchpad.natural_scroll = true;
@@ -112,15 +117,24 @@ in {
       plugin = {
         hy3 = {
           tab_first_window = true;
+          
+          tabs = {
+            blur = false;
+            "col.active" = "rgba(${theme.bg.blue}c0)";
+            "col.active.border" = "rgba(${theme.dark.blue}c0)";
+            "col.active.text" = "rgba(${theme.foreground}c0)";
+            "col.inactive" = "rgba(${theme.bg.black}40)";
+            "col.inactive.border" = "rgba(${theme.dim.black}40)";
+            "col.inactive.text" = "rgba(${theme.foreground}40)";
+            "col.locked" = "rgba(${theme.bg.green}80)";
+            "col.locked.border" = "rgba(${theme.dim.green}80)";
+            "col.locked.text" = "rgba(${theme.foreground}80)";
+            "col.urgent" = "rgba(${theme.bg.red}c0)";
+            "col.urgent.border" = "rgba(${theme.dim.red}c0)";
+            "col.urgent.text" = "rgba(${theme.foreground}c0)";
+            radius = 3;
+          };
         };
-      };
-
-      tabs = {
-        /*col = with theme; {
-          active = "rgba(${normal.blue}ff)";
-          active_border = "rgba(${dim.blue}ff)";
-          active_text = "rgba(${foreground}ff)";
-        };*/
       };
 
       windowrule = [
