@@ -22,7 +22,7 @@ in {
     package = null;
 
     config = rec {
-      menu = "dmenu_run";
+      menu = "wofi --show run";
       modifier = "Mod4";
 
       colors = with theme; rec {
@@ -85,7 +85,7 @@ in {
         };
       };*/
       keybindings = lib.mkOptionDefault{
-        "${modifier}+q" = "exec librewolf";
+        "${modifier}+w" = "exec librewolf";
         "${modifier}+t" = "exec ${pkgs.alacritty}/bin/alacritty --class floating-terminal";
         "XF86MonBrightnessDown" = "exec sudo-brightness-down";
         "XF86MonBrightnessUp" = "exec sudo-brightness-up";

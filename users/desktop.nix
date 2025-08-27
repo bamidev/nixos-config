@@ -11,6 +11,7 @@ in if params.environmentType == "desktop" then {
     ../apps/neovim/home.nix
     ../apps/sway/home.nix
     ../apps/todo-txt.nix
+    ../apps/wofi.nix
   ];
 
   programs = {

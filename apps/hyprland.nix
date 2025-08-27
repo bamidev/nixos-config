@@ -21,7 +21,7 @@ in {
       "$modsh" = "SUPER_SHIFT";
 
       "$terminal" = "${pkgs.alacritty}/bin/alacritty";
-      "$menu" = "${pkgs.dmenu}/bin/dmenu_run";
+      "$menu" = "wofi -n --show run";
       "$browser" = "${pkgs.librewolf}/bin/librewolf";
 
       animation = [
@@ -49,7 +49,7 @@ in {
 
         "$mod,   RETURN, exec,        $terminal"
         "$mod,   B,      hy3:makegroup, h"
-        "$mod,   D,      exec,        dmenu_run"
+        "$mod,   D,      exec,        $menu"
         "$mod,   V,      hy3:makegroup, v"
         "$mod,   L,      hy3:locktab,"
         "$mod,   T,      exec,        $terminal"
@@ -119,9 +119,10 @@ in {
           tab_first_window = true;
           
           tabs = {
-            blur = false;
+            blur = false; # The noise doesn't look very great on tabs
+            border_width = 1;
             "col.active" = "rgba(${theme.bg.blue}c0)";
-            "col.active.border" = "rgba(${theme.dark.blue}c0)";
+            "col.active.border" = "rgba(${theme.bright.blue}c0)";
             "col.active.text" = "rgba(${theme.foreground}c0)";
             "col.inactive" = "rgba(${theme.bg.black}40)";
             "col.inactive.border" = "rgba(${theme.dim.black}40)";
@@ -130,15 +131,16 @@ in {
             "col.locked.border" = "rgba(${theme.dim.green}80)";
             "col.locked.text" = "rgba(${theme.foreground}80)";
             "col.urgent" = "rgba(${theme.bg.red}c0)";
-            "col.urgent.border" = "rgba(${theme.dim.red}c0)";
+            "col.urgent.border" = "rgba(${theme.normal.red}c0)";
             "col.urgent.text" = "rgba(${theme.foreground}c0)";
-            radius = 3;
+            radius = 4;
           };
         };
       };
 
       windowrule = [
         "opacity 0.8, class:^Alacritty$"
+        "opacity 0.8, class:^wofi$"
         "opacity 0.9, class:^Element$"
         "opacity 0.9, class:^Session$"
         "opacity 0.9, class:^signal$"
