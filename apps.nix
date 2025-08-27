@@ -2,8 +2,7 @@
 let
   config = import ./params.nix;
 in {
-  imports =
-    [
+  imports = [
       ./apps/neovim/system.nix
       ./apps/syncthing/system.nix
     ] ++ lib.optionals (config.environmentType == "desktop") [
@@ -12,8 +11,6 @@ in {
       ./apps/nas.nix
     ];
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment = {
     etc = {
       gitconfig.text = ''
@@ -69,6 +66,14 @@ in {
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableBashIntegration = true;
+      flags = [
+        "--cmd c"
+      ];
     };
   };
 
