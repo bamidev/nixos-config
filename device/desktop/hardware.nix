@@ -7,10 +7,10 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            sha256 = "sha256-NQfdEFsKDhEBvUPSlEcvzPhTQpolml+nxnRnu6MY+Ok=";
+            sha256 = "sha256-iatGn8Nb2cvGxb9OXLgCWBgG1cvBT7R+XJ7cxHfmXZM=";
       };
-      version = "6.15.7";
-      modDirVersion = "6.15.7";
+      version = "6.15.11";
+      modDirVersion = "6.15.11";
     };
   });
   boot.kernelModules = [ "kvm-amd" ];
