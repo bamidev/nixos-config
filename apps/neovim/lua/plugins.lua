@@ -86,20 +86,6 @@ require('pckr').add{
 		end
 	},
 	{
-		"nvim-treesitter/nvim-treesitter",
-		tag = "v0.10.0",
-		config = function()
-			require('nvim-treesitter.configs').setup {
-				auto_install = true,
-				sync_install = false,
-
-				highlight = {
-					enable = true,
-				},
-			}
-		end
-	},
-	{
 		"preservim/nerdtree",
 		tag = "7.1.3",
 		config = function()
@@ -144,9 +130,26 @@ require('pckr').add{
 		-- Revert to the last known working commit to prevent the following bug:
 		-- https://github.com/kevinhwang91/nvim-ufo/issues/309https://github.com/kevinhwang91/nvim-ufo/issues/309
 		commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
-		requires = "kevinhwang91/promise-async",
+		requires = {
+			"kevinhwang91/promise-async",
+			{
+				"nvim-treesitter/nvim-treesitter",
+				tag = "v0.10.0",
+				config = function()
+					require('nvim-treesitter.configs').setup {
+						auto_install = true,
+						sync_install = false,
+
+						highlight = {
+							enable = true,
+						},
+					}
+				end
+			},
+		},
 		config = function()
-			require('ufo').setup({
+			local ufo = require('ufo')
+			ufo.setup({
 				provider_selector = function(_, _, _)
 					return {'treesitter', 'indent'}
 				end,
@@ -155,8 +158,11 @@ require('pckr').add{
 					python = {"class_definition", "function_definition", "imports"},
 					cpp = {"class_specifier", "function_definition"},
 					rust = {"function_item", "impl_item", "struct_item", "use_declaration"},
+					xml = {"tag"},
 				}
 			})
+
+			vim.keymap.set('n', '<C-a>', ufo.closeAllFolds)
 		end
 	},
 }
