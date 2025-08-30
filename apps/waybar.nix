@@ -20,7 +20,7 @@ in {
         };
         memory = {
           "interval" = 30;
-          "format" = "RAM: {used:0.1f}GiB/{total:0.1f}GiB ({percentage}%) SWAP: {swapUsed:0.1f}GiB/{swapTotal:0.1f}GiB ({swapPercentage}%)";
+          "format" = "RAM: {used:0.1f}GiB/{total:0.1f}GiB ({percentage}%)";
         };
         battery = {
           "bat" = "BAT0";
