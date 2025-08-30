@@ -112,6 +112,17 @@ in {
           fi
         }
 
+        function create_sync_link() {
+          DIR="/home/$1/Sync"
+          if [ ! -L "$DIR" ]; then
+            if [ -e "$DIR" ]; then
+              rmdir "$DIR"
+            fi
+            ln -s /var/lib/syncthing/Sync "$DIR"
+          fi
+          chown syncthing:users "$DIR"
+        }
+
         create_folder_link bamilab .password-store
         create_folder_link bamilab code/private
         create_folder_link bamilab Documents
@@ -124,6 +135,9 @@ in {
         # Some files synced across both users and devices
         create_file_link bamilab .config/FreeTube/profiles.db
         create_file_link therp .config/FreeTube/profiles.db
+
+        create_sync_link bamilab
+        create_sync_link therp
       '';
     };
   };
