@@ -26,9 +26,11 @@ in if params.environmentType == "desktop" then {
         "todo" = "todo.sh";
       };
       initExtra = ''
-        CURRENT_WORKSPACE=$(current-workspace)
-        if [ "$PWD" == "$HOME" ] && [ -f ~/.here/$CURRENT_WORKSPACE ]; then
-          cd $(cat ~/.here/$CURRENT_WORKSPACE)
+        if [ ! -z "$TERM" ] && [ "$TERM" != "linux" ]; then
+          CURRENT_WORKSPACE=$(current-workspace)
+          if [ "$PWD" == "$HOME" ] && [ -f ~/.here/$CURRENT_WORKSPACE ]; then
+            cd $(cat ~/.here/$CURRENT_WORKSPACE)
+          fi
         fi
       '';
     };

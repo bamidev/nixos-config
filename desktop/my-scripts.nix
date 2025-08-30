@@ -17,6 +17,10 @@ let
   here = pkgs.writers.writeBashBin "here" ''
     set -e
     CURRENT_WORKSPACE=$(${current-workspace}/bin/current-workspace)
+    if [ -z "$CURRENT_WORKSPACE" ]; then
+      exit 1
+    fi
+
     mkdir -p ~/.here
     echo $PWD > ~/.here/$CURRENT_WORKSPACE
     echo Remembered the working dir \"$PWD\" for workspace $CURRENT_WORKSPACE.
