@@ -9,7 +9,7 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 20;
+        height = 15;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
         modules-right = [ "custom/vpn" "pulseaudio" "cpu" "memory" "battery" "tray" ];
@@ -67,6 +67,11 @@ in {
       #waybar { 
         background-color: #${background}; 
         color: #${foreground}; 
+      }
+
+      .module {
+        padding-left: 5px;
+        padding-right: 5px;
       }
 
       #clock,
