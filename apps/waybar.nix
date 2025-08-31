@@ -69,6 +69,10 @@ in {
         color: #${foreground}; 
       }
 
+      label {
+        color: #${foreground};
+      }
+
       .module {
         padding-left: 5px;
         padding-right: 5px;
