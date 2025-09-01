@@ -12,7 +12,14 @@ let
     echo $(( B > M ? M : B )) | tee /sys/class/backlight/intel_backlight/brightness
     '';
   current-workspace = pkgs.writers.writeBashBin "current-workspace" ''
-    ${pkgs.sway}/bin/swaymsg -t get_workspaces -r | ${pkgs.jq}/bin/jq -r -c '.[] | select(.focused == true) | .name'
+    if [ ! -z "$SWAYSOCK" ]; then
+      ${pkgs.sway}/bin/swaymsg -t get_workspaces -r | ${pkgs.jq}/bin/jq -r -c '.[] | select(.focused == true) | .name'
+    elif [ ! -z "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+      ${pkgs.hyprland}/bin/hyprctl -j activeworkspace | ${pkgs.jq}/bin/jq -r .name
+    else
+      echo Unknown deskop environment.
+      exit 1
+    fi
   '';
   here = pkgs.writers.writeBashBin "here" ''
     set -e
