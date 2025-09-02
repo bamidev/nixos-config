@@ -104,5 +104,5 @@ in {
     }];
   };
 
-  users.users.bamilab.packages = [ install-protonvpn install-ssh-keys ];
+  users.users.bamilab.packages = [ install-protonvpn install-ssh-keys transfer-pgp-keys ];
 }
