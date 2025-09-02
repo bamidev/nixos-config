@@ -53,10 +53,10 @@ in {
           "format-muted" = "\uf00d {volume}%";
         };
 
-        "custom/vpn" ={
+        "custom/vpn" = {
           interval = 3;
           format = "VPN: {}";
-          exec = "ip add show | grep -qF tun0 && echo Connected || echo Disconnected";
+          exec = "ip add show | grep -qF tun0 && echo ✅ || echo ☒";
           max-length = 100;
           on-click = "systemctl restart openvpn-protonvpn";
         };
