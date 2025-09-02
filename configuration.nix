@@ -25,7 +25,10 @@ in
   boot = {
     # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
     # supported by the VPN.
-    kernelParams = [ "ipv6.disable=1" ];
+    kernelParams = [
+      "console=tty12"
+      "ipv6.disable=1"
+    ];
 
     loader = {
       grub = {
