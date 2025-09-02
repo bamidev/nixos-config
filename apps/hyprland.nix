@@ -145,6 +145,9 @@ in {
         "opacity 0.9, class:^Session$"
         "opacity 0.9, class:^signal$"
         "opacity 0.9, class:^thunderbird$"
+
+        "size 800 300, class:^thunderbird$, title:^Add Security Exception$"
+        "pin, class:^thunderbird$, title:^Add Security Exception$"
       ];
     };
   };
