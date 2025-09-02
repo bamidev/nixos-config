@@ -18,20 +18,18 @@
     options snd slots=hdaudioB0D0
   '';
 
-  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
   # The WiFi hardware doesn't work without this
   hardware.enableRedistributableFirmware = lib.mkForce true;
 
   fileSystems."/" =
-    { device = "ssh/root";
-      fsType = "zfs";
+    { device = "/dev/disk/by-label/NIXROOT";
+      fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/46D0-4E97";
+    { device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
@@ -41,7 +39,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  networking.hostId = "11111111";
   # networking.interfaces.enp62s0u1.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
