@@ -102,14 +102,6 @@ in {
       ];
       groups = ["wheel"];
     }];
-    extraConfig = with pkgs; ''
-      Defaults:picloud secure_path="${lib.makeBinPath [
-        brightness-up
-        brightness-down
-        sudo-brightness-up
-        sudo-brightness-down
-      ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
-    '';
   };
 
   users.users.bamilab.packages = [ install-protonvpn install-ssh-keys ];
