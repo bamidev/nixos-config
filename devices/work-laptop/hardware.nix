@@ -47,4 +47,9 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  swapDevices = [ {
+    device = "/dev/nvme0n1p2";
+    randomEncryption.enable = true;
+  }];
 }
