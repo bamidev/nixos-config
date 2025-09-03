@@ -48,9 +48,9 @@ in {
         "$modsh, DOWN,  changegroupactive, d"
 
         "$mod,   RETURN, exec,        $terminal"
-        "$mod,   B,      hy3:makegroup, h"
+        "$mod,   B,      hy3:makegroup, h, toggle"
         "$mod,   D,      exec,        $menu"
-        "$mod,   V,      hy3:makegroup, v"
+        "$mod,   V,      hy3:makegroup, v, toggle"
         "$mod,   L,      hy3:locktab,"
         "$mod,   T,      exec,        $terminal"
         "$modsh, Q,      killactive,"
