@@ -13,7 +13,7 @@ let
 in
 {
   imports = [
-    "/etc/nixos/device/${deviceConfig.name}/hardware.nix"
+    "/etc/nixos/devices/${deviceConfig.name}/hardware.nix"
     (import "${home-manager}/nixos")
     ./apps.nix
   ] ++ lib.optionals (params.environmentType == "desktop") [
