@@ -8,7 +8,7 @@ in {
     ./apps/sway/system.nix
     ./apps/thunderbird.nix
 
-    ./desktop/my-scripts.nix
+    ./desktop/scripts.nix
   ] ++ lib.optionals params.enableGames [
     ./apps/steam.nix
   ];
