@@ -4,22 +4,14 @@
     ./desktop.nix
   ];
 
-  home.stateVersion = "24.11";
+  home = {
+    stateVersion = "24.11";
 
-  home.packages = with pkgs; [
-    black
-    gnumake
-
-    # Required to build Python
-    bzip2
-    cyrus_sasl
-    libffi
-    ncurses
-    openldap
-    openssl
-    readline
-    zlib
-  ];
+    packages = with pkgs; [
+      black
+      pre-commit
+    ];
+  };
 
   programs = {
     firefox.policies.Cookies.Allow = ["https://therp.nl"];
