@@ -20,7 +20,7 @@ in {
         };
         memory = {
           "interval" = 30;
-          "format" = "RAM: {used:0.1f}GiB/{total:0.1f}GiB ({percentage}%)";
+          "format" = "RAM: {used:0.1f}GiB ({percentage}%) Swap: {swapPercentage}%";
         };
         battery = {
           "bat" = "BAT0";
@@ -29,9 +29,9 @@ in {
             "warning" = 30;
             "critical" = 5;
           };
-          "format" = "BAT0: {capacity}%";
-          "format-charging" = "BAT0: {capacity}% (charging)";
-          "format-plugged" = "BAT0: {capacity}% (plugged)";
+          "format" = "Power: {capacity}%";
+          "format-charging" = "Power: {capacity}% (charging)";
+          "format-plugged" = "Power: {capacity}% (plugged)";
         };
         clock = {
           "format" = "{:%Y/%m/%d %H:%M}";
@@ -46,11 +46,11 @@ in {
         pulseaudio = {
           "format" = "{icon} {volume}%";
           "format-icons" = {
-            "default" = ["\uf026" "\uf027" "\uf028"];
+            "default" = ["Speaker"];
           };
           "on-click" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "on-click-right" = "pavucontrol";
-          "format-muted" = "\uf00d {volume}%";
+          "format-muted" = "Muted {volume}%";
         };
 
         "custom/vpn" = {
