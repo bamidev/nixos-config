@@ -6,15 +6,6 @@
 
   home.stateVersion = "24.11";
 
-  /*accounts.email.accounts.bamilab = {
-    name = "Bamilab";
-    smtp = {
-      host = "";
-      port = ;
-      tls  ;
-    };
-  };*/
-
   programs = {
     git = {
       userName = "Bamidev";

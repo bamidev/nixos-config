@@ -6,7 +6,6 @@ in {
     ./greetd.nix
     ./protonvpn.nix
     ./sway/system.nix
-    ./thunderbird.nix
   ] ++ lib.optionals params.enableGames [
     ./steam.nix
   ];
