@@ -39,6 +39,7 @@ in if params.environmentType == "desktop" then rec {
       };
     };
 
+    # Doesn't work yet, but it should work with the next home-manager release
     contact.accounts.Personal = {
       thunderbird.enable = true;
 
