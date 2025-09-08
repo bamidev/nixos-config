@@ -97,6 +97,9 @@ in {
       ];
 
       general = {
+        border_size = 2;
+        "col.active_border" = "rgba(${theme.normal.blue}c0)";
+        "col.inactive_border" = "rgba(${theme.dim.blue}c0)";
         gaps_in = 2;
         gaps_out = 7;
         layout = "hy3";
@@ -116,6 +119,10 @@ in {
 
       plugin = {
         hy3 = {
+          autotile = {
+            enable = true;
+          };
+
           tab_first_window = true;
           
           tabs = {
