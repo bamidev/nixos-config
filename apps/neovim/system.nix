@@ -42,6 +42,7 @@ in {
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
 
       "lua/autocomplete.lua".text = builtins.readFile ./lua/autocomplete.lua;
+      "lua/daps.lua".text = builtins.readFile ./lua/daps.lua;
       "lua/plugins.lua".text = builtins.readFile ./lua/plugins.lua;
       "lua/lsp.lua".text = builtins.readFile ./lua/lsp.lua;
 

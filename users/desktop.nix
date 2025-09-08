@@ -51,7 +51,7 @@ in if params.environmentType == "desktop" then rec {
       };
     };
 
-    email.accounts."Personal" = rec {
+    email.accounts.Personal = rec {
       primary = true;
       thunderbird.enable = true;
 
@@ -112,6 +112,7 @@ in if params.environmentType == "desktop" then rec {
         let
           personal = accounts.calendar.accounts.Personal;
           birthdays = accounts.calendar.accounts.Birthdays;
+          contacts = accounts.contact.accounts.Personal;
         in
         {
           "calendar.registry.personal.cache.enabled" = true;
@@ -129,6 +130,15 @@ in if params.environmentType == "desktop" then rec {
           "calendar.registry.birthdays.type" = birthdays.remote.type;
           "calendar.registry.birthdays.uri" = birthdays.remote.url;
           "calendar.registry.birthdays.username" = birthdays.remote.userName;
+
+          /*
+          "ldap_2.servers.Contacts.carddav.token" = "http://sabre.io/ns/sync/9";
+          "ldap_2.servers.Contacts.carddav.url" = contacts.remote.url;
+          "ldap_2.servers.Contacts.carddav.username" = contacts.remote.userName;
+          "ldap_2.servers.Contacts.description" = "Contacts";
+          "ldap_2.servers.Contacts.dirType" = "102";
+          "ldap_2.servers.Contacts.filename" = "abook-1.sqlite";
+          */
         };
     };
   };

@@ -59,6 +59,18 @@ require('pckr').add{
 		end
 	},
 	{
+		"mfussenegger/nvim-dap",
+		tag = "0.10.0",
+	},
+	{
+		"mfussenegger/nvim-dap-python",
+		commit = "030385d03363988370adaa5cf21fa465daddb088",
+		requires = "mfussenegger/nvim-dap",
+		config = function()
+			require("dap-python").setup("python")
+		end
+	},
+	{
 		"morhetz/gruvbox",
 		tag = "v3.0.1-rc.0",
 		config = function()
@@ -72,6 +84,10 @@ require('pckr').add{
 			vim.cmd.colorscheme("gruvbox")
 			--vim.g.airline_theme = 'gruvbox'
 		end
+	},
+	{
+		"nvim-neotest/nvim-nio",
+		tag = "v1.10.1",
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -91,6 +107,20 @@ require('pckr').add{
 		config = function()
 			vim.keymap.set({'n', 'v', 'x'}, '<C-t>', ':NERDTreeToggle<cr>')
 			vim.keymap.set({'n', 'v', 'x'}, '<C-f>', ':NERDTreeFind<cr>')
+		end
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		commit = "cf91d5e",
+		requires = {
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio",
+		},
+		config = function()
+			local dapui = require("dapui")
+			dapui.setup()
+
+			vim.keymap.set('n', '<F12>', dapui.toggle)
 		end
 	},
 	{
@@ -162,7 +192,8 @@ require('pckr').add{
 				}
 			})
 
-			vim.keymap.set('n', '<C-a>', ufo.closeAllFolds)
+			-- TODO: Close all folds except the above kinds
+			--vim.keymap.set('n', '<C-a>', ufo.closeAllFolds)
 		end
 	},
 }
