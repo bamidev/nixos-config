@@ -76,7 +76,7 @@ in {
       decoration = {
         blur = {
           enabled = true;
-          contrast = 0.7;
+          contrast = 0.3;
           noise = 0.15;
           size = 7;
           passes = 2;
