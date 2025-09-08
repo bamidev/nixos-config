@@ -1,26 +1,5 @@
-{ pkgs, lib, username, ... }: {
+{ pkgs, ... }: {
   home.stateVersion = "24.11";
-
-  accounts.email.accounts."Personal" = rec {
-    primary = true;
-    thunderbird.enable = true;
-
-    realName = "Danny de Jong";
-    address = "danny.de.jong@pm.me";
-    userName = address;
-
-    imap = {
-      host = "127.0.0.1";
-      port = 1143;
-      tls.useStartTls = true;
-    };
-
-    smtp = {
-      host = "127.0.0.1";
-      port = 1025;
-      tls.useStartTls = true;
-    };
-  };
 
   programs = {
     home-manager.enable = true;
@@ -43,13 +22,6 @@
       extraConfig = ''
         luafile /etc/xdg/nvim/init.lua
       '';
-    };
-
-    thunderbird = {
-      enable = true;
-      profiles.default = {
-        isDefault = true;
-      };
     };
   };
 

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   params = import ../params.nix;
-in if params.environmentType == "desktop" then {
+in if params.environmentType == "desktop" then rec {
   imports = [
     ./default.nix
     ../apps/alacritty.nix
@@ -13,6 +13,53 @@ in if params.environmentType == "desktop" then {
     ../apps/todo-txt.nix
     ../apps/wofi.nix
   ];
+
+  accounts = {
+    calendar.accounts = {
+      "Personal" = {
+        primary = true;
+
+        remote = {
+          passwordCommand = "pass nextcloud/bamilab";
+          type = "caldav";
+          url = "http://192.168.0.254/remote.php/dav/calendars/bamilab/bamilab/";
+          userName = "bamilab";
+        };
+      };
+
+      "Birthdays" = {
+        primary = false;
+
+        remote = {
+          passwordCommand = "pass nextcloud/bamilab";
+          type = "caldav";
+          url = "http://192.168.0.254/remote.php/dav/calendars/bamilab/contact_birthdays/";
+          userName = "bamilab";
+        };
+      };
+    };
+
+    email.accounts."Personal" = rec {
+      primary = true;
+      thunderbird.enable = true;
+
+      realName = "Danny de Jong";
+      address = "danny.de.jong@pm.me";
+      userName = address;
+
+      imap = {
+        host = "127.0.0.1";
+        port = 1143;
+        tls.useStartTls = true;
+      };
+
+      smtp = {
+        host = "127.0.0.1";
+        port = 1025;
+        tls.useStartTls = true;
+      };
+    };
+  };
 
   programs = {
     bash = {
@@ -40,6 +87,37 @@ in if params.environmentType == "desktop" then {
       settings = {
         default_theme = "dark";
       };
+    };
+    
+    thunderbird = {
+      enable = true;
+      
+      profiles.default = {
+        isDefault = true;
+      };
+
+      settings = 
+        let
+          personal = accounts.calendar.accounts.Personal;
+          birthdays = accounts.calendar.accounts.Birthdays;
+        in
+        {
+          "calendar.registry.personal.cache.enabled" = true;
+          "calendar.registry.personal.calendar-main-default" = personal.primary;
+          "calendar.registry.personal.calendar-main-in-composite" = personal.primary;
+          "calendar.registry.personal.name" = "Personal";
+          "calendar.registry.personal.type" = personal.remote.type;
+          "calendar.registry.personal.uri" = personal.remote.url;
+          "calendar.registry.personal.username" = personal.remote.userName;
+          
+          "calendar.registry.birthdays.cache.enabled" = true;
+          "calendar.registry.birthdays.calendar-main-default" = birthdays.primary;
+          "calendar.registry.birthdays.calendar-main-in-composite" = birthdays.primary;
+          "calendar.registry.birthdays.name" = "Birthdays";
+          "calendar.registry.birthdays.type" = birthdays.remote.type;
+          "calendar.registry.birthdays.uri" = birthdays.remote.url;
+          "calendar.registry.birthdays.username" = birthdays.remote.userName;
+        };
     };
   };
 } else {
