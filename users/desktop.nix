@@ -39,6 +39,17 @@ in if params.environmentType == "desktop" then rec {
       };
     };
 
+    contact.accounts.Personal = {
+      thunderbird.enable = true;
+
+      remote = {
+        passwordCommand = "pass nextcloud/bamilab";
+        type = "carddav";
+        url = "http://192.168.0.254/remote.php/dav/addressbooks/users/bamilab/contacts/";
+        userName = "bamilab";
+      };
+    };
+
     email.accounts."Personal" = rec {
       primary = true;
       thunderbird.enable = true;
