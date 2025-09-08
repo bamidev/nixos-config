@@ -61,6 +61,13 @@ require('pckr').add{
 	{
 		"mfussenegger/nvim-dap",
 		tag = "0.10.0",
+		config = function()
+			local dap = require("dap")
+			vim.keymap.set('n', '<F1>', dap.continue)
+			vim.keymap.set('n', '<F2>', dap.step_over)
+			vim.keymap.set('n', '<F3>', dap.step_into)
+			vim.keymap.set('n', '<F3>', dap.repl.open)
+		end
 	},
 	{
 		"mfussenegger/nvim-dap-python",
@@ -156,10 +163,10 @@ require('pckr').add{
 	},
 	{
 		"kevinhwang91/nvim-ufo",
-		tag = "v1.5.0",
+		--tag = "v1.5.0",
 		-- Revert to the last known working commit to prevent the following bug:
-		-- https://github.com/kevinhwang91/nvim-ufo/issues/309https://github.com/kevinhwang91/nvim-ufo/issues/309
-		--commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
+		-- https://github.com/kevinhwang91/nvim-ufo/issues/309
+		commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
 		requires = {
 			"kevinhwang91/promise-async",
 			{
