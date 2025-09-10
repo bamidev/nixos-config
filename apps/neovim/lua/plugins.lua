@@ -66,6 +66,7 @@ require('pckr').add{
 			vim.keymap.set('n', '<F1>', dap.continue)
 			vim.keymap.set('n', '<F2>', dap.step_over)
 			vim.keymap.set('n', '<F3>', dap.step_into)
+			vim.keymap.set('n', '<F7>', dap.toggle_breakpoint)
 			vim.keymap.set('n', '<F11>', dap.repl.open)
 		end
 	},
@@ -77,21 +78,36 @@ require('pckr').add{
 			require("dap-python").setup("python")
 
 			local dap = require("dap")
-			dap.configurations.python = {{
-				type = "python";
-				request = "launch";
-				name = "Launch Odoo from Waft";
-				program = "${workspaceFolder}/custom/src/odoo/odoo-bin";
-				pythonPath = function()
-					return "python"
-				end
-			}}
+			dap.configurations.python = {
+				{
+					type = "python";
+					request = "launch";
+					name = "Launch Odoo from Waft";
+					program = "${workspaceFolder}/custom/src/odoo/odoo-bin";
+					pythonPath = function()
+						return "${workspaceFolder}/.venv/bin/python"
+					end
+				},
+				{
+					type = "python";
+					request = "launch";
+					name = "Launch Python File";
+					program = "${file}";
+					pythonPath = function()
+						return "python"
+					end
+				},
+			}
 		end
 	},
 	{
 		"morhetz/gruvbox",
 		tag = "v3.0.1-rc.0",
 		config = function()
+			if not vim.o.termguicolors then
+				return
+			end
+
 			if season == "fall" then
 				vim.o.background = "dark"
 			else if season == "spring" then
@@ -145,6 +161,10 @@ require('pckr').add{
 		"sainnhe/everforest",
 		tag = "v0.3.0",
 		config = function()
+			if not vim.o.termguicolors then
+				return
+			end
+
 			if season == "winter" then
 				vim.o.background = "dark"
 			else if season == "summer" then

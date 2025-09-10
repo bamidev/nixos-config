@@ -7,8 +7,6 @@
   vim.o.shiftwidth = 4
   vim.o.smartindent = true
   vim.o.tabstop = 4
-  vim.o.termguicolors = true
-  -- vim.o.virtualedit = 'all'
   vim.o.winborder = 'rounded'
   vim.opt.clipboard:append('unnamedplus')
   vim.opt.completeopt = { "fuzzy", "menuone", "noinsert", "popup" }
@@ -22,6 +20,8 @@
   vim.o.foldlevelstart = 99
   vim.o.foldenable = true
 
+  vim.o.termguicolors = os.getenv("COLORTERM") == "24bit" or os.getenv("COLORTERM") == "truecolor"
+ 
 
   -- Map keys
   vim.keymap.set({'n', 'v', 'x'}, ';', ':')
