@@ -66,7 +66,7 @@ require('pckr').add{
 			vim.keymap.set('n', '<F1>', dap.continue)
 			vim.keymap.set('n', '<F2>', dap.step_over)
 			vim.keymap.set('n', '<F3>', dap.step_into)
-			vim.keymap.set('n', '<F3>', dap.repl.open)
+			vim.keymap.set('n', '<F11>', dap.repl.open)
 		end
 	},
 	{
@@ -75,6 +75,17 @@ require('pckr').add{
 		requires = "mfussenegger/nvim-dap",
 		config = function()
 			require("dap-python").setup("python")
+
+			local dap = require("dap")
+			dap.configurations.python = {{
+				type = "python";
+				request = "launch";
+				name = "Launch Odoo from Waft";
+				program = "${workspaceFolder}/custom/src/odoo/odoo-bin";
+				pythonPath = function()
+					return "python"
+				end
+			}}
 		end
 	},
 	{
