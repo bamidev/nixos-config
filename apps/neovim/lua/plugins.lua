@@ -44,10 +44,6 @@ require('pckr').add{
 		"lukas-reineke/indent-blankline.nvim",
 		tag = "v3.9.0",
 		config = function()
-			if not vim.o.termguicolors then
-				return
-			end
-
 			local highlight = {
 				"CursorColumn",
 				"Whitespace",

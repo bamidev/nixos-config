@@ -1,4 +1,6 @@
 { pkgs }: ''
+  vim.o.termguicolors = os.getenv("COLORTERM") == "24bit" or os.getenv("COLORTERM") == "truecolor"
+
   -- Default settings
   vim.o.autoindent = false
   vim.o.cindent = false
@@ -10,9 +12,8 @@
   vim.o.winborder = 'rounded'
   vim.opt.clipboard:append('unnamedplus')
   vim.opt.completeopt = { "fuzzy", "menuone", "noinsert", "popup" }
-  vim.opt.list = true
+  vim.opt.list = vim.o.termguicolors
   vim.opt.listchars = {eol = '↵', space = '·', tab = '┄┄'}
-
 
   -- Settings required for the ufo plugin
   vim.o.foldcolumn = '1'
@@ -20,7 +21,6 @@
   vim.o.foldlevelstart = 99
   vim.o.foldenable = true
 
-  vim.o.termguicolors = os.getenv("COLORTERM") == "24bit" or os.getenv("COLORTERM") == "truecolor"
  
 
   -- Map keys
