@@ -43,12 +43,19 @@
   local pckr = require("pckr")
   pckr.setup {
     autoinstall = true,
-    autoremove = false,
+    autoremove = true,
     git = {
-      cmd = "${pkgs.git}",
+      cmd = "${pkgs.git}/bin/git",
     }
   }
   pckr.add {
+    {
+      "j-hui/fidget.nvim",
+      tag = "v1.6.1",
+      config = function()
+        require("fidget").setup {}
+      end,
+    },
     {
       "lukas-reineke/indent-blankline.nvim",
       tag = "v3.9.0",
@@ -145,6 +152,20 @@
       end
     },
     {
+      "nvim-treesitter/nvim-treesitter",
+      tag = "v0.10.0",
+      config = function()
+        require('nvim-treesitter.configs').setup {
+          auto_install = true,
+          sync_install = false,
+
+          highlight = {
+            enable = true,
+          },
+        }
+      end
+    },
+    {
       "preservim/nerdtree",
       tag = "7.1.3",
       config = function()
@@ -195,7 +216,17 @@
           mouse_mode = true,
         }
 
-        vim.keymap.set('n', '<Tab>', ':EagleWin<CR>', { noremap = true, silent = true })
+        --vim.keymap.set('n', '<Tab>', ':EagleWin<CR>', { noremap = true, silent = true })
+      end,
+    },
+    {
+      "SirVer/ultisnips",
+      tag = "3.2",
+      config = function()
+          vim.g.UltiSnipsExpandTrigger = "<Tab>`"
+          vim.g.UltiSnipsJumpForwardTrigger = "<Tab>`"
+          vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>`"
+          vim.g.UltiSnipsSnippetDirectories = {"snips"}
       end,
     },
     {
@@ -218,20 +249,7 @@
       commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
       requires = {
         "kevinhwang91/promise-async",
-        {
-          "nvim-treesitter/nvim-treesitter",
-          tag = "v0.10.0",
-          config = function()
-            require('nvim-treesitter.configs').setup {
-              auto_install = true,
-              sync_install = false,
-
-              highlight = {
-                enable = true,
-              },
-            }
-          end
-        },
+        "nvim-treesitter/nvim-treesitter",
       },
       config = function()
         local ufo = require('ufo')
@@ -244,7 +262,7 @@
             python = {"class_definition", "function_definition", "imports"},
             cpp = {"class_specifier", "function_definition"},
             rust = {"function_item", "impl_item", "struct_item", "use_declaration"},
-            xml = {"tag"},
+            xml = {"element"},
           }
         })
 
