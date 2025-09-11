@@ -42,7 +42,7 @@ in {
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
 
       "lua/autocomplete.lua".text = builtins.readFile ./lua/autocomplete.lua;
-      "lua/plugins.lua".text = builtins.readFile ./lua/plugins.lua;
+      "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
       "lua/lsp.lua".text = builtins.readFile ./lua/lsp.lua;
 
     # Some language servers are really not needed in a server environment, and some of them even
