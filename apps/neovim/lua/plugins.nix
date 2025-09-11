@@ -186,6 +186,19 @@
       end
     },
     {
+      "soulis-1256/eagle.nvim",
+      commit = "dd1a28c4d8626fbe85580b0a9ed8f88d77a26da1",
+      config = function()
+        vim.o.mousemoveevent = true
+        require("eagle").setup {
+          keyboard_mode = true,
+          mouse_mode = true,
+        }
+
+        vim.keymap.set('n', '<Tab>', ':EagleWin<CR>', { noremap = true, silent = true })
+      end,
+    },
+    {
       "vim-airline/vim-airline",
       tag = "v0.11",
       config = function()
