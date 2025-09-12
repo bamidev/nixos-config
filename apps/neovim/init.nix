@@ -42,7 +42,5 @@
 
 
   require('plugins') -- Load all plugins
-  require('lsp')
-
-
+  require('lsp') -- Load all the LSP's
 ''

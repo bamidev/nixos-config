@@ -57,6 +57,33 @@
       end,
     },
     {
+      "L3MON4D3/LuaSnip",
+      tag = "v2.4.0",
+      run = "${pkgs.gnumake}/bin/make install_jsregex",
+      config = function()
+        local ls = require("luasnip")
+
+        vim.keymap.set({"i"}, "<c-tab>", function() ls.expand() end, {silent = true})
+        vim.keymap.set({"i", "s"}, "<tab>", function() ls.jump( 1) end, {silent = true})
+        vim.keymap.set({"i", "s"}, "<s-tab>", function() ls.jump(-1) end, {silent = true})
+
+        vim.keymap.set({"i", "s"}, "<C-E>", function()
+          if ls.choice_active() then
+            ls.change_choice(1)
+          end
+        end, {silent = true})
+
+        require('snippets')
+      end,
+    },
+    {
+      "lukas-reineke/headlines.nvim",
+      tag = "v5.0.0",
+      requires = "nvim-treesitter/nvim-treesitter",
+      config = function()
+      end,
+    },
+    {
       "lukas-reineke/indent-blankline.nvim",
       tag = "v3.9.0",
       config = function()
@@ -217,16 +244,6 @@
         }
 
         --vim.keymap.set('n', '<Tab>', ':EagleWin<CR>', { noremap = true, silent = true })
-      end,
-    },
-    {
-      "SirVer/ultisnips",
-      tag = "3.2",
-      config = function()
-          vim.g.UltiSnipsExpandTrigger = "<Tab>`"
-          vim.g.UltiSnipsJumpForwardTrigger = "<Tab>`"
-          vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>`"
-          vim.g.UltiSnipsSnippetDirectories = {"snips"}
       end,
     },
     {

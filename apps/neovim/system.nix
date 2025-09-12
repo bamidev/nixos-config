@@ -45,7 +45,8 @@ in {
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
       "lua/lsp.lua".text = builtins.readFile ./lua/lsp.lua;
 
-      "snips/python.snippet".text = builtins.readFile ./snips/python.snippet;
+      "lua/snippets.lua".text = builtins.readFile ./lua/snippets.lua;
+      "lua/snippets/python.lua".text = builtins.readFile ./lua/snippets/python.lua;
 
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)
