@@ -76,7 +76,7 @@ in {
       decoration = {
         blur = {
           enabled = true;
-          contrast = 0.3;
+          contrast = 0.4;
           noise = 0.15;
           size = 7;
           passes = 2;
@@ -94,6 +94,11 @@ in {
 
       exec-once = lib.lists.forEach startupCommands (x: "[workspace 1 silent] ${x}") ++ [
         "${lib.getExe pkgs.waybar}"
+        ''swayidle -w \
+            timeout 300 'swaylock -f -c ${theme.background}' \
+            timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+            before-sleep 'swaylock -f -c ${theme.background}'
+        ''
       ];
 
       general = {
@@ -146,8 +151,8 @@ in {
       };
 
       windowrule = [
-        "opacity 0.8, class:^Alacritty$"
-        "opacity 0.8, class:^wofi$"
+        "opacity 0.85, class:^Alacritty$"
+        "opacity 0.85, class:^wofi$"
         "opacity 0.9, class:^Element$"
         "opacity 0.9, class:^Session$"
         "opacity 0.9, class:^signal$"
@@ -155,6 +160,7 @@ in {
 
         "size 800 300, class:^thunderbird$, title:^Add Security Exception$"
         "pin, class:^thunderbird$, title:^Add Security Exception$"
+        "workspace 1 silent, class:^qemu$"
       ];
     };
   };
