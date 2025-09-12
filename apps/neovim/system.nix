@@ -46,7 +46,9 @@ in {
       "lua/lsp.lua".text = builtins.readFile ./lua/lsp.lua;
 
       "lua/snippets.lua".text = builtins.readFile ./lua/snippets.lua;
+      "lua/snippets/gitcommit.lua".text = builtins.readFile ./lua/snippets/gitcommit.lua;
       "lua/snippets/python.lua".text = builtins.readFile ./lua/snippets/python.lua;
+      "lua/snippets/xml.lua".text = builtins.readFile ./lua/snippets/xml.lua;
 
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)

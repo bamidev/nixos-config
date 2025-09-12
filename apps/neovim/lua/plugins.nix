@@ -59,13 +59,13 @@
     {
       "L3MON4D3/LuaSnip",
       tag = "v2.4.0",
-      run = "${pkgs.gnumake}/bin/make install_jsregex",
+      run = "${pkgs.gnumake}/bin/make install_jsregex || make install_jsregex",
       config = function()
         local ls = require("luasnip")
 
         vim.keymap.set({"i"}, "<c-tab>", function() ls.expand() end, {silent = true})
-        vim.keymap.set({"i", "s"}, "<tab>", function() ls.jump( 1) end, {silent = true})
-        vim.keymap.set({"i", "s"}, "<s-tab>", function() ls.jump(-1) end, {silent = true})
+        vim.keymap.set({"i", "s"}, "<s-tab>", function() ls.jump(1) end, {silent = true})
+        vim.keymap.set({"i", "s"}, "<a-tab>", function() ls.jump(-1) end, {silent = true})
 
         vim.keymap.set({"i", "s"}, "<C-E>", function()
           if ls.choice_active() then
@@ -73,7 +73,7 @@
           end
         end, {silent = true})
 
-        require('snippets')
+        require('snippets').setup()
       end,
     },
     {
