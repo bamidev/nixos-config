@@ -25,17 +25,17 @@ in {
       "init.lua".text = import ./init.nix { pkgs = pkgs; };
 
       "ftplugin/python.lua".text = ''
-        vim.o.expandtab = true
-        vim.o.smartindent = true
-        vim.o.textwidth = 79
-        vim.o.colorcolumn = "73,+1"
+        vim.opt.expandtab = true
+        vim.opt.smartindent = true
+        vim.opt.textwidth = 79
+        vim.opt.colorcolumn = "73,+1"
       '';
       "ftplugin/nix.lua".text = ''
-        vim.o.colorcolumn = "+0"
-        vim.o.expandtab = true
-        vim.o.shiftwidth = 2
-        vim.o.tabstop = 2
-        vim.o.textwidth = 100
+        vim.opt.colorcolumn = "+0"
+        vim.opt.expandtab = true
+        vim.opt.shiftwidth = 2
+        vim.opt.tabstop = 2
+        vim.opt.textwidth = 100
       '';
 
       "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };

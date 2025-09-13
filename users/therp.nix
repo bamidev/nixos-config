@@ -29,8 +29,9 @@
     stateVersion = "24.11";
 
     file = {
-      ".config/nvim/ftplugin/after/python.lua".text = ''
-        vim.o.textwidth = 99
+      # Overwrite the max line length to align with Therp's standard
+      ".config/nvim/after/ftplugin/python.lua".text = ''
+        vim.opt.textwidth = 100
       '';
     };
 
