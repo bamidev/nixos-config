@@ -41,9 +41,9 @@ in {
       "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
 
-      "lua/autocomplete.lua".text = builtins.readFile ./lua/autocomplete.lua;
+      "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
-      "lua/lsp.lua".text = builtins.readFile ./lua/lsp.lua;
+      "lua/lsp.lua".source = ./lua/lsp.lua;
 
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)
@@ -51,7 +51,7 @@ in {
       "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
-      "lsp/pylsp.lua".text = builtins.readFile ./lsp/pylsp.lua;
+      "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
     };
