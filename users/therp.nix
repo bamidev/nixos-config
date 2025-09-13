@@ -33,6 +33,12 @@
       ".config/nvim/after/ftplugin/python.lua".text = ''
         vim.opt.textwidth = 100
       '';
+
+      # Some work related snippets
+      ".config/nvim" = {
+        recursive = true;
+        source = ./therp/nvim;
+      };
     };
 
     packages = with pkgs; [
