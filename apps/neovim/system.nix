@@ -45,6 +45,10 @@ in {
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
       "lua/lsp.lua".source = ./lua/lsp.lua;
 
+      "luasnippets" = {
+        source = ./luasnippets;
+      };
+
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)
     } // lib.attrsets.optionalAttrs (config.environmentType == "desktop") {
