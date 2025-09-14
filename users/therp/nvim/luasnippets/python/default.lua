@@ -1,5 +1,7 @@
 local luasnip = require("luasnip")
 local license = require('snippets.license')
+
+local c = luasnip.choice_node
 local i = luasnip.insert_node
 local s = luasnip.snippet
 local t = luasnip.text_node
@@ -16,11 +18,22 @@ return {
 		}),
 		t("class "),
 		i(1, "ClassName"),
-		t({
-			'(models.Model):',
-			'    _name = "'
+		t({'(models.Model):', ''}),
+		c(2, {
+			{
+				t('    _name = "'),
+				i(1, "model.name"),
+				t({
+					'"',
+					'    _description = "'
+				}),
+				i(2, "Model desciption"),
+			},
+			{
+				t('    _inherit = "'),
+				i(1, "model.name"),
+			},
 		}),
-		i(2, "model.name"),
-		t({'"', "", ""}),
+		t({'"', '', ''}),
 	}),
 }
