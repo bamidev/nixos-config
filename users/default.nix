@@ -1,5 +1,16 @@
-{ pkgs, ... }: {
-  home.stateVersion = "24.11";
+{ lib, pkgs, ... }: {
+  home = {
+    stateVersion = "24.11";
+
+    file = {
+      ".config/pylint-default".text = ''
+      '';
+
+      ".config/pylintrc" = lib.mkDefault {
+        source = /etc/nixos/apps/neovim/etc/pylintrc;
+      };
+    };
+  };
 
   programs = {
     home-manager.enable = true;

@@ -29,16 +29,22 @@
     stateVersion = "24.11";
 
     file = {
-      # Overwrite the max line length to align with Therp's standard
-      ".config/nvim/after/ftplugin/python.lua".text = ''
-        vim.opt.textwidth = 100
-      '';
-
       # Some work related snippets
       ".config/nvim" = {
         recursive = true;
         source = ./therp/nvim;
       };
+
+      ".config/pylintrc".text = builtins.readFile ../apps/neovim/etc/pylintrc + ''
+
+        [VARIABLES]
+        additional-builtins = env
+      '';
+
+      ".pydocstyle.ini".text = ''
+        [pydocstyle]
+        ignore = D100
+      '';
     };
 
     packages = with pkgs; [
