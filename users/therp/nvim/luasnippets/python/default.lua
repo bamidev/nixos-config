@@ -8,6 +8,14 @@ local t = luasnip.text_node
 
 
 return {
+	s('license', {
+		t({
+			'# ' .. license.LICENSE_HEADER[1],
+			'# ' .. license.LICENSE_HEADER[2],
+			'', ''
+		}),
+	}),
+
 	s("model-file", {
 		t({
 			'# ' .. license.LICENSE_HEADER[1],
