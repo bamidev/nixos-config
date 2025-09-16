@@ -1,12 +1,8 @@
 { pkgs, lib, ... }:
 let
-  devices = {
-    "desktop" = { id = "SHBBTSU-ZI52OTS-V3BJ272-NEEBXIQ-MUVOCBV-ESAVUN4-FRAUVZR-B53BRQM"; };
-    "work-laptop" = { id = "TJT3RS4-KV2A7NV-KTTA3UX-TMB2MXD-Q6DONKF-UTIBVTD-JDYGYL2-HQO76Q7"; };
-    "old-work-laptop" = { id = "NYCX7JQ-6MVJLLS-G4GNLVD-QLFZ4MU-XPZWI66-HUMXO4Z-HWT4AY4-ZSDZ5QE"; };    "main-laptop" = { id = "NYCX7JQ-6MVJLLS-G4GNLVD-QLFZ4MU-XPZWI66-HUMXO4Z-HWT4AY4-ZSDZ5QE"; };
-    "nas" = { id = "YQT6FYO-OGJHF6Q-WEMZWGM-QP3MJLF-F5VJ3IM-QYEEGW3-QULYD7H-ZP7OFAJ"; };
-    "travel-laptop" = { id = "YNAPQOE-IJZ6OYC-FKK66MD-KKUK2F4-5HR2O5R-5GLQIKU-WMVXWM2-4BC4YA3"; };
-  };
+  devices = lib.attrsets.mapAttrs (name: type:
+    { id = (import "/etc/nixos/devices/${name}/params.nix").syncthingId; }
+  ) (builtins.readDir /etc/nixos/devices);
   defaultVersioning = {
     type = "staggered";
     params = {
