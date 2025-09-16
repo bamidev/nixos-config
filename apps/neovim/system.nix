@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 let
   config = import ../../params.nix;
-  pinnedPkgs = (import ../../pinned.nix).nixpkgs25_05.pkgs;
+  pinnedPkgs = (import ../../pins.nix).nixpkgs25_05.pkgs;
 in {
   environment.systemPackages = with pkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.

@@ -6,15 +6,14 @@
 
 let
   deviceConfig = import ./device.nix;
+  homeManager = (import ./pins.nix).homeManager25_05;
   params = import ./params.nix;
-  home-manager = builtins.fetchTarball
-    "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
   theme = import ./theme.nix;
 in
 {
   imports = [
     "/etc/nixos/devices/${deviceConfig.name}/hardware.nix"
-    (import "${home-manager}/nixos")
+    homeManager
     ./apps.nix
   ] ++ lib.optionals (params.environmentType == "desktop") [
     ./desktop.nix
