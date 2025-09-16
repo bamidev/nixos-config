@@ -1,3 +1,2 @@
 [MESSAGES CONTROL]
-disable=
-  unknown-option-value
+disable = unknown-option-value
