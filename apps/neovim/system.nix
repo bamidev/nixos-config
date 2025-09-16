@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 let
   config = import ../../params.nix;
   pinnedPkgs = (import ../../pins.nix).nixpkgs25_05.pkgs;
@@ -30,7 +30,7 @@ in {
       "ftplugin/python.lua".text = ''
         vim.opt.expandtab = true
         vim.opt.smartindent = true
-        vim.opt.textwidth = 79
+        vim.opt.textwidth = tonumber(vim.b.editorconfig.max_line_length) or 79
         vim.opt.colorcolumn = "73,+1"
       '';
       "ftplugin/nix.lua".text = ''
