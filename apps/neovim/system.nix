@@ -1,6 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   config = import ../../params.nix;
+  pinnedPkgs = (import ../../pinned.nix).nixpkgs25_05.pkgs;
 in {
   environment.systemPackages = with pkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
@@ -8,9 +9,10 @@ in {
   ];
 
   programs.neovim = {
-    defaultEditor = true;
     enable = true;
+    package = pinnedPkgs.neovim-unwrapped;
 
+    defaultEditor = true;
     withPython3 = false;
     withRuby = false;
 
