@@ -3,7 +3,7 @@ let
   config = import ../../params.nix;
   pinnedPkgs = (import ../../pins.nix).nixpkgs25_05.pkgs;
 in {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pinnedPkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
     ripgrep # Needed for the telescope plugin
   ];
@@ -13,6 +13,7 @@ in {
     package = pinnedPkgs.neovim-unwrapped;
 
     defaultEditor = true;
+    withNodeJs = false;
     withPython3 = false;
     withRuby = false;
 
