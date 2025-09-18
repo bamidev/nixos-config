@@ -80,6 +80,10 @@ in {
           command = "${brightness-down}/bin/brightness-down";
           options = [ "NOPASSWD" ];
         }
+        {
+          command = "${pkgs.systemd}/bin/systemctl restart openvpn-protonvpn";
+          options = [ "NOPASSWD" ];
+        }
       ];
       groups = ["wheel"];
     }];
