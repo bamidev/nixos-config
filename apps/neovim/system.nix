@@ -46,16 +46,15 @@ in {
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
-      "lua/lsp.lua".source = ./lua/lsp.lua;
+      "lua/lsp.lua".text = import ./lua/lsp.nix { pkgs=pkgs; };
 
-      "luasnippets" = {
-        source = ./luasnippets;
-      };
+      "luasnippets".source = ./luasnippets;
 
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)
     } // lib.attrsets.optionalAttrs (config.environmentType == "desktop") {
       "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
+      "lsp/esbonio.lua".source = ./lsp/esbonio.lua;
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;

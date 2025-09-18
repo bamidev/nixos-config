@@ -1,8 +1,0 @@
-vim.lsp.enable('bashls')
-vim.lsp.enable('ccls')
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('nixd')
-vim.lsp.enable('postgres_lsp')
-vim.lsp.enable('pylsp')
-vim.lsp.enable('rust_analyzer')
-vim.lsp.enable('vimls')

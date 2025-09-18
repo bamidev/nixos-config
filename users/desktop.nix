@@ -8,7 +8,7 @@ in if params.environmentType == "desktop" then rec {
     ../apps/freetube.nix
     ../apps/hyprland.nix
     ../apps/librewolf.nix
-    ../apps/neovim/home.nix
+    ../apps/neovim/desktop.nix
     ../apps/sway/home.nix
     ../apps/todo-txt.nix
     ../apps/wofi.nix

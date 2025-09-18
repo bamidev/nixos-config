@@ -125,10 +125,19 @@
           {
             type = "python";
             request = "launch";
-            name = "Launch Odoo from Waft";
+            name = "Launch Odoo from within Waft";
             program = "''${workspaceFolder}/custom/src/odoo/odoo-bin";
             pythonPath = function()
               return "''${workspaceFolder}/.venv/bin/python"
+            end
+          },
+          {
+            type = "python";
+            request = "launch";
+            name = "Launch Odoo from within Wax";
+            program = "''${workspaceFolder}/wax/repos/odoo/odoo-bin";
+            pythonPath = function()
+              return "''${workspaceFolder}/wax/venv/bin/python"
             end
           },
           {

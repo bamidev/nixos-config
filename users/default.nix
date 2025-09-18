@@ -1,10 +1,15 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
+  imports = [
+    ../apps/neovim/home.nix
+  ];
+
   home = {
     stateVersion = "24.11";
 
     file = {
       ".config/pylintrc" = lib.mkDefault {
-        source = /etc/nixos/apps/neovim/etc/pylintrc;
+        source = ../apps/neovim/etc/pylintrc;
       };
     };
   };
