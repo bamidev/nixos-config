@@ -57,6 +57,7 @@ in {
       "lsp/esbonio.lua".source = ./lsp/esbonio.lua;
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
       "lsp/markdown_oxide.lua".text = import ./lsp/markdown_oxide.nix { pkgs=pkgs; };
+      "lsp/odools.lua".source = ./lsp/odools.lua;
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
