@@ -11,6 +11,7 @@
 	vim.lsp.enable('ccls')
 	vim.lsp.enable('esbonio')
 	vim.lsp.enable('lua_ls')
+	vim.lsp.enable('markdown_oxide')
 	vim.lsp.enable('nixd')
 	vim.lsp.enable('postgres_lsp')
 	vim.lsp.enable('pylsp')

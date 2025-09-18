@@ -62,4 +62,3 @@ git remote set-url origin git@github.com:bamidev/nixos-config
 
 Now you should have everything ready to go on the new device: my passwords & keys, my personal files,
 and my system and applications configuration.
-

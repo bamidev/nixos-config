@@ -7,6 +7,8 @@
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd hyprland";
       };
     };
+
+    #useTextGreeter = true;
   };
 
   environment.etc."greetd/environments".text = ''
