@@ -59,7 +59,7 @@
     {
       "L3MON4D3/LuaSnip",
       tag = "v2.4.0",
-      run = "${pkgs.gnumake}/bin/make install_jsregex || make install_jsregex",
+      run = "${pkgs.gnumake}/bin/make install_jsregexp || make install_jsregexp",
       config = function()
         local ls = require("luasnip")
 
