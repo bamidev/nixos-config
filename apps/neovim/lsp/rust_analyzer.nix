@@ -17,7 +17,7 @@
   end
 
   return {
-    cmd = { '${pkgs.rustup}/bin/rust-analyzer' },
+    cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' },
     filetypes = { 'rust' },
     root_dir = function(bufnr, on_dir)
       local fname = vim.api.nvim_buf_get_name(bufnr)
