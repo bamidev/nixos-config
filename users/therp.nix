@@ -58,7 +58,7 @@ in {
         ignore = D100
       '';
 
-      "odools.toml".text = ''
+      "code/odools.toml".text = ''
         [[config]]
         name = "setup-base"
         stdlib = "/home/therp/lsp/odoo/odoo-ls/server/typeshed/stdlib/"
