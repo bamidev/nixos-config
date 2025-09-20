@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./desktop.nix
@@ -45,6 +45,14 @@
         [pydocstyle]
         ignore = D100
       '';
+
+      "odools.toml".text = lib.strings.concatStrings (lib.lists.forEach (lib.range 8 19) (majorVersion: ''
+        [[config]]
+        name = "setup-${toString majorVersion}.0"
+        stdlib = "/home/therp/lsp/odoo/odoo-ls/server/typeshed/stdlib/"
+        odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0"
+
+      ''));
     };
 
     packages = with pkgs; [

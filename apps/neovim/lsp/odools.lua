@@ -1,31 +1,44 @@
-local lsp_dir = vim.fs.abspath('~/lsp')
-local code_dir = vim.fs.abspath('~/code')
+local lsp_dir = vim.fs.abspath('~/lsp/odoo')
 
 local server_dir = lsp_dir .. '/odoo-ls/server'
--- Get the default client capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 
--- Add your custom capability
-capabilities.general.markdown = {
-  parser = 'marked',
-  version = ""
-}
+
+local function check_git_branch()
+	local c = io.popen("git rev-parse --abbrev-ref HEAD")
+	if c == nil then
+		return nil
+	end
+
+	local output = c:read("*l")
+	c:close()
+	return output
+end
+
+local function find_odoo_version_in_branch_name(branch)
+	local _, endIndex = string.find(branch, "-", 1, true)
+	local versionString = string.sub(branch, 1, endIndex)
+	local result, _ = string.find(versionString, ".", 2, true)
+	if result == nil then
+		return nil
+	end
+	return versionString
+end
+
+local function find_odoo_version()
+	local branch = check_git_branch()
+	return find_odoo_version_in_branch_name(branch)
+end
+
 return {
-  cmd = {
-    lsp_dir .. '/odoo-ls/server/target/release/odoo_ls_server',
-    '--stdlib',
-    server_dir .. '/typeshed/stdlib'
-  },
-  root_dir = server_dir,
-  filetypes = { 'python' },
-  workspace_folders = {{
-      uri = vim.uri_from_fname(code_dir),
-      name = 'main_folder',
-  }},
-  capabilities = capabilities,
-  settings = {
-      Odoo = {
-          selectedProfile = 'main',
-      }
-  },
+	cmd = {
+		server_dir .. '/target/release/odoo_ls_server',
+	},
+	filetypes = { 'python' },
+	on_attach = require('autocomplete'),
+	root_markers = {'.git'},
+	settings = {
+		Odoo = {
+			selectedProfile = 'setup-' .. find_odoo_version()
+		},
+	},
 }
