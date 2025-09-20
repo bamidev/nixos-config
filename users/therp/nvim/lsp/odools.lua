@@ -31,7 +31,13 @@ local function find_odoo_version()
 end
 
 
-local odoo_profile = 'setup-' .. (find_odoo_version() or '16.0')
+local odoo_version = find_odoo_version()
+local odoo_profile = nil
+if odoo_version ~= nil then
+	odoo_profile = 'setup-' .. odoo_version
+else
+	odoo_profile = 'no-odoo'
+end
 return {
 	cmd = {
 		server_dir .. '/odoo_ls_server',
