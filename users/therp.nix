@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
   odooParams = import ./therp/odoo-params.nix;
-  pinnedPkgs = (import ../pins.nix).nixpkgs25_05.pkgs;
 in {
   imports = [
     ./desktop.nix
