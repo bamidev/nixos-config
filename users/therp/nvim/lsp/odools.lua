@@ -26,19 +26,22 @@ end
 
 local function find_odoo_version()
 	local branch = check_git_branch()
+	if branch == nil then return nil end
 	return find_odoo_version_in_branch_name(branch)
 end
 
+
+local odoo_profile = 'setup-' .. (find_odoo_version() or '16.0')
 return {
 	cmd = {
-		server_dir .. '/target/release/odoo_ls_server',
+		server_dir .. '/odoo_ls_server',
 	},
 	filetypes = { 'python' },
 	on_attach = require('autocomplete'),
 	root_markers = {'.git'},
 	settings = {
 		Odoo = {
-			selectedProfile = 'setup-' .. find_odoo_version()
+			selectedProfile = odoo_profile
 		},
 	},
 }

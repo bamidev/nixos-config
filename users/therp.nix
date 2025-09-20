@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
-{
+let
+  odooParams = import ./therp/odoo-params.nix;
+  pinnedPkgs = (import ../pins.nix).nixpkgs25_05.pkgs;
+in {
   imports = [
     ./desktop.nix
   ];
@@ -34,6 +37,16 @@
         recursive = true;
         source = ./therp/nvim;
       };
+      ".config/nvim/init.lua" = lib.mkForce {
+        text = ''
+          require('init-odoo')
+          vim.cmd('luafile /etc/xdg/nvim/init.lua')
+        '';
+      };
+      ".config/nvim/lua/init-odoo.lua".text = import ./therp/nvim-init-odoo.nix {
+        pkgs=pkgs;
+        lib=lib;
+      };
 
       ".config/pylintrc".text = builtins.readFile ../apps/neovim/etc/pylintrc + ''
 
@@ -46,11 +59,23 @@
         ignore = D100
       '';
 
-      "odools.toml".text = lib.strings.concatStrings (lib.lists.forEach (lib.range 8 19) (majorVersion: ''
+      "odools.toml".text = ''
+        [[config]]
+        name = "setup-base"
+        stdlib = "/home/therp/lsp/odoo/odoo-ls/server/typeshed/stdlib/"
+
+      '' + lib.strings.concatStrings (lib.lists.forEach (
+        lib.range odooParams.lspVersions.start odooParams.lspVersions.stop
+      ) (majorVersion: ''
         [[config]]
         name = "setup-${toString majorVersion}.0"
-        stdlib = "/home/therp/lsp/odoo/odoo-ls/server/typeshed/stdlib/"
-        odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0"
+        extends = "setup-base"
+        odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/odoo/"
+        addons_paths = [
+      '' +
+        lib.strings.concatStrings (lib.lists.forEach odooParams.lspOcaRepos (repo:
+          "\"/home/therp/lsp/odoo/${toString majorVersion}.0/${repo}\","
+        )) + '']
 
       ''));
     };
