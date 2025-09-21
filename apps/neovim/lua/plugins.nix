@@ -220,6 +220,16 @@
       end
     },
     {
+      "nvim-treesitter/nvim-treesitter-context",
+      tag = "v1.0.0",
+      config = function()
+        require('treesitter-context').setup({
+          enable = true,
+          mode = 'topline',
+        })
+      end
+    },
+    {
       "preservim/nerdtree",
       tag = "7.1.3",
       config = function()
