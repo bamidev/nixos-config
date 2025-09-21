@@ -75,6 +75,17 @@
           end
         end, {silent = true})
       end,
+    },{
+      'lewis6991/gitsigns.nvim',
+      tag = 'v1.0.2',
+      config = function()
+        local gitsigns = require('gitsigns')
+        gitsigns.setup({
+          on_attach = function()
+            vim.keymap.set('n', '<C-b>', gitsigns.toggle_current_line_blame)
+          end
+        })
+      end,
     },
     {
       "lukas-reineke/headlines.nvim",
