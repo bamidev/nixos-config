@@ -113,6 +113,13 @@
       end
     },
     {
+      "MeanderingProgrammer/render-markdown.nvim",
+      tag = "v8.8.0",
+      config = function()
+        require('render-markdown').setup({})
+      end
+    },
+    {
       "mfussenegger/nvim-dap",
       tag = "0.10.0",
       config = function()
