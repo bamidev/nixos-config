@@ -92,6 +92,7 @@
       tag = "v5.0.0",
       requires = "nvim-treesitter/nvim-treesitter",
       config = function()
+        require('headlines').setup()
       end,
     },
     {
@@ -110,13 +111,6 @@
           },
           scope = { enabled = false },
         }
-      end
-    },
-    {
-      "MeanderingProgrammer/render-markdown.nvim",
-      tag = "v8.8.0",
-      config = function()
-        require('render-markdown').setup({})
       end
     },
     {
