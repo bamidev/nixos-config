@@ -62,6 +62,7 @@ in {
         [[config]]
         name = "setup-base"
         stdlib = "/home/therp/lsp/odoo/odoo-ls/server/typeshed/stdlib/"
+        addons_paths = ["''${workspaceFolder}"]
 
       '' + lib.strings.concatStrings (lib.lists.forEach (
         lib.range odooParams.lspVersions.start odooParams.lspVersions.stop
