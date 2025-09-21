@@ -1,16 +1,16 @@
-{ pkgs, lib, ... }:
+{ lib, ... }:
 let
   config = import ../../params.nix;
-  pinnedPkgs = (import ../../pins.nix).nixpkgs25_05.pkgs;
+  pkgs = (import ../../pins.nix).nixpkgs25_05.pkgs;
 in {
-  environment.systemPackages = with pinnedPkgs; [
+  environment.systemPackages = with pkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
     ripgrep # Needed for the telescope plugin
   ];
 
   programs.neovim = {
     enable = true;
-    package = pinnedPkgs.neovim-unwrapped;
+    package = pkgs.neovim-unwrapped;
 
     defaultEditor = true;
     withNodeJs = false;
