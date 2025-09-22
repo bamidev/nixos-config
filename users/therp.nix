@@ -54,9 +54,10 @@ in {
         additional-builtins = env
       '';
 
+      # Ignore docstring warnings becaus they are rarely used within Odoo classes
       ".pydocstyle.ini".text = ''
         [pydocstyle]
-        ignore = D100
+        ignore = D100,D101
       '';
 
       "code/odools.toml".text = ''
