@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 let
   odooParams = import ./therp/odoo-params.nix;
+  nixpkgsPython = (builtins.getFlake "github:cachix/nixpkgs-python").packages.x86_64-linux;
 in {
   imports = [
     ./desktop.nix
@@ -71,10 +72,22 @@ in {
         name = "setup-${toString majorVersion}.0"
         extends = "setup-base"
         odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/odoo/"
+        python_path = "${
+          if majorVersion < 11 then
+            pkgs.python314
+          else if majorVersion < 13 then
+            nixpkgsPython."3.5"
+          else if majorVersion < 15 then
+            nixpkgsPython."3.6"
+          else if majorVersion < 17 then
+            nixpkgsPython."3.8"
+          else
+            pkgs.python310
+        }/bin/python"
         addons_paths = [
       '' +
         lib.strings.concatStrings (lib.lists.forEach odooParams.lspOcaRepos (repo:
-          "\"/home/therp/lsp/odoo/${toString majorVersion}.0/${repo}\","
+          "\"/home/therp/lsp/odoo/${toString majorVersion}.0/${repo}\"/,"
         )) + '']
 
       ''));
