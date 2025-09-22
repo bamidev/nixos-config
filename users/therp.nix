@@ -54,10 +54,16 @@ in {
         additional-builtins = env
       '';
 
-      # Ignore docstring warnings becaus they are rarely used within Odoo classes and methods
+      # Ignore docstring warnings because they are rarely used within Odoo code.
       ".pydocstyle.ini".text = ''
         [pydocstyle]
         ignore = D100,D101,D102
+      '';
+
+      # Max line length is actually 88 although it is not configured everywhere
+      ".config/pycodestyle".text = ''
+        [pycodestyle]
+        max-line-length = 88
       '';
 
       "code/odools.toml".text = ''
