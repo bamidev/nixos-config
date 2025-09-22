@@ -8,15 +8,22 @@ in ''
   for i = ${toString params.lspVersions.start}, ${toString params.lspVersions.stop}, 1 do
     local version_dir = odoo_dir .. '/' .. i .. '.0'
     local odoo_repo_dir = version_dir .. '/odoo'
+    local enterprise_repo_dir = version_dir .. '/enterprise'
 
     if vim.fn.isdirectory(odoo_repo_dir) == 0 then
-      os.execute('git clone -b ' .. i .. '.0 --depth=1 https://github.com/OCA/OCB.git "' .. odoo_repo_dir .. '"')
+      os.execute('git clone -b ' .. i .. '.0 --depth=1 ${params.lspOdooRepoUrl} "' .. odoo_repo_dir .. '"')
+    end
+    if vim.fn.isdirectory(enterprise_repo_dir) == 0 then
+      os.execute('git clone -b ' .. i .. '.0 --depth=1 ${params.lspEnterpriseRepoUrl} "' .. enterprise_repo_dir .. '"')
     end
 
     local repos = {${lib.strings.concatStrings (lib.lists.forEach params.lspOcaRepos (repo: "\"${repo}\", "))}}
     for _, repo in pairs(repos) do
       local oca_repo_dir = version_dir .. '/' .. repo
       if vim.fn.isdirectory(oca_repo_dir) == 0 then
+        -- Precreate the repo directory, so that when the command fails, the cloning is not tried
+        -- again.
+        os.execute('mkdir "' .. oca_repo_dir .. '"')
         os.execute('git clone -b ' .. i .. '.0 --depth=1 https://github.com/OCA/' .. repo .. '.git "' .. oca_repo_dir .. '"')
       end
     end
