@@ -73,9 +73,9 @@ in {
         name = "setup-${toString majorVersion}.0"
         extends = "setup-base"
         odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/odoo/"
-        python_path = "${
+        #python_path = "${
           if majorVersion < 11 then
-            pkgs.python314
+            nixpkgsPython."2.7"
           else if majorVersion < 13 then
             nixpkgsPython."3.5"
           else if majorVersion < 15 then
@@ -88,7 +88,7 @@ in {
         addons_paths = [
       '' +
         lib.strings.concatStrings (lib.lists.forEach odooParams.lspOcaRepos (repo:
-          "\"/home/therp/lsp/odoo/${toString majorVersion}.0/${repo}\"/,"
+          "\"/home/therp/lsp/odoo/${toString majorVersion}.0/${repo}/\","
         )) + '']
 
       ''));
