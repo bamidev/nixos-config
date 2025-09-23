@@ -16,8 +16,13 @@ end
 
 local function find_odoo_version_in_branch_name(branch)
 	local _, endIndex = string.find(branch, "-", 1, true)
-	local versionString = string.sub(branch, 1, endIndex - 1)
-	local result, _ = string.find(versionString, ".", 2, true)
+	if endIndex == nil then
+		endIndex = #branch
+	else
+		endIndex = endIndex - 1
+	end
+	local versionString = string.sub(branch, 1, endIndex)
+	local result, _ = string.find(versionString, ".", 1, true)
 	if result == nil then
 		return nil
 	end
