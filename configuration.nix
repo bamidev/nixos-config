@@ -153,6 +153,7 @@ in
     # overriden by the other files.
     users =
       {
+        root = { pkgs, lib, ... }: import ./users/root.nix { pkgs=pkgs; lib=lib; username="root"; };
         bamilab = { pkgs, lib, ... }:
           import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; };
         therp = { pkgs, lib, ... }:
