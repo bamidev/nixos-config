@@ -27,7 +27,6 @@ in {
     };
   };
 
-
   home = {
     stateVersion = "24.11";
 
@@ -107,7 +106,15 @@ in {
   };
 
   programs = {
-    firefox.policies.Cookies.Allow = ["https://therp.nl"];
+    firefox.policies = {
+      Cookies.Allow = ["https://therp.nl"];
+      ExtensionSettings = {
+        "info@therp.nl" = {
+          install_url = "https://github.com/Therp/odoo-timer/releases/download/1.12/therp-odoo-timer-firefox-1.12.xpi";
+          installation_mode = "force_installed";
+        };
+      };
+    };
 
     git = {
       userName = "Danny de Jong";

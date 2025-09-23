@@ -59,7 +59,6 @@ in {
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
       Cookies = {
-        #Allow = []; # Override this on a per-user basis
         BehaviorPrivateBrowsing = "reject-foreign";
         Locked = true;
       };
