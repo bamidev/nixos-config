@@ -78,7 +78,7 @@ in {
         name = "setup-${toString majorVersion}.0"
         extends = "setup-base"
         odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/odoo/"
-        #python_path = "${
+        python_path = "${
           if majorVersion < 11 then
             nixpkgsPython."2.7"
           else if majorVersion < 13 then
