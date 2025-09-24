@@ -69,6 +69,7 @@ in {
       # Max line length is actually 88 although it is not configured everywhere
       ".config/pycodestyle".text = ''
         [pycodestyle]
+        ignore = W503
         max-line-length = 88
       '';
 
