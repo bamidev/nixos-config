@@ -18,6 +18,14 @@
         source = ../apps/neovim/etc/pylintrc;
       };
     };
+
+    sessionVariables = {
+      "VIMINIT" = ''
+        nmap ; :
+        vmap ; :
+        source ~/.config/nvim/init.lua
+      '';
+    };
   };
 
   programs = {

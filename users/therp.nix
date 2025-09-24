@@ -124,7 +124,10 @@ in {
     ssh = {
       enable = true;
 
-      extraConfig = "Include ~/.ssh/config.d/*.conf";
+      extraConfig = ''
+        Include ~/.ssh/config.d/*.conf
+        SendEnv VIMINIT
+      '';
     };
   };
 }
