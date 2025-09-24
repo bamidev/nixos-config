@@ -49,18 +49,18 @@ end
 return {
 	s("add", {
 		t(prefix('ADD')),
-		i(1, '...')
+		i(1)
 	}),
 	s("fix", {
 		t(prefix('FIX')),
-		i(1, '...')
+		i(1)
 	}),
 	s("imp", {
 		t(prefix('IMP')),
-		i(1, '...')
+		i(1)
 	}),
 	s("rem", {
 		t(prefix('REM')),
-		i(1, '...')
+		i(1)
 	}),
 }
