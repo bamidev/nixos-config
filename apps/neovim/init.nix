@@ -16,6 +16,10 @@
   vim.opt.list = vim.o.termguicolors
   vim.opt.listchars = {eol = '↵', space = '·', tab = '┄┄'}
 
+  vim.diagnostic.config({
+    virtual_lines = false,
+    virtual_text = true,
+  })
 
   -- Map keys
   vim.keymap.set({'n', 'v', 'x'}, ';', ':')
