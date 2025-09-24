@@ -3,14 +3,14 @@
 {
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_15.override {
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_16.override {
     argsOverride = rec {
       src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            sha256 = "sha256-iatGn8Nb2cvGxb9OXLgCWBgG1cvBT7R+XJ7cxHfmXZM=";
+        url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+        sha256 = "sha256-IxMRvXCE3DEplE0mu0O+b/g32oL7IQSmdwSuvKi/pp8=";
       };
-      version = "6.15.11";
-      modDirVersion = "6.15.11";
+      version = "6.16.8";
+      modDirVersion = "6.16.8";
     };
   });
   boot.kernelModules = [ "kvm-amd" ];
@@ -53,6 +53,8 @@
   networking.useDHCP = lib.mkDefault true;
   networking.hostId = "12345678";
   # networking.interfaces.enp10s0.useDHCP = lib.mkDefault true;
+
+  hardware.enableRedistributableFirmware = lib.mkForce true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
