@@ -2,6 +2,13 @@
 let
   odooParams = import ./therp/odoo-params.nix;
   nixpkgsPython = (builtins.getFlake "github:cachix/nixpkgs-python").packages.x86_64-linux;
+
+  ssht = pkgs.writers.writeBashBin "ssht" ''
+    ssh -A $@ -t "export VIMINIT='
+    nmap ; :
+    vmap ; :
+    '; bash --norc"
+  '';
 in {
   imports = [
     ./desktop.nix
@@ -102,6 +109,8 @@ in {
     packages = with pkgs; [
       black
       pre-commit
+    ] ++ [
+      ssht
     ];
   };
 
