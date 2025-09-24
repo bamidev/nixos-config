@@ -106,6 +106,10 @@ in {
           ${pkgs.acl}/bin/setfacl -d -m g::rwx "$REAL_DIR"
           if [ ! -e "/home/$1/$2" ]; then
             ln -s "$REAL_DIR" "/home/$1/$2"
+            chown "$1:users" "/home/$1/$2"
+            if [ "/home/$1/$2" != $(dirname "/home/$1/$2") ]; then
+              chown "$1:users" $(dirname "/home/$1/$2")
+            fi
           fi
         }
 
