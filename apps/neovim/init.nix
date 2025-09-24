@@ -16,12 +16,6 @@
   vim.opt.list = vim.o.termguicolors
   vim.opt.listchars = {eol = '↵', space = '·', tab = '┄┄'}
 
-  -- Settings required for the ufo plugin
-  vim.o.foldcolumn = '1'
-  vim.o.foldlevel = 99
-  vim.o.foldlevelstart = 99
-  vim.o.foldenable = true
-
 
   -- Map keys
   vim.keymap.set({'n', 'v', 'x'}, ';', ':')
