@@ -26,7 +26,6 @@ in {
 
         [core]
         editor = "nvim"
-        abbrev = 7
 
         [push]
         autoSetupRemote = true
