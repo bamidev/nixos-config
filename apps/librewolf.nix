@@ -1,54 +1,5 @@
 { pkgs, ... }:
-let
-  x = ''
-      "authenticator_mymindstorm-browser-action",
-      "floccus_handmadeideas_org-browser-action"
-  '';
-  uiCustomizationState = ''
-    {
-      "placements": {
-        "widget-overflow-fixed-list": [],
-        "unified-extensions-area": [],
-        "nav-bar": [
-          "back-button",
-          "forward-button",
-          "stop-reload-button",
-          "customizableui-special-spring1",
-          "vertical-spacer",
-          "urlbar-container",
-          "customizableui-special-spring2",
-          "downloads-button",
-          "fxa-toolbar-menu-button",
-          "unified-extensions-button",
-          "ublock0_raymondhill_net-browser-action"
-        ],
-        "toolbar-menubar": [
-          "menubar-items"
-        ],
-        "TabsToolbar": [
-          "tabbrowser-tabs",
-          "new-tab-button",
-          "alltabs-button"
-        ],
-        "vertical-tabs": [],
-        "PersonalToolbar": [
-          "personal-bookmarks"
-        ]
-      },
-      "seen": [],
-      "dirtyAreaCache": [
-        "nav-bar",
-        "vertical-tabs",
-        "unified-extensions-area",
-        "toolbar-menubar",
-        "TabsToolbar",
-        "PersonalToolbar"
-      ],
-      "currentVersion": 23,
-      "newElementCount": 2
-    }
-  '';
-in {
+{
   programs.firefox = {
     enable = true;
 
@@ -66,7 +17,6 @@ in {
         "browser.policies.runOncePerModification.setDefaultSearchEngine" = "DuckDuckGo";
         "browser.toolbars.bookmarks.visibility" = "newtab";
         "browser.translations.enable" = false;
-        "browser.uiCustomization.state" = uiCustomizationState;
         "extensions.activeThemeID" = "{dfb93b31-21ba-46fc-977d-46300ce0a76b}";
         "privacy.donottrackheader.enabled" = true;
         "privacy.fingerprintingProtection" = false;
@@ -108,8 +58,6 @@ in {
 
     profiles.default = {
       isDefault = true;
-
-      #bookmarks = {};
 
       search = {
         default = "SearXNG";
