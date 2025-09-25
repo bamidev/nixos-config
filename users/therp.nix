@@ -1,8 +1,19 @@
 { pkgs, lib, ... }:
 let
   odooParams = import ./therp/odoo-params.nix;
-  nixpkgsPython = (builtins.getFlake "github:cachix/nixpkgs-python").packages.x86_64-linux;
+  nixpkgsPython = (builtins.getFlake "github:cachix/nixpkgs-python").packages.${builtins.currentSystem};
+  preCommitFlake = (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
 
+  installPreCommit = pkgs.writers.writeBashBin "pc-install" ''
+    set -e
+    echo "pc" > .git/hooks/pre-commit
+    chmod +x .git/hooks/pre-commit
+    echo Installed the pre-commit hook.
+  '';
+  preCommit = pkgs.writers.writeBashBin "pc" ''
+    set -e
+    ${preCommitFlake.default.program}
+  '';
   ssht = pkgs.writers.writeBashBin "ssht" ''
     ssh -A $@ -t "export VIMINIT='
     nmap ; :
@@ -109,8 +120,9 @@ in {
 
     packages = with pkgs; [
       black
-      pre-commit
     ] ++ [
+      installPreCommit
+      preCommit
       ssht
     ];
   };
