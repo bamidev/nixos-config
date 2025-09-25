@@ -20,34 +20,6 @@
       pulse.enable = true;
     };
 
-    # TODO: Put into apps/postgesql.nix
-    postgresql = {
-      enable = true;
-      package = pkgs.postgresql_17;
-
-      authentication = pkgs.lib.mkOverride 10 ''
-        #type database  DBuser  auth-method
-        local all       all     trust
-      '';
-
-      ensureUsers = [
-        {
-          name = "bamilab";
-          ensureClauses = {
-            createdb = true;
-            login = true;
-          };
-        }
-        {
-          name = "therp";
-          ensureClauses = {
-            createdb = true;
-            login = true;
-          };
-        }
-      ];
-    };
-
     # Enable CUPS to print documents.
     printing.enable = true;
 
@@ -118,7 +90,8 @@
       vial
       wl-clipboard-rs
 
-      # Install a bunch of python packages so that they are available to pylsp
+      # Install a bunch of python development tools as the fallback tools for when no virtual
+      # environment is used.
       (python3.withPackages (python-pkgs: with python-pkgs; [
         debugpy
         python-lsp-server
@@ -147,24 +120,6 @@
         };
       };
     }];
-
-    # TODO: Put into ./apps/sway/system.nix
-    sway = {
-      enable = true;
-
-      package = pkgs.swayfx;
-      wrapperFeatures.gtk = true;
-      extraSessionCommands = ''
-        # SDL:
-        export SDL_VIDEODRIVER=wayland
-        # QT (needs qt5.qtwayland in systemPackages):
-        export QT_QPA_PLATFORM=wayland-egl
-        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-        # Fix for some Java AWT applications (e.g. Android Studio),
-        # use this if they aren't displayed properly:
-        export _JAVA_AWT_WM_NONREPARENTING=1
-      '';
-    };
   };
 
   virtualisation.docker.enable = true;

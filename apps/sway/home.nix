@@ -17,8 +17,8 @@ let
   theme = import ../../theme.nix;
 in {
   wayland.windowManager.sway = {
+    # Sway is only enabled in home-manager in order to generate the config files.
     enable = true;
-    #package = pkgs.swayfx;
     package = null;
 
     config = rec {
