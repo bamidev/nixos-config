@@ -100,7 +100,6 @@
       dmenu-rs
       element-desktop
       file-roller
-      gcc
       gimp
       libheif # For nautilus image preview
       libheif.out
@@ -108,7 +107,6 @@
       mako
       nautilus
       pavucontrol
-      pre-commit
       protonmail-bridge-gui
       rustup
       session-desktop
@@ -122,10 +120,8 @@
 
       # Install a bunch of python packages so that they are available to pylsp
       (python3.withPackages (python-pkgs: with python-pkgs; [
-        psycopg
-        psycopg2
+        debugpy
         python-lsp-server
-      
         flake8
         jedi
         pydocstyle
