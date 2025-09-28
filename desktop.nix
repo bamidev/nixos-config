@@ -122,6 +122,8 @@
     }];
   };
 
+  services.gvfs.enable = true;
+
   virtualisation.docker.enable = true;
 
   xdg.mime = {
