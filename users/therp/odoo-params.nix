@@ -9,6 +9,7 @@
   lspOcaRepos = [
     "l10n-netherlands"
     "partner-contact"
+    "sale-workflow"
     "server-tools"
     "server-ux"
     "web"
