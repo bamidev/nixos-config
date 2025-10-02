@@ -14,7 +14,7 @@ let
     set -e
     ${preCommitFlake.default.program}
   '';
-  ssht = pkgs.writers.writeBashBin "ssht" ''
+  sst = pkgs.writers.writeBashBin "sst" ''
     ssh -A $@ -t "export VIMINIT='
     nmap ; :
     vmap ; :
@@ -123,7 +123,7 @@ in {
     ] ++ [
       installPreCommit
       preCommit
-      ssht
+      sst
     ];
   };
 
