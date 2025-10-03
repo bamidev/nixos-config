@@ -42,7 +42,9 @@ in {
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
+      "lua/plugins/feline.lua".source = ./lua/plugins/feline.lua;
       "lua/lsp.lua".text = import ./lua/lsp.nix { pkgs=pkgs; };
+      "lua/pylsp.lua".source = ./lua/pylsp.lua;
 
       "luasnippets".source = ./luasnippets;
 
