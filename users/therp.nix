@@ -96,27 +96,35 @@ in {
         [[config]]
         name = "setup-${toString majorVersion}.0"
         extends = "setup-base"
-        odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/odoo/"
-        python_path = "${
-          if majorVersion < 11 then
-            nixpkgsPython."2.7"
-          else if majorVersion < 13 then
-            nixpkgsPython."3.5"
-          else if majorVersion < 15 then
-            nixpkgsPython."3.6"
-          else if majorVersion < 17 then
-            nixpkgsPython."3.8"
-          else
-            pkgs.python310
-        }/bin/python"
-        addons_paths = [
-      '' +
-        lib.strings.concatStrings (lib.lists.forEach odooParams.lspOcaRepos (repo:
-          "\"/home/therp/lsp/odoo/${toString majorVersion}.0/${repo}/\","
-        )) + '']
+        odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/wax/repos/odoo/"
+        python_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/wax/venv/bin/python"
+        addons_paths = ["/home/therp/lsp/odoo/${toString majorVersion}.0/wax/addons"]
 
       ''));
-    };
+    } // lib.attrsets.genAttrs (lib.lists.forEach ["16.0"] (v: "lsp/odoo/${v}/flake.nix.example")) (version:
+      {
+        text = ''
+          {
+            inputs = {
+              wax.url = "github:bamidev/wax";
+            };
+
+            outputs = { self, wax }: {
+              devShells.${builtins.currentSystem}.default = wax.lib.mkOdooShell {
+                system = "${builtins.currentSystem}";
+                config =  {
+                  odooVersion = "${version}";
+
+                  repos.spec = {
+                    odoo = {};
+                  };
+                };
+              };
+            };
+          }
+        '';
+      }
+    );
 
     packages = with pkgs; [
       black
