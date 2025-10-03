@@ -87,7 +87,7 @@ in {
       "odools.toml".text = ''
         [[config]]
         name = "setup-base"
-        stdlib = "/home/therp/lsp/odoo/odoo-ls/server/typeshed/stdlib/"
+        stdlib = "/home/therp/lsp/odoo-ls/server/typeshed/stdlib/"
         addons_paths = ["''${workspaceFolder}"]
 
       '' + lib.strings.concatStrings (lib.lists.forEach (
@@ -96,12 +96,15 @@ in {
         [[config]]
         name = "setup-${toString majorVersion}.0"
         extends = "setup-base"
-        odoo_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/wax/repos/odoo/"
-        python_path = "/home/therp/lsp/odoo/${toString majorVersion}.0/wax/venv/bin/python"
-        addons_paths = ["/home/therp/lsp/odoo/${toString majorVersion}.0/wax/addons"]
+        odoo_path = "/home/therp/wax/${toString majorVersion}.0/wax/repos/odoo/"
+        python_path = "/home/therp/wax/${toString majorVersion}.0/wax/venv/bin/python"
+        addons_paths = ["/home/therp/wax/${toString majorVersion}.0/wax/addons"]
 
       ''));
-    } // lib.attrsets.genAttrs (lib.lists.forEach ["16.0"] (v: "lsp/odoo/${v}/flake.nix.example")) (version:
+    } // lib.attrsets.genAttrs (lib.lists.forEach (
+      lib.range odooParams.lspVersions.start
+      odooParams.lspVersions.stop
+    ) (v: "wax/${toString v}.0/flake.nix.example")) (version:
       {
         text = ''
           {

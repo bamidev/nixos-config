@@ -10,9 +10,10 @@ in ''
     local wax_dir = version_dir .. '/wax'
 
     if vim.fn.isdirectory(wax_dir) == 0 then
-      os.execute('${pkgs.coreutils}/bin/cp "' .. version_dir .. '/flake.nix.example" "' .. version_dir .. '/flake.nix"')
-      os.execute('cd "' .. version_dir .. '" && nix develop --command build')
-    fi
+      --os.execute('${pkgs.coreutils}/bin/cp "' .. version_dir .. '/flake.nix.example" "' .. version_dir .. '/flake.nix"')
+      --os.execute('cd "' .. version_dir .. '" && nix develop --command build')
+    end
+  end
 
   local odools_dir = odoo_dir .. '/odoo-ls'
   if vim.fn.isdirectory(odools_dir) == 0 then
