@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
   odooParams = import ./therp/odoo-params.nix;
-  nixpkgsPython = (builtins.getFlake "github:cachix/nixpkgs-python").packages.${builtins.currentSystem};
   preCommitFlake = (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
 
   installPreCommit = pkgs.writers.writeBashBin "pc-install" ''
@@ -116,7 +115,8 @@ in {
               devShells.${builtins.currentSystem}.default = wax.lib.mkOdooShell {
                 system = "${builtins.currentSystem}";
                 config =  {
-                  odooVersion = "${version}";
+                  odooVersion = "${version}.0";
+                  databaseName = "odoo${version}";
 
                   repos.spec = {
                     odoo = {};
