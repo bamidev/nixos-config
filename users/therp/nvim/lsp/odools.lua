@@ -1,4 +1,4 @@
-local lsp_dir = vim.fs.abspath('~/lsp/odoo')
+local lsp_dir = vim.fs.abspath('~/lsp')
 
 local server_dir = lsp_dir .. '/odoo-ls/server'
 
