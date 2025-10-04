@@ -1,9 +1,9 @@
 return {
 	settings = {
 		pylsp = {
-			configurationSources = {'flake8'},
+			configurationSources = {'pycodestyle'},
 			plugins = {
-				flake8 = { enabled = false },	-- Doesn't know about builtin variables
+				flake8 = { enabled = true },	-- Doesn't know about builtin variables
 				jedi_completion = {
 				  enabled = true,
 				  fuzzy = true,
@@ -13,8 +13,10 @@ return {
 				jedi_references = { enabled = true },
 				jedi_signature_help = { enabled = true },
 				jedi_symbols = { enabled = true },
+				jedi_type_definition = { enabled = true },
+				pycodestyle = { enabled = true },
 				pydocstyle = { enabled = true },
-				pyflakes = { enabled = false },	-- Doesn't know about builtin variables
+				pyflakes = { enabled = true },
 				pylint = {
 					enabled = true,
 					args = {
