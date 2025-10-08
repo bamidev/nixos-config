@@ -109,37 +109,47 @@ in {
         addons_paths = ["/home/therp/wax/${toString majorVersion}.0/wax/addons"]
 
       ''));
-    } // lib.attrsets.genAttrs (lib.lists.forEach (
+    # Create a Wax flake.nix template for each Odoo version
+    } // lib.attrsets.mergeAttrsList (lib.lists.forEach (
       lib.range odooParams.lspVersions.start
       odooParams.lspVersions.stop
-    ) (v: "wax/${toString v}.0/flake.nix.example")) (version:
+    ) (version: 
       {
-        text = ''
-          {
-            inputs = {
-              wax.url = "github:bamidev/wax";
-            };
+        "wax/${toString version}.0/flake.nix.example" = {
+          text = ''
+            {
+              inputs = {
+                wax.url = "github:bamidev/wax";
+              };
 
-            outputs = { self, wax }: {
-              devShells.${builtins.currentSystem}.default = wax.lib.mkOdooShell {
-                system = "${builtins.currentSystem}";
-                config =  {
-                  odooVersion = "${version}.0";
-                  databaseName = "odoo${version}";
+              outputs = { self, wax }: {
+                devShells.${builtins.currentSystem}.default = wax.lib.mkOdooShell {
+                  system = "${builtins.currentSystem}";
+                  config =  {
+                    odooVersion = "${toString version}.0";
+                    databaseName = "odoo${toString version}";
 
-                  repos.spec = {
-                    odoo = {};
+                    repos.spec = {
+                      odoo = {};
+                    };
+
+                    dev.pythonPackages = {
+                      "debugpy"
+                      "python-lsp-server[all]"
+                      "pylint-odoo"
+                    };
                   };
                 };
               };
-            };
-          }
-        '';
-      }
+            }
+          '';
+        };
+      })
     );
 
     packages = with pkgs; [
       black
+      uv
     ] ++ [
       installPreCommit
       preCommit

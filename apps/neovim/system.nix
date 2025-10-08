@@ -20,6 +20,9 @@ in {
     runtime = {
       "init.lua".text = import ./init.nix { pkgs = pkgs; };
 
+      "ftplugin/csv.lua".text = ''
+        vim.opt.textwidth = nil
+      '';
       "ftplugin/python.lua".text = ''
         vim.opt.expandtab = true
         vim.opt.smartindent = true

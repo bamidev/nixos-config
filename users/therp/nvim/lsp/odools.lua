@@ -12,7 +12,7 @@ return {
 	cmd = {
 		server_dir .. '/odoo_ls_server',
 	},
-	filetypes = { 'python' },
+	filetypes = { 'python', 'xml' },
 	on_attach = function(client, _)
 		vim.api.nvim_create_user_command('OdooProfile', function(e)
 			local profile_name = e.args

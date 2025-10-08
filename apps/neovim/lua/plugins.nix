@@ -310,11 +310,11 @@
             return {'treesitter', 'indent'}
           end,
           close_fold_kinds_for_ft = {
-            default = {"function_definition", "imports"},
-            python = {"class_definition", "function_definition", "imports"},
             cpp = {"class_specifier", "function_definition"},
+            lua = {"function_declaration", "function_definition"},
+            python = {"class_definition", "function_definition", "imports"},
             rust = {"function_item", "impl_item", "struct_item", "use_declaration"},
-            xml = {"element"},
+            xml = {'element'},
           }
         })
 
