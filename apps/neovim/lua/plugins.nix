@@ -50,10 +50,33 @@
   }
   pckr.add {
     {
+      "ellisonleao/gruvbox.nvim",
+      tag = "2.0.0",
+      config = function()
+        if not vim.o.termguicolors then
+          return
+        end
+
+        if season == "fall" then
+          vim.o.background = "dark"
+        else if season == "spring" then
+          vim.o.background = "light"
+        else
+          return
+        end end
+        vim.cmd.colorscheme("gruvbox")
+      end
+    },
+    require('plugins.feline'),
+    {
       "j-hui/fidget.nvim",
       tag = "v1.6.1",
       config = function()
-        require("fidget").setup {}
+        require("fidget").setup {
+          progress = {
+            suppress_on_insert = true,
+          }
+        }
       end,
     },
     {
@@ -75,7 +98,8 @@
           end
         end, {silent = true})
       end,
-    },{
+    },
+    {
       'lewis6991/gitsigns.nvim',
       tag = 'v1.0.2',
       config = function()
@@ -165,27 +189,12 @@
       end
     },
     {
-      "morhetz/gruvbox",
-      tag = "v3.0.1-rc.0",
-      config = function()
-        if not vim.o.termguicolors then
-          return
-        end
-
-        if season == "fall" then
-          vim.o.background = "dark"
-        else if season == "spring" then
-          vim.o.background = "light"
-        else
-          return
-        end end
-        vim.cmd.colorscheme("gruvbox")
-        --vim.g.airline_theme = 'gruvbox'
-      end
-    },
-    {
       "nvim-neotest/nvim-nio",
       tag = "v1.10.1",
+    },
+    {
+      "nvim-tree/nvim-web-devicons",
+      tag = "v0.100",
     },
     {
       "nvim-telescope/telescope.nvim",
@@ -278,18 +287,6 @@
       end,
     },
     {
-      "vim-airline/vim-airline",
-      tag = "v0.11",
-      config = function()
-        -- The gruvbox theme doesn't work well with airline
-        if vim.o.termguicolors and vim.g.colors_name ~= "gruvbox" then
-          vim.g.airline_powerline_fonts = 1
-        else
-          vim.g.airline_symbols_ascii = 1
-        end
-      end
-    },
-    {
       "kevinhwang91/nvim-ufo",
       --tag = "v1.5.0",
       -- Revert to the last known working commit to prevent the following bug:
@@ -325,5 +322,9 @@
         --vim.keymap.set('n', '<C-a>', ufo.closeAllFolds)
       end
     },
+    {
+      "uga-rosa/utf8.nvim",
+      commit = "954cbbadabe5cd19f202e918fec191d64eea7766",
+    }
   }
 ''

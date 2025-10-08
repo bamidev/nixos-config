@@ -1,4 +1,4 @@
-local odoo_version = require('odoo').find_odoo_version()
+local odoo_version = require('utils.odoo').find_odoo_version()
 local python_path = 'python'
 if odoo_version ~= nil then
 	python_path = '/home/therp/wax/' .. odoo_version .. '/wax/venv/bin/python'
