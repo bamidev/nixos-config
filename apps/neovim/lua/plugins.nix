@@ -69,17 +69,6 @@
     },
     require('plugins.feline'),
     {
-      "j-hui/fidget.nvim",
-      tag = "v1.6.1",
-      config = function()
-        require("fidget").setup {
-          progress = {
-            suppress_on_insert = true,
-          }
-        }
-      end,
-    },
-    {
       "L3MON4D3/LuaSnip",
       tag = "v2.4.0",
       run = "${pkgs.gnumake}/bin/make install_jsregexp || make install_jsregexp",
