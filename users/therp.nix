@@ -64,7 +64,16 @@ in {
         lib=lib;
       };
 
+      # Disable import errors from pylint, because pylint is not aware of which Wax venv is being
+      # used, and odoo-ls performs the same check while odoo-ls _is_ aware of the right venv used.
+      # Disable filename checking because migration scripts' filenames require an unconvential file
+      # name style.
+      # Disable function & module docstrings because migration scripts are not expected to have
+      # them.
       ".config/pylintrc".text = builtins.readFile ../apps/neovim/etc/pylintrc + ''
+
+        [MAIN]
+        disable=import-error,invalid-name,missing-function-docstring,missing-module-docstring
 
         [VARIABLES]
         additional-builtins = env
@@ -73,7 +82,7 @@ in {
       # Ignore docstring warnings because they are rarely used within Odoo code.
       ".pydocstyle.ini".text = ''
         [pydocstyle]
-        ignore = D100,D101,D102
+        ignore = D100,D101,D102,D103
       '';
 
       # Max line length is actually 88 although it is not configured everywhere
