@@ -25,7 +25,9 @@ return {
 			blue = palette.neutral_blue,
 			bright_blue = palette.bright_blue,
 			cyan = palette.bright_aqua,
+			dark_green = palette.dark_green,
 			faded_blue = palette.faded_blue,
+			faded_orange = palette.faded_orange,
 			green = palette.neutral_green,
 			gray = palette.dark4;
 			magenta = palette.neutral_purple,

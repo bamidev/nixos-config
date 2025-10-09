@@ -3,7 +3,7 @@ local vi_mode = require('feline.providers.vi_mode')
 local utf8 = require('utf8')
 
 
-local function component(provider, color, side, neighbour, sep_left, sep_right, options)
+local function component(provider, color, side, neighbour, sep_left, sep_right, style, options)
 	local function generate_sep_table(color_, sep_side)
 		local table = {
 			str = utf8.char(0x2588),
@@ -44,7 +44,8 @@ local function component(provider, color, side, neighbour, sep_left, sep_right, 
 	if type(color) == "function" then
 		hl_base = function()
 			return {
-				fg = color()
+				fg = color(),
+				style = style,
 			}
 		end
 		sep_table_left = function()
@@ -54,7 +55,7 @@ local function component(provider, color, side, neighbour, sep_left, sep_right, 
 			return generate_sep_table(color(), 'right')
 		end
 	else
-		hl_base = { fg = color }
+		hl_base = { fg = color, style = style, }
 		sep_table_left = generate_sep_table(color, 'left')
 		sep_table_right = generate_sep_table(color, 'right')
 	end
@@ -83,10 +84,14 @@ local file_type_component = component(
 	end,
 	function()
 		local table = {
+			c = 'bg4',
+			cpp = 'blue',
 			lua = 'blue',
 			python = 'yellow',
+			html = 'orange',
 			nix = 'faded_blue',
-			rust = 'orange',
+			rust = 'faded_orange',
+			sh = 'dark_green',
 			xml = 'bright_blue',
 		}
 
@@ -104,9 +109,17 @@ local git_branch_component = component(function()
 	return git.get_branch() or ''
 end, 'oceanblue', 'left')
 
-local vi_mode_component = component('vi_mode', function()
-	return vi_mode.get_mode_color()
-end, 'left', git_branch_component)
+local vi_mode_component = component(
+	'vi_mode',
+	function()
+		return vi_mode.get_mode_color()
+	end,
+	'left',
+	git_branch_component,
+	nil,
+	nil,
+	'bold'
+)
 
 local file_info_component = component(
 	{
@@ -121,6 +134,7 @@ local file_info_component = component(
 	nil,
 	utf8.char(0xE0BA),
 	utf8.char(0xE0BC),
+	nil,
 	{
 		truncate_hide = true,
 	}
