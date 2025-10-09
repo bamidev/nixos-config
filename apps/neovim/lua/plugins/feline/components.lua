@@ -86,6 +86,7 @@ local file_type_component = component(
 		local table = {
 			c = 'bg4',
 			cpp = 'blue',
+			gitcommit = 'red',
 			lua = 'blue',
 			python = 'yellow',
 			html = 'orange',
