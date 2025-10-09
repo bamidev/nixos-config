@@ -1,86 +1,41 @@
-local git = require('utils.git')
+local c = require('plugins.feline.common')
 local vi_mode = require('feline.providers.vi_mode')
 local utf8 = require('utf8')
 
 
-local function component(provider, color, side, neighbour, sep_left, sep_right, style, options)
-	local function generate_sep_table(color_, sep_side)
-		local table = {
-			str = utf8.char(0x2588),
-			hl = {
-				bg = color_,
-			},
-			always_visible = true
-		}
-		if provider == '' then
-			table.str = ''
-		else if type(provider) == "function" then
-			-- This does make the provider function get executed twice, but I see no other way for
-			-- the moment...
-			local value = provider()
-			if value == '' then
-				table.str = ''
-			end
-		end end
+local errors_component = c.simple_component('diagnostic_errors', 'red')
+errors_component.priority = 7
 
-		-- Set the background color of the seperator to match the neighbour's backgound color
-		if neighbour ~= nil then
-			table.hl.fg = neighbour.hl.fg
-		end
+local file_encoding_component = c.fancy_component('file_encoding', 'skyblue', 'right')
 
-		-- Change the seperator depending on which side the component is placed
-		if side ~= 'left' and sep_side == 'left' then
-			table.str = (sep_left or utf8.char(0xE0B2)) .. table.str
-		end
-		if side ~= 'right' and sep_side == 'right' then
-			table.str = table.str .. (sep_right or utf8.char(0xE0B0))
-		end
-		return table
-	end
-
-	local hl_base = nil
-	local sep_table_left = nil
-	local sep_table_right = nil
-	if type(color) == "function" then
-		hl_base = function()
-			return {
-				fg = color(),
-				style = style,
-			}
-		end
-		sep_table_left = function()
-			return generate_sep_table(color(), 'left')
-		end
-		sep_table_right = function()
-			return generate_sep_table(color(), 'right')
-		end
-	else
-		hl_base = { fg = color, style = style, }
-		sep_table_left = generate_sep_table(color, 'left')
-		sep_table_right = generate_sep_table(color, 'right')
-	end
-
-	local c = {
-		provider = provider,
-		update = {'BufEnter'},
-		hl = hl_base,
-		left_sep = sep_table_left,
-		right_sep = sep_table_right,
-		icon = ''
+local file_info_component = c.fancy_component(
+	{
+		name = 'file_info',
+		opts = {
+			colored_icon = false,
+			type = 'relative',
+		},
+	},
+	'bg2',
+	nil,
+	nil,
+	' ' .. utf8.char(0xE0BA),
+	utf8.char(0xE0BC) .. ' ',
+	nil
+)
+file_info_component.priority = 8
+file_info_component.short_provider = {
+	name = 'file_info',
+	opts = {
+		colored_icon = false,
+		type = 'relative-short',
 	}
-	if options ~= nil then
-		for k, v in pairs(options) do c[k] = v end
-	end
+}
+file_info_component.truncate_hide = true
 
-	return c
-end
-
-
-local file_encoding_component = component('file_encoding', 'skyblue', 'right')
-
-local file_type_component = component(
+local file_type_component = c.fancy_component(
 	function()
-		return vim.bo.filetype:gsub("^%l", string.upper) or ''
+		return vim.bo.filetype or ''
 	end,
 	function()
 		local table = {
@@ -103,56 +58,65 @@ local file_type_component = component(
 		return "grey"
 	end,
 	'right',
-	file_encoding_component
-)
-
-local git_branch_component = component(function()
-	return git.get_branch() or ''
-end, 'oceanblue', 'left')
-
-local vi_mode_component = component(
-	'vi_mode',
-	function()
-		return vi_mode.get_mode_color()
-	end,
-	'left',
-	git_branch_component,
+	file_encoding_component,
 	nil,
 	nil,
 	'bold'
 )
 
-local file_info_component = component(
-	{
-		name = 'file_info',
-		opts = {
-			colored_icon = false,
-			type = 'relative',
-		},
-	},
-	'bg2',
+
+local git_branch_components = require('plugins.feline.components.git_branch')
+
+local git_added_component = c.simple_component('git_diff_added', 'green')
+git_added_component.priority = 3
+
+local git_changed_component = c.simple_component('git_diff_changed', 'yellow')
+git_changed_component.icon = ' M '
+git_changed_component.priority = 2
+
+local git_removed_component = c.simple_component('git_diff_removed', 'orange')
+git_removed_component.priority = 1
+
+local hints_component = c.simple_component('diagnostic_hints', 'cyan')
+hints_component.priority = 5
+
+local infos_component = c.simple_component('diagnostic_info', 'blue')
+infos_component.priority = 4
+
+local vi_mode_component = c.fancy_component(
+	'vi_mode',
+	function()
+		return vi_mode.get_mode_color()
+	end,
+	'left',
+	git_branch_components[1],
 	nil,
 	nil,
-	utf8.char(0xE0BA),
-	utf8.char(0xE0BC),
-	nil,
-	{
-		truncate_hide = true,
-	}
+	'bold'
 )
 
+local warnings_component = c.simple_component('diagnostic_warnings', 'yellow')
+warnings_component.priority = 6
 
-return {
+
+local components = {
 	active = {
 		-- Left
 		{
 			vi_mode_component,
-			git_branch_component,
+			git_branch_components[1],
 		},
 
 		-- Center
 		{
+			git_added_component,
+			git_changed_component,
+			git_removed_component,
 			file_info_component,
+			errors_component,
+			warnings_component,
+			infos_component,
+			hints_component,
 		},
 
 		-- Right
@@ -162,3 +126,14 @@ return {
 		},
 	}
 }
+
+-- Add any remaining git branch components if available
+-- This allows replacing the default git branch component with any number of other components on
+-- the user level.
+-- For example, you could replace it with one or more components that display more specific
+-- information gathered from git. 
+for i = 2, #git_branch_components do
+	table.insert(components.active[1], git_branch_components[i])
+end
+
+return components

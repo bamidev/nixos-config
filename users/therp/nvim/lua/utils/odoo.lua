@@ -31,6 +31,15 @@ local function find_task_number_string_in_branch_name(branch)
 end
 
 
+local function find_description_in_branch_name(branch)
+	local _, versionStartIndex = string.find(branch, ".0-", 1, true)
+	if versionStartIndex == nil then return nil end
+	local startIndex = string.find(branch, "-", versionStartIndex + 1, true)
+	if startIndex == nil then return nil end
+	return string.sub(branch, startIndex + 1)
+end
+
+
 this.find_odoo_version = function()
 	local branch = git.get_branch()
 	if branch == nil then return nil end
@@ -49,11 +58,10 @@ this.find_task_number = function()
 end
 
 
-this.issue_info = function()
+this.find_issue_description = function()
 	local branch = git.get_branch()
 	if branch == nil then return nil end
-	local odooVersion, _ = find_odoo_version_in_branch_name(branch)
-	return odooVersion
+	return find_description_in_branch_name(branch)
 end
 
 

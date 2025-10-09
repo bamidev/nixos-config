@@ -46,7 +46,10 @@ in {
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
       "lua/plugins/feline.lua".source = ./lua/plugins/feline.lua;
+      "lua/plugins/feline/common.lua".source = ./lua/plugins/feline/common.lua;
       "lua/plugins/feline/components.lua".source = ./lua/plugins/feline/components.lua;
+      "lua/plugins/feline/components/git_branch.lua".source =
+        ./lua/plugins/feline/components/git_branch.lua;
       "lua/lsp.lua".text = import ./lua/lsp.nix { pkgs=pkgs; };
       "lua/pylsp.lua".source = ./lua/pylsp.lua;
       "lua/utils/git.lua".source = ./lua/utils/git.lua;
