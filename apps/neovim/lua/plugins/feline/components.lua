@@ -94,6 +94,7 @@ local vi_mode_component = c.fancy_component(
 	nil,
 	'bold'
 )
+vi_mode_component.icon = ''
 
 local warnings_component = c.simple_component('diagnostic_warnings', 'yellow')
 warnings_component.priority = 6

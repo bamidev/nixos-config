@@ -67,7 +67,6 @@ this.fancy_component = function(provider, color, side, neighbour, sep_left, sep_
 		hl = hl_base,
 		left_sep = sep_table_left,
 		right_sep = sep_table_right,
-		icon = ''
 	}
 	return c
 end
