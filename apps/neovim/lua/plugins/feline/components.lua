@@ -42,6 +42,7 @@ local file_type_component = c.fancy_component(
 			c = 'bg4',
 			cpp = 'blue',
 			gitcommit = 'red',
+			json = 'grey',
 			lua = 'blue',
 			python = 'yellow',
 			html = 'orange',
@@ -49,6 +50,7 @@ local file_type_component = c.fancy_component(
 			rust = 'faded_orange',
 			sh = 'dark_green',
 			xml = 'bright_blue',
+			yaml = 'red',
 		}
 
 		local color = table[vim.bo.filetype]
