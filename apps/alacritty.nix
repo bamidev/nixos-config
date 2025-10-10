@@ -14,6 +14,9 @@ in {
       builtin_box_drawing = true
       size = 12.5
 
+      [font.normal]
+      family = "0xProto Nerd Font"
+
       [[hints.enabled]]
       command = { program = "vi", args = [ "+" ] }
       mouse = { enabled = true }

@@ -4,6 +4,10 @@
     ./desktop/scripts.nix
   ];
 
+  fonts.packages = with pkgs; [
+    nerd-fonts._0xproto
+  ];
+
   hardware.graphics.enable = true;
 
   # Disable IPv6 because it does not go through the VPN
