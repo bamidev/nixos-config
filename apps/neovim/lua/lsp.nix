@@ -11,7 +11,9 @@
 
   vim.lsp.enable('bashls')
   vim.lsp.enable('ccls')
+  vim.lsp.enable('csharp')
   vim.lsp.enable('esbonio')
+  vim.lsp.enable('java')
   vim.lsp.enable('lua_ls')
   vim.lsp.enable('markdown_oxide')
   vim.lsp.enable('nixd')

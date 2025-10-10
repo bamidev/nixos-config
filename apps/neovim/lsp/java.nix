@@ -1,0 +1,8 @@
+{ pkgs, ... }: ''
+  return {
+    cmd = {'${pkgs.java-language-server}/bin/java-language-server'},
+    filetypes = {'java'},
+    root_markers = {'.git'},
+    settings = {}
+  }
+''

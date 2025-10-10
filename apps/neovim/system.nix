@@ -60,7 +60,9 @@ in {
     # give an error when some system wide binaries are missing (e.g. ccls)
     } // lib.attrsets.optionalAttrs (config.environmentType == "desktop") {
       "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
+      "lsp/csharp.lua".text = import ./lsp/csharp.nix { pkgs=pkgs; };
       "lsp/esbonio.lua".source = ./lsp/esbonio.lua;
+      "lsp/java.lua".text = import ./lsp/java.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
       "lsp/markdown_oxide.lua".text = import ./lsp/markdown_oxide.nix { pkgs=pkgs; };
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
