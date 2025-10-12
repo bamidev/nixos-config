@@ -49,6 +49,13 @@
     }
   }
   pckr.add {
+    require('plugins.dap'),
+    require('plugins.dap-python'),
+    require('plugins.feline'),
+    require('plugins.gitsigns'),
+    require('plugins.indent-blankline'),
+    require('plugins.lua-snip'),
+    require('plugins.ufo'),
     {
       "ellisonleao/gruvbox.nvim",
       tag = "2.0.0",
@@ -67,115 +74,11 @@
         vim.cmd.colorscheme("gruvbox")
       end
     },
-    require('plugins.feline'),
-    {
-      "L3MON4D3/LuaSnip",
-      tag = "v2.4.0",
-      run = "${pkgs.gnumake}/bin/make install_jsregexp || make install_jsregexp",
-      config = function()
-        local ls = require("luasnip")
-
-        require('luasnip.loaders.from_lua').load()
-
-        vim.keymap.set({"i"}, "<S-tab>", function() ls.expand() end, {silent = true})
-        vim.keymap.set({"i", "s"}, "<A-tab>", function() ls.jump(1) end, {silent = true})
-        vim.keymap.set({"i", "s"}, "<C-tab>", function() ls.jump(-1) end, {silent = true})
-
-        vim.keymap.set({"i", "s"}, "<C-e>", function()
-          if ls.choice_active() then
-            ls.change_choice(1)
-          end
-        end, {silent = true})
-      end,
-    },
-    {
-      'lewis6991/gitsigns.nvim',
-      tag = 'v1.0.2',
-      config = function()
-        local gitsigns = require('gitsigns')
-        gitsigns.setup({
-          on_attach = function()
-            vim.keymap.set({'n', 'i'}, '<F10>', gitsigns.toggle_current_line_blame)
-          end
-        })
-      end,
-    },
     {
       "lukas-reineke/headlines.nvim",
       tag = "v5.0.0",
       requires = "nvim-treesitter/nvim-treesitter",
-      config = function()
-        require('headlines').setup()
-      end,
-    },
-    {
-      "lukas-reineke/indent-blankline.nvim",
-      tag = "v3.9.0",
-      config = function()
-        local highlight = {
-          "CursorColumn",
-          "Whitespace",
-        }
-        require("ibl").setup {
-          indent = { highlight = highlight, char = "" },
-          whitespace = {
-            highlight = highlight,
-            remove_blankline_trail = false,
-          },
-          scope = { enabled = false },
-        }
-      end
-    },
-    {
-      "mfussenegger/nvim-dap",
-      tag = "0.10.0",
-      config = function()
-        local dap = require("dap")
-        vim.keymap.set('n', '<F1>', dap.continue)
-        vim.keymap.set('n', '<F2>', dap.step_over)
-        vim.keymap.set('n', '<F3>', dap.step_into)
-        vim.keymap.set('n', '<F7>', dap.toggle_breakpoint)
-        vim.keymap.set('n', '<F11>', dap.repl.open)
-      end
-    },
-    {
-      "mfussenegger/nvim-dap-python",
-      commit = "030385d03363988370adaa5cf21fa465daddb088",
-      requires = "mfussenegger/nvim-dap",
-      config = function()
-        require("dap-python").setup("python")
-
-        local dap = require("dap")
-        dap.configurations.python = {
-          {
-            type = "python";
-            request = "launch";
-            name = "Launch Odoo from within Waft";
-            program = "''${workspaceFolder}/custom/src/odoo/odoo-bin";
-            pythonPath = function()
-              return "''${workspaceFolder}/.venv/bin/python"
-            end
-          },
-          {
-            type = "python";
-            request = "launch";
-            name = "Launch Odoo from within Wax";
-            program = "''${workspaceFolder}/wax/repos/odoo/odoo-bin";
-            pythonPath = function()
-              return "''${workspaceFolder}/wax/venv/bin/python"
-            end
-          },
-          {
-            type = "python";
-            request = "launch";
-            name = "Launch Python File";
-            program = "''${file}";
-            pythonPath = function()
-              return "python"
-            end
-          },
-        }
-      end
+      config = function() require('headlines').setup() end,
     },
     {
       "nvim-neotest/nvim-nio",
@@ -274,42 +177,6 @@
 
         --vim.keymap.set('n', '<Tab>', ':EagleWin<CR>', { noremap = true, silent = true })
       end,
-    },
-    {
-      "kevinhwang91/nvim-ufo",
-      --tag = "v1.5.0",
-      -- Revert to the last known working commit to prevent the following bug:
-      -- https://github.com/kevinhwang91/nvim-ufo/issues/309
-      commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
-      requires = {
-        "kevinhwang91/promise-async",
-        "nvim-treesitter/nvim-treesitter",
-      },
-      config = function()
-        -- Settings required for the ufo plugin
-        vim.o.foldcolumn = '1'
-        vim.o.foldlevel = 99
-        vim.o.foldlevelstart = 99
-        vim.o.foldenable = true
-
-
-        local ufo = require('ufo')
-        ufo.setup({
-          provider_selector = function(_, _, _)
-            return {'treesitter', 'indent'}
-          end,
-          close_fold_kinds_for_ft = {
-            cpp = {"class_specifier", "function_definition"},
-            lua = {"function_declaration", "function_definition"},
-            python = {"class_definition", "function_definition", "imports"},
-            rust = {"function_item", "impl_item", "struct_item", "use_declaration"},
-            xml = {'element'},
-          }
-        })
-
-        -- TODO: Close all folds except the above kinds
-        --vim.keymap.set('n', '<C-a>', ufo.closeAllFolds)
-      end
     },
     {
       "uga-rosa/utf8.nvim",

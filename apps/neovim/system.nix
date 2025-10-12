@@ -26,11 +26,11 @@ in {
       "ftplugin/python.lua".text = ''
         vim.opt.expandtab = true
         vim.opt.smartindent = true
-        vim.opt.textwidth = 79
+        vim.opt.colorcolumn = 79
         if vim.b.editorconfig then
-          vim.opt.textwidth = tonumber(vim.b.editorconfig.max_line_length) or vim.opt.textwidth
+          vim.opt.colorcolumn = vim.b.editorconfig.max_line_length or vim.opt.colorcolumn
         end
-        vim.opt.colorcolumn = "73,+1"
+        vim.opt.colorcolumn = vim.opt.colorcolumn .. ",+1"
       '';
       "ftplugin/nix.lua".text = ''
         vim.opt.colorcolumn = "+0"
@@ -45,7 +45,14 @@ in {
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
-      "lua/plugins".source = ./lua/plugins;
+      "lua/plugins/feline".source = ./lua/plugins/feline;
+      "lua/plugins/dap.lua".source = ./lua/plugins/dap.lua;
+      "lua/plugins/dap-python.lua".source = ./lua/plugins/dap-python.lua;
+      "lua/plugins/feline.lua".source = ./lua/plugins/feline.lua;
+      "lua/plugins/gitsigns.lua".source = ./lua/plugins/gitsigns.lua;
+      "lua/plugins/indent-blankline.lua".source = ./lua/plugins/indent-blankline.lua;
+      "lua/plugins/lua-snip.lua".text = import ./lua/plugins/lua-snip.nix { pkgs=pkgs; };
+      "lua/plugins/ufo.lua".source = ./lua/plugins/ufo.lua;
       "lua/lsp.lua".text = import ./lua/lsp.nix { pkgs=pkgs; };
       "lua/pylsp.lua".source = ./lua/pylsp.lua;
       "lua/utils/git.lua".source = ./lua/utils/git.lua;
