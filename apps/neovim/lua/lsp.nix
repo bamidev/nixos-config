@@ -21,4 +21,5 @@
   vim.lsp.enable('pylsp')
   vim.lsp.enable('rust_analyzer')
   vim.lsp.enable('vimls')
+  vim.lsp.enable('yamlls')
 ''

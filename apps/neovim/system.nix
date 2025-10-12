@@ -45,11 +45,7 @@ in {
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
-      "lua/plugins/feline.lua".source = ./lua/plugins/feline.lua;
-      "lua/plugins/feline/common.lua".source = ./lua/plugins/feline/common.lua;
-      "lua/plugins/feline/components.lua".source = ./lua/plugins/feline/components.lua;
-      "lua/plugins/feline/components/git_branch.lua".source =
-        ./lua/plugins/feline/components/git_branch.lua;
+      "lua/plugins".source = ./lua/plugins;
       "lua/lsp.lua".text = import ./lua/lsp.nix { pkgs=pkgs; };
       "lua/pylsp.lua".source = ./lua/pylsp.lua;
       "lua/utils/git.lua".source = ./lua/utils/git.lua;
@@ -69,6 +65,7 @@ in {
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
+      "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
     };
 
     viAlias = true;
