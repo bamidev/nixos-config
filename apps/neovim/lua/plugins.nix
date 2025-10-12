@@ -80,14 +80,8 @@
       requires = "nvim-treesitter/nvim-treesitter",
       config = function() require('headlines').setup() end,
     },
-    {
-      "nvim-neotest/nvim-nio",
-      tag = "v1.10.1",
-    },
-    {
-      "nvim-tree/nvim-web-devicons",
-      tag = "v0.100",
-    },
+    { "nvim-neotest/nvim-nio", tag = "v1.10.1" },
+    { "nvim-tree/nvim-web-devicons", tag = "v0.100" },
     {
       "nvim-telescope/telescope.nvim",
       tag = "0.1.8",
@@ -178,9 +172,6 @@
         --vim.keymap.set('n', '<Tab>', ':EagleWin<CR>', { noremap = true, silent = true })
       end,
     },
-    {
-      "uga-rosa/utf8.nvim",
-      commit = "954cbbadabe5cd19f202e918fec191d64eea7766",
-    }
+    { "uga-rosa/utf8.nvim", commit = "954cbbadabe5cd19f202e918fec191d64eea7766" },
   }
 ''
