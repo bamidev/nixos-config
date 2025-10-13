@@ -21,5 +21,10 @@
   vim.lsp.enable('pylsp')
   vim.lsp.enable('rust_analyzer')
   vim.lsp.enable('vimls')
+  vim.lsp.enable('vscode-css')
+  vim.lsp.enable('vscode-eslint')
+  vim.lsp.enable('vscode-html')
+  vim.lsp.enable('vscode-json')
+  vim.lsp.enable('vscode-markdown')
   vim.lsp.enable('yamlls')
 ''

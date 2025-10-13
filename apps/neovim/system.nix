@@ -72,6 +72,11 @@ in {
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
+      "lsp/vscode-css.lua".text = import ./lsp/vscode-css.nix { pkgs=pkgs; };
+      "lsp/vscode-eslint.lua".text = import ./lsp/vscode-eslint.nix { pkgs=pkgs; };
+      "lsp/vscode-html.lua".text = import ./lsp/vscode-html.nix { pkgs=pkgs; };
+      "lsp/vscode-json.lua".text = import ./lsp/vscode-json.nix { pkgs=pkgs; };
+      "lsp/vscode-markdown.lua".text = import ./lsp/vscode-markdown.nix { pkgs=pkgs; };
       "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
     };
 
