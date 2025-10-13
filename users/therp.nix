@@ -70,10 +70,11 @@ in {
       # name style.
       # Disable function & module docstrings because migration scripts are not expected to have
       # them.
+      # Disable pointless statements because pylint doesn't understand Odoo's manifest files
       ".config/pylintrc".text = builtins.readFile ../apps/neovim/etc/pylintrc + ''
 
         [MAIN]
-        disable=import-error,invalid-name,missing-function-docstring,missing-module-docstring
+        disable=import-error,invalid-name,missing-function-docstring,missing-module-docstring,pointless-statement
 
         [VARIABLES]
         additional-builtins = env
