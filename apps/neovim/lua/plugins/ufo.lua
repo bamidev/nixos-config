@@ -26,11 +26,13 @@ return {
 				lua = {"function_declaration", "function_definition"},
 				python = {"class_definition", "function_definition", "imports"},
 				rust = {"function_item", "impl_item", "struct_item", "use_declaration"},
-				xml = {'element'},
 			}
 		})
 
 		-- TODO: Close all folds except the above kinds
-		--vim.keymap.set('n', '<C-a>', ufo.closeAllFolds)
+		vim.keymap.set('n', '<C-a>', function()
+			ufo.closeAllFolds()
+			ufo.openFoldsExceptKinds()
+		end)
 	end
 }
