@@ -18,7 +18,7 @@ in {
     withRuby = false;
 
     runtime = {
-      "init.lua".text = import ./init.nix { pkgs = pkgs; };
+      "init.lua".source = ./init.lua;
 
       "ftplugin/csv.lua".text = ''
         vim.opt.textwidth = nil
