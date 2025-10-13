@@ -10,8 +10,7 @@ local branch = c.fancy_component(
 	'oceanblue',
 	'left'
 )
--- FIXME: Gives an error for some reason:
---branch.icon = utf8.char(0xE0A0) .. ' '
+branch.icon = utf8.char(0xE0A0) .. ' '
 
 
 return {

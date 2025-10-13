@@ -10,7 +10,11 @@ local issue_description = c.fancy_component(
 		if odoo.find_task_number() ~= nil then
 			return odoo.find_issue_description() or ''
 		end
-		return (utf8.char(0xE0A0) .. ' ' .. git.get_branch()) or ''
+		local branch = git.get_branch()
+		if branch ~= nil then
+			return utf8.char(0xE0A0) .. ' ' .. branch
+		end
+		return ''
 	end,
 	'oceanblue',
 	'left'
