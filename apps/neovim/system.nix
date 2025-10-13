@@ -20,28 +20,25 @@ in {
     runtime = {
       "init.lua".source = ./init.lua;
 
-      "ftplugin/csv.lua".text = ''
-        vim.opt.textwidth = nil
-      '';
       "ftplugin/python.lua".text = ''
         vim.opt.expandtab = true
         vim.opt.smartindent = true
-        vim.opt.colorcolumn = 79
+        vim.opt.colorcolumn = '73,79'
         if vim.b.editorconfig then
-          vim.opt.colorcolumn = vim.b.editorconfig.max_line_length or vim.opt.colorcolumn
+          vim.opt.colorcolumn = '73,' .. (vim.b.editorconfig.max_line_length or '79')
         end
-        vim.opt.colorcolumn = vim.opt.colorcolumn .. ",+1"
       '';
       "ftplugin/nix.lua".text = ''
-        vim.opt.colorcolumn = "+0"
+        vim.opt.colorcolumn = '100'
         vim.opt.expandtab = true
         vim.opt.shiftwidth = 2
         vim.opt.tabstop = 2
-        vim.opt.textwidth = 100
       '';
 
       "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
+      "lsp/vscode-json.lua".text = import ./lsp/vscode-json.nix { pkgs=pkgs; };
+      "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
@@ -66,6 +63,7 @@ in {
       "lsp/csharp.lua".text = import ./lsp/csharp.nix { pkgs=pkgs; };
       "lsp/esbonio.lua".source = ./lsp/esbonio.lua;
       "lsp/java.lua".text = import ./lsp/java.nix { pkgs=pkgs; };
+      "lsp/ltex.lua".text = import ./lsp/ltex.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
       "lsp/markdown_oxide.lua".text = import ./lsp/markdown_oxide.nix { pkgs=pkgs; };
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
@@ -73,11 +71,9 @@ in {
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
       "lsp/vscode-css.lua".text = import ./lsp/vscode-css.nix { pkgs=pkgs; };
-      "lsp/vscode-eslint.lua".text = import ./lsp/vscode-eslint.nix { pkgs=pkgs; };
+      #"lsp/vscode-eslint.lua".text = import ./lsp/vscode-eslint.nix { pkgs=pkgs; };
       "lsp/vscode-html.lua".text = import ./lsp/vscode-html.nix { pkgs=pkgs; };
-      "lsp/vscode-json.lua".text = import ./lsp/vscode-json.nix { pkgs=pkgs; };
       "lsp/vscode-markdown.lua".text = import ./lsp/vscode-markdown.nix { pkgs=pkgs; };
-      "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
     };
 
     viAlias = true;
