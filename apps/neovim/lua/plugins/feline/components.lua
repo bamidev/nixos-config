@@ -6,7 +6,7 @@ local utf8 = require('utf8')
 local errors_component = c.simple_component('diagnostic_errors', 'red')
 errors_component.priority = 7
 
-local file_encoding_component = c.fancy_component('file_encoding', 'skyblue', 'right')
+local file_encoding_component = c.fancy_component('file_encoding', 'skyblue', 'left')
 
 local file_info_component = c.fancy_component(
 	{
@@ -59,7 +59,7 @@ local file_type_component = c.fancy_component(
 		end
 		return "grey"
 	end,
-	'right',
+	'left',
 	file_encoding_component,
 	nil,
 	nil,
@@ -90,7 +90,7 @@ local vi_mode_component = c.fancy_component(
 	function()
 		return vi_mode.get_mode_color()
 	end,
-	'left',
+	'right',
 	git_branch_components[1],
 	nil,
 	nil,
@@ -106,10 +106,10 @@ local components = {
 	active = {
 		-- Left
 		{
-			vi_mode_component,
-			git_branch_components[1],
+			file_type_component,
+			file_encoding_component,
 		},
-
+		
 		-- Center
 		{
 			git_added_component,
@@ -124,9 +124,10 @@ local components = {
 
 		-- Right
 		{
-			file_encoding_component,
-			file_type_component,
+			git_branch_components[1],
+			vi_mode_component,
 		},
+
 	}
 }
 
@@ -136,7 +137,7 @@ local components = {
 -- For example, you could replace it with one or more components that display more specific
 -- information gathered from git. 
 for i = 2, #git_branch_components do
-	table.insert(components.active[1], git_branch_components[i])
+	table.insert(components.active[3], 1, git_branch_components[i])
 end
 
 return components

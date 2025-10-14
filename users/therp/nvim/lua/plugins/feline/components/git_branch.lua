@@ -17,7 +17,7 @@ local issue_description = c.fancy_component(
 		return ''
 	end,
 	'oceanblue',
-	'left'
+	'right'
 )
 local issue_number = c.fancy_component(
 	function()
@@ -28,7 +28,7 @@ local issue_number = c.fancy_component(
 		return ''
 	end,
 	'orange',
-	'left',
+	'right',
 	issue_description
 )
 local odoo_version = c.fancy_component(
@@ -36,7 +36,7 @@ local odoo_version = c.fancy_component(
 		return odoo.find_odoo_version() or ''
 	end,
 	'magenta',
-	'left',
+	'right',
 	issue_number
 )
 
