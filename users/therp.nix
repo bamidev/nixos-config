@@ -74,7 +74,7 @@ in {
       ".config/pylintrc".text = builtins.readFile ../apps/neovim/etc/pylintrc + ''
 
         [MAIN]
-        disable=import-error,invalid-name,missing-function-docstring,missing-module-docstring,pointless-statement
+        disable=import-error,invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,pointless-statement,too-few-public-methods
 
         [VARIABLES]
         additional-builtins = env
@@ -83,13 +83,13 @@ in {
       # Ignore docstring warnings because they are rarely used within Odoo code.
       ".pydocstyle.ini".text = ''
         [pydocstyle]
-        ignore = D100,D101,D102,D103
+        ignore = D100,D101,D102,D103,D104
       '';
 
       # Max line length is actually 88 although it is not configured everywhere
       ".config/pycodestyle".text = ''
         [pycodestyle]
-        ignore = W503
+        ignore = W503,W504
         max-line-length = 88
       '';
 
