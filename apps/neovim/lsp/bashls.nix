@@ -1,5 +1,5 @@
 { pkgs }: ''
-  return {
+  vim.lsp.config('bashls', {
     cmd = { "${pkgs.bash-language-server}/bin/bash-language-server", "start" },
     on_attach = require('autocomplete'),
     settings = {
@@ -16,5 +16,5 @@
     },
     filetypes = { 'bash', 'sh' },
     root_markers = { '.git' },
-  }
+  })
 ''

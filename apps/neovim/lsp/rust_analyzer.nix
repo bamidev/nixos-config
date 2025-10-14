@@ -16,7 +16,7 @@
     end
   end
 
-  return {
+  vim.lsp.config('rust_analyzer', {
     cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' },
     filetypes = { 'rust' },
     root_dir = function(bufnr, on_dir)
@@ -82,5 +82,5 @@
         reload_workspace(bufnr)
       end, { desc = 'Reload current cargo workspace' })
     end,
-  }
+  })
 ''

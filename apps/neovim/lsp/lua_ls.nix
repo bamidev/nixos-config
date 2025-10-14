@@ -1,5 +1,5 @@
 { pkgs }: ''
-  return {
+  vim.lsp.config('lua_ls', {
     cmd = {"${pkgs.lua-language-server}/bin/lua-language-server"},
     filetypes = { 'lua' },
     root_markers = {
@@ -52,5 +52,5 @@
     settings = {
       Lua = {}
     }
-  }
+  })
 ''

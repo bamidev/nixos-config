@@ -80,6 +80,7 @@
       requires = "nvim-treesitter/nvim-treesitter",
       config = function() require('headlines').setup() end,
     },
+    { 'neovim/nvim-lspconfig', tag = 'v2.5.0' },
     { "nvim-neotest/nvim-nio", tag = "v1.10.1" },
     { "nvim-tree/nvim-web-devicons", tag = "v0.100" },
     {

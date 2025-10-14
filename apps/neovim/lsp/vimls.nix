@@ -1,5 +1,5 @@
 { pkgs }: ''
-  return {
+  vim.lsp.config('vimls', {
     cmd = { "${pkgs.vim-language-server}/bin/vim-language-server" },
     on_attach = require('autocomplete'),
     filetypes = { 'vim' },
@@ -18,5 +18,5 @@
       },
       suggest = { fromVimruntime = true, fromRuntimepath = true },
     },
-  }
+  })
 ''

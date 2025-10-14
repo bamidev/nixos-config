@@ -1,9 +1,6 @@
 { pkgs, ... }: ''
-  return {
+  vim.lsp.config('java-language-server', {
     cmd = {'${pkgs.java-language-server}/bin/java-language-server'},
-    filetypes = {'java'},
-    root_markers = {'.git'},
     on_attach = require('autocomplete'),
-    settings = {}
-  }
+  })
 ''

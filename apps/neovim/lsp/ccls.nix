@@ -14,18 +14,13 @@
     end, bufnr)
   end
 
-  return {
+  vim.lsp.config('ccls', {
     cmd = { '${pkgs.ccls}/bin/ccls' },
-    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-    root_markers = { 'compile_commands.json', '.ccls', '.git' },
-    offset_encoding = 'utf-32',
-    -- ccls does not support sending a null root directory
-    workspace_required = true,
     on_attach = function(client, bufnr)
       require('autocomplete')(client, bufnr)
       vim.api.nvim_buf_create_user_command(bufnr, 'LspCclsSwitchSourceHeader', function()
         switch_source_header(client, bufnr)
       end, { desc = 'Switch between source/header' })
     end,
-  }
+  })
 ''

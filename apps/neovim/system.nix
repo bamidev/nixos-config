@@ -37,7 +37,7 @@ in {
 
       "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
-      "lsp/vscode-json.lua".text = import ./lsp/vscode-json.nix { pkgs=pkgs; };
+      "lsp/jsonls.lua".text = import ./lsp/jsonls.nix { pkgs=pkgs; };
       "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
@@ -60,18 +60,19 @@ in {
     # give an error when some system wide binaries are missing (e.g. ccls)
     } // lib.attrsets.optionalAttrs (config.environmentType == "desktop") {
       "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
-      "lsp/csharp.lua".text = import ./lsp/csharp.nix { pkgs=pkgs; };
+      "lsp/csharp_ls.lua".text = import ./lsp/csharp_ls.nix { pkgs=pkgs; };
       "lsp/esbonio.lua".source = ./lsp/esbonio.lua;
-      "lsp/java.lua".text = import ./lsp/java.nix { pkgs=pkgs; };
+      "lsp/eslint.lua".text = import ./lsp/eslint.nix { pkgs=pkgs; };
+      "lsp/java_language_server.lua".text = import ./lsp/java_language_server.nix { pkgs=pkgs; };
       "lsp/ltex.lua".text = import ./lsp/ltex.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
       "lsp/markdown_oxide.lua".text = import ./lsp/markdown_oxide.nix { pkgs=pkgs; };
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
+      "lsp/ts_ls.lua".text = import ./lsp/ts_ls.nix { pkgs=pkgs; };
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
       "lsp/vscode-css.lua".text = import ./lsp/vscode-css.nix { pkgs=pkgs; };
-      #"lsp/vscode-eslint.lua".text = import ./lsp/vscode-eslint.nix { pkgs=pkgs; };
       "lsp/vscode-html.lua".text = import ./lsp/vscode-html.nix { pkgs=pkgs; };
       "lsp/vscode-markdown.lua".text = import ./lsp/vscode-markdown.nix { pkgs=pkgs; };
     };
