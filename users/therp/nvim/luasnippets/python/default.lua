@@ -60,6 +60,7 @@ return {
 	}),
 	s('m2m', x2x_field('Many2many')),
 	s('m2o', x2x_field('Many2one')),
+
 	s('migration-file', t({
 		'# ' .. license.LICENSE_HEADER[1],
 		'# ' .. license.LICENSE_HEADER[2],
@@ -70,15 +71,16 @@ return {
 		'def migrate(env, _version):',
 		'    ',
 	})),
+
 	s("model-file", {
 		t({
 			'# ' .. license.LICENSE_HEADER[1],
 			'# ' .. license.LICENSE_HEADER[2],
-			"from odoo import fields, models",
-			"",
-			"",
+			'from odoo import fields, models',
+			'',
+			'',
+			'class ',
 		}),
-		t("class "),
 		i(1, "ClassName"),
 		t({'(models.Model):', ''}),
 		c(2, {
@@ -98,6 +100,7 @@ return {
 		}),
 		t({'"', '', ''}),
 	}),
+
 	s('o2m', x2x_field('One2many')),
 	s('read', bool_param('readonly')),
 	s('str', {
