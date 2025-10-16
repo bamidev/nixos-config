@@ -151,12 +151,13 @@ in {
       };
 
       windowrule = [
-        "opacity 0.85, class:^Alacritty$"
-        "opacity 0.85, class:^wofi$"
-        "opacity 0.9, class:^Element$"
-        "opacity 0.9, class:^Session$"
-        "opacity 0.9, class:^signal$"
-        "opacity 0.9, class:^thunderbird$"
+        "opacity 1 0.95, class:.*"
+        "opacity 0.85 0.8, class:^Alacritty$"
+        "opacity 0.85 0.8, class:^wofi$"
+        "opacity 0.9 0.85, class:^Element$"
+        "opacity 0.9 0.85, class:^Session$"
+        "opacity 0.9 0.85, class:^signal$"
+        "opacity 0.9 0.85, class:^thunderbird$"
 
         "size 800 300, class:^thunderbird$, title:^Add Security Exception$"
         "pin, class:^thunderbird$, title:^Add Security Exception$"
