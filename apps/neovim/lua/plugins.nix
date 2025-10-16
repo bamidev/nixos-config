@@ -141,6 +141,7 @@
         vim.keymap.set('n', '<F12>', dapui.toggle)
       end
     },
+    { "ryanoasis/vim-devicons", tag = "v0.11.0" },
     {
       "sainnhe/everforest",
       tag = "v0.3.0",
