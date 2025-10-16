@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   params = import ../params.nix;
-in if params.environmentType == "desktop" then rec {
+in if params.environmentType == "desktop" then {
   imports = [
     ./default.nix
     ../apps/alacritty.nix
@@ -19,6 +19,8 @@ in if params.environmentType == "desktop" then rec {
       "Personal" = {
         primary = true;
 
+        thunderbird.enable = true;
+
         remote = {
           passwordCommand = "pass nextcloud/bamilab";
           type = "caldav";
@@ -30,6 +32,11 @@ in if params.environmentType == "desktop" then rec {
       "Birthdays" = {
         primary = false;
 
+        thunderbird = {
+          enable = true;
+          readOnly = true;
+        };
+
         remote = {
           passwordCommand = "pass nextcloud/bamilab";
           type = "caldav";
@@ -39,7 +46,6 @@ in if params.environmentType == "desktop" then rec {
       };
     };
 
-    # Doesn't work yet, but it should work with the next home-manager release
     contact.accounts.Personal = {
       thunderbird.enable = true;
 
@@ -108,7 +114,7 @@ in if params.environmentType == "desktop" then rec {
         isDefault = true;
       };
 
-      settings = 
+      /*settings = 
         let
           personal = accounts.calendar.accounts.Personal;
           birthdays = accounts.calendar.accounts.Birthdays;
@@ -138,8 +144,8 @@ in if params.environmentType == "desktop" then rec {
           "ldap_2.servers.Contacts.description" = "Contacts";
           "ldap_2.servers.Contacts.dirType" = "102";
           "ldap_2.servers.Contacts.filename" = "abook-1.sqlite";
-          */
-        };
+          
+        };*/
     };
   };
 } else {

@@ -6,7 +6,7 @@
 
 let
   deviceConfig = import ./device.nix;
-  homeManager = (import ./pins.nix).homeManager25_05;
+  homeManager = (import ./pins.nix).homeManagerUnstable;
   params = import ./params.nix;
   theme = import ./theme.nix;
 in
