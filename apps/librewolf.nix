@@ -18,6 +18,12 @@
         "browser.toolbars.bookmarks.visibility" = "newtab";
         "browser.translations.enable" = false;
         "extensions.activeThemeID" = "{dfb93b31-21ba-46fc-977d-46300ce0a76b}";
+        "privacy.clearOnShutdown_v2.browsingHistoryAndDownloads" = true;
+        "privacy.clearOnShutdown_v2.cache" = true;
+        "privacy.clearOnShutdown_v2.cookiesAndStorage" = true;
+        "privacy.clearOnShutdown_v2.formdata" = true;
+        "privacy.clearOnShutdown_v2.histroyFormDataAndDownloads" = true;
+        "privacy.clearOnShutdown_v2.siteSettings" = true;
         "privacy.donottrackheader.enabled" = true;
         "privacy.fingerprintingProtection" = false;
         "privacy.resistFingerprinting" = true;
