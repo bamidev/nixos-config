@@ -1,5 +1,6 @@
 local luasnip = require("luasnip")
 local license = require('snippets.license')
+local odoo = require('utils.odoo')
 
 local c = luasnip.choice_node
 local i = luasnip.insert_node
@@ -45,6 +46,16 @@ local function x2x_field(type)
 end
 
 
+local odoo_version = odoo.find_odoo_version()
+if odoo_version ~= nil then
+	odoo_version = odoo_version .. '.'
+end
+local odoo_version_placeholder = "1.0.0"
+if odoo_version == nil then
+	odoo_version_placeholder = "x.0.1.0.0"
+end
+
+
 return {
 	s('bool', simple_field('Boolean')),
 	s('bin', simple_field('Binary')),
@@ -60,6 +71,59 @@ return {
 	}),
 	s('m2m', x2x_field('Many2many')),
 	s('m2o', x2x_field('Many2one')),
+
+	s('manifest-file', {
+		t({
+			'# ' .. license.LICENSE_HEADER[1],
+			'# ' .. license.LICENSE_HEADER[2],
+			'{',
+			'    "name": "',
+		}),
+		i(1, "Module Name"),
+		t({
+			'",',
+			'    "summary": "',
+		}),
+		i(2, "Summary..."),
+		t({
+			'",',
+			'    "version": "' .. (odoo_version or ''),
+		}),
+		i(3, odoo_version_placeholder),
+		t({
+			'",',
+			'    "category": "',
+		}),
+		i(4, "Uncategorized"),
+		t({
+			'",',
+			'    "website": "',
+		}),
+		i(5, "https://github.com/"),
+		t({
+			'",',
+			'    "author": "Therp BV, Odoo Community Association (OCA)",',
+			'    "license": "',
+		}),
+		c(6, {
+			t('AGPL-3'),
+			t('LGPL-3'),
+		}),
+		t({
+			'",',
+			'    "depends": ['
+		}),
+		i(7, '"base"'),
+		t({
+			'],',
+			'    "data": ['
+		}),
+		i(8, ''),
+		t({
+			'],',
+			'}'
+		}),
+	}),
 
 	s('migration-file', t({
 		'# ' .. license.LICENSE_HEADER[1],
