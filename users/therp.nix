@@ -134,11 +134,11 @@ in {
                       odoo = {};
                     };
 
-                    dev.pythonPackages = {
+                    dev.pythonPackages = [
                       "debugpy"
                       "python-lsp-server[all]"
                       "pylint-odoo"
-                    };
+                    ];
                   };
                 };
               };
