@@ -60,8 +60,20 @@ return {
 	s('bool', simple_field('Boolean')),
 	s('bin', simple_field('Binary')),
 	s('char', simple_field('Char')),
+
 	s('float', simple_field('Float')),
 	s('int', simple_field('Integer')),
+
+	s('leaf', {
+		t('("'),
+		i(1, "field"),
+		t('", "'),
+		i(2, '='),
+		t('", '),
+		i(3, '"value"'),
+		t(')'),
+	}),
+
 	s('license', {
 		t({
 			'# ' .. license.LICENSE_HEADER[1],
