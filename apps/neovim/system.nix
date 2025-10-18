@@ -34,6 +34,9 @@ in {
         vim.opt.shiftwidth = 2
         vim.opt.tabstop = 2
       '';
+      "ftplugin/rust.lua".text = ''
+        vim.opt.colorcolumn = '100'
+      '';
 
       "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
