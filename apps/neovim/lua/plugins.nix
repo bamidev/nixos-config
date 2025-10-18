@@ -120,6 +120,12 @@
       end
     },
     {
+      'onsails/lspkind.nvim', commit = '3ddd1b4edefa425fda5a9f95a4f25578727c0bb3',
+      config = function()
+        require('lspkind').init()
+      end
+    },
+    {
       "preservim/nerdtree",
       tag = "7.1.3",
       config = function()
