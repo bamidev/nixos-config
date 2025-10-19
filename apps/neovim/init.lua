@@ -2,6 +2,7 @@ vim.o.termguicolors = os.getenv("COLORTERM") == "24bit" or os.getenv("COLORTERM"
 
 -- Default settings
 vim.o.number = true
+vim.o.signcolumn = "yes"
 vim.o.winborder = 'rounded'
 
 vim.opt.autoindent = false
