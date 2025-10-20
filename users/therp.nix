@@ -160,7 +160,11 @@ in {
 
   programs = {
     firefox.policies = {
-      Cookies.Allow = ["https://therp.nl"];
+      Cookies.Allow = [
+        "https://therp.nl"
+        "https://gitlab.therp.nl"
+        "https://helpdesk.therp.nl"
+      ];
       ExtensionSettings = {
         "info@therp.nl" = {
           install_url = "https://github.com/Therp/odoo-timer/releases/download/1.12/therp-odoo-timer-firefox-1.12.xpi";
