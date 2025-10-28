@@ -4,7 +4,7 @@ local utf8 = require('utf8')
 
 
 local errors_component = c.simple_component('diagnostic_errors', 'red')
-errors_component.priority = 7
+errors_component.priority = 8
 
 local file_encoding_component = c.fancy_component('file_encoding', 'skyblue', 'left')
 
@@ -23,7 +23,7 @@ local file_info_component = c.fancy_component(
 	utf8.char(0xE0BC) .. ' ',
 	nil
 )
-file_info_component.priority = 8
+file_info_component.priority = 4
 file_info_component.short_provider = {
 	name = 'file_info',
 	opts = {
@@ -80,10 +80,10 @@ local git_removed_component = c.simple_component('git_diff_removed', 'orange')
 git_removed_component.priority = 1
 
 local hints_component = c.simple_component('diagnostic_hints', 'cyan')
-hints_component.priority = 5
+hints_component.priority = 6
 
 local infos_component = c.simple_component('diagnostic_info', 'blue')
-infos_component.priority = 4
+infos_component.priority = 5
 
 local vi_mode_component = c.fancy_component(
 	'vi_mode',
@@ -99,7 +99,7 @@ local vi_mode_component = c.fancy_component(
 vi_mode_component.icon = ''
 
 local warnings_component = c.simple_component('diagnostic_warnings', 'yellow')
-warnings_component.priority = 6
+warnings_component.priority = 7
 
 
 local components = {
