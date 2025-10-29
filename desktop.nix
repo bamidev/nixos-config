@@ -97,6 +97,7 @@
       # Install a bunch of python development tools as the fallback tools for when no virtual
       # environment is used.
       (python3.withPackages (python-pkgs: with python-pkgs; [
+        black
         debugpy
         python-lsp-server
         flake8
