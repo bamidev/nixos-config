@@ -8,7 +8,7 @@ vim.o.winborder = 'rounded'
 vim.opt.autoindent = false
 vim.opt.cindent = false
 vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
+vim.opt.smartindent = false
 vim.opt.tabstop = 4
 vim.opt.clipboard:append('unnamedplus')
 vim.opt.completeopt = { "fuzzy", "menuone", "noinsert", "popup" }
