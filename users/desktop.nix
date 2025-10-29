@@ -1,6 +1,10 @@
 { pkgs, ... }:
 let
   params = import ../params.nix;
+  nixLocateCached = pkgs.writers.writeBashBin "nix-locate-cached" ''
+    set -e
+    nix run github:nix-community/nix-index-database $1
+  '';
 in if params.environmentType == "desktop" then {
   imports = [
     ./default.nix
@@ -78,6 +82,8 @@ in if params.environmentType == "desktop" then {
       };
     };
   };
+
+  home.packages = [ nixLocateCached ];
 
   programs = {
     bash = {
