@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   params = import ../params.nix;
 in {
@@ -9,5 +9,11 @@ in {
     ./sway/system.nix
   ] ++ lib.optionals params.enableGames [
     ./steam.nix
+  ];
+
+  environment.systemPackages = with pkgs; [
+    mplayer
+    obs-studio
+    quodlibet
   ];
 }
