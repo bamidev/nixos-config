@@ -38,23 +38,23 @@ in {
       ];
 
       bind = [
-        "$mod,   LEFT,  hy3:movefocus,         l"
+        "$mod,   LEFT,  hy3:movefocus,     l"
         "$modsh, LEFT,  changegroupactive, l"
-        "$mod,   RIGHT, hy3:movefocus,         r"
+        "$mod,   RIGHT, hy3:movefocus,     r"
         "$modsh, RIGHT, changegroupactive, r"
-        "$mod,   UP,    hy3:movefocus,         u"
+        "$mod,   UP,    hy3:movefocus,     u"
         "$modsh, UP,    changegroupactive, u"
-        "$mod,   DOWN,  hy3:movefocus,         d"
+        "$mod,   DOWN,  hy3:movefocus,     d"
         "$modsh, DOWN,  changegroupactive, d"
 
-        "$mod,   RETURN, exec,        $terminal"
+        "$mod,   RETURN, exec,          $terminal"
         "$mod,   B,      hy3:makegroup, h, toggle"
-        "$mod,   D,      exec,        $menu"
+        "$mod,   D,      exec,          $menu"
         "$mod,   V,      hy3:makegroup, v, toggle"
         "$mod,   L,      hy3:locktab,"
-        "$mod,   T,      exec,        $terminal"
+        "$mod,   T,      exec,          $terminal"
         "$modsh, Q,      killactive,"
-        "$mod,   W,      exec,        $browser"
+        "$mod,   W,      exec,          $browser"
 
         "$modsh, E, exit"
 
