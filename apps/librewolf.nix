@@ -1,11 +1,13 @@
 { pkgs, ... }:
-{
+let
+  latestPkgs = (import ../pins.nix).nixpkgsUnstable;
+in {
   programs.firefox = {
     enable = true;
+    package = latestPkgs.librewolf;
 
     configPath = ".librewolf";
 
-    package = pkgs.librewolf;
     policies = {
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
