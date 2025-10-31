@@ -69,7 +69,6 @@
 
     systemPackages = with pkgs; [
       alacritty
-      chromium
       # The regular dmenu is buggy (probably only on wayland), and dmenu-rs uses no absolute paths
       # in it's shell file dmenu_run. So I need to install it globally rather than keeping it's
       # installation implied.
@@ -91,6 +90,7 @@
       tor-browser
       totem
       transmission_4-gtk
+      ungoogled-chromium
       vial
       wl-clipboard-rs
 
