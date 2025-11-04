@@ -106,6 +106,9 @@
           highlight = {
             enable = true,
           },
+          indent = {
+            enable = {'python'},
+          },
         }
       end
     },
