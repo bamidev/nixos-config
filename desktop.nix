@@ -73,11 +73,9 @@
       # in it's shell file dmenu_run. So I need to install it globally rather than keeping it's
       # installation implied.
       dmenu-rs
-      element-desktop
       file-roller
       gimp
       libheif # For nautilus image preview
-      libheif.out
       libreoffice
       mako
       nautilus
