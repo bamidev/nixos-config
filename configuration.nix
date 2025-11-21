@@ -22,8 +22,10 @@ in
   system.stateVersion = "24.11";
 
   boot = {
+    tmp.cleanOnBoot = true;
+
     # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
-    # supported by the VPN.
+    # supported by my VPN.
     kernelParams = [
       "console=tty12"
       "ipv6.disable=1"
