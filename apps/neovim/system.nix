@@ -67,7 +67,6 @@ in {
       "lsp/esbonio.lua".source = ./lsp/esbonio.lua;
       "lsp/eslint.lua".text = import ./lsp/eslint.nix { pkgs=pkgs; };
       "lsp/java_language_server.lua".text = import ./lsp/java_language_server.nix { pkgs=pkgs; };
-      "lsp/ltex.lua".text = import ./lsp/ltex.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
       "lsp/markdown_oxide.lua".text = import ./lsp/markdown_oxide.nix { pkgs=pkgs; };
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
