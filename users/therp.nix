@@ -116,33 +116,43 @@ in {
       odooParams.lspVersions.stop
     ) (version: 
       {
-        "wax/${toString version}.0/flake.nix.example" = {
-          text = ''
-            {
-              inputs = {
-                wax.url = "github:bamidev/wax";
-              };
+        "wax/${toString version}.0/flake.nix.example".text = ''
+          {
+            inputs = {
+              wax.url = "github:bamidev/wax";
+            };
 
-              outputs = { self, wax }: {
-                devShells.${builtins.currentSystem}.default = wax.lib.mkOdooShell {
-                  system = "${builtins.currentSystem}";
-                  config =  {
-                    odooVersion = "${toString version}.0";
-                    databaseName = "odoo${toString version}";
+            outputs = { self, wax }: {
+              devShells.${builtins.currentSystem}.default = wax.lib.mkOdooShell {
+                system = "${builtins.currentSystem}";
+                config =  {
+                  odooVersion = "${toString version}.0";
+                  databaseName = "odoo${toString version}";
 
-                    repos.spec = {
-                      odoo = {};
-                    };
-
-                    dev.pythonPackages = [
-                      "debugpy"
-                      "python-lsp-server[all]"
-                      "pylint-odoo"
-                    ];
+                  repos.spec = {
+                    odoo = {};
                   };
                 };
               };
-            }
+            };
+          }
+        '';
+
+        "wax/${toString version}.0/init.sh" = {
+          executable = true;
+          text = ''
+            #/usr/bin/env bash
+            set -e
+            cat > .gitignore <<HEREDOC
+              init.sh
+              flake.nix.example
+              wax
+            HEREDOC
+
+            cp flake.nix.example flake.nix
+            git init
+            git add .
+            git commit -m "Initial commit"
           '';
         };
       })
