@@ -133,18 +133,6 @@ in
           postgresql_17
         ];
       };
-    } // lib.attrsets.optionalAttrs (params.environmentType != "desktop") {
-
-      admin = {
-        description = "Administrator";
-        home = "/home/admin";
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO4gv0OF52jorRoiylqIcsgZRtYp1aRmR9FQD7AwTt6Q bamidev@pm.me"
-        ];
-      };
     };
   };
 
@@ -161,9 +149,6 @@ in
       } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
         therp = { pkgs, lib, ... }:
           import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; };
-      } // lib.attrsets.optionalAttrs (params.environmentType != "desktop") {
-        admin = { pkgs, lib, ... }:
-          import ./users/admin.nix { pkgs=pkgs; lib=lib; username="admin"; };
       };
   };
 
