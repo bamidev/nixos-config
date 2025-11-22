@@ -118,8 +118,8 @@ in
         ];
         #packages = with pkgs; [];
       };
-
-      therp = {      
+    } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
+      therp = {
         description = "Work";
         home = "/home/therp";
         isNormalUser = true;
@@ -133,7 +133,6 @@ in
           postgresql_17
         ];
       };
-
     } // lib.attrsets.optionalAttrs (params.environmentType != "desktop") {
 
       admin = {
@@ -159,6 +158,7 @@ in
         root = { pkgs, lib, ... }: import ./users/root.nix { pkgs=pkgs; lib=lib; username="root"; };
         bamilab = { pkgs, lib, ... }:
           import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; };
+      } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
         therp = { pkgs, lib, ... }:
           import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; };
       } // lib.attrsets.optionalAttrs (params.environmentType != "desktop") {
