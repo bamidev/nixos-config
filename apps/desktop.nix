@@ -14,6 +14,7 @@ in rec {
   ];
 
   environment.systemPackages = with pkgs; [
+    loupe
     mplayer
     obs-studio
     texliveSmall

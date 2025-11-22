@@ -134,6 +134,12 @@
     defaultApplications = {
       "text/html" = "librewolf.desktop";
       "text/plain" = "neovim.desktop";
+
+      "video/mp4" = "totem.desktop";
+      "video/x-matroska" = "totem.desktop";
+
+      "image/jpeg" = "loupe.desktop";
+
       "x-scheme-handler/http" = "librewolf.desktop";
       "x-scheme-handler/https" = "librewolf.desktop";
       "x-scheme-handler/about" = "librewolf.desktop";
