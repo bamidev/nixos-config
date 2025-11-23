@@ -118,7 +118,6 @@ in
         ];
         #packages = with pkgs; [];
       };
-    } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
       therp = {
         description = "Work";
         home = "/home/therp";
