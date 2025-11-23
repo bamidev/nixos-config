@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 let
   odooParams = import ./therp/odoo-params.nix;
+  params = import ../params.nix;
   preCommitFlake = (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
 
   installPreCommit = pkgs.writers.writeBashBin "pc-install" ''
@@ -59,9 +60,8 @@ in {
           vim.cmd('luafile /etc/xdg/nvim/init.lua')
         '';
       };
-      ".config/nvim/lua/init-odoo.lua".text = import ./therp/nvim-init-odoo.nix {
-        pkgs=pkgs;
-        lib=lib;
+      ".config/nvim/lua/init-odoo.lua" = lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
+        text = import ./therp/nvim-init-odoo.nix { pkgs=pkgs; lib=lib; };
       };
 
       # Disable import errors from pylint, because pylint is not aware of which Wax venv is being
