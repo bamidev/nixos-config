@@ -83,7 +83,7 @@ in {
       # Ignore docstring warnings because they are rarely used within Odoo code.
       ".pydocstyle.ini".text = ''
         [pydocstyle]
-        ignore = D100,D101,D102,D103,D104
+        ignore = D100,D101,D102,D103,D104,D212
       '';
 
       # Max line length is actually 88 although it is not configured everywhere
