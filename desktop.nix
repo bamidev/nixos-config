@@ -88,7 +88,6 @@
       tor-browser
       totem
       transmission_4-gtk
-      ungoogled-chromium
       vial
       wl-clipboard-rs
 

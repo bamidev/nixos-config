@@ -142,12 +142,12 @@ in
     # overriden by the other files.
     users =
       {
-        root = { pkgs, lib, ... }: import ./users/root.nix { pkgs=pkgs; lib=lib; username="root"; };
+        root = { pkgs, lib, ... }: import ./users/root.nix { pkgs=pkgs; lib=lib; };
         bamilab = { pkgs, lib, ... }:
-          import ./users/bamilab.nix { pkgs=pkgs; lib=lib; username="bamilab"; };
+          import ./users/bamilab.nix { pkgs=pkgs; lib=lib; };
       } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
         therp = { pkgs, lib, ... }:
-          import ./users/therp.nix { pkgs=pkgs; lib=lib; username="therp"; };
+          import ./users/therp.nix { pkgs=pkgs; lib=lib; };
       };
   };
 

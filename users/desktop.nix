@@ -9,10 +9,12 @@ in if params.environmentType == "desktop" then {
   imports = [
     ./default.nix
     ../apps/alacritty.nix
+    ../apps/chromium.nix
     ../apps/freetube.nix
     ../apps/hyprland.nix
     ../apps/librewolf.nix
     ../apps/neovim/desktop.nix
+    ../apps/servo.nix
     ../apps/sway/home.nix
     ../apps/todo-txt.nix
     ../apps/wofi.nix

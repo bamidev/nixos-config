@@ -4,7 +4,7 @@ let
 in {
   programs.firefox = {
     enable = true;
-    package = latestPkgs.librewolf;
+    package = pkgs.librewolf;
 
     configPath = ".librewolf";
 
