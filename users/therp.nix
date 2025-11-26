@@ -74,7 +74,7 @@ in {
       ".config/pylintrc".text = builtins.readFile ../apps/neovim/etc/pylintrc + ''
 
         [MAIN]
-        disable=import-error,invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,pointless-statement,too-few-public-methods
+        disable=broad-exception-raised,import-error,invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,pointless-statement,too-few-public-methods
 
         [VARIABLES]
         additional-builtins = env
