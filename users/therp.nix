@@ -177,12 +177,17 @@ in {
         "wax/${toString version}.0/init.sh" = {
           executable = true;
           text = ''
-            #/usr/bin/env bash
+            #!/usr/bin/env bash
             set -e
+            if [ -f flake.nix ]; then
+              echo flake.nix already exists, doing nothing.
+              false
+            fi
+
             cat > .gitignore <<HEREDOC
-              init.sh
-              flake.nix.example
-              wax
+            init.sh
+            flake.nix.example
+            wax
             HEREDOC
 
             cp flake.nix.example flake.nix
