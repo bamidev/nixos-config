@@ -52,6 +52,7 @@ in {
       nixfmt-rfc-style
       openssh
       pass
+      screen
       w3m
       wget
     ];
