@@ -64,6 +64,8 @@ in {
         text = import ./therp/nvim-init-odoo.nix { pkgs=pkgs; lib=lib; };
       };
 
+      # Allow raising broad exceptions, because many times migration scripts need not to do anything
+      # special to throw an error.
       # Disable import errors from pylint, because pylint is not aware of which Wax venv is being
       # used, and odoo-ls performs the same check while odoo-ls _is_ aware of the right venv used.
       # Disable filename checking because migration scripts' filenames require an unconvential file
@@ -131,6 +133,40 @@ in {
 
                   repos.spec = {
                     odoo = {};
+
+                    account-analytic = {};
+                    account-financial-reporting = {};
+                    account-financial-tools = {};
+                    account-invoicing = {};
+                    bank-payment = {};
+                    bank-statement-import = {};
+                    community-data-files = {};
+                    contract = {};
+                    credit-control = {};
+                    currency = {};
+                    edi = {};
+                    hr = {};
+                    hr-holidays = {};
+                    timesheet = {};
+                    intrastat = {};
+                    knowledge = {};
+                    l10n-netherlands = {};
+                    mis-builder = {};
+                    partner-contact = {};
+                    project = {};
+                    queue = {};
+                    reporting-engine = {};
+                    sale-workflow = {};
+                    server-auth = {};
+                    server-backend = {};
+                    server-brand = {};
+                    server-env = {};
+                    server-tools = {};
+                    server-ux = {};
+                    sign = {};
+                    social = {};
+                    web = {};
+                    website = {};
                   };
                 };
               };
