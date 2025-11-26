@@ -1,8 +1,8 @@
 { lib, pkgs, ... }:
 let
   params = import ../params.nix;
-  stonenet = (builtins.getFlake "github:bamidev/stonenet/dev").nixosModules.${builtins.currentSystem}.default;
-in rec {
+  stonenet = (builtins.getFlake "github:bamidev/stonenet/main").nixosModules.${builtins.currentSystem}.default;
+in {
   imports = [
     ./greetd.nix
     ./postgresql.nix
