@@ -3,14 +3,16 @@
 {
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_16.override {
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_17.override {
     argsOverride = rec {
       src = pkgs.fetchurl {
         url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-        sha256 = "sha256-IxMRvXCE3DEplE0mu0O+b/g32oL7IQSmdwSuvKi/pp8=";
+        sha256 = "sha256-3fLqDUQ54dVxNr42IxAq+UWPYB9bHLd+gyRuiK6gnQ4=";
       };
-      version = "6.16.8";
-      modDirVersion = "6.16.8";
+      version = "6.17.7";
+      modDirVersion = "6.17.7";
+      #version = "6.16.12";
+      #modDirVersion = "6.16.12";
     };
   });
   boot.kernelModules = [ "kvm-amd" ];
