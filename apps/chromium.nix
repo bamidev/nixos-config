@@ -1,6 +1,4 @@
-{ ... }:
-let
-  latestPkgs = (import ../pins.nix).nixpkgsUnstable;
-in {
-  home.packages = [ latestPkgs.ungoogled-chromium ];
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.ungoogled-chromium ];
 }

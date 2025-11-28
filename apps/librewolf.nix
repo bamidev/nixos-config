@@ -1,7 +1,5 @@
 { pkgs, ... }:
-let
-  latestPkgs = (import ../pins.nix).nixpkgsUnstable;
-in {
+{
   programs.firefox = {
     enable = true;
     package = pkgs.librewolf;

@@ -1,6 +1,4 @@
 { pkgs, ... }:
-let
-  latestPkgs = (import ../pins.nix).nixpkgsUnstable;
-in {
-  home.packages = [ latestPkgs.servo ];
+{
+  home.packages = [ pkgs.servo ];
 }
