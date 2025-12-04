@@ -9,6 +9,12 @@
   end
 
 
+  -- Enable sweet inlay hints where available
+  vim.keymap.set('n', '<C-h>', function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end)
+
+
   vim.lsp.enable('bashls')
   vim.lsp.enable('ccls')
   vim.lsp.enable('csharp_ls')
