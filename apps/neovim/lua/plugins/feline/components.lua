@@ -42,6 +42,7 @@ local file_type_component = c.fancy_component(
 			c = 'bg4',
 			cpp = 'blue',
 			gitcommit = 'red',
+			go = 'blue',
 			json = 'grey',
 			lua = 'blue',
 			python = 'yellow',
