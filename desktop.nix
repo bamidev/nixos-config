@@ -82,7 +82,6 @@
       nautilus
       pavucontrol
       protonmail-bridge-gui
-      rustup
       session-desktop
       signal-desktop
       todo-txt-cli
