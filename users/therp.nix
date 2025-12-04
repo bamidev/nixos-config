@@ -112,6 +112,15 @@ in {
         addons_paths = ["/home/therp/wax/${toString majorVersion}.0/wax/addons"]
 
       ''));
+
+      ".ssh/myconfig".text = ''
+        Host odoo-ocad-lab ocad-lab
+          Hostname 10.10.10.157
+          User ubuntu
+          ForwardAgent yes
+          PermitLocalCommand yes
+          ProxyCommand ssh -A -p 7458 customers-proxy-user@therp1.nl nc %h %p
+      '';
     # Create a Wax flake.nix template for each Odoo version
     } // lib.attrsets.mergeAttrsList (lib.lists.forEach (
       lib.range odooParams.lspVersions.start
@@ -234,6 +243,7 @@ in {
 
       extraConfig = ''
         Include ~/.ssh/config.d/*.conf
+        Include ~/.ssh/my-config
         SendEnv VIMINIT
       '';
     };
