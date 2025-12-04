@@ -94,6 +94,8 @@ in if params.environmentType == "desktop" then {
         if [ -e ~/.init.sh ]; then
           . ~/.init.sh
         fi
+
+        eval "$(direnv hook bash)"
       '';
       shellAliases = {
         "todo" = "todo.sh";
