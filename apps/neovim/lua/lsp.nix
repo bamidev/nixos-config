@@ -14,6 +14,7 @@
   vim.lsp.enable('csharp_ls')
   vim.lsp.enable('esbonio')
   vim.lsp.enable('eslint')
+  vim.lsp.enable('gopls')
   vim.lsp.enable('java_language_server')
   vim.lsp.enable('ltex')
   vim.lsp.enable('lua_ls')
