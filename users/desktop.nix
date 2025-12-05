@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, username, ... }:
 let
   params = import ../params.nix;
   nixLocateCached = pkgs.writers.writeBashBin "nix-locate-cached" ''
@@ -94,13 +94,13 @@ in if params.environmentType == "desktop" then {
         if [ -e ~/.init.sh ]; then
           . ~/.init.sh
         fi
-
-        eval "$(direnv hook bash)"
       '';
       shellAliases = {
         "todo" = "todo.sh";
       };
       initExtra = ''
+        eval "$(direnv hook bash)"
+
         if [ ! -z "$TERM" ] && [ "$TERM" != "linux" ]; then
           CURRENT_WORKSPACE=$(current-workspace)
           if [ "$PWD" == "$HOME" ] && [ -f ~/.here/$CURRENT_WORKSPACE ]; then
