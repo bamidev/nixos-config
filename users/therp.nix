@@ -183,6 +183,8 @@ in {
           }
         '';
 
+        "wax/${toString version}.0/.envrc".text = "use flake";
+
         "wax/${toString version}.0/init.sh" = {
           executable = true;
           text = ''
@@ -197,6 +199,7 @@ in {
             init.sh
             flake.nix.example
             wax
+            .direnv
             HEREDOC
 
             cp flake.nix.example flake.nix
