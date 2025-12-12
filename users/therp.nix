@@ -236,9 +236,9 @@ in {
       };
     };
 
-    git = {
-      userName = "Danny de Jong";
-      userEmail = "ddejong@therp.nl";
+    git.settings = {
+      user.name = "Danny de Jong";
+      user.email = "ddejong@therp.nl";
     };
 
     ssh = {

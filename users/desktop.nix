@@ -90,7 +90,6 @@ in if params.environmentType == "desktop" then {
   programs = {
     bash = {
       profileExtra = ''
-        #!${pkgs.bash}/bin/bash
         if [ -e ~/.init.sh ]; then
           . ~/.init.sh
         fi

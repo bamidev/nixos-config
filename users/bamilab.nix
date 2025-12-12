@@ -7,9 +7,9 @@
   home.stateVersion = "24.11";
 
   programs = {
-    git = {
-      userName = "Bamidev";
-      userEmail = "bamidev@pm.me";
+    git.settings = {
+      user.name = "Bamidev";
+      user.email = "bamidev@pm.me";
     };
   };
 }
