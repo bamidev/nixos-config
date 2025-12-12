@@ -35,5 +35,13 @@ rec {
         y = 800;
       };
     }
+    {
+      id = "Philips Consumer Electronics Company PHL 241P6Q UHB1609027039";
+      idSource = "description";
+      position = {
+        x = 2000;
+        y = 920;
+      };
+    }
   ];
 }
