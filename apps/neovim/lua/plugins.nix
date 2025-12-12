@@ -57,6 +57,19 @@
     require('plugins.lua-snip'),
     require('plugins.ufo'),
     {
+      "danymat/neogen",
+      tag = "2.20.0",
+      config = function()
+        local neogen = require('neogen')
+        neogen.setup {
+          snippet_engine = "luasnip"
+        }
+
+        local opts = { noremap = true, silent = true }
+        vim.keymap.set("n", "<Leader>cg", neogen.generate, opts)
+      end,
+    },
+    {
       "ellisonleao/gruvbox.nvim",
       tag = "2.0.0",
       config = function()
