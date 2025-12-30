@@ -77,7 +77,6 @@
       file-roller
       gimp
       libheif # For nautilus image preview
-      libreoffice
       mako
       nautilus
       pavucontrol

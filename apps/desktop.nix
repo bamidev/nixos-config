@@ -5,6 +5,7 @@ let
 in {
   imports = [
     ./greetd.nix
+    ./libreoffice.nix
     ./postgresql.nix
     ./protonvpn.nix
     ./sway/system.nix
