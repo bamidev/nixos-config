@@ -1,5 +1,7 @@
-{ lib, pkgs, ... }:
-{
+{ lib, ... }:
+let
+  oldPkgs = (import ../pins.nix).nixpkgs25_05.pkgs;
+in {
   imports = [
     ../apps/neovim/home.nix
   ];
@@ -38,7 +40,7 @@
 
     git = {
       enable = true;
-      package = pkgs.gitFull;
+      package = oldPkgs.gitFull;
     };
   };
 
