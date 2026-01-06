@@ -16,6 +16,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     loupe
+    ladybird
     mplayer
     obs-studio
     texliveSmall
