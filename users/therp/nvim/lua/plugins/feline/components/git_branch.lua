@@ -19,6 +19,7 @@ local issue_description = c.fancy_component(
 	'oceanblue',
 	'right'
 )
+issue_description.update = {'BufEnter'}
 local issue_number = c.fancy_component(
 	function()
 		local number = odoo.find_task_number()
@@ -31,6 +32,7 @@ local issue_number = c.fancy_component(
 	'right',
 	issue_description
 )
+issue_number.update = {'BufEnter'}
 local odoo_version = c.fancy_component(
 	function()
 		return odoo.find_odoo_version() or ''
@@ -39,6 +41,7 @@ local odoo_version = c.fancy_component(
 	'right',
 	issue_number
 )
+odoo_version.update = {'BufEnter'}
 
 
 return {

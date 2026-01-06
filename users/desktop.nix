@@ -102,8 +102,8 @@ in if params.environmentType == "desktop" then {
 
         if [ ! -z "$TERM" ] && [ "$TERM" != "linux" ]; then
           CURRENT_WORKSPACE=$(current-workspace)
-          if [ "$PWD" == "$HOME" ] && [ -f ~/.here/$CURRENT_WORKSPACE ]; then
-            cd $(cat ~/.here/$CURRENT_WORKSPACE)
+          if [ "$PWD" == "$HOME" ] && [ -f $HOME/.here/$CURRENT_WORKSPACE ]; then
+            cd $(cat $HOME/.here/$CURRENT_WORKSPACE)
           fi
         fi
       '';

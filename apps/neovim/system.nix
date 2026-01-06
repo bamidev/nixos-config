@@ -21,22 +21,20 @@ in {
       "init.lua".source = ./init.lua;
 
       "ftplugin/python.lua".text = ''
-        vim.opt.expandtab = true
-        vim.opt.smartindent = true
-        vim.opt.colorcolumn = '73,79'
+        vim.bo.expandtab = true
+        vim.bo.smartindent = true
+        vim.wo.colorcolumn = '73,79'
         if vim.b.editorconfig then
-          vim.opt.colorcolumn = '73,' .. (vim.b.editorconfig.max_line_length or '79')
+          vim.wo.colorcolumn = '73,' .. (vim.b.editorconfig.max_line_length or '79')
         end
       '';
       "ftplugin/nix.lua".text = ''
-        vim.opt.colorcolumn = '100'
-        vim.opt.expandtab = true
-        vim.opt.shiftwidth = 2
-        vim.opt.tabstop = 2
+        vim.wo.colorcolumn = '100'
+        vim.bo.expandtab = true
+        vim.bo.shiftwidth = 2
+        vim.bo.tabstop = 2
       '';
-      "ftplugin/rust.lua".text = ''
-        vim.opt.colorcolumn = '100'
-      '';
+      "ftplugin/rust.lua".source = ./ftplugin/rust.lua;
 
       "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
