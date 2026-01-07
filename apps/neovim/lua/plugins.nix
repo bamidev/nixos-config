@@ -28,13 +28,13 @@
 
 
   -- Pick the theme variant depending on the time of year
-  local season = "winter"
+  local season = "winter" -- Not the exact current season, but closer to the rythm of the earth anyway.
   local month = os.date("*t")["month"]
-  if month >= 4 and month <= 6 then
+  if month >= 3 and month <= 5 then
     season = "spring"
-  else if month >= 7 and month <= 9 then
+  else if month >= 6 and month <= 8 then
     season = "summer"
-  else if month >= 10 and month <= 12 then
+  else if month >= 9 and month <= 11 then
     season = "fall"
   end end end
 
