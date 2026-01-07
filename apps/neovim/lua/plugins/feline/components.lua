@@ -13,6 +13,7 @@ local file_info_component = c.fancy_component(
 		name = 'file_info',
 		opts = {
 			colored_icon = false,
+			file_modified_icon = '•',
 			type = 'relative',
 		},
 	},
