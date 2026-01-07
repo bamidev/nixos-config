@@ -70,6 +70,7 @@ in {
       "lsp/markdown_oxide.lua".text = import ./lsp/markdown_oxide.nix { pkgs=pkgs; };
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
+      "lsp/ruff.lua".text = import ./lsp/ruff.nix { pkgs=pkgs; };
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
       "lsp/ts_ls.lua".text = import ./lsp/ts_ls.nix { pkgs=pkgs; };
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };

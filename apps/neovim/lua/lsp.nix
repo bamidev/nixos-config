@@ -28,6 +28,7 @@
   vim.lsp.enable('nixd')
   vim.lsp.enable('postgres_lsp')
   vim.lsp.enable('pylsp')
+  vim.lsp.enable('ruff')
   vim.lsp.enable('rust_analyzer')
   vim.lsp.enable('ts_ls')
   vim.lsp.enable('vimls')
