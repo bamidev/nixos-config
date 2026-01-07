@@ -3,10 +3,10 @@ local vi_mode = require('feline.providers.vi_mode')
 local utf8 = require('utf8')
 
 
-local errors_component = c.simple_component('diagnostic_errors', 'red')
+local errors_component = c.simple_component('diagnostic_errors', 'fg_red')
 errors_component.priority = 8
 
-local file_encoding_component = c.fancy_component('file_encoding', 'skyblue', 'left')
+local file_encoding_component = c.fancy_component('file_encoding', 'bg_skyblue', 'left')
 
 local file_info_component = c.fancy_component(
 	{
@@ -70,20 +70,20 @@ local file_type_component = c.fancy_component(
 
 local git_branch_components = require('plugins.feline.components.git_branch')
 
-local git_added_component = c.simple_component('git_diff_added', 'green')
+local git_added_component = c.simple_component('git_diff_added', 'fg_green')
 git_added_component.priority = 3
 
-local git_changed_component = c.simple_component('git_diff_changed', 'yellow')
+local git_changed_component = c.simple_component('git_diff_changed', 'fg_yellow')
 git_changed_component.icon = ' M '
 git_changed_component.priority = 2
 
-local git_removed_component = c.simple_component('git_diff_removed', 'orange')
+local git_removed_component = c.simple_component('git_diff_removed', 'fg_orange')
 git_removed_component.priority = 1
 
-local hints_component = c.simple_component('diagnostic_hints', 'cyan')
+local hints_component = c.simple_component('diagnostic_hints', 'fg_cyan')
 hints_component.priority = 6
 
-local infos_component = c.simple_component('diagnostic_info', 'blue')
+local infos_component = c.simple_component('diagnostic_info', 'fg_blue')
 infos_component.priority = 5
 
 local vi_mode_component = c.fancy_component(
@@ -99,7 +99,7 @@ local vi_mode_component = c.fancy_component(
 )
 vi_mode_component.icon = ''
 
-local warnings_component = c.simple_component('diagnostic_warnings', 'yellow')
+local warnings_component = c.simple_component('diagnostic_warnings', 'fg_yellow')
 warnings_component.priority = 7
 
 

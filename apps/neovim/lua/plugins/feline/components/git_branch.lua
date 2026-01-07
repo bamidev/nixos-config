@@ -7,7 +7,7 @@ local branch = c.fancy_component(
 	function()
 		return git.get_branch() or ''
 	end,
-	'oceanblue',
+	'bg_aqua',
 	'right'
 )
 branch.icon = utf8.char(0xE0A0) .. ' '

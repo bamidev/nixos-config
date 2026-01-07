@@ -9,7 +9,7 @@ this.fancy_component = function(provider, color, side, neighbour, sep_left, sep_
 		local table = {
 			str = utf8.char(0x2588),
 			hl = {
-				bg = color_,
+				fg = color_,
 			},
 			always_visible = true
 		}
@@ -26,7 +26,7 @@ this.fancy_component = function(provider, color, side, neighbour, sep_left, sep_
 
 		-- Set the background color of the seperator to match the neighbour's backgound color
 		if neighbour ~= nil then
-			table.hl.fg = neighbour.hl.fg
+			table.hl.bg = neighbour.hl.bg
 		end
 
 		-- Change the seperator depending on which side the component is placed
@@ -45,7 +45,7 @@ this.fancy_component = function(provider, color, side, neighbour, sep_left, sep_
 	if type(color) == "function" then
 		hl_base = function()
 			return {
-				fg = color(),
+				bg = color(),
 				style = style,
 			}
 		end
@@ -56,7 +56,7 @@ this.fancy_component = function(provider, color, side, neighbour, sep_left, sep_
 			return generate_sep_table(color(), 'right')
 		end
 	else
-		hl_base = { fg = color, style = style, }
+		hl_base = { bg = color, style = style, }
 		sep_table_left = generate_sep_table(color, 'left')
 		sep_table_right = generate_sep_table(color, 'right')
 	end
@@ -75,7 +75,7 @@ this.simple_component = function(provider, color, style, options)
 	local c = {
 		provider = provider,
 		hl = {
-			bg = color,
+			fg = color,
 			style = style,
 		},
 		truncate_hide = true,

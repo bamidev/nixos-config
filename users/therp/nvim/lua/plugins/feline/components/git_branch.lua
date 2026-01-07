@@ -16,7 +16,7 @@ local issue_description = c.fancy_component(
 		end
 		return ''
 	end,
-	'oceanblue',
+	'bg_aqua',
 	'right'
 )
 issue_description.update = {'BufEnter'}
@@ -28,7 +28,7 @@ local issue_number = c.fancy_component(
 		end
 		return ''
 	end,
-	'orange',
+	'bg_orange',
 	'right',
 	issue_description
 )
@@ -37,7 +37,7 @@ local odoo_version = c.fancy_component(
 	function()
 		return odoo.find_odoo_version() or ''
 	end,
-	'magenta',
+	'bg_purple',
 	'right',
 	issue_number
 )
