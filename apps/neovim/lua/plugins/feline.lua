@@ -63,7 +63,7 @@ return {
 				bg_cyan = palette.bg_blue[1],
 				dark_green = palette.bg_green[1],
 				faded_blue = palette.bg_blue[1],
-				faded_orange = palette.orange[1],
+				faded_orange = palette.bg_red[1],
 				fg_blue = palette.blue[1],
 				fg_green = palette.green[1],
 				fg_orange = palette.orange[1],
