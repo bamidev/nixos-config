@@ -10,7 +10,6 @@ if vim.fn.filereadable('rustfmt.toml') == 1 then
 				break
 			end
 			if string.find(line, 'hard_tabs%s=%strue') then
-				print("vim.bo.expandtab = false")
 				vim.bo.expandtab = false
 				break
 			end
