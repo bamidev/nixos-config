@@ -1,9 +1,9 @@
 return {
 	settings = {
 		pylsp = {
-			configurationSources = {'pycodestyle'},
+			configurationSources = {"flake8"},
 			plugins = {
-				flake8 = { enabled = true },	-- Doesn't know about builtin variables
+				flake8 = { enabled = true },
 				jedi_completion = {
 				  enabled = true,
 				  fuzzy = true,

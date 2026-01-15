@@ -7,7 +7,7 @@ end
 
 local settings = require('pylsp').settings
 settings.pylsp.plugins.jedi = { environment = python_path }
--- Th following plugins don't know about built-in variables
+-- The following plugins don't know about migration scripts' built-in variables:
 settings.pylsp.plugins.flake8.enabled = false
 settings.pylsp.plugins.pyflakes.enabled = false
 -- Disable import errors from pylint, because pylint is not aware of which Wax venv is being used,
@@ -22,7 +22,6 @@ settings.pylsp.plugins.pyflakes.enabled = false
 return {
 	cmd = {'pylsp'},
 	filetypes = {'python'},
-	on_attach = require('autocomplete'),
 	settings = settings,
 	root_markers = {'flake.nix', '.git'}
 }
