@@ -147,6 +147,7 @@ in {
                     account-financial-reporting = {};
                     account-financial-tools = {};
                     account-invoicing = {};
+                    account-reconcile = {};
                     bank-payment = {};
                     bank-statement-import = {};
                     community-data-files = {};
