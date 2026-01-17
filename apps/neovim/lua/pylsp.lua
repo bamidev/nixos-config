@@ -1,7 +1,7 @@
 return {
 	settings = {
 		pylsp = {
-			configurationSources = {"flake8"},
+			configurationSources = {"flake8", "pycodestyle"},
 			plugins = {
 				flake8 = { enabled = true },
 				jedi_completion = {
