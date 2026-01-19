@@ -2,7 +2,7 @@ local odoo = require('utils.odoo')
 local version = odoo.find_odoo_version()
 
 
-if tonumber(version) >= 15 then
+if version ~= nil and tonumber(version) >= 15 then
 	local python_interpreter = odoo.pick_python_interpreter(version)
 	vim.lsp.config('ruff', {
 		init_options = {
