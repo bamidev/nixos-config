@@ -17,7 +17,6 @@ local function find_odoo_version_in_branch_name(branch)
 	return versionString, endIndex
 end
 
-
 local function find_task_number_string_in_branch_name(branch)
 	local _, startIndex = string.find(branch, ".0-", 1, true)
 	if startIndex == nil then return nil end
@@ -29,7 +28,6 @@ local function find_task_number_string_in_branch_name(branch)
 	end
 	return string.sub(taskNumberString, 2, -2)
 end
-
 
 local function find_description_in_branch_name(branch)
 	local _, versionStartIndex = string.find(branch, ".0-", 1, true)
@@ -47,7 +45,6 @@ this.find_odoo_version = function()
 	return odooVersion
 end
 
-
 this.find_task_number = function()
 	local branch = git.get_branch()
 	if branch == nil then
@@ -57,11 +54,18 @@ this.find_task_number = function()
 	return tonumber(string)
 end
 
-
 this.find_issue_description = function()
 	local branch = git.get_branch()
 	if branch == nil then return nil end
 	return find_description_in_branch_name(branch)
+end
+
+this.pick_python_interpreter = function(version)
+	local python_interpreter = 'python'
+	if version ~= nil then
+		python_interpreter = '/home/therp/wax/' .. version .. '/wax/venv/bin/python'
+	end
+	return python_interpreter
 end
 
 

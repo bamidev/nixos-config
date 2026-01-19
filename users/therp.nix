@@ -49,6 +49,10 @@ in {
     stateVersion = "24.11";
 
     file = {
+      ".config/flake8".text = ''
+        builtins = env
+      '';
+
       # Some work related snippets
       ".config/nvim" = {
         recursive = true;

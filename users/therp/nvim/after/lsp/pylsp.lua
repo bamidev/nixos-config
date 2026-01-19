@@ -1,15 +1,14 @@
-local odoo_version = require('utils.odoo').find_odoo_version()
-local python_path = 'python'
-if odoo_version ~= nil then
-	python_path = '/home/therp/wax/' .. odoo_version .. '/wax/venv/bin/python'
-end
+local odoo = require('utils.odoo')
+local odoo_version = odoo.find_odoo_version()
+local python_path = odoo.pick_python_interpreter(odoo_version)
 
 
 local settings = require('pylsp').settings
 -- Override configurationSource to only pycodestyle, because when using both, the ~/.config/pycodestyle file isn't actually used for some reason.
 settings.pylsp.plugins.jedi = { environment = python_path }
+settings.pylsp.plugins.flake8.enabled = odoo_version ~= nil and tonumber(odoo_version) < 15
 -- The following plugins don't know about migration scripts' built-in variables, so lets disable them:
-settings.pylsp.plugins.pyflakes.enabled = false
+--settings.pylsp.plugins.pyflakes.enabled = false
 -- Disable import errors from pylint, because pylint is not aware of which Wax venv is being used,
 -- and odoo-ls performs the same check while odoo-ls _is_ aware of the right venv used
 -- Disable filename checking because migration scripts' filenames require an unconvential file name
