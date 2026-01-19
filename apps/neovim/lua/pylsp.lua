@@ -3,7 +3,7 @@ return {
 		pylsp = {
 			configurationSources = {"flake8", "pycodestyle"},
 			plugins = {
-				flake8 = { enabled = true },
+				flake8 = { enabled = false },
 				jedi_completion = {
 				  enabled = true,
 				  fuzzy = true,
@@ -14,7 +14,7 @@ return {
 				jedi_signature_help = { enabled = true },
 				jedi_symbols = { enabled = true },
 				jedi_type_definition = { enabled = true },
-				pycodestyle = { enabled = true },
+				pycodestyle = { enabled = false },
 				pydocstyle = { enabled = true },
 				pyflakes = { enabled = true },
 				pylint = {

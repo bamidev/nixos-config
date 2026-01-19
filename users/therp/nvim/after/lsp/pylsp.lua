@@ -7,10 +7,8 @@ end
 
 local settings = require('pylsp').settings
 -- Override configurationSource to only pycodestyle, because when using both, the ~/.config/pycodestyle file isn't actually used for some reason.
-settings.pylsp.configurationSources = { "pycodestyle" }
 settings.pylsp.plugins.jedi = { environment = python_path }
 -- The following plugins don't know about migration scripts' built-in variables, so lets disable them:
-settings.pylsp.plugins.flake8.enabled = false
 settings.pylsp.plugins.pyflakes.enabled = false
 -- Disable import errors from pylint, because pylint is not aware of which Wax venv is being used,
 -- and odoo-ls performs the same check while odoo-ls _is_ aware of the right venv used

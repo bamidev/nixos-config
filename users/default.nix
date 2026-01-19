@@ -19,6 +19,12 @@ in {
       ".config/pylintrc" = lib.mkDefault {
         source = ../apps/neovim/etc/pylintrc;
       };
+
+      ".config/ruff.toml" = lib.mkDefault {
+        text = ''
+          extend = "/etc/ruff.toml"
+        '';
+      };
     };
 
     sessionVariables = {
