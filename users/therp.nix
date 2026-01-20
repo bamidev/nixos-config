@@ -100,7 +100,7 @@ in {
         max-line-length = 88
       '';
 
-      "odools.toml".text = ''
+      ".config/odools.toml".text = ''
         [[config]]
         name = "setup-base"
         stdlib = "/home/therp/lsp/odoo-ls/server/typeshed/stdlib/"
