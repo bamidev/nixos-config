@@ -17,7 +17,12 @@ if odoo_version ~= nil then odoo_profile = 'setup-' .. odoo_version end
 if odoo_version ~= nil then
 	vim.lsp.start({
 		name = "odools",
-		cmd  = {server_dir .. '/odoo_ls_server'},
+		cmd  = {
+			server_dir .. '/odoo_ls_server',
+			-- odoo-ls 1.0.4 can't find the config file yet as it has documented,
+			-- so I still have to specify it manually.
+			'--config-path', '/home/therp/odools.toml',
+		},
 		filetypes = {'python', 'xml'},
 		on_attach = function(client, _)
 			vim.api.nvim_create_user_command('OdooProfile', function(e)
