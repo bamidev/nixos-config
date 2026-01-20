@@ -19,9 +19,14 @@ table.insert(
 	settings.pylsp.plugins.pylint.args,
 	"--disable=import-error,invalid-name,missing-function-docstring,missing-module-docstring,no-member"
 )
-return {
-	cmd = {'pylsp'},
+
+local command = 'pylsp'
+if odoo_version ~= nil then
+	command = '/home/therp/wax/' .. odoo_version .. '/wax/venv/bin/pylsp'
+end
+vim.lsp.config('pylsp', {
+	cmd = {command},
 	filetypes = {'python'},
 	settings = settings,
 	root_markers = {'flake.nix', '.git'}
-}
+})
