@@ -50,6 +50,7 @@ in {
 
     file = {
       ".config/flake8".text = ''
+        [flake8]
         builtins = env
       '';
 
