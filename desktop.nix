@@ -70,9 +70,8 @@
         # Enable Pyflakes (`F`) and the pycodestyle (`E`) codes.
         # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
         # McCabe complexity (`C901`) by default.
-        select = ["E", "F", "W"]
-        # Ruff shows F401 warnings in __init__.py
-        ignore = ["F401"]
+        select = ["E", "F", "I", "N", "W"]
+        ignore = []
 
         # Allow fix for all enabled rules (when `--fix`) is provided.
         fixable = ["ALL"]
@@ -80,6 +79,10 @@
 
         # Allow unused variables when underscore-prefixed.
         dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+        [lint.per-file-ignores]
+        # Ruff shows F401 warnings in __init__.py, which doesn't make sense
+        "__init__.py" = ["F401"]
 
         [format]
         # Like Black, use double quotes for strings.
