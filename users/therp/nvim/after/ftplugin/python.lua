@@ -19,9 +19,7 @@ if odoo_version ~= nil then
 		name = "odools",
 		cmd  = {
 			server_dir .. '/odoo_ls_server',
-			-- odoo-ls 1.0.4 can't find the config file yet as it has documented,
-			-- so I still have to specify it manually.
-			'--config-path', '/home/therp/odools.toml',
+			'--config-path', '/home/therp/.config/odools.toml',
 		},
 		filetypes = {'python', 'xml'},
 		on_attach = function(client, _)

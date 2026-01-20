@@ -4,10 +4,7 @@ return {
 			configurationSources = {"flake8"},
 			plugins = {
 				flake8 = { enabled = true },
-				jedi_completion = {
-				  enabled = true,
-				  fuzzy = true,
-				},
+				jedi_completion = { enabled = true, fuzzy = true },
 				jedi_definition = { enabled = true },
 				jedi_hover = { enabled = true },
 				jedi_references = { enabled = true },
