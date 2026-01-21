@@ -51,6 +51,8 @@
   pckr.add {
     require('plugins.dap'),
     require('plugins.dap-python'),
+    -- FIXME: The update field on providers doesn't seem to work in feline. Maybe switch to another
+    -- statusline addon?
     require('plugins.feline'),
     require('plugins.gitsigns'),
     require('plugins.indent-blankline'),
