@@ -58,7 +58,7 @@ in {
           format = "VPN: {}";
           exec = "ip add show | grep -qF tun0 && echo ✅ || echo ☒";
           max-length = 100;
-          on-click = "${pkgs.systemd}/bin/systemctl restart openvpn-protonvpn";
+          on-click = "sudo-restart-vpn";
         };
       };
     };

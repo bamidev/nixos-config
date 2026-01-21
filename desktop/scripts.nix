@@ -46,11 +46,20 @@ let
     WALLPAPER=$(pick_random_file /var/lib/syncthing/Sync/wallpapers)
     ${lib.getExe pkgs.swaybg} -m fill -i "$WALLPAPER"
   '';
+  restart-vpn = pkgs.writers.writeBashBin "restart-vpn" ''
+    ${pkgs.systemd}/bin/systemctl restart openvpn-protonvpn.service
+  '';
   sudo-brightness-down = pkgs.writers.writeBashBin "sudo-brightness-down" ''
+    set -e
     sudo ${brightness-down}/bin/brightness-down
   '';
   sudo-brightness-up = pkgs.writers.writeBashBin "sudo-brightness-up" ''
+    set -e
     sudo ${brightness-up}/bin/brightness-up
+  '';
+  sudo-restart-vpn = pkgs.writers.writeBashBin "sudo-restart-vpn" ''
+    set -e
+    sudo ${lib.getExe restart-vpn}
   '';
 in {
   imports = [
@@ -64,8 +73,10 @@ in {
     current-workspace
     here
     pick-random-wallpaper
+    restart-vpn
     sudo-brightness-up
     sudo-brightness-down
+    sudo-restart-vpn
   ];
 
   security.sudo = {
@@ -73,15 +84,15 @@ in {
     extraRules = [{
       commands = [
         {
-          command = "${brightness-up}/bin/brightness-up";
+          command = "${lib.getExe brightness-up}";
           options = [ "NOPASSWD" ];
         }
         {
-          command = "${brightness-down}/bin/brightness-down";
+          command = "${lib.getExe brightness-down}";
           options = [ "NOPASSWD" ];
         }
         {
-          command = "${pkgs.systemd}/bin/systemctl restart openvpn-protonvpn";
+          command = "${lib.getExe restart-vpn}";
           options = [ "NOPASSWD" ];
         }
       ];
