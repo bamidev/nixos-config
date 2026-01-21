@@ -11,9 +11,7 @@ local branch = c.fancy_component(
 	'right'
 )
 branch.icon = utf8.char(0xE0A0) .. ' '
-branch.update = {
-	'BufEnter'
-}
+branch.update = {'BufEnter'}
 
 
 return {
