@@ -168,6 +168,7 @@ in {
                     knowledge = {};
                     l10n-netherlands = {};
                     mis-builder = {};
+                    OpenUpgrade = {};
                     partner-contact = {};
                     project = {};
                     queue = {};
