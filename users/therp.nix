@@ -125,6 +125,14 @@ in {
           PermitLocalCommand yes
           ProxyCommand ssh -A -p 7458 customers-proxy-user@therp1.nl nc %h %p
       '';
+
+      ".config/ruff.toml" = lib.mkForce {
+        text = ''
+          extend = "/etc/ruff.toml"
+
+          builtins = ["env"]
+        '';
+      };
     # Create a Wax flake.nix template for each Odoo version
     } // lib.attrsets.mergeAttrsList (lib.lists.forEach (
       lib.range odooParams.lspVersions.start
