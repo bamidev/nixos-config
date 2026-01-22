@@ -14,12 +14,7 @@ return {
 				pycodestyle = { enabled = false },
 				pydocstyle = { enabled = true },
 				pyflakes = { enabled = false },
-				pylint = {
-					enabled = true,
-					args = {
-						"--disable=unknown-option-value,unrecognized-option",
-					},
-				},
+				pylint = { enabled = true },
 			},
 		},
 	},

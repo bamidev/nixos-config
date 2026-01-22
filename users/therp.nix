@@ -71,8 +71,6 @@ in {
 
       # Allow raising broad exceptions, because many times migration scripts need not to do anything
       # special to throw an error.
-      # Disable import errors from pylint, because pylint is not aware of which Wax venv is being
-      # used, and odoo-ls performs the same check while odoo-ls _is_ aware of the right venv used.
       # Disable filename checking because migration scripts' filenames require an unconvential file
       # name style.
       # Disable function & module docstrings because migration scripts are not expected to have
@@ -81,7 +79,7 @@ in {
       ".config/pylintrc".text = builtins.readFile ../apps/neovim/etc/pylintrc + ''
 
         [MAIN]
-        disable=broad-exception-raised,import-error,invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,pointless-statement,too-few-public-methods
+        disable=broad-exception-raised,invalid-name,missing-class-docstring,missing-function-docstring,missing-module-docstring,pointless-statement,too-few-public-methods
 
         [VARIABLES]
         additional-builtins = env
