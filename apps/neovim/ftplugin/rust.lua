@@ -1,3 +1,5 @@
+-- Neovim's own ftplugin for Rust overwrites my choice of expandtab
+vim.g.rust_recommended_style = false
 vim.wo.colorcolumn = '100'
 vim.bo.expandtab = true
 
