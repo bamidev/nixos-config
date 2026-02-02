@@ -3,8 +3,8 @@
     cron = {
       enable = true;
       systemCronJobs = [
-        "0 22 * * * ${pkgs.util-linux}/bin/rfkill block wifi"
-        "0 9 * * * ${pkgs.util-linux}/bin/rfkill unblock wifi"
+        "0 22 * * * root ${pkgs.util-linux}/bin/rfkill block wifi"
+        "0 9 * * * root ${pkgs.util-linux}/bin/rfkill unblock wifi"
       ];
     };
 
