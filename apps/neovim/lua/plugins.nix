@@ -55,6 +55,7 @@
     -- statusline addon?
     require('plugins.feline'),
     require('plugins.gitsigns'),
+    --require('plugins.heirline'),
     require('plugins.indent-blankline'),
     require('plugins.lua-snip'),
     require('plugins.ufo'),

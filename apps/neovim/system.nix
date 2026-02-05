@@ -43,9 +43,9 @@ in {
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
-      "lua/plugins/feline".source = ./lua/plugins/feline;
       "lua/plugins/dap.lua".source = ./lua/plugins/dap.lua;
       "lua/plugins/dap-python.lua".source = ./lua/plugins/dap-python.lua;
+      "lua/plugins/feline".source = ./lua/plugins/feline;
       "lua/plugins/feline.lua".source = ./lua/plugins/feline.lua;
       "lua/plugins/gitsigns.lua".source = ./lua/plugins/gitsigns.lua;
       "lua/plugins/indent-blankline.lua".source = ./lua/plugins/indent-blankline.lua;
