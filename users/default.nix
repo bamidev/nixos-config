@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  oldPkgs = (import ../pins.nix).nixpkgs25_05.pkgs;
+  oldPkgs = (import ../sources.nix).nixpkgs25_05.pkgs;
 in {
   imports = [
     ../apps/neovim/home.nix
