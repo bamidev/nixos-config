@@ -44,6 +44,7 @@
   pckr.setup {
     autoinstall = true,
     autoremove = true,
+    max_jobs = 4,
     git = {
       cmd = "${pkgs.git}/bin/git",
     }
