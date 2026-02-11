@@ -113,7 +113,7 @@ in {
         odoo_path = "/home/therp/wax/${toString majorVersion}.0/wax/repos/odoo/"
         python_path = "/home/therp/wax/${toString majorVersion}.0/wax/venv/bin/python"
         addons_paths = ["/home/therp/wax/${toString majorVersion}.0/wax/addons"]
-        diag_missing_imports = "${if majorVersion > 14 then "all" else "none"}"
+        diag_missing_imports = "${if majorVersion > 14 then "only_odoo" else "none"}"
 
       ''));
 
