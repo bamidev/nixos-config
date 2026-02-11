@@ -53,9 +53,9 @@
     require('plugins.dap-python'),
     -- FIXME: The update field on providers doesn't seem to work in feline. Maybe switch to another
     -- statusline addon?
-    require('plugins.feline'),
+    --require('plugins.feline'),
     require('plugins.gitsigns'),
-    --require('plugins.heirline'),
+    require('plugins.heirline'),
     require('plugins.indent-blankline'),
     require('plugins.lua-snip'),
     require('plugins.ufo'),

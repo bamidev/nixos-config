@@ -48,6 +48,8 @@ in {
       "lua/plugins/feline".source = ./lua/plugins/feline;
       "lua/plugins/feline.lua".source = ./lua/plugins/feline.lua;
       "lua/plugins/gitsigns.lua".source = ./lua/plugins/gitsigns.lua;
+      "lua/plugins/heirline".source = ./lua/plugins/heirline;
+      "lua/plugins/heirline.lua".source = ./lua/plugins/heirline.lua;
       "lua/plugins/indent-blankline.lua".source = ./lua/plugins/indent-blankline.lua;
       "lua/plugins/lua-snip.lua".text = import ./lua/plugins/lua-snip.nix { pkgs=pkgs; };
       "lua/plugins/ufo.lua".source = ./lua/plugins/ufo.lua;
