@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  version = "1.0.4";
+  version = "1.2.0";
   rust_version = "1.91.0";
 in ''
   local lsp_dir = vim.fs.abspath('~/lsp')
