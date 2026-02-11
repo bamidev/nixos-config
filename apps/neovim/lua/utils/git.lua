@@ -13,6 +13,7 @@ this.get_branch = function()
 
 	local output = c:read("*l")
 	c:close()
+	vim.g.gitsigns_head = output
 	return output
 end
 
