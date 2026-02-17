@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
-    steamcmd
-    steam-tui
+    #steamcmd
+    #steam-tui
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
@@ -10,6 +10,7 @@
     "steam-unwrapped"
     "steamcmd"
   ];
+  nixpkgs.config.allowUnfree = true;
 
   programs = {
     gamescope = {
