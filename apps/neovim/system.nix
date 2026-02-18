@@ -6,6 +6,11 @@ in {
   environment.systemPackages = with pkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
     ripgrep # Needed for the telescope plugin
+
+    # Install language servers globally so that the default LSP configurations may work within a
+    # non-Nix environment as well. (Such as my VM's.)
+    vscode-langservers-extracted
+    bash-language-server
   ];
 
   programs.neovim = {
@@ -36,7 +41,7 @@ in {
       '';
       "ftplugin/rust.lua".source = ./ftplugin/rust.lua;
 
-      "lsp/bashls.lua".text = import ./lsp/bashls.nix { pkgs=pkgs; };
+      "lsp/bashls.lua".source = ./lsp/bashls.lua;
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
       "lsp/jsonls.lua".text = import ./lsp/jsonls.nix { pkgs=pkgs; };
       "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
@@ -63,7 +68,6 @@ in {
       "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
       "lsp/csharp_ls.lua".text = import ./lsp/csharp_ls.nix { pkgs=pkgs; };
       "lsp/esbonio.lua".source = ./lsp/esbonio.lua;
-      "lsp/eslint.lua".text = import ./lsp/eslint.nix { pkgs=pkgs; };
       "lsp/gopls.lua".source = ./lsp/gopls.lua;
       "lsp/java_language_server.lua".text = import ./lsp/java_language_server.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
@@ -74,9 +78,10 @@ in {
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
       "lsp/ts_ls.lua".text = import ./lsp/ts_ls.nix { pkgs=pkgs; };
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
-      "lsp/vscode-css.lua".text = import ./lsp/vscode-css.nix { pkgs=pkgs; };
-      "lsp/vscode-html.lua".text = import ./lsp/vscode-html.nix { pkgs=pkgs; };
-      "lsp/vscode-markdown.lua".text = import ./lsp/vscode-markdown.nix { pkgs=pkgs; };
+      "lsp/vscode-css.lua".source = ./lsp/vscode-css.lua;
+      "lsp/vscode-eslint.lua".source = ./lsp/vscode-eslint.lua;
+      "lsp/vscode-html.lua".source = ./lsp/vscode-html.lua;
+      "lsp/vscode-markdown.lua".source = ./lsp/vscode-markdown.lua;
     };
 
     viAlias = true;
