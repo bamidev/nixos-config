@@ -6,7 +6,7 @@ let
     && (builtins.tryEval kernelPackages).success
     && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
   ) pkgs.linuxKernel.packages;
-  latestKernelPackage = lib.last (
+  latestKernelWithZfsSupport = lib.last (
     lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
       builtins.attrValues zfsCompatibleKernelPackages
     )
@@ -14,7 +14,7 @@ let
 in {
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = latestKernelPackage;
+  boot.kernelPackages = latestKernelWithZfsSupport;
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
