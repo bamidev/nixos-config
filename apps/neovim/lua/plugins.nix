@@ -81,6 +81,11 @@
           return
         end
 
+        require("gruvbox").setup({
+          -- This theme plugin inverses the statusbar colors by default, which messes things up
+          inverse = false,
+        })
+
         if season == "fall" then
           vim.o.background = "dark"
         else if season == "spring" then
