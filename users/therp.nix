@@ -239,7 +239,6 @@ in {
 
     packages = with pkgs; [
       black
-      uv
     ] ++ [
       installPreCommit
       preCommit
