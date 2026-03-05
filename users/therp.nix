@@ -49,12 +49,24 @@ in {
     stateVersion = "24.11";
 
     file = {
+      ".init.sh" = {
+        executable = true;
+        text = ''
+          export XDG_CONFIG_DIRS="/home/therp/.config/xdg-global:$XDG_CONFIG_DIRS"
+        '';
+      };
+
       ".config/flake8".text = ''
         [flake8]
         builtins = env
       '';
 
-      # Some work related snippets
+      # Put the global xdg configuration files in a local path, so that they may be available in a
+      # FHSEnv as well.
+      ".config/xdg-global" = {
+        recursive = true;
+        source = /etc/xdg;
+      };
       ".config/nvim" = {
         recursive = true;
         source = ./therp/nvim;
@@ -62,7 +74,7 @@ in {
       ".config/nvim/init.lua" = lib.mkForce {
         text = ''
           require('init-odoo')
-          vim.cmd('luafile /etc/xdg/nvim/init.lua')
+          vim.cmd('luafile ~/.config/xdg-global/nvim/init.lua')
         '';
       };
       ".config/nvim/lua/init-odoo.lua" = lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
