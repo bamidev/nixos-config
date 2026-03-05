@@ -59,6 +59,7 @@ in {
           exec = "ip add show | grep -qF tun0 && echo ✅ || echo ☒";
           max-length = 100;
           on-click = "sudo-restart-vpn";
+          on-click-right = "sudo-stop-vpn";
         };
       };
     };

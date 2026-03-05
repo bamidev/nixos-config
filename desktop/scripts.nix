@@ -49,6 +49,9 @@ let
   restart-vpn = pkgs.writers.writeBashBin "restart-vpn" ''
     ${pkgs.systemd}/bin/systemctl restart openvpn-protonvpn.service
   '';
+  stop-vpn = pkgs.writers.writeBashBin "stop-vpn" ''
+    ${pkgs.systemd}/bin/systemctl stop openvpn-protonvpn.service
+  '';
   sudo-brightness-down = pkgs.writers.writeBashBin "sudo-brightness-down" ''
     set -e
     sudo ${brightness-down}/bin/brightness-down
@@ -60,6 +63,10 @@ let
   sudo-restart-vpn = pkgs.writers.writeBashBin "sudo-restart-vpn" ''
     set -e
     sudo ${lib.getExe restart-vpn}
+  '';
+  sudo-stop-vpn = pkgs.writers.writeBashBin "sudo-stop-vpn" ''
+    set -e
+    sudo ${lib.getExe stop-vpn}
   '';
 in {
   imports = [
@@ -77,6 +84,7 @@ in {
     sudo-brightness-up
     sudo-brightness-down
     sudo-restart-vpn
+    sudo-stop-vpn
   ];
 
   security.sudo = {
@@ -93,6 +101,10 @@ in {
         }
         {
           command = "${lib.getExe restart-vpn}";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "${lib.getExe stop-vpn}";
           options = [ "NOPASSWD" ];
         }
       ];
