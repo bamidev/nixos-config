@@ -12,6 +12,7 @@ in {
     vscode-langservers-extracted
     bash-language-server
   ];
+  environment.etc."pylintrc".source = ./etc/pylintrc;
 
   programs.neovim = {
     enable = true;

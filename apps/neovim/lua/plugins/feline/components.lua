@@ -57,9 +57,9 @@ local file_type_component = c.fancy_component(
 
 		local color = table[vim.bo.filetype]
 		if color ~= nil then
-			return color
+			return 'bg_' .. color
 		end
-		return "grey"
+		return "bg_grey"
 	end,
 	'left',
 	file_encoding_component,
@@ -90,7 +90,7 @@ infos_component.priority = 5
 local vi_mode_component = c.fancy_component(
 	'vi_mode',
 	function()
-		return vi_mode.get_mode_color()
+		return 'bg_' .. vi_mode.get_mode_color()
 	end,
 	'right',
 	git_branch_components[1],
