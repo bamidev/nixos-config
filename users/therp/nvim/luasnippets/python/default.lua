@@ -48,7 +48,7 @@ end
 
 local odoo_version = odoo.find_odoo_version()
 if odoo_version ~= nil then
-	odoo_version = odoo_version .. '.'
+	odoo_version = tostring(odoo_version) .. '.0'
 end
 local odoo_version_placeholder = "1.0.0"
 if odoo_version == nil then

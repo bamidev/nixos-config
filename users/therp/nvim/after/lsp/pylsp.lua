@@ -12,7 +12,7 @@ settings.pylsp.plugins.flake8.enabled = odoo_version ~= nil and tonumber(odoo_ve
 local command = 'pylsp'
 -- TODO: If not in a git repo, check if ./__manifest__.py exists, and parse the Odoo version from there...
 if odoo_version ~= nil then
-	command = '/home/therp/wax/' .. odoo_version .. '/wax/venv/bin/pylsp'
+	command = '/home/therp/wax/' .. odoo_version .. '.0/wax/venv/bin/pylsp'
 end
 vim.lsp.config('pylsp', {
 	cmd = {command},

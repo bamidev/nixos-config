@@ -35,7 +35,11 @@ local issue_number = c.fancy_component(
 issue_number.update = {'BufEnter'}
 local odoo_version = c.fancy_component(
 	function()
-		return odoo.find_odoo_version() or ''
+		local v = odoo.get_odoo_version()
+		if v then
+			return tostring(v) .. '.0'
+		end
+		return ''
 	end,
 	'bg_purple',
 	'right',

@@ -42,7 +42,7 @@ this.find_odoo_version = function()
 	local branch = git.get_branch()
 	if branch == nil then return nil end
 	local odooVersion, _ = find_odoo_version_in_branch_name(branch)
-	return odooVersion
+	return tonumber(odooVersion)
 end
 
 this.find_task_number = function()
@@ -58,6 +58,13 @@ this.find_issue_description = function()
 	local branch = git.get_branch()
 	if branch == nil then return nil end
 	return find_description_in_branch_name(branch)
+end
+
+this.get_odoo_version = function()
+	if vim.b.odoo_version == nil then
+		vim.b.odoo_version = this.find_odoo_version()
+	end
+	return vim.b.odoo_version
 end
 
 this.pick_python_interpreter = function(version)
