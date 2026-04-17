@@ -20,15 +20,8 @@ vim.diagnostic.config({
   virtual_text = true,
 })
 
--- Map keys
-vim.keymap.set({'n', 'v', 'x'}, ';', ':')
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-vim.api.nvim_create_user_command('Wordcount', function()
-	print('Words: ' .. vim.fn.wordcount().words)
-end, {
-	desc = 'Show word count of the document.',
-})
-
 -- Load everything else
+require('commands')
+require('map')
 require('plugins') -- Load all plugins
 require('lsp') -- Load all the LSP's
