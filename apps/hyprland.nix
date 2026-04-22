@@ -59,6 +59,9 @@ in {
         "$modsh, E, exit"
 
         "$modsh, SPACE, togglefloating"
+        
+        ", PRINT, exec, ${lib.getExe pkgs.hyprshot} -m region"
+        "$modsh, PRINT, exec, ${lib.getExe pkgs.hyprshot} -m window"
       ]
         ++ lib.lists.forEach (lib.range 1 9) (x: "$mod, ${toString x}, workspace, ${toString x}")
         ++ lib.lists.forEach (lib.range 1 9) (x:
