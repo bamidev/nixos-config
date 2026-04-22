@@ -61,6 +61,7 @@ in {
       "lua/plugins/ufo.lua".source = ./lua/plugins/ufo.lua;
       "lua/lsp.lua".text = import ./lua/lsp.nix { pkgs=pkgs; };
       "lua/pylsp.lua".source = ./lua/pylsp.lua;
+      "lua/user-plugins.lua".source=  ./lua/user-plugins.lua;
       "lua/utils/git.lua".source = ./lua/utils/git.lua;
 
       "luasnippets".source = ./luasnippets;

@@ -73,11 +73,11 @@ in {
       };
       ".config/nvim/init.lua" = lib.mkForce {
         text = ''
-          require('init-odoo')
           vim.cmd('luafile ~/.config/xdg-global/nvim/init.lua')
+          require('therp-init')
         '';
       };
-      ".config/nvim/lua/init-odoo.lua" = lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
+      ".config/nvim/lua/odoo-init.lua" = lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
         text = import ./therp/nvim-init-odoo.nix { pkgs=pkgs; lib=lib; };
       };
 
@@ -239,6 +239,7 @@ in {
 
     packages = with pkgs; [
       black
+      claude-code
     ] ++ [
       installPreCommit
       preCommit
@@ -276,4 +277,8 @@ in {
       '';
     };
   };
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "claude-code"
+  ];
 }

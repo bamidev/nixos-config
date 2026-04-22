@@ -49,6 +49,7 @@
       cmd = "${pkgs.git}/bin/git",
     }
   }
+
   pckr.add {
     require('plugins.dap'),
     require('plugins.dap-python'),
@@ -208,4 +209,5 @@
     },
     { "uga-rosa/utf8.nvim", commit = "954cbbadabe5cd19f202e918fec191d64eea7766" },
   }
+  pckr.add(require('user-plugins'))
 ''
