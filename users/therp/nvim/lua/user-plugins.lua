@@ -4,7 +4,6 @@ return {
 		tag = 'v0.4.3',
 		requires = 'nvim-lua/plenary.nvim',
 		config = function()
-			print("claudecode")
 			require('claude-code').setup()
 		end
 	}
