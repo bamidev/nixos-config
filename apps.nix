@@ -3,6 +3,7 @@ let
   config = import ./params.nix;
 in {
   imports = [
+      ./apps/git.nix
       ./apps/neovim/system.nix
       ./apps/syncthing/system.nix
     ] ++ lib.optionals (config.environmentType == "desktop") [
@@ -11,52 +12,17 @@ in {
       ./apps/nas.nix
     ];
 
-  environment = {
-    etc = {
-      gitconfig.text = ''
-        [alias]
-        a = "add"
-        b = "branch"
-        c = "checkout"
-        cm = "commit"
-        d = "diff"
-        l = "log"
-        p = "pull"
-        s = "status"
-
-        [core]
-        editor = "nvim"
-
-        [push]
-        autoSetupRemote = true
-      '';
-
-      "gtk-3.0/settings.ini".text = ''
-        [Settings]
-        gtk-theme-name=Adwaita:dark
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-
-    shellAliases = {
-      g = "git";
-      gb = "git branch";
-      gd = "git diff";
-      gs = "git status";
-    };
-
-    systemPackages = with pkgs; [
-      bc
-      killall
-      nix-index
-      nixfmt-rfc-style
-      openssh
-      pass
-      screen
-      w3m
-      wget
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    bc
+    killall
+    nix-index
+    nixfmt-rfc-style
+    openssh
+    pass
+    screen
+    w3m
+    wget
+  ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
