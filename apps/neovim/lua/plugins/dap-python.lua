@@ -34,6 +34,13 @@ return {
 					return "python"
 				end
 			},
+			{
+				typ = "python";
+				request = "launch";
+				name = "Run with uv";
+				program = "uv run";
+				pythonPath = "python";
+			},
 		}
 	end
 }
