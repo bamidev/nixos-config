@@ -35,6 +35,5 @@
   vim.lsp.enable('vscode-css')
   vim.lsp.enable('vscode-html')
   vim.lsp.enable('vscode-json')
-  vim.lsp.enable('vscode-markdown')
   vim.lsp.enable('yamlls')
 ''

@@ -44,7 +44,7 @@ in {
 
       "lsp/bashls.lua".source = ./lsp/bashls.lua;
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
-      "lsp/jsonls.lua".text = import ./lsp/jsonls.nix { pkgs=pkgs; };
+      "lsp/vscode-json.lua".source = ./lsp/vscode-json.lua;
       "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
 
       "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
@@ -75,7 +75,7 @@ in {
       "lsp/gopls.lua".source = ./lsp/gopls.lua;
       "lsp/java_language_server.lua".text = import ./lsp/java_language_server.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
-      "lsp/markdown_oxide.lua".text = import ./lsp/markdown_oxide.nix { pkgs=pkgs; };
+      "lsp/markdown_oxide.lua".source = ./lsp/markdown_oxide.lua;
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
       "lsp/ruff.lua".text = import ./lsp/ruff.nix { pkgs=pkgs; };
@@ -85,7 +85,6 @@ in {
       "lsp/vscode-css.lua".source = ./lsp/vscode-css.lua;
       "lsp/vscode-eslint.lua".source = ./lsp/vscode-eslint.lua;
       "lsp/vscode-html.lua".source = ./lsp/vscode-html.lua;
-      "lsp/vscode-markdown.lua".source = ./lsp/vscode-markdown.lua;
     };
 
     viAlias = true;
