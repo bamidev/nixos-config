@@ -20,7 +20,7 @@ in {
     ladybird
     mplayer
     obs-studio
-    texliveSmall
+    texliveFull
     quodlibet
   ];
 
