@@ -5,12 +5,16 @@ let
 in {
   environment.systemPackages = with pkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
+    nodejs_24
     ripgrep # Needed for the telescope plugin
+    texpresso
+    tree-sitter # Needed for nvim-treesitter
 
     # Install language servers globally so that the default LSP configurations may work within a
     # non-Nix environment as well. (Such as my VM's.)
-    vscode-langservers-extracted
     bash-language-server
+    ltex-ls
+    vscode-langservers-extracted
   ];
   environment.etc."pylintrc".source = ./etc/pylintrc;
 
@@ -75,6 +79,7 @@ in {
       "lsp/gopls.lua".source = ./lsp/gopls.lua;
       "lsp/java_language_server.lua".text = import ./lsp/java_language_server.nix { pkgs=pkgs; };
       "lsp/lua_ls.lua".text = import ./lsp/lua_ls.nix { pkgs=pkgs; };
+      "lsp/ltex.lua".source = ./lsp/ltex.lua;
       "lsp/markdown_oxide.lua".source = ./lsp/markdown_oxide.lua;
       "lsp/postgres_lsp.lua".text = import ./lsp/postgres_lsp.nix { pkgs=pkgs; };
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;

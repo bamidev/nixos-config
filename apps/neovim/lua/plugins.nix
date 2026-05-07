@@ -98,6 +98,10 @@
       end
     },
     {
+      "let-def/texpresso.vim",
+      commit = "5630dca6090787c446e72886812a1b6a5716c2fa",
+    },
+    {
       "lukas-reineke/headlines.nvim",
       tag = "v5.0.0",
       requires = "nvim-treesitter/nvim-treesitter",
