@@ -4,21 +4,12 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "uas" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_6.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            sha256 = "sha256-sIZ5cp8ex0ufqCn1mQk2yiURA52HrMfos/OZEt6JqzY=";
-      };
-      version = "6.6.99";
-      modDirVersion = "6.6.99";
-    };
-  });
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_6);
   boot.extraModprobeConfig = ''
     options snd slots=hdaudioB0D0
   '';
 
-  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+  boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
 
