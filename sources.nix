@@ -8,4 +8,6 @@ rec {
   nixpkgs25_05 = import (
     builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.zip"
   ) {};
+
+  editorPkgs = nixpkgs25_05;
 }

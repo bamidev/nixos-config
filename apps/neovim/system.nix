@@ -1,13 +1,12 @@
 { lib, ... }:
 let
   config = import ../../params.nix;
-  pkgs = (import ../../sources.nix).nixpkgs25_05.pkgs;
+  pkgs = (import ../../sources.nix).editorPkgs.pkgs;
 in {
   environment.systemPackages = with pkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
     nodejs_24
     ripgrep # Needed for the telescope plugin
-    texpresso
     tree-sitter # Needed for nvim-treesitter
 
     # Install language servers globally so that the default LSP configurations may work within a

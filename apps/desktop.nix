@@ -1,5 +1,6 @@
 { lib, pkgs, ... }:
 let
+  editorPkgs = (import ../sources.nix).editorPkgs.pkgs;
   params = import ../params.nix;
   stonenet = (builtins.getFlake "github:bamidev/stonenet/main").nixosModules.${builtins.currentSystem}.default;
 in {
@@ -20,9 +21,12 @@ in {
     ladybird
     mplayer
     obs-studio
-    texliveFull
     quodlibet
-  ];
+  # Install texlive and texpresso from the same source as all other editor packages
+  ] ++ (with editorPkgs; [
+    texliveFull
+    texpresso
+  ]);
 
   services.stonenet = {
     enable = true;

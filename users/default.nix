@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  oldPkgs = (import ../sources.nix).nixpkgs25_05.pkgs;
+  editorPkgs = (import ../sources.nix).editorPkgs.pkgs;
 in {
   imports = [
     ../apps/neovim/home.nix
@@ -46,7 +46,7 @@ in {
 
     git = {
       enable = true;
-      package = oldPkgs.gitFull;
+      package = editorPkgs.gitFull;
     };
   };
 
