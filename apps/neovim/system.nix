@@ -44,6 +44,7 @@ in {
         vim.bo.tabstop = 2
       '';
       "ftplugin/rust.lua".source = ./ftplugin/rust.lua;
+      "ftplugin/tex.lua".source = ./ftplugin/tex.lua;
 
       "lsp/bashls.lua".source = ./lsp/bashls.lua;
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
