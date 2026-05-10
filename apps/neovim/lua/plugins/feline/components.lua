@@ -44,7 +44,7 @@ local file_type_component = c.fancy_component(
 			cpp = 'blue',
 			gitcommit = 'red',
 			go = 'blue',
-			json = 'grey',
+			json = 'gray',
 			lua = 'blue',
 			python = 'yellow',
 			html = 'orange',
@@ -59,7 +59,7 @@ local file_type_component = c.fancy_component(
 		if color ~= nil then
 			return 'bg_' .. color
 		end
-		return "bg_grey"
+		return "bg_gray"
 	end,
 	'left',
 	file_encoding_component,
