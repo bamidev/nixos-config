@@ -28,13 +28,22 @@ in {
     texpresso
   ]);
 
-  services.stonenet = {
-    enable = true;
-    desktop.enable = true;
+  services = {
+    stonenet = {
+      enable = true;
+      desktop.enable = true;
 
-    config = {
-      bucket_size = 6;
+      config = {
+        bucket_size = 6;
+      };
+    };
+
+    upower = {
+      enable = true;
+
+      percentageCritical = 5;
+      percentageLow = 10;
+      usePercentageForPolicy = true;
     };
   };
-
 }

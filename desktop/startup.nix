@@ -1,4 +1,6 @@
 { pkgs, lib, ... }: [
+  "${lib.getExe pkgs.poweralertd}"
+
   # Some desktop utilities
   "${lib.getExe pkgs.wlsunset} -l 51.0 -L 5.4 -t 3500"
   "pick-random-wallpaper"
