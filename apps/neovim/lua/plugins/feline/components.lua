@@ -51,6 +51,7 @@ local file_type_component = c.fancy_component(
 			nix = 'faded_blue',
 			rust = 'faded_orange',
 			sh = 'dark_green',
+			typescriptreact = 'faded_blue',
 			xml = 'bright_blue',
 			yaml = 'red',
 		}
