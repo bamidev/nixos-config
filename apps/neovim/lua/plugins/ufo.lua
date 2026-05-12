@@ -1,12 +1,12 @@
 return {
 	"kevinhwang91/nvim-ufo",
 	--tag = "v1.5.0",
-	-- Revert to the last known working commit to prevent the following bug:
+	-- Use a commit newer than v.1.5.0 to prevent the following bug:
 	-- https://github.com/kevinhwang91/nvim-ufo/issues/309
-	commit = "5b75cf5fdb74054fc8badb2e7ca9911dc0470d94",
+	commit = "ab3eb124062422d276fae49e0dd63b3ad1062cfc",
 	requires = {
-	"kevinhwang91/promise-async",
-	"nvim-treesitter/nvim-treesitter",
+		"kevinhwang91/promise-async",
+		"nvim-treesitter/nvim-treesitter",
 	},
 	config = function()
 		-- Settings required for the ufo plugin
