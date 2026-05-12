@@ -29,22 +29,7 @@ in {
     runtime = {
       "init.lua".source = ./init.lua;
 
-      "ftplugin/python.lua".text = ''
-        vim.bo.expandtab = true
-        vim.bo.smartindent = true
-        vim.wo.colorcolumn = '73,79'
-        if vim.b.editorconfig then
-          vim.wo.colorcolumn = '73,' .. (vim.b.editorconfig.max_line_length or '79')
-        end
-      '';
-      "ftplugin/nix.lua".text = ''
-        vim.wo.colorcolumn = '100'
-        vim.bo.expandtab = true
-        vim.bo.shiftwidth = 2
-        vim.bo.tabstop = 2
-      '';
-      "ftplugin/rust.lua".source = ./ftplugin/rust.lua;
-      "ftplugin/tex.lua".source = ./ftplugin/tex.lua;
+      "ftplugin".source = ./ftplugin;
 
       "lsp/bashls.lua".source = ./lsp/bashls.lua;
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
