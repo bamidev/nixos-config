@@ -33,6 +33,14 @@
     '';
 
     udisks2.enable = true;
+
+    upower = {
+      enable = true;
+
+      percentageCritical = 5;
+      percentageLow = 15;
+      usePercentageForPolicy = true;
+    };
   };
 
   # List packages installed in system profile. To search, run:

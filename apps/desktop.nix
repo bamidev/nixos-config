@@ -38,12 +38,5 @@ in {
       };
     };
 
-    upower = {
-      enable = true;
-
-      percentageCritical = 5;
-      percentageLow = 10;
-      usePercentageForPolicy = true;
-    };
   };
 }
