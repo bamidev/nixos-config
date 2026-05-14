@@ -240,6 +240,7 @@ in {
     packages = with pkgs; [
       black
       claude-code
+      rustup  # Needed to compile odoo-ls
     ] ++ [
       installPreCommit
       preCommit
