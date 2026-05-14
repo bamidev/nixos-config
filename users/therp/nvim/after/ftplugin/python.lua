@@ -41,6 +41,7 @@ if odoo_version ~= nil then
 		settings = {
 			Odoo = { selectedProfile = odoo_profile },
 		},
+		root_dir = vim.fs.root(0, {'.git'}),
 	}, {
 		reuse_client = false,
 	})
