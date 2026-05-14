@@ -114,6 +114,7 @@ in {
         [[config]]
         name = "setup-base"
         stdlib = "/home/therp/lsp/odoo-ls/server/typeshed/stdlib/"
+        additional_stubs = ["/home/therp/lsp/odoo-ls/server/typeshed/stubs"]
         addons_paths = ["''${workspaceFolder}"]
 
       '' + lib.strings.concatStrings (lib.lists.forEach (
