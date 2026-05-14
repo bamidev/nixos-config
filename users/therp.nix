@@ -113,9 +113,12 @@ in {
       ".config/odools.toml".text = ''
         [[config]]
         name = "setup-base"
-        stdlib = "/home/therp/lsp/odoo-ls/server/typeshed/stdlib/"
         additional_stubs = ["/home/therp/lsp/odoo-ls/server/typeshed/stubs"]
         addons_paths = ["''${workspaceFolder}"]
+        stdlib = "/home/therp/lsp/odoo-ls/server/typeshed/stdlib/"
+        diagnostic_settings = {
+          "OLS01001" = "Disabled" # A bug appears to exist that gives this warning while nothing is wrong.
+        }
 
       '' + lib.strings.concatStrings (lib.lists.forEach (
         lib.range odooParams.lspVersions.start odooParams.lspVersions.stop
