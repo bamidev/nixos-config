@@ -2,12 +2,13 @@
 -- Ruff can be used for the newer versions of Odoo because Ruff requires Python 3.7 or higher.
 local odoo = require('utils.odoo')
 local odoo_version = odoo.find_odoo_version()
-local python_path = odoo.pick_python_interpreter(odoo_version)
 
 
 local settings = require('pylsp').settings
-settings.pylsp.plugins.jedi = { environment = python_path }
-settings.pylsp.plugins.flake8.enabled = odoo_version ~= nil and tonumber(odoo_version) < 15
+local not_replaced_by_ruff = odoo_version ~= nil and tonumber(odoo_version) < 15
+settings.pylsp.plugins.autopep8.enabled = not_replaced_by_ruff
+settings.pylsp.plugins.mccabe.enabled = not_replaced_by_ruff
+settings.pylsp.plugins.pyflakes.enabled = not_replaced_by_ruff
 
 local command = 'pylsp'
 -- TODO: If not in a git repo, check if ./__manifest__.py exists, and parse the Odoo version from there...
