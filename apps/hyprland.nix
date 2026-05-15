@@ -8,6 +8,12 @@ in {
     ./waybar.nix
   ];
 
+  home.file.".local/share/icons/rose-pine-hyprcursor" = {
+    enable = true;
+    recursive = true;
+    source = "${pkgs.rose-pine-hyprcursor}/share/icons/rose-pine-hyprcursor";
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -76,6 +82,8 @@ in {
         ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
       ];
 
+      debug.disable_logs = false;
+
       decoration = {
         blur = {
           enabled = true;
@@ -94,6 +102,13 @@ in {
           render_power = 3;
         };
       };
+
+      env = [
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "HYPRCURSOR_SIZE,32"
+        "XCURSOR_THEME,rose-pine-hyprcursor"
+        "XCURSOR_SIZE,32"
+      ];
 
       exec-once = lib.lists.forEach startupCommands (x: "[workspace 1 silent] ${x}") ++ [
         "${lib.getExe pkgs.waybar}"
