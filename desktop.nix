@@ -135,13 +135,6 @@
       VISUAL = EDITOR;
     };
 
-    shellAliases = {
-      g = "git";
-      gb = "git branch";
-      gd = "git diff";
-      gs = "git status";
-    };
-
     systemPackages = with pkgs; [
       alacritty
       # The regular dmenu is buggy (probably only on wayland), and dmenu-rs uses no absolute paths

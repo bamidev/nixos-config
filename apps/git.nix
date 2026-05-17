@@ -28,8 +28,12 @@
 
     shellAliases = {
       g = "git";
+      ga = "git add";
       gb = "git branch";
+      gc = "git checkout";
+      gcm = "git commit";
       gd = "git diff";
+      gp = "git pull";
       gs = "git status";
     };
   };
