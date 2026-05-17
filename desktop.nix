@@ -144,7 +144,6 @@
 
     systemPackages = with pkgs; [
       alacritty
-      direnv
       # The regular dmenu is buggy (probably only on wayland), and dmenu-rs uses no absolute paths
       # in it's shell file dmenu_run. So I need to install it globally rather than keeping it's
       # installation implied.
@@ -196,6 +195,8 @@
         };
       };
     }];
+
+    direnv.enable = true;
   };
 
   services.gvfs.enable = true;
