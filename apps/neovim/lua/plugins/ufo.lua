@@ -24,6 +24,7 @@ return {
 			close_fold_kinds_for_ft = {
 				cpp = {"class_specifier", "function_definition"},
 				lua = {"function_declaration", "function_definition"},
+				markdown = {"section"},
 				python = {"class_definition", "function_definition", "imports"},
 				rust = {"enum_item", "function_item", "impl_item", "struct_item", "use_declaration"},
 			}
