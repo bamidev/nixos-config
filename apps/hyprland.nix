@@ -8,6 +8,7 @@ in {
     ./waybar.nix
   ];
 
+  # Put the rose-pine-hyprcursor theme in place
   home.file.".local/share/icons/rose-pine-hyprcursor" = {
     enable = true;
     recursive = true;
