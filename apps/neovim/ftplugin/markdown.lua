@@ -1,4 +1,4 @@
 -- For some reason, I can't get close_fold_kinds_for_ft to work for markdown, but this workaround suffices
-vim.defer_fn(function()
-	require('ufo').closeAllFolds()
-end, 100)
+--vim.defer_fn(function()
+--	require('ufo').closeAllFolds()
+--end, 100)
