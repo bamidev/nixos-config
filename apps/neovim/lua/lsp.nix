@@ -10,6 +10,7 @@
 
 
   -- Enable sweet inlay hints where available
+  vim.lsp.inlay_hint.enable(true)
   vim.keymap.set('n', '<C-h>', function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   end)
