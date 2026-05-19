@@ -63,6 +63,7 @@ in
     white
   ]);
 
+  hardware.enableAllFirmware = lib.mkDefault false;
   hardware.enableRedistributableFirmware = lib.mkDefault false;
 
   nix = {
