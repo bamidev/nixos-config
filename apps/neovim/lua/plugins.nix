@@ -201,7 +201,7 @@
     },
     {
       "soulis-1256/eagle.nvim",
-      commit = "dd1a28c4d8626fbe85580b0a9ed8f88d77a26da1",
+      commit = "d503b168932160b07d4d09551d90d5fbb388b641",
       config = function()
         vim.o.mousemoveevent = true
         require("eagle").setup {
