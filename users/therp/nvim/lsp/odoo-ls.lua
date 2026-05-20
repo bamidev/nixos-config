@@ -1,11 +1,11 @@
 local lsp_dir = vim.fs.abspath('~/lsp')
 local server_dir = lsp_dir .. '/odoo-ls/server'
-local odoo_version = require('utils.odoo').get_odoo_version() or '18.0'
+local odoo_version = require('utils.odoo').get_odoo_version() or 18
 local odoo_profile = 'setup-' .. odoo_version .. '.0'
 
 
 return {
-	name = "odools",
+	name = "odoo-ls",
 	cmd  = {
 		server_dir .. '/odoo_ls_server',
 		'--config-path', '/home/therp/.config/odools.toml',

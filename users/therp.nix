@@ -23,6 +23,7 @@ let
 in {
   imports = [
     ./desktop.nix
+    ./therp/odoo-lsp.nix
   ];
 
   accounts.email.accounts."Therp" = rec {
