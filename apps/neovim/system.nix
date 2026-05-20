@@ -13,6 +13,7 @@ in {
     # non-Nix environment as well. (Such as my VM's.)
     bash-language-server
     ltex-ls
+    typescript-language-server
     vscode-langservers-extracted
   ];
   environment.etc."pylintrc".source = ./etc/pylintrc;
@@ -70,7 +71,7 @@ in {
       "lsp/pylsp.lua".source = ./lsp/pylsp.lua;
       "lsp/ruff.lua".text = import ./lsp/ruff.nix { pkgs=pkgs; };
       "lsp/rust_analyzer.lua".text = import ./lsp/rust_analyzer.nix { pkgs=pkgs; };
-      "lsp/ts_ls.lua".text = import ./lsp/ts_ls.nix { pkgs=pkgs; };
+      "lsp/ts_ls.lua".source = ./lsp/ts_ls.lua;
       "lsp/vimls.lua".text = import ./lsp/vimls.nix { pkgs=pkgs; };
       "lsp/vscode-css.lua".source = ./lsp/vscode-css.lua;
       "lsp/vscode-eslint.lua".source = ./lsp/vscode-eslint.lua;
