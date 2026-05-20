@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ ... }:
 let
   theme = import ../theme.nix;
 in {
@@ -10,7 +10,7 @@ in {
         layer = "top";
         position = "top";
         height = 15;
-        modules-left = [ "hyprland/workspaces" ];
+        modules-left = [ "hyprland/workspaces" "custom/todo" ];
         modules-center = [ "clock" ];
         modules-right = [ "custom/vpn" "pulseaudio" "cpu" "memory" "battery" "tray" ];
 
@@ -54,12 +54,18 @@ in {
         };
 
         "custom/vpn" = {
-          interval = 3;
+          interval = 1;
           format = "VPN: {}";
           exec = "ip add show | grep -qF tun0 && echo ✅ || echo ☒";
           max-length = 100;
           on-click = "sudo-restart-vpn";
           on-click-right = "sudo-stop-vpn";
+        };
+
+        "custom/todo" = {
+          interval = 10;
+          format = "TODOs: #{}";
+          exec = "cat $HOME/Documents/todo.txt | wc -l";
         };
       };
     };
