@@ -23,6 +23,7 @@ let
 in {
   imports = [
     ./desktop.nix
+    ./therp/odoo-ls.nix
     ./therp/odoo-lsp.nix
   ];
 
