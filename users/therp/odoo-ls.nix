@@ -10,9 +10,9 @@ let
       owner = "odoo";
       repo = "odoo-ls";
       rev = version;
-      hash = "sha256-Dl3sjI+mg3PT0pp+SjifkyBWL2qxLILay4Jq6QKbfVw=";
+      hash = "sha256-+nx5N3ImjrNDnvgHt/6Vcyw8IBgz9qJQDu2OV9il6xA=";
+      fetchSubmodules = true;
     };
-
 
     cargoLock = {
       lockFile = ./odoo-ls/Cargo.lock;
@@ -22,7 +22,8 @@ let
       };
     };
 
-    # The diagnostic tests are still failing, 
+    # The diagnostic tests are still failing,
+    # can't seem to make them work...
     doCheck = false;
 
     # The `test_template_varable_expansion_userhome_and_workspacefolder` unit test wants to create files & folders in the home directory.
@@ -33,7 +34,10 @@ let
 
     postPatch = ''
       ln -sf ${./odoo-ls/Cargo.lock} Cargo.lock
-      mkdir -p /build/test
+    '';
+
+    preBuild = ''
+      mkdir -p /build/{community,test}
     '';
 
     sourceRoot = "${src.name}/server";

@@ -1,7 +1,12 @@
 local lsp_dir = vim.fs.abspath('~/lsp')
 local server_dir = lsp_dir .. '/odoo-ls/server'
-local odoo_version = require('utils.odoo').get_odoo_version() or 18
-local odoo_profile = 'setup-' .. odoo_version .. '.0'
+local odoo_version = require('utils.odoo').get_odoo_version()
+--if odoo_version == nil then return {} end
+local odoo_profile = 'setup-base'
+if odoo_version ~= nil then
+	odoo_profile = 'setup-' .. odoo_version .. '.0'
+end
+
 
 
 return {
