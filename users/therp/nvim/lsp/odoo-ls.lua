@@ -30,5 +30,4 @@ return {
 	settings = {
 		Odoo = { selectedProfile = odoo_profile },
 	},
-	--root_dir = vim.fs.root(0, {'.git'}),
 }

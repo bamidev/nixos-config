@@ -9,7 +9,7 @@ return {
 	on_attach = require('autocomplete'),
 	root_markers = {'.git'},
 	workspace_folders = {
-		{ uri = 'file://' .. project_dir, name = 'project' },
-		{ uri = 'file://' .. wax_dir, name = 'wax instance', },
+		{ uri = 'file://' .. project_dir, name = 'project dir' },
+		{ uri = 'file://' .. wax_dir, name = 'Wax ' .. odoo_version .. '.0 instance', },
 	},
 }
