@@ -18,12 +18,12 @@ return {
 	filetypes = {'csv', 'python', 'xml'},
 	on_attach = function(client, _)
 		vim.api.nvim_create_user_command('OdooProfile', function(e)
-		  local profile_name = e.args
-		client.notify("workspace/didChangeConfiguration", {
-			settings = {
-				Odoo = { selectedProfile = profile_name }
-			}
-		})
+			local profile_name = e.args
+			client.notify("workspace/didChangeConfiguration", {
+				settings = {
+					Odoo = { selectedProfile = profile_name }
+				}
+			})
 		end, {
 		  desc = "Switch the profile used by the Odoo language server.",
 		  nargs = 1,
