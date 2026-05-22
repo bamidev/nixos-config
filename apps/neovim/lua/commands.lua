@@ -3,3 +3,11 @@ vim.api.nvim_create_user_command('Wordcount', function()
 end, {
 	desc = 'Show word count of the document.',
 })
+
+vim.api.nvim_create_user_command('Sort', function()
+	vim.lsp.buf.code_action({
+		context = { only = { "source.organizeImports" } },
+	})
+end, {
+	desc = 'Sort the import block.',
+})
