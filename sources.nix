@@ -11,6 +11,9 @@ rec {
   nixpkgs25_11 = import (
     builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.zip"
   ) {};
+  nixpkgsUnstable = import (
+    builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.zip"
+  ) {};
 
   editorPkgs = nixpkgs25_11;
 }

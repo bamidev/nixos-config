@@ -505,6 +505,7 @@ dependencies = [
  "compact_str",
  "get-size-derive2",
  "hashbrown 0.16.1",
+ "ordermap",
  "smallvec",
 ]
 
@@ -572,6 +573,43 @@ dependencies = [
 ]
 
 [[package]]
+name = "gungraun"
+version = "0.17.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "61c1bbe46f51c63bc08a1fac0ee0c530a77c961613a86ecf828ab1b0ffc6687a"
+dependencies = [
+ "bincode",
+ "derive_more",
+ "gungraun-macros",
+ "gungraun-runner",
+]
+
+[[package]]
+name = "gungraun-macros"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cdccd089c36fb2ee66ef0eb7b1baa3ce7e7878a8eae682d9c8c368869ff6eca1"
+dependencies = [
+ "derive_more",
+ "proc-macro-error2",
+ "proc-macro2",
+ "quote",
+ "rustc_version",
+ "serde",
+ "serde_json",
+ "syn",
+]
+
+[[package]]
+name = "gungraun-runner"
+version = "0.17.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6da6487203fa53ae6b1c8fead642fe79a3199464b0dd1337635594d675a9ac05"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "hashbrown"
 version = "0.15.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -597,42 +635,6 @@ name = "heck"
 version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
-
-[[package]]
-name = "iai-callgrind"
-version = "0.14.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c9e864ad001cbbf35a64f7b574998823b8622bb483a25246fa1b0e2b3888686"
-dependencies = [
- "bincode",
- "derive_more",
- "iai-callgrind-macros",
- "iai-callgrind-runner",
-]
-
-[[package]]
-name = "iai-callgrind-macros"
-version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9cee6c3bc32b63ff40e5e56190b1276d2bd0e0b319aa6f998864c27865d3b4e"
-dependencies = [
- "derive_more",
- "proc-macro-error2",
- "proc-macro2",
- "quote",
- "serde",
- "serde_json",
- "syn",
-]
-
-[[package]]
-name = "iai-callgrind-runner"
-version = "0.14.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a82491521e6505b06a824274712a1307904e7cdfdf047735f7dfdb28b5f7a337"
-dependencies = [
- "serde",
-]
 
 [[package]]
 name = "icu_collections"
@@ -965,7 +967,7 @@ checksum = "ef25abbcd74fb2609453eb695bd2f860d389e457f67dc17cafc8b8cbc89d0c33"
 
 [[package]]
 name = "odoo_ls_server"
-version = "1.2.0"
+version = "1.3.2"
 dependencies = [
  "anyhow",
  "assert_fs",
@@ -976,7 +978,7 @@ dependencies = [
  "ctrlc",
  "dirs",
  "glob",
- "iai-callgrind",
+ "gungraun",
  "itertools",
  "lsp-server",
  "lsp-types",
@@ -1019,6 +1021,15 @@ name = "option-ext"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04744f49eae99ab78e0d5c0b603ab218f515ea8cfe5a456d7629ad883a3b6e7d"
+
+[[package]]
+name = "ordermap"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f7476a5b122ff1fce7208e7ee9dccd0a516e835f5b8b19b8f3c98a34cf757c1"
+dependencies = [
+ "indexmap",
+]
 
 [[package]]
 name = "path-slash"
@@ -1315,14 +1326,13 @@ checksum = "6c20b6793b5c2fa6553b250154b78d6d0db37e72700ae35fad9387a46f487c97"
 [[package]]
 name = "ruff_python_ast"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff?tag=0.14.4#c7ff9826d614a34a940c924f494ea98dc1030445"
+source = "git+https://github.com/astral-sh/ruff?tag=0.15.0#ce5f7b6127a5d684e96fd0f8e387f73c41c7a1b0"
 dependencies = [
  "aho-corasick",
  "bitflags 2.11.1",
  "compact_str",
  "get-size2",
  "is-macro",
- "itertools",
  "memchr",
  "ruff_python_trivia",
  "ruff_source_file",
@@ -1334,7 +1344,7 @@ dependencies = [
 [[package]]
 name = "ruff_python_parser"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff?tag=0.14.4#c7ff9826d614a34a940c924f494ea98dc1030445"
+source = "git+https://github.com/astral-sh/ruff?tag=0.15.0#ce5f7b6127a5d684e96fd0f8e387f73c41c7a1b0"
 dependencies = [
  "bitflags 2.11.1",
  "bstr",
@@ -1354,7 +1364,7 @@ dependencies = [
 [[package]]
 name = "ruff_python_trivia"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff?tag=0.14.4#c7ff9826d614a34a940c924f494ea98dc1030445"
+source = "git+https://github.com/astral-sh/ruff?tag=0.15.0#ce5f7b6127a5d684e96fd0f8e387f73c41c7a1b0"
 dependencies = [
  "itertools",
  "ruff_source_file",
@@ -1365,7 +1375,7 @@ dependencies = [
 [[package]]
 name = "ruff_source_file"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff?tag=0.14.4#c7ff9826d614a34a940c924f494ea98dc1030445"
+source = "git+https://github.com/astral-sh/ruff?tag=0.15.0#ce5f7b6127a5d684e96fd0f8e387f73c41c7a1b0"
 dependencies = [
  "memchr",
  "ruff_text_size",
@@ -1374,7 +1384,7 @@ dependencies = [
 [[package]]
 name = "ruff_text_size"
 version = "0.0.0"
-source = "git+https://github.com/astral-sh/ruff?tag=0.14.4#c7ff9826d614a34a940c924f494ea98dc1030445"
+source = "git+https://github.com/astral-sh/ruff?tag=0.15.0#ce5f7b6127a5d684e96fd0f8e387f73c41c7a1b0"
 dependencies = [
  "get-size2",
 ]
@@ -1502,9 +1512,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.149"
+version = "1.0.150"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83fc039473c5595ace860d8c4fafa220ff474b3fc6bfdb4293327f1a37e94d86"
+checksum = "e8014e44b4736ed0538adeecded0fce2a272f22dc9578a7eb6b2d9993c74cfb9"
 dependencies = [
  "itoa",
  "memchr",
@@ -1526,11 +1536,11 @@ dependencies = [
 
 [[package]]
 name = "serde_spanned"
-version = "0.6.9"
+version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf41e0cfaf7226dca15e8197172c295a782857fcb97fad1808a166870dee75a3"
+checksum = "6662b5879511e06e8999a8a235d848113e942c9124f211511b16466ee2995f26"
 dependencies = [
- "serde",
+ "serde_core",
 ]
 
 [[package]]
@@ -1726,44 +1736,42 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "toml"
-version = "0.8.23"
+version = "0.9.12+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc1beb996b9d83529a9e75c17a1686767d148d70663143c7854d8b4a09ced362"
+checksum = "cf92845e79fc2e2def6a5d828f0801e29a2f8acc037becc5ab08595c7d5e9863"
 dependencies = [
- "serde",
+ "indexmap",
+ "serde_core",
  "serde_spanned",
  "toml_datetime",
- "toml_edit",
+ "toml_parser",
+ "toml_writer",
+ "winnow 0.7.15",
 ]
 
 [[package]]
 name = "toml_datetime"
-version = "0.6.11"
+version = "0.7.5+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "22cddaf88f4fbc13c51aebbf5f8eceb5c7c5a9da2ac40a13519eb5b0a0e8f11c"
+checksum = "92e1cfed4a3038bc5a127e35a2d360f145e1f4b971b551a2ba5fd7aedf7e1347"
 dependencies = [
- "serde",
+ "serde_core",
 ]
 
 [[package]]
-name = "toml_edit"
-version = "0.22.27"
+name = "toml_parser"
+version = "1.1.2+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "41fe8c660ae4257887cf66394862d21dbca4a6ddd26f04a3560410406a2f819a"
+checksum = "a2abe9b86193656635d2411dc43050282ca48aa31c2451210f4202550afb7526"
 dependencies = [
- "indexmap",
- "serde",
- "serde_spanned",
- "toml_datetime",
- "toml_write",
- "winnow",
+ "winnow 1.0.3",
 ]
 
 [[package]]
-name = "toml_write"
-version = "0.1.2"
+name = "toml_writer"
+version = "1.1.1+spec-1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d99f8c9a7727884afe522e9bd5edbfc91a3312b36a77b5fb8926e4c31a41801"
+checksum = "756daf9b1013ebe47a8776667b466417e2d4c5679d441c26230efd9ef78692db"
 
 [[package]]
 name = "tracing"
@@ -2115,9 +2123,12 @@ name = "winnow"
 version = "0.7.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df79d97927682d2fd8adb29682d1140b343be4ac0f08fd68b7765d9c059d3945"
-dependencies = [
- "memchr",
-]
+
+[[package]]
+name = "winnow"
+version = "1.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0592e1c9d151f854e6fd382574c3a0855250e1d9b2f99d9281c6e6391af352f1"
 
 [[package]]
 name = "wit-bindgen"
