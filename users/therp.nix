@@ -79,9 +79,6 @@ in {
           require('therp-init')
         '';
       };
-      ".config/nvim/lua/odoo-init.lua" = lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
-        text = import ./therp/nvim-init-odoo.nix { pkgs=pkgs; lib=lib; };
-      };
 
       # Allow raising broad exceptions, because many times migration scripts need not to do anything
       # special to throw an error.

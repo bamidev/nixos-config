@@ -30,7 +30,10 @@ let
 
     # The `test_template_varable_expansion_userhome_and_workspacefolder` unit test wants to create files & folders in the home directory.
     # Lets not do that... ;)
-    env.HOME = "/build/test";
+    env = {
+      COMMUNITY_PATH = "/build/community";
+      HOME = "/build/test";
+    };
 
     nativeBuildInputs = with pkgs; [ python3 ];
 
