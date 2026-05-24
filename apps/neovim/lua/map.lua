@@ -5,3 +5,8 @@ vim.keymap.set('n', '<leader>fx', function()
 	vim.lsp.buf.format({ async = true })
 	print('Formatting...')
 end)
+
+
+vim.keymap.set("i", "<C-space>", vim.lsp.completion.get, {
+	desc = "Trigger autocompletion"
+})
