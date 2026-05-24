@@ -51,6 +51,7 @@
   }
 
   pckr.add {
+    require('plugins.blink-cmp'),
     require('plugins.dap'),
     require('plugins.dap-python'),
     -- FIXME: The update field on providers doesn't seem to work in feline. Maybe switch to another

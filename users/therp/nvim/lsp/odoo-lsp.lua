@@ -6,7 +6,7 @@ return {
 	name = 'odoo-lsp',
 	cmd = {'odoo-lsp'},
 	filetypes = {'python', 'xml', 'javascript'},
-	on_attach = require('autocomplete'),
+	capabilities = require('lsp.capabilities'),
 	root_markers = {'.git'},
 	workspace_folders = {
 		{ uri = 'file://' .. project_dir, name = 'project dir' },

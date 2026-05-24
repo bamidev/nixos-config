@@ -17,7 +17,6 @@
   vim.lsp.config('ccls', {
     cmd = { '${pkgs.ccls}/bin/ccls' },
     on_attach = function(client, bufnr)
-      require('autocomplete')(client, bufnr)
       vim.api.nvim_buf_create_user_command(bufnr, 'LspCclsSwitchSourceHeader', function()
         switch_source_header(client, bufnr)
       end, { desc = 'Switch between source/header' })

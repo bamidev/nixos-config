@@ -7,5 +7,6 @@
           configurationPreference = 'filesystemFirst',
       },
     },
+	  capabilities = require('lsp.capabilities')
   })
 ''

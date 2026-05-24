@@ -37,10 +37,11 @@ in {
       "lsp/vscode-json.lua".source = ./lsp/vscode-json.lua;
       "lsp/yamlls.lua".text = import ./lsp/yamlls.nix { pkgs=pkgs; };
 
-      "lua/autocomplete.lua".source = ./lua/autocomplete.lua;
       "lua/commands.lua".source = ./lua/commands.lua;
+      "lua/lsp".source = ./lua/lsp;
       "lua/map.lua".source = ./lua/map.lua;
       "lua/plugins.lua".text = import ./lua/plugins.nix { pkgs=pkgs; };
+      "lua/plugins/blink-cmp.lua".source = ./lua/plugins/blink-cmp.lua;
       "lua/plugins/dap.lua".source = ./lua/plugins/dap.lua;
       "lua/plugins/dap-python.lua".source = ./lua/plugins/dap-python.lua;
       "lua/plugins/feline".source = ./lua/plugins/feline;

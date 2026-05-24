@@ -1,6 +1,5 @@
 vim.lsp.config('bashls', {
   cmd = { "bash-language-server", "start" },
-  on_attach = require('autocomplete'),
   settings = {
     bashIde = {
       -- Glob pattern for finding and parsing shell script files in the workspace.

@@ -77,7 +77,6 @@
       end
     end,
     on_attach = function(client, bufnr)
-      require('autocomplete')(client, bufnr)
       vim.api.nvim_buf_create_user_command(bufnr, 'LspCargoReload', function()
         reload_workspace(bufnr)
       end, { desc = 'Reload current cargo workspace' })

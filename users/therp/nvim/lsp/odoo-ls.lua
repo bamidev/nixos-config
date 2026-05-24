@@ -29,11 +29,10 @@ return {
 		  desc = "Switch the profile used by the Odoo language server.",
 		  nargs = 1,
 		})
-
-		return require('autocomplete')
 	end,
 	root_markers = {'.git'},
 	settings = {
 		Odoo = { selectedProfile = odoo_profile },
 	},
+	capabilities = require('lsp.capabilities'),
 }

@@ -12,7 +12,6 @@
       'selene.yml',
       '.git',
     },
-    on_attach = require('autocomplete'),
     on_init = function(client)
       if client.workspace_folders then
         local path = client.workspace_folders[1].name
