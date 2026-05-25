@@ -12,4 +12,12 @@ return {
 		{ uri = 'file://' .. project_dir, name = 'project dir' },
 		{ uri = 'file://' .. wax_dir, name = 'Wax ' .. odoo_version .. '.0 instance', },
 	},
+	handlers = {
+		['window/showMessage'] = function(err, result, ctx)
+			if result and result.message and result.message:find('4097') then
+				return
+			end
+			return vim.lsp.handlers['window/showMessage'](err, result, ctx)
+		end,
+	},
 }
