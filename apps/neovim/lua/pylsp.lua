@@ -4,7 +4,7 @@ return {
 			configurationSources = {"flake8"},
 			plugins = {
 				autopep8 = { enabled = true },
-				black = { enablen = true },
+				black = { enabled = true },
 				flake8 = { enabled = true },
 				isort = { enabled = true },
 				jedi_completion = { enabled = true, fuzzy = true },
