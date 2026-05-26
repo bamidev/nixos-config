@@ -3,7 +3,7 @@ return {
 	tag = 'v1.10.2',
 	config = function()
 		require('blink.cmp').setup({
-			keymap = { preset = "default" },
+			keymap = { preset = "enter" },
 
 			snippets = {
 				preset = "luasnip",
@@ -14,9 +14,16 @@ return {
 			},
 
 			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 500,
+				},
+
 				ghost_text = { enabled = true },
 
 				menu = {
+					border = "none",
+
 					draw = {
 						columns = {
 							{ "kind_icon", "label", "label_description", gap = 1 },
@@ -33,7 +40,10 @@ return {
 								end,
 							},
 						},
+						treesitter = {'lsp'},
 					},
+
+					scrollbar = true,
 				},
 			},
 		})

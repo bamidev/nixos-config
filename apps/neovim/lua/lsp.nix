@@ -9,7 +9,7 @@
   end
 
 
-  -- Enable sweet inlay hints where available
+  -- Enable sweet inlay hints where available by default
   vim.lsp.inlay_hint.enable(true)
 
 
