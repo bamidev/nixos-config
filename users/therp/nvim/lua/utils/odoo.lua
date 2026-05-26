@@ -2,6 +2,23 @@ local this = {}
 local git = require('utils.git')
 
 
+local function check_pip_odoo_version_output()
+	if vim.b.pip_odoo_version_output ~= nil then
+		return vim.b.pip_odoo_version_output
+	end
+
+	local c = io.popen("pip show odoo | grep Version:")
+	if c == nil then
+		vim.b.pip_odoo_version_output = ""
+		return ""
+	end
+
+	local output = c:read("*l")
+	c:close()
+	vim.b.pip_odoo_version_output = output or ""
+	return output
+end
+
 local function find_odoo_version_in_branch_name(branch)
 	local _, endIndex = string.find(branch, "-", 1, true)
 	if endIndex == nil then
@@ -15,6 +32,19 @@ local function find_odoo_version_in_branch_name(branch)
 		return nil
 	end
 	return versionString, endIndex
+end
+
+local function find_odoo_version_in_pip_output(output)
+	local _, endIndex = string.find(output, "Version: ", 1, true)
+	if endIndex == nil then
+		return nil
+	end
+	local versionString = string.sub(output, endIndex + 1)
+	local result, _ = string.find(versionString, ".", 1, true)
+	if result == nil then
+		return nil
+	end
+	return versionString
 end
 
 local function find_task_number_string_in_branch_name(branch)
@@ -39,10 +69,21 @@ end
 
 
 this.find_odoo_version = function()
+	-- First, try to obtain the Odoo version from the active git branch
 	local branch = git.get_branch()
-	if branch == nil then return nil end
-	local odooVersion, _ = find_odoo_version_in_branch_name(branch)
-	return tonumber(odooVersion)
+	if branch ~= nil then
+		local odooVersion, _ = find_odoo_version_in_branch_name(branch)
+		if odooVersion ~= nil then
+			return tonumber(odooVersion)
+		end
+	end
+
+	-- Then, try to obtain the Odoo version from the active Python venv
+	local output = check_pip_odoo_version_output()
+	if output ~= "" then
+		local odooVersion = find_odoo_version_in_pip_output(output)
+		return tonumber(odooVersion)
+	end
 end
 
 this.find_task_number = function()
