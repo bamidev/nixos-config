@@ -2,8 +2,8 @@ local this = {}
 
 
 this.get_branch = function()
-	if vim.g.gitsigns_head ~= nil then
-		return vim.g.gitsigns_head
+	if vim.b.gitsigns_head ~= nil then
+		return vim.b.gitsigns_head
 	end
 
 	local c = io.popen("git rev-parse --abbrev-ref HEAD 2>/dev/null")
@@ -13,7 +13,7 @@ this.get_branch = function()
 
 	local output = c:read("*l")
 	c:close()
-	vim.g.gitsigns_head = output
+	vim.b.gitsigns_head = output
 	return output
 end
 
