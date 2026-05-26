@@ -1,3 +1,15 @@
+local workspaceFolders = vim.lsp.buf.list_workspace_folders()
+local workspaceFolder = vim.fn.getcwd()
+if workspaceFolders[1] ~= nil then
+	workspaceFolder = workspaceFolders[1]
+end
+local moduleFolder = nil
+if workspaceFolder ~= nil then
+	moduleFolder = vim.fs.dirname(workspaceFolder)
+end
+local module = vim.fs.basename(workspaceFolder)
+
+
 return {
 	"mfussenegger/nvim-dap-python",
 	commit = "030385d03363988370adaa5cf21fa465daddb088",
@@ -6,12 +18,34 @@ return {
 		require("dap-python").setup("python")
 
 		local dap = require("dap")
-		dap.configurations.python = {
+		local configurations = {}
+		if module then
+			configurations[1] = {
+				type = "python";
+				request = "launch";
+				name = "Launch Python Module " .. module;
+				module = "${workspaceFolderBasename}";
+				cwd = moduleFolder;
+				pythonPath = function()
+					return "python"
+				end
+			}
+		end
+		vim.list_extend(configurations, {
+			{
+				type = "python";
+				request = "launch";
+				name = "Launch Odoo from within Wax";
+				program = "${workspaceFolder}/wax/repos/odoo/odoo-bin";
+				pythonPath = function()
+					return "${workspaceFolder}/wax/venv/bin/python"
+				end
+			},
 			{
 				type = "python";
 				request = "launch";
 				name = "Launch Odoo from within Waft";
-				program = "''${workspaceFolder}/custom/src/odoo/odoo-bin";
+				program = "${workspaceFolder}/custom/src/odoo/odoo-bin";
 				pythonPath = function()
 					return "''${workspaceFolder}/.venv/bin/python"
 				end
@@ -19,17 +53,8 @@ return {
 			{
 				type = "python";
 				request = "launch";
-				name = "Launch Odoo from within Wax";
-				program = "''${workspaceFolder}/wax/repos/odoo/odoo-bin";
-				pythonPath = function()
-					return "''${workspaceFolder}/wax/venv/bin/python"
-				end
-			},
-			{
-				type = "python";
-				request = "launch";
 				name = "Launch Python File";
-				program = "''${file}";
+				program = "python ${file}";
 				pythonPath = function()
 					return "python"
 				end
@@ -41,6 +66,8 @@ return {
 				program = "uv run";
 				pythonPath = "python";
 			},
-		}
+		})
+
+		dap.configurations.python = configurations
 	end
 }
