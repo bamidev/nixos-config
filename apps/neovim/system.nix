@@ -44,6 +44,7 @@ in {
       "lua/plugins/blink-cmp.lua".source = ./lua/plugins/blink-cmp.lua;
       "lua/plugins/dap.lua".source = ./lua/plugins/dap.lua;
       "lua/plugins/dap-python.lua".source = ./lua/plugins/dap-python.lua;
+      "lua/plugins/dap-ui.lua".source = ./lua/plugins/dap-ui.lua;
       "lua/plugins/feline".source = ./lua/plugins/feline;
       "lua/plugins/feline.lua".source = ./lua/plugins/feline.lua;
       "lua/plugins/gitsigns.lua".source = ./lua/plugins/gitsigns.lua;

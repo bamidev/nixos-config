@@ -54,6 +54,7 @@
     require('plugins.blink-cmp'),
     require('plugins.dap'),
     require('plugins.dap-python'),
+    require('plugins.dap-ui'),
     -- FIXME: The update field on providers doesn't seem to work in feline. Maybe switch to another
     -- statusline addon?
     require('plugins.feline'),
@@ -163,20 +164,6 @@
       config = function()
         vim.keymap.set({'n', 'v', 'x'}, '<C-t>', ':NERDTreeToggle<cr>')
         vim.keymap.set({'n', 'v', 'x'}, '<C-f>', ':NERDTreeFind<cr>')
-      end
-    },
-    {
-      "rcarriga/nvim-dap-ui",
-      commit = "cf91d5e",
-      requires = {
-        "mfussenegger/nvim-dap",
-        "nvim-neotest/nvim-nio",
-      },
-      config = function()
-        local dapui = require("dapui")
-        dapui.setup()
-
-        vim.keymap.set('n', '<F12>', dapui.toggle)
       end
     },
     { "ryanoasis/vim-devicons", tag = "v0.11.0" },
