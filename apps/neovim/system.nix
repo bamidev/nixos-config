@@ -32,6 +32,7 @@ in {
 
       "ftplugin".source = ./ftplugin;
 
+      # Some LSP servers that will be available in a server environment:
       "lsp/bashls.lua".source = ./lsp/bashls.lua;
       "lsp/nixd.lua".text = import ./lsp/nixd.nix { pkgs=pkgs; };
       "lsp/vscode-json.lua".source = ./lsp/vscode-json.lua;
