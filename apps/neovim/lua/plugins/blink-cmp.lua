@@ -5,12 +5,18 @@ return {
 		require('blink.cmp').setup({
 			keymap = { preset = "enter" },
 
+			signature = { enabled = true },
+
 			snippets = {
 				preset = "luasnip",
 			},
 
 			sources = {
-				default = { "lsp", "snippets", "path", "buffer" },
+				default = { "lsp", "snippets", "path" },
+				-- TODO: Configure the buffer provider so that it is only used with words of 5 characters or more.
+				providers = {
+					buffer = { min_keyword_length = 5 }
+				},
 			},
 
 			completion = {
