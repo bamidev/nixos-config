@@ -11,6 +11,7 @@ in {
 
     # Install language servers globally so that the default LSP configurations may work within a
     # non-Nix environment as well. (Such as my VM's.)
+    basedpyright
     bash-language-server
     ltex-ls
     typescript-language-server
@@ -62,6 +63,7 @@ in {
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)
     } // lib.attrsets.optionalAttrs (config.environmentType == "desktop") {
+      "lsp/basedpyright.lua".source = ./lsp/basedpyright.lua;
       "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
       "lsp/csharp_ls.lua".text = import ./lsp/csharp_ls.nix { pkgs=pkgs; };
       "lsp/esbonio.lua".source = ./lsp/esbonio.lua;

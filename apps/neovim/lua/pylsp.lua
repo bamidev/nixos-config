@@ -16,7 +16,9 @@ return {
 				jedi_symbols = { enabled = true },
 				jedi_type_definition = { enabled = true },
 				-- Should already be used by flake8 itself.
-				mccabe = { enabled = false },
+				mccabe = { enabled = true },
+				-- Using basedpyright instead.
+				mypy = { enabled = false },
 				pycodestyle = { enabled = false },
 				pydocstyle = { enabled = true },
 				-- Not needed when flake8 is available.

@@ -13,6 +13,7 @@
   vim.lsp.inlay_hint.enable(true)
 
 
+  vim.lsp.enable('basedpyright')
   vim.lsp.enable('bashls')
   vim.lsp.enable('ccls')
   vim.lsp.enable('csharp_ls')
