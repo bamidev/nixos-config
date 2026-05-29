@@ -157,18 +157,21 @@
       vial
       wl-clipboard-rs
 
-      # Install a bunch of python development tools as the fallback tools for when no virtual
+      # Install a bunch of python development tools as fallback for when no virtual
       # environment is used.
       (python3.withPackages (python-pkgs: with python-pkgs; [
         black
         debugpy
-        python-lsp-server
         flake8
         jedi
+        mccabe
         pydocstyle
-        pylint-odoo
-        pyflakes
         pylint
+        pyls-isort
+        pyls-memestra
+        pylsp-mypy
+        python-lsp-server
+        rope
       ]))
     ];
   };

@@ -1,6 +1,7 @@
 return {
 	settings = {
 		pylsp = {
+			-- flake8 tends to have a few better configuration options than pycodestyle.
 			configurationSources = {"flake8"},
 			plugins = {
 				autopep8 = { enabled = true },
@@ -14,11 +15,14 @@ return {
 				jedi_signature_help = { enabled = true },
 				jedi_symbols = { enabled = true },
 				jedi_type_definition = { enabled = true },
-				mccabe = { enabled = true },
+				-- Should already be used by flake8 itself.
+				mccabe = { enabled = false },
 				pycodestyle = { enabled = false },
 				pydocstyle = { enabled = true },
-				pyflakes = { enabled = true },
+				-- Not needed when flake8 is available.
+				pyflakes = { enabled = false },
 				pylint = { enabled = true },
+				rope_autoimport = { enabled = true },
 			},
 		},
 	},

@@ -9,6 +9,8 @@ local not_replaced_by_ruff = odoo_version ~= nil and tonumber(odoo_version) < 15
 settings.pylsp.plugins.autopep8.enabled = not_replaced_by_ruff
 settings.pylsp.plugins.mccabe.enabled = not_replaced_by_ruff
 settings.pylsp.plugins.pyflakes.enabled = not_replaced_by_ruff
+-- rope creates folders in the project directory, which is generally not listed in the .gitignore of our repo's.
+settings.pylsp.plugins.rope_autoimport.enabled = false
 
 local command = 'pylsp'
 -- TODO: If not in a git repo, check if ./__manifest__.py exists, and parse the Odoo version from there...
