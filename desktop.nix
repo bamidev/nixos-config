@@ -156,23 +156,6 @@
       transmission_4-gtk
       vial
       wl-clipboard-rs
-
-      # Install a bunch of python development tools as fallback for when no virtual
-      # environment is used.
-      (python3.withPackages (python-pkgs: with python-pkgs; [
-        black
-        debugpy
-        flake8
-        jedi
-        mccabe
-        pydocstyle
-        pylint
-        pyls-isort
-        pyls-memestra
-        pylsp-mypy
-        python-lsp-server
-        rope
-      ]))
     ];
   };
 

@@ -11,12 +11,30 @@ in {
 
     # Install language servers globally so that the default LSP configurations may work within a
     # non-Nix environment as well. (Such as my VM's.)
-    basedpyright
     bash-language-server
+  ] ++ (lib.optionals (config.environmentType == "desktop") (with pkgs; [
+    basedpyright
     ltex-ls
     typescript-language-server
     vscode-langservers-extracted
-  ];
+
+    # pylsp with everything it needs, and debugpy
+    (python3.withPackages (python-pkgs: with python-pkgs; [
+      black
+      debugpy
+      flake8
+      jedi
+      mccabe
+      pydocstyle
+      pylint
+      pyls-isort
+      pyls-memestra
+      pylsp-mypy
+      python-lsp-server
+      rope
+    ]))
+  ]));
+
   environment.etc."pylintrc".source = ./etc/pylintrc;
 
   programs.neovim = {
