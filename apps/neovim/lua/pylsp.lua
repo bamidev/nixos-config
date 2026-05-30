@@ -18,13 +18,15 @@ return {
 				-- Should already be used by flake8 itself.
 				mccabe = { enabled = true },
 				-- Using basedpyright instead.
-				mypy = { enabled = false },
 				pycodestyle = { enabled = false },
 				pydocstyle = { enabled = true },
 				-- Not needed when flake8 is available.
 				pyflakes = { enabled = false },
 				pylint = { enabled = true },
+				pylsp_mypy = { enabled = false },
 				rope_autoimport = { enabled = true },
+				-- Formatting is done with Ruff
+				yapf = { enabled = false },
 			},
 		},
 	},
