@@ -80,7 +80,7 @@ this.find_odoo_version = function()
 
 	-- Then, try to obtain the Odoo version from the active Python venv
 	local output = check_pip_odoo_version_output()
-	if output ~= "" then
+	if output ~= nil and output ~= "" then
 		local odooVersion = find_odoo_version_in_pip_output(output)
 		return tonumber(odooVersion)
 	end
