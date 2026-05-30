@@ -3,7 +3,7 @@
 
   services.nextcloud = rec {
     enable = true;
-    package = pkgs.nextcloud31;
+    package = pkgs.nextcloud33;
     hostName = "0.0.0.0";
     config.adminpassFile = "/root/nextcloud/root.txt";
     config.dbtype = "sqlite";
