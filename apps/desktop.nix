@@ -18,7 +18,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     loupe
-    ladybird
+    #ladybird
     mplayer
     obs-studio
     quodlibet
