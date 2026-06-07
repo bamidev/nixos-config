@@ -170,17 +170,16 @@ in {
       };
 
       windowrule = [
-        "opacity 1, class:.*"
-        "opacity 0.85, class:^Alacritty$"
-        "opacity 0.85, class:^wofi$"
-        "opacity 0.9, class:^Element$"
-        "opacity 0.9, class:^Session$"
-        "opacity 0.9, class:^signal$"
-        "opacity 0.9, class:^thunderbird$"
+        "match:class .*, opacity 1"
+        "match:class ^Alacritty$, opacity 0.85"
+        "match:class ^wofi$, opacity 0.85"
+        "match:class ^Element$, opacity 0.9"
+        "match:class ^Session$, opacity 0.9"
+        "match:class ^signal$, opacity 0.9"
+        "match:class ^thunderbird$, opacity 0.9"
 
-        "size 800 300, class:^thunderbird$, title:^Add Security Exception$"
-        "pin, class:^thunderbird$, title:^Add Security Exception$"
-        "workspace 1 silent, class:^qemu$"
+        "match:class ^thunderbird$, match:title ^Add Security Exception$, size 800 300, pin on"
+        "match:class ^qemu$, workspace 1 silent"
       ];
     };
   };

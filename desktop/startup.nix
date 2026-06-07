@@ -9,6 +9,6 @@
   # GUI applications
   "${lib.getExe pkgs.thunderbird}"
   "${lib.getExe pkgs.element-desktop} --hidden"
-  #"${lib.getExe pkgs.session-desktop}"
+  "${lib.getExe pkgs.session-desktop}"
   "${lib.getExe pkgs.signal-desktop} --use-tray-icon"
 ]

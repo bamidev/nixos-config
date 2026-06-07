@@ -148,7 +148,7 @@
       nautilus
       pavucontrol
       protonmail-bridge-gui
-      #session-desktop
+      session-desktop
       signal-desktop
       todo-txt-cli
       tor-browser
