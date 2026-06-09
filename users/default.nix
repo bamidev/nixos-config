@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 let
-  editorPkgs = (import ../sources.nix).editorPkgs.pkgs;
+  editorPkgs = inputs.editorPkgs.legacyPackages.${builtins.currentSystem};
 in {
   imports = [
     ../apps/neovim/home.nix

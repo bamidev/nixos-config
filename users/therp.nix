@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 let
   odooParams = import ./therp/odoo-params.nix;
-  params = import ../params.nix;
   preCommitFlake = (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
 
   installPreCommit = pkgs.writers.writeBashBin "pc-install" ''

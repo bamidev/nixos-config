@@ -1,7 +1,5 @@
-{ lib, pkgs, ... }:
+{ inputs, lib, params, pkgs, ... }:
 let
-  editorPkgs = (import ../sources.nix).editorPkgs.pkgs;
-  params = import ../params.nix;
   stonenet = (builtins.getFlake "github:bamidev/stonenet/main").nixosModules.${builtins.currentSystem}.default;
 in {
   imports = [
@@ -23,7 +21,7 @@ in {
     obs-studio
     quodlibet
   # Install texlive and texpresso from the same source as all other editor packages
-  ] ++ (with editorPkgs; [
+  ] ++ (with inputs.editorPkgs; [
     texliveFull
     texpresso
   ]);

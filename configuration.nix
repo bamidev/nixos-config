@@ -2,18 +2,14 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, lib, ... }:
+{ hostName, inputs, lib, params, pkgs, ... }:
 
 let
-  deviceConfig = import ./device.nix;
-  homeManager = (import ./sources.nix).homeManager26_05;
-  params = import ./params.nix;
   theme = import ./theme.nix;
 in
 {
   imports = [
-    "/etc/nixos/devices/${deviceConfig.name}/hardware.nix"
-    homeManager
+    inputs.homeManager.nixosModules.default
     ./apps.nix
   ] ++ lib.optionals (params.environmentType == "desktop") [
     ./desktop.nix
@@ -83,11 +79,11 @@ in
 
   networking = {
     enableIPv6 = false;
-    hostName = "baminix";
     networkmanager.enable = true;  # Easiest to use and most distros use this by default.
     resolvconf = {
       enable = true;
     };
+    hostName = hostName;
 
     firewall.allowedUDPPorts = [ 53 67 ];
   };
@@ -138,6 +134,7 @@ in
 
   home-manager = {
     backupFileExtension = "backup";
+    extraSpecialArgs = { inherit inputs; inherit params; };
 
     # Use the `imports` feature because now the imports list of users/defaults.nix is being
     # overriden by the other files.

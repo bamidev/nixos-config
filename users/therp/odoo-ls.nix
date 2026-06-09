@@ -1,8 +1,7 @@
 # TODO: Contribute this nix module to nixpkgs
-{ ... }:
+{ pkgs, ... }:
 let
   # odoo-ls 1.3.2 needs rustc 1.94.0, so I use the newer (yet unreleased) release to build the Rust package.
-  pkgs = (import ../../sources.nix).nixpkgsUnstable.pkgs;
   odooLs = pkgs.rustPlatform.buildRustPackage rec {
     pname = "odoo-ls";
     version = "1.3.2";

@@ -1,6 +1,5 @@
-{ config, pkgs, username, ... }:
+{ params, pkgs, ... }:
 let
-  params = import ../params.nix;
   nixLocateCached = pkgs.writers.writeBashBin "nix-locate-cached" ''
     set -e
     nix run github:nix-community/nix-index-database $1

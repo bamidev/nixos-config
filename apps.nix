@@ -1,14 +1,12 @@
-{ pkgs, lib, ... }:
-let
-  config = import ./params.nix;
-in {
+{ params, pkgs, lib, ... }:
+{
   imports = [
       ./apps/git.nix
       ./apps/neovim/system.nix
       ./apps/syncthing/system.nix
-    ] ++ lib.optionals (config.environmentType == "desktop") [
+    ] ++ lib.optionals (params.environmentType == "desktop") [
       ./apps/desktop.nix
-    ] ++ lib.optionals (config.environmentType == "nas") [
+    ] ++ lib.optionals (params.environmentType == "nas") [
       ./apps/nas.nix
     ];
 

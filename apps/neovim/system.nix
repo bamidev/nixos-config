@@ -1,7 +1,6 @@
-{ lib, ... }:
+{ lib, inputs, params, ... }:
 let
-  config = import ../../params.nix;
-  pkgs = (import ../../sources.nix).editorPkgs.pkgs;
+  pkgs = inputs.editorPkgs.legacyPackages.${builtins.currentSystem};
 in {
   environment.systemPackages = with pkgs; [
     gcc     # Needed for the treesitter plugin, to be able to compile language parsers.
@@ -12,7 +11,7 @@ in {
     # Install language servers globally so that the default LSP configurations may work within a
     # non-Nix environment as well. (Such as my VM's.)
     bash-language-server
-  ] ++ (lib.optionals (config.environmentType == "desktop") (with pkgs; [
+  ] ++ (lib.optionals (params.environmentType == "desktop") (with pkgs; [
     basedpyright
     ltex-ls
     typescript-language-server
@@ -80,7 +79,7 @@ in {
 
     # Some language servers are really not needed in a server environment, and some of them even
     # give an error when some system wide binaries are missing (e.g. ccls)
-    } // lib.attrsets.optionalAttrs (config.environmentType == "desktop") {
+    } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
       "lsp/basedpyright.lua".source = ./lsp/basedpyright.lua;
       "lsp/ccls.lua".text = import ./lsp/ccls.nix { pkgs=pkgs; };
       "lsp/csharp_ls.lua".text = import ./lsp/csharp_ls.nix { pkgs=pkgs; };
