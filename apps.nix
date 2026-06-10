@@ -14,7 +14,6 @@
     bc
     killall
     nix-index
-    nixfmt-rfc-style
     openssh
     pass
     screen
