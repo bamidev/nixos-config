@@ -22,6 +22,7 @@ in
       bash-language-server
       nixd
       systemd-language-server
+      vscode-json-languageserver
       yaml-language-server
     ]
     ++ (lib.optionals (params.environmentType == "desktop") (
