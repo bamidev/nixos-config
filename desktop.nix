@@ -160,43 +160,58 @@
   };
 
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
   programs = {
-    dconf.profiles.user.databases = [{
-      lockAll = true;
-      settings = {
-        "org/gnome/desktop/interface" = {
-          accent-color = "blue";
-          color-scheme = "prefer-dark";
-          text-scaling-factor = 1.1;
+    dconf = {
+      enable = true;
+
+      profiles.user.databases = [{
+        lockAll = true;
+        settings = {
+          "org/gnome/desktop/interface" = {
+            accent-color = "blue";
+            color-scheme = "prefer-dark";
+            text-scaling-factor = 1.1;
+          };
         };
-      };
-    }];
+      }];
+    };
 
     direnv.enable = true;
   };
 
   services.gvfs.enable = true;
 
-  virtualisation.docker.enable = true;
-
-  xdg.mime = {
+  virtualisation.docker = {
     enable = true;
-    defaultApplications = {
-      "text/html" = "librewolf.desktop";
-      "text/plain" = "neovim.desktop";
+    extraPackages = [
+      pkgs.docker-buildx
+    ];
+  };
 
-      "video/mp4" = "totem.desktop";
-      "video/x-matroska" = "totem.desktop";
+  xdg = {
+    mime = {
+      enable = true;
+      defaultApplications = {
+        "text/html" = "librewolf.desktop";
+        "text/plain" = "neovim.desktop";
 
-      "image/jpeg" = "loupe.desktop";
+        "video/mp4" = "totem.desktop";
+        "video/x-matroska" = "totem.desktop";
 
-      "x-scheme-handler/http" = "librewolf.desktop";
-      "x-scheme-handler/https" = "librewolf.desktop";
-      "x-scheme-handler/about" = "librewolf.desktop";
-      "x-scheme-handler/unknown" = "librewolf.desktop";
+        "image/jpeg" = "loupe.desktop";
+
+        "x-scheme-handler/http" = "librewolf.desktop";
+        "x-scheme-handler/https" = "librewolf.desktop";
+        "x-scheme-handler/about" = "librewolf.desktop";
+        "x-scheme-handler/unknown" = "librewolf.desktop";
+      };
+    };
+
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
     };
   };
 }
