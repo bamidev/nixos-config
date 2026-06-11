@@ -142,13 +142,20 @@ in
       {
         root = { pkgs, lib, ... }: import ./users/root.nix { pkgs=pkgs; lib=lib; };
         bamilab = { pkgs, lib, ... }:
-          import ./users/bamilab.nix { pkgs=pkgs; lib=lib; };
+          import ./users/bamilab.nix { pkgs=pkgs; lib=lib; inputs=inputs; };
       } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
         therp = { pkgs, lib, ... }:
-          import ./users/therp.nix { pkgs=pkgs; lib=lib; };
+          import ./users/therp.nix { pkgs=pkgs; lib=lib; inputs=inputs; };
       };
   };
 
   security.polkit.enable = true;
+
+  # Initialize the extra-config repo, so that I can manage configuration of some apps outside of Nix.
+  system.activationScripts.extraConfigRepo.text = ''
+    if [ ! -e /etc/xdg/extra-config ]; then
+      ${lib.getExe pkgs.git} clone https://github.com/bamidev/extra-config /etc/xdg/extra-config
+    fi
+  '';
 }
 

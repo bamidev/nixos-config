@@ -7,12 +7,22 @@ in {
   imports = [
     ./waybar.nix
   ];
+ 
+  
+  home = {
+    # Manage the main of the hyprland configuration in a seperate repo rather than Nix.
+    activation.linkExtraConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [ ! -e ~/.config/hypr/lua ]; then
+        ln -s /etc/xdg/extra-config/hyprland ~/.config/hypr/lua
+      fi
+    '';
 
-  # Put the rose-pine-hyprcursor theme in place
-  home.file.".local/share/icons/rose-pine-hyprcursor" = {
-    enable = true;
-    recursive = true;
-    source = "${pkgs.rose-pine-hyprcursor}/share/icons/rose-pine-hyprcursor";
+    # Put the rose-pine-hyprcursor theme in place
+    file.".local/share/icons/rose-pine-hyprcursor" = {
+      enable = true;
+      recursive = true;
+      source = "${pkgs.rose-pine-hyprcursor}/share/icons/rose-pine-hyprcursor";
+    };
   };
 
   wayland.windowManager.hyprland = {
