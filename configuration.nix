@@ -130,7 +130,6 @@ in
           "video"
           "wheel" # Enable ‘sudo’ for the user.
         ];
-        #packages = with pkgs; [];
       };
       therp = {
         description = "Work";
@@ -141,9 +140,6 @@ in
           "docker"
           "video"
           "wheel"
-        ];
-        packages = with pkgs; [
-          postgresql_17
         ];
       };
     };
