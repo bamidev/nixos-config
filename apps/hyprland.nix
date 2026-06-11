@@ -12,7 +12,7 @@ in {
   home = {
     # Manage the main of the hyprland configuration in a seperate repo rather than Nix.
     activation.linkExtraConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      if [ ! -e ~/.config/hypr/lua ]; then
+      if [ ! -h ~/.config/hypr/lua ]; then
         ln -s /etc/xdg/extra-config/hyprland ~/.config/hypr/lua
       fi
     '';

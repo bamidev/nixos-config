@@ -61,7 +61,7 @@ in {
 
   system.activationScripts.neovimConfigRepo.text = ''
     function link() {
-      if [ ! -e "/etc/xdg/nvim/$1" ]; then ln -s "/etc/xdg/extra-config/neovim/$1" "/etc/xdg/nvim/$1"; fi
+      if [ ! -h "/etc/xdg/nvim/$1" ]; then ln -s "/etc/xdg/extra-config/neovim/$1" "/etc/xdg/nvim/$1"; fi
     }
 
     link ftplugin
