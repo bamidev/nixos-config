@@ -1,7 +1,8 @@
 { pkgs, ... }:
 let
   theme = import ../../theme.nix;
-in {
+in
+{
   environment.etc."i3status.conf".text = with theme; ''
     general {
       output_format = "i3bar"

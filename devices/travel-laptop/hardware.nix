@@ -1,9 +1,15 @@
 { config, lib, ... }:
 
 {
-  imports = [];
+  imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "nvme"
+    "usb_storage"
+    "sd_mod"
+    "rtsx_pci_sdmmc"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -12,16 +18,19 @@
     device = "nodev";
   };
 
-  fileSystems."/" =
-    { device = "NIXROOT/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "NIXROOT/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/NIXBOOT";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/NIXBOOT";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
 
   hardware.enableRedistributableFirmware = lib.mkForce true;
 

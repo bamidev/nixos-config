@@ -2,7 +2,14 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ hostName, inputs, lib, params, pkgs, ... }:
+{
+  hostName,
+  inputs,
+  lib,
+  params,
+  pkgs,
+  ...
+}:
 
 let
   theme = import ./theme.nix;
@@ -11,7 +18,8 @@ in
   imports = [
     inputs.homeManager.nixosModules.default
     ./apps.nix
-  ] ++ lib.optionals (params.environmentType == "desktop") [
+  ]
+  ++ lib.optionals (params.environmentType == "desktop") [
     ./desktop.nix
   ];
 
@@ -30,7 +38,8 @@ in
     loader = {
       grub = {
         enable = true;
-      } // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
+      }
+      // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
         splashImage = /home/bamilab/Pictures/grub.png;
         splashMode = "stretch";
       };
@@ -40,7 +49,8 @@ in
 
   console.colors = [
     theme.dark.black
-  ] ++ (with theme.normal; [
+  ]
+  ++ (with theme.normal; [
     red
     green
     yellow
@@ -48,7 +58,8 @@ in
     magenta
     cyan
     white
-  ]) ++ (with theme.bright; [
+  ])
+  ++ (with theme.bright; [
     black
     red
     green
@@ -74,18 +85,24 @@ in
       options = "--delete-older-than 90d";
     };
 
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   networking = {
     enableIPv6 = false;
-    networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+    networkmanager.enable = true; # Easiest to use and most distros use this by default.
     resolvconf = {
       enable = true;
     };
     hostName = hostName;
 
-    firewall.allowedUDPPorts = [ 53 67 ];
+    firewall.allowedUDPPorts = [
+      53
+      67
+    ];
   };
 
   # Set your time zone.
@@ -111,7 +128,7 @@ in
           "audio"
           "docker"
           "video"
-          "wheel"	# Enable ‘sudo’ for the user.
+          "wheel" # Enable ‘sudo’ for the user.
         ];
         #packages = with pkgs; [];
       };
@@ -134,19 +151,37 @@ in
 
   home-manager = {
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs; inherit params; };
+    extraSpecialArgs = {
+      inherit inputs;
+      inherit params;
+    };
 
     # Use the `imports` feature because now the imports list of users/defaults.nix is being
     # overriden by the other files.
-    users =
-      {
-        root = { pkgs, lib, ... }: import ./users/root.nix { pkgs=pkgs; lib=lib; };
-        bamilab = { pkgs, lib, ... }:
-          import ./users/bamilab.nix { pkgs=pkgs; lib=lib; inputs=inputs; };
-      } // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
-        therp = { pkgs, lib, ... }:
-          import ./users/therp.nix { pkgs=pkgs; lib=lib; inputs=inputs; };
-      };
+    users = {
+      root =
+        { pkgs, lib, ... }:
+        import ./users/root.nix {
+          pkgs = pkgs;
+          lib = lib;
+        };
+      bamilab =
+        { pkgs, lib, ... }:
+        import ./users/bamilab.nix {
+          pkgs = pkgs;
+          lib = lib;
+          inputs = inputs;
+        };
+    }
+    // lib.attrsets.optionalAttrs (params.environmentType == "desktop") {
+      therp =
+        { pkgs, lib, ... }:
+        import ./users/therp.nix {
+          pkgs = pkgs;
+          lib = lib;
+          inputs = inputs;
+        };
+    };
   };
 
   security.polkit.enable = true;
@@ -158,4 +193,3 @@ in
     fi
   '';
 }
-

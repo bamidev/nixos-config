@@ -5,12 +5,12 @@ let
     MIN=10
     B=$(echo $(cat '/sys/class/backlight/intel_backlight/brightness') - 100 | bc)
     echo $(( B > MIN ? B : MIN )) | tee /sys/class/backlight/intel_backlight/brightness
-    '';
+  '';
   brightness-up = pkgs.writers.writeBashBin "brightness-up" ''
     B=$(echo $(cat '/sys/class/backlight/intel_backlight/brightness') + 100 | bc)
     M=$(cat /sys/class/backlight/intel_backlight/max_brightness)
     echo $(( B > M ? M : B )) | tee /sys/class/backlight/intel_backlight/brightness
-    '';
+  '';
   current-workspace = pkgs.writers.writeBashBin "current-workspace" ''
     if [ ! -z "$SWAYSOCK" ]; then
       ${pkgs.sway}/bin/swaymsg -t get_workspaces -r | ${pkgs.jq}/bin/jq -r -c '.[] | select(.focused == true) | .name'
@@ -68,7 +68,8 @@ let
     set -e
     sudo ${lib.getExe stop-vpn}
   '';
-in {
+in
+{
   imports = [
     ./scripts/bamilab.nix
     ./scripts/therp.nix
@@ -89,26 +90,28 @@ in {
 
   security.sudo = {
     enable = true;
-    extraRules = [{
-      commands = [
-        {
-          command = "${lib.getExe brightness-up}";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${lib.getExe brightness-down}";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${lib.getExe restart-vpn}";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "${lib.getExe stop-vpn}";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-      groups = ["wheel"];
-    }];
+    extraRules = [
+      {
+        commands = [
+          {
+            command = "${lib.getExe brightness-up}";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "${lib.getExe brightness-down}";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "${lib.getExe restart-vpn}";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "${lib.getExe stop-vpn}";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+        groups = [ "wheel" ];
+      }
+    ];
   };
 }

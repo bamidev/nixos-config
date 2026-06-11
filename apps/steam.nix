@@ -5,11 +5,13 @@
     #steam-tui
   ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam"
-    "steam-unwrapped"
-    "steamcmd"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "steam"
+      "steam-unwrapped"
+      "steamcmd"
+    ];
   nixpkgs.config.allowUnfree = true;
 
   programs = {

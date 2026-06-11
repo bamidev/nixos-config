@@ -1,30 +1,41 @@
-{ inputs, lib, params, pkgs, ... }:
+{
+  inputs,
+  lib,
+  params,
+  pkgs,
+  ...
+}:
 let
-  stonenet = (builtins.getFlake "github:bamidev/stonenet/main").nixosModules.${builtins.currentSystem}.default;
-in {
+  stonenet =
+    (builtins.getFlake "github:bamidev/stonenet/main").nixosModules.${builtins.currentSystem}.default;
+in
+{
   imports = [
     ./greetd.nix
-    ./keet.nix
     ./libreoffice.nix
     ./postgresql.nix
     ./protonvpn.nix
     ./sway/system.nix
     stonenet
-  ] ++ lib.optionals params.enableGames [
+  ]
+  ++ lib.optionals params.enableGames [
     ./steam.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    loupe
-    #ladybird
-    mplayer
-    obs-studio
-    quodlibet
-  # Install texlive and texpresso from the same source as all other editor packages
-  ] ++ (with inputs.editorPkgs; [
-    texliveFull
-    texpresso
-  ]);
+  environment.systemPackages =
+    with pkgs;
+    [
+      loupe
+      #ladybird
+      mplayer
+      obs-studio
+      quodlibet
+      # Install texlive and texpresso from the same source as all other editor packages
+    ]
+    ++ (with inputs.editorPkgs; [
+      texliveFull
+      texpresso
+    ]);
 
   services = {
     stonenet = {

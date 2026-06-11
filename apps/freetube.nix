@@ -1,6 +1,6 @@
 { ... }:
 {
-  programs.freetube = { 
+  programs.freetube = {
     enable = true;
     settings = {
       allowDashAv1Formats = true;

@@ -17,7 +17,7 @@ let
       pass git pull --rebase
     fi
   '';
-in {
+in
+{
   users.users.therp.packages = [ setup ];
 }
-

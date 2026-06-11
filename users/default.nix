@@ -1,7 +1,8 @@
 { lib, inputs, ... }:
 let
   editorPkgs = inputs.editorPkgs.legacyPackages.${builtins.currentSystem};
-in {
+in
+{
   imports = [
     ../apps/neovim/home.nix
   ];

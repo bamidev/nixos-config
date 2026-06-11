@@ -1,7 +1,8 @@
 { ... }:
 let
   theme = import ../theme.nix;
-in {
+in
+{
   programs.waybar = {
     enable = true;
 
@@ -10,11 +11,21 @@ in {
         layer = "top";
         position = "top";
         height = 15;
-        modules-left = [ "hyprland/workspaces" "custom/todo" ];
+        modules-left = [
+          "hyprland/workspaces"
+          "custom/todo"
+        ];
         modules-center = [ "clock" ];
-        modules-right = [ "custom/vpn" "pulseaudio" "cpu" "memory" "battery" "tray" ];
+        modules-right = [
+          "custom/vpn"
+          "pulseaudio"
+          "cpu"
+          "memory"
+          "battery"
+          "tray"
+        ];
 
-        cpu = { 
+        cpu = {
           "interval" = 10;
           "format" = "CPU: {usage}%";
         };
@@ -46,7 +57,7 @@ in {
         pulseaudio = {
           "format" = "{icon} {volume}%";
           "format-icons" = {
-            "default" = ["Speaker"];
+            "default" = [ "Speaker" ];
           };
           "on-click" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "on-click-right" = "pavucontrol";

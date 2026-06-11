@@ -1,7 +1,19 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "ehci_pci"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
@@ -13,16 +25,19 @@
     efiSupport = true;
   };
 
-  fileSystems."/" =
-    { device = "root/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "root/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/065D-8C1B";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/065D-8C1B";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
 
   hardware.enableRedistributableFirmware = lib.mkForce true;
 

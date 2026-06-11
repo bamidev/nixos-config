@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 let
-  devices = lib.attrsets.mapAttrs (name: type:
-    { id = (import "/etc/nixos/devices/${name}/params.nix").syncthingId; }
-  ) (builtins.readDir /etc/nixos/devices);
+  devices = lib.attrsets.mapAttrs (name: type: {
+    id = (import "/etc/nixos/devices/${name}/params.nix").syncthingId;
+  }) (builtins.readDir /etc/nixos/devices);
   defaultVersioning = {
     type = "staggered";
     params = {
@@ -17,7 +17,8 @@ let
     ignorePerms = false;
     versioning = defaultVersioning;
   };
-in {
+in
+{
   services.syncthing = rec {
     enable = true;
 
@@ -29,7 +30,7 @@ in {
     openDefaultPorts = true;
     overrideDevices = true;
     overrideFolders = true;
-    
+
     settings = {
       devices = devices;
       folders = {
@@ -75,7 +76,7 @@ in {
 
   system.activationScripts = {
     syncthing-permissions = {
-      deps = [  ];
+      deps = [ ];
       text = ''
         set -e
 

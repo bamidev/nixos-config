@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   home.file.".local/share/applications/neovim.desktop".text = ''
     [Desktop Entry]

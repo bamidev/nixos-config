@@ -24,6 +24,7 @@ let
       git tag v${version}
     '';
   };
-in {
+in
+{
   home.packages = [ odooLsp ];
 }

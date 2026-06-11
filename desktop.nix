@@ -159,21 +159,22 @@
     ];
   };
 
-
   programs = {
     dconf = {
       enable = true;
 
-      profiles.user.databases = [{
-        lockAll = true;
-        settings = {
-          "org/gnome/desktop/interface" = {
-            accent-color = "blue";
-            color-scheme = "prefer-dark";
-            text-scaling-factor = 1.1;
+      profiles.user.databases = [
+        {
+          lockAll = true;
+          settings = {
+            "org/gnome/desktop/interface" = {
+              accent-color = "blue";
+              color-scheme = "prefer-dark";
+              text-scaling-factor = 1.1;
+            };
           };
-        };
-      }];
+        }
+      ];
     };
 
     direnv.enable = true;
@@ -215,4 +216,3 @@
     };
   };
 }
-

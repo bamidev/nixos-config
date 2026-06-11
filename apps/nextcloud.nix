@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   networking.firewall.allowedTCPPorts = [ 80 ];
 
   services.nextcloud = rec {
@@ -14,7 +20,7 @@
     extraAppsEnable = true;
 
     settings = {
-      trusted_domains = ["192.168.0.254"];
+      trusted_domains = [ "192.168.0.254" ];
     };
   };
 

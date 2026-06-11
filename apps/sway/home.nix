@@ -13,9 +13,13 @@ let
      done
   '';
   monitors = import ../../desktop/monitors.nix;
-  startupCommands = import ../../desktop/startup.nix {pkgs=pkgs; lib=lib;};
+  startupCommands = import ../../desktop/startup.nix {
+    pkgs = pkgs;
+    lib = lib;
+  };
   theme = import ../../theme.nix;
-in {
+in
+{
   wayland.windowManager.sway = {
     # Sway is only enabled in home-manager in order to generate the config files.
     enable = true;
@@ -52,39 +56,41 @@ in {
         };
       };
 
-      output = builtins.listToAttrs (lib.lists.forEach monitors.all (x:
-        {
+      output = builtins.listToAttrs (
+        lib.lists.forEach monitors.all (x: {
           name = x.id;
           value = {
             #bg = "~/Pictures/wallpapers/default.jpg fill";
             position = toString x.position.x + "," + toString x.position.y;
           };
-        }
-      ));
+        })
+      );
 
-      /*output = {
-        eDP-1 = {
-          bg = "~/Pictures/laptop-wallpaper.png fill";
-          resolution = "1920x1080";
-          position = "2000,2000";
+      /*
+        output = {
+          eDP-1 = {
+            bg = "~/Pictures/laptop-wallpaper.png fill";
+            resolution = "1920x1080";
+            position = "2000,2000";
+          };
+          "Ancor Communications Inc ASUS PB278 D1LMTF019074" = {
+            bg = "~/Pictures/wallpaper.jpg fill";
+            resolution = "2560x1440";
+            position = "1680,560";
+          };
+          "BNQ BenQ GW3290QT H9P00939019" = {
+            bg = "~/Pictures/wallpaper.jpg fill";
+            resolution = "2560x1440";
+            position = "1680,560";
+          };
+          "Eizo Nanao Corporation S2402W 68610031" = {
+            bg = "~/Pictures/wallpaper.jpg fill";
+            resolution = "1920x1200";
+            position = "2000,800";
+          };
         };
-        "Ancor Communications Inc ASUS PB278 D1LMTF019074" = {
-          bg = "~/Pictures/wallpaper.jpg fill";
-          resolution = "2560x1440";
-          position = "1680,560";
-        };
-        "BNQ BenQ GW3290QT H9P00939019" = {
-          bg = "~/Pictures/wallpaper.jpg fill";
-          resolution = "2560x1440";
-          position = "1680,560";
-        };
-        "Eizo Nanao Corporation S2402W 68610031" = {
-          bg = "~/Pictures/wallpaper.jpg fill";
-          resolution = "1920x1200";
-          position = "2000,800";
-        };
-      };*/
-      keybindings = lib.mkOptionDefault{
+      */
+      keybindings = lib.mkOptionDefault {
         "${modifier}+w" = "exec librewolf";
         "${modifier}+t" = "exec ${pkgs.alacritty}/bin/alacritty --class floating-terminal";
         "XF86MonBrightnessDown" = "exec sudo-brightness-down";
@@ -94,17 +100,21 @@ in {
         "XF86AudioMute" = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
       };
       terminal = "bash -c \"$(printenv TERMINAL)\"";
-      startup = lib.lists.forEach startupCommands (x: { command = x; }) ++ [
-        # Lock screen when idle
-        {
-          command = ''
-            swayidle -w \
-            timeout 300 'swaylock -f -c ${theme.background}' \
-            timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-            before-sleep 'swaylock -f -c ${theme.background}'
-          '';
-        }
-      ];
+      startup =
+        lib.lists.forEach startupCommands (x: {
+          command = x;
+        })
+        ++ [
+          # Lock screen when idle
+          {
+            command = ''
+              swayidle -w \
+              timeout 300 'swaylock -f -c ${theme.background}' \
+              timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+              before-sleep 'swaylock -f -c ${theme.background}'
+            '';
+          }
+        ];
 
       bars = [
         {

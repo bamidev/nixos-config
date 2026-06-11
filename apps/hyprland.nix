@@ -1,17 +1,20 @@
 { lib, pkgs, ... }:
 let
   monitors = import ../desktop/monitors.nix;
-  startupCommands = import ../desktop/startup.nix {lib=lib; pkgs=pkgs;};
+  startupCommands = import ../desktop/startup.nix {
+    lib = lib;
+    pkgs = pkgs;
+  };
   theme = import ../theme.nix;
-in {
+in
+{
   imports = [
     ./waybar.nix
   ];
- 
-  
+
   home = {
     # Manage the main of the hyprland configuration in a seperate repo rather than Nix.
-    activation.linkExtraConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    activation.linkExtraConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       if [ ! -h ~/.config/hypr/lua ]; then
         ln -s /etc/xdg/extra-config/hyprland ~/.config/hypr/lua
       fi
@@ -80,10 +83,10 @@ in {
         ", PRINT, exec, ${lib.getExe pkgs.hyprshot} -m region"
         "$modsh, PRINT, exec, ${lib.getExe pkgs.hyprshot} -m window"
       ]
-        ++ lib.lists.forEach (lib.range 1 9) (x: "$mod, ${toString x}, workspace, ${toString x}")
-        ++ lib.lists.forEach (lib.range 1 9) (x:
-          "$modsh, ${toString x}, movetoworkspacesilent, ${toString x}"
-        );
+      ++ lib.lists.forEach (lib.range 1 9) (x: "$mod, ${toString x}, workspace, ${toString x}")
+      ++ lib.lists.forEach (lib.range 1 9) (
+        x: "$modsh, ${toString x}, movetoworkspacesilent, ${toString x}"
+      );
 
       binde = [
         ", XF86MonBrightnessDown, exec, sudo-brightness-down"
@@ -123,10 +126,11 @@ in {
 
       exec-once = lib.lists.forEach startupCommands (x: "[workspace 1 silent] ${x}") ++ [
         "${lib.getExe pkgs.waybar}"
-        ''swayidle -w \
-            timeout 300 'swaylock -f -c ${theme.background}' \
-            timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-            before-sleep 'swaylock -f -c ${theme.background}'
+        ''
+          swayidle -w \
+                      timeout 300 'swaylock -f -c ${theme.background}' \
+                      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+                      before-sleep 'swaylock -f -c ${theme.background}'
         ''
       ];
 
@@ -144,12 +148,17 @@ in {
 
       misc.disable_hyprland_logo = true;
 
-      monitor = lib.lists.forEach monitors.all (x:
-        (if x.idSource == "description" then "desc:" else "") + x.id + ", " +
-        "preferred, ${toString x.position.x}x${toString x.position.y}, 1"
-      ) ++ [
-        ", preferred, auto, 1"
-      ];
+      monitor =
+        lib.lists.forEach monitors.all (
+          x:
+          (if x.idSource == "description" then "desc:" else "")
+          + x.id
+          + ", "
+          + "preferred, ${toString x.position.x}x${toString x.position.y}, 1"
+        )
+        ++ [
+          ", preferred, auto, 1"
+        ];
 
       plugin = {
         hy3 = {
@@ -158,7 +167,7 @@ in {
           };
 
           tab_first_window = true;
-          
+
           tabs = {
             blur = false; # The noise doesn't look very great on tabs
             border_width = 1;

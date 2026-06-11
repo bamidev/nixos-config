@@ -1,6 +1,7 @@
 let
   theme = import ../theme.nix;
-in {
+in
+{
   programs.alacritty.enable = true;
 
   home.file = {
@@ -52,6 +53,6 @@ in {
       magenta = '#${bright.magenta}'
       cyan    = '#${bright.cyan}'
       white   = '#${bright.white}'
-'';
+    '';
   };
 }

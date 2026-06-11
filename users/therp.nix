@@ -1,9 +1,15 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   editorPkgs = inputs.editorPkgs.legacyPackages."${builtins.currentSystem}";
 
   odooParams = import ./therp/odoo-params.nix;
-  preCommitFlake = (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
+  preCommitFlake =
+    (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
 
   installPreCommit = pkgs.writers.writeBashBin "pc-install" ''
     set -e
@@ -21,7 +27,8 @@ let
     vmap ; :
     '; bash --norc"
   '';
-in {
+in
+{
   imports = [
     ./desktop.nix
     ./therp/odoo-ls.nix
@@ -120,18 +127,20 @@ in {
           "OLS01001" = "Disabled" # A bug appears to exist that gives this warning while nothing is wrong.
         }
 
-      '' + lib.strings.concatStrings (lib.lists.forEach (
-        lib.range odooParams.lspVersions.start odooParams.lspVersions.stop
-      ) (majorVersion: ''
-        [[config]]
-        name = "setup-${toString majorVersion}.0"
-        extends = "setup-base"
-        odoo_path = "/home/therp/wax/${toString majorVersion}.0/wax/repos/odoo/"
-        python_path = "/home/therp/wax/${toString majorVersion}.0/wax/venv/bin/python"
-        addons_paths = ["/home/therp/wax/${toString majorVersion}.0/wax/addons"]
-        diag_missing_imports = "${if majorVersion > 14 then "only_odoo" else "none"}"
+      ''
+      + lib.strings.concatStrings (
+        lib.lists.forEach (lib.range odooParams.lspVersions.start odooParams.lspVersions.stop)
+          (majorVersion: ''
+            [[config]]
+            name = "setup-${toString majorVersion}.0"
+            extends = "setup-base"
+            odoo_path = "/home/therp/wax/${toString majorVersion}.0/wax/repos/odoo/"
+            python_path = "/home/therp/wax/${toString majorVersion}.0/wax/venv/bin/python"
+            addons_paths = ["/home/therp/wax/${toString majorVersion}.0/wax/addons"]
+            diag_missing_imports = "${if majorVersion > 14 then "only_odoo" else "none"}"
 
-      ''));
+          '')
+      );
 
       ".ssh/myconfig".text = ''
         Host odoo-ocad-lab ocad-lab
@@ -149,12 +158,10 @@ in {
           builtins = ["env"]
         '';
       };
-    # Create a Wax flake.nix template for each Odoo version
-    } // lib.attrsets.mergeAttrsList (lib.lists.forEach (
-      lib.range odooParams.lspVersions.start
-      odooParams.lspVersions.stop
-    ) (version: 
-      {
+      # Create a Wax flake.nix template for each Odoo version
+    }
+    // lib.attrsets.mergeAttrsList (
+      lib.lists.forEach (lib.range odooParams.lspVersions.start odooParams.lspVersions.stop) (version: {
         "wax/${toString version}.0/flake.nix.example".text = ''
           {
             inputs = {
@@ -241,20 +248,24 @@ in {
       })
     );
 
-    packages = with pkgs; [
-      claude-code
-    ] ++ (with editorPkgs; [
-      basedpyright
-      black
-      postgres-language-server
-      ruff
-      typescript-language-server
-      vscode-langservers-extracted
-    ]) ++ [
-      installPreCommit
-      preCommit
-      sst
-    ];
+    packages =
+      with pkgs;
+      [
+        claude-code
+      ]
+      ++ (with editorPkgs; [
+        basedpyright
+        black
+        postgres-language-server
+        ruff
+        typescript-language-server
+        vscode-langservers-extracted
+      ])
+      ++ [
+        installPreCommit
+        preCommit
+        sst
+      ];
   };
 
   programs = {
@@ -288,7 +299,9 @@ in {
     };
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "claude-code"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "claude-code"
+    ];
 }

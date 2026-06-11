@@ -85,12 +85,18 @@
               {
                 template = "https://search.nixos.org/packages";
                 params = [
-                  { name = "channel"; value = "unstable"; }
-                  { name = "query";   value = "{searchTerms}"; }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
                 ];
               }
             ];
-            icon           = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@np" ];
           };
 
@@ -99,12 +105,18 @@
               {
                 template = "https://search.nixos.org/options";
                 params = [
-                  { name = "channel"; value = "unstable"; }
-                  { name = "query";   value = "{searchTerms}"; }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
                 ];
               }
             ];
-            icon           = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@no" ];
           };
 
@@ -113,11 +125,14 @@
               {
                 template = "https://wiki.nixos.org/w/index.php";
                 params = [
-                  { name = "search"; value = "{searchTerms}"; }
+                  {
+                    name = "search";
+                    value = "{searchTerms}";
+                  }
                 ];
               }
             ];
-            icon           = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@nw" ];
           };
 
@@ -126,7 +141,10 @@
               {
                 template = "https://search.rhscz.eu/search";
                 params = [
-                  { name = "q"; value = "{searchTerms}"; }
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
                 ];
               }
             ];
@@ -143,4 +161,3 @@
     };
   };
 }
-

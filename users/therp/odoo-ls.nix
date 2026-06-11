@@ -46,6 +46,7 @@ let
 
     sourceRoot = "${src.name}/server";
   };
-in {
+in
+{
   home.packages = [ odooLs ];
 }

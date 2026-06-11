@@ -7,7 +7,11 @@ rec {
       maxAge = "157680000"; # About 5 years
     };
   };
-  devices = [ "main-laptop" "desktop" "nas" ];
+  devices = [
+    "main-laptop"
+    "desktop"
+    "nas"
+  ];
   defaultFolder = {
     devices = devices;
     ignorePerms = false;

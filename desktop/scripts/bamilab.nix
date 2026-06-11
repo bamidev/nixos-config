@@ -25,6 +25,11 @@ let
     ${pkgs.openssh}/bin/scp /tmp/gpg-secret-keys.pem bamilab@$1:/tmp/gpg-secret-keys.pem
     ${pkgs.openssh}/bin/ssh bamilab@$1 gpg --import /tmp/gpg-secret-keys.pem
   '';
-in {
-  users.users.bamilab.packages = [ install-protonvpn install-ssh-keys transfer-pgp-keys ];
+in
+{
+  users.users.bamilab.packages = [
+    install-protonvpn
+    install-ssh-keys
+    transfer-pgp-keys
+  ];
 }

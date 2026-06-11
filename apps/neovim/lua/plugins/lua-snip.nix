@@ -11,7 +11,7 @@
   		vim.keymap.set({"i"}, "<S-tab>", function() ls.expand() end, {silent = true})
   		vim.keymap.set({"i", "s"}, "<A-tab>", function() ls.jump(1) end, {silent = true})
   		vim.keymap.set({"i", "s"}, "<C-tab>", function() ls.jump(-1) end, {silent = true})
-  
+
   		vim.keymap.set({"i", "s"}, "<C-e>", function()
   			if ls.choice_active() then
   				ls.change_choice(1)

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   zfsCompatibleKernelPackages = lib.filterAttrs (
     name: kernelPackages:
@@ -11,8 +16,16 @@ let
       builtins.attrValues zfsCompatibleKernelPackages
     )
   );
-in {
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+in
+{
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelPackages = latestKernelWithZfsSupport;
   boot.kernelModules = [ "kvm-amd" ];
@@ -25,26 +38,29 @@ in {
     efiSupport = true;
   };
 
-  fileSystems."/" =
-    { device = "ssd/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "ssd/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "hdd/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "hdd/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/var" =
-    { device = "hdd/var";
-      fsType = "zfs";
-    };
+  fileSystems."/var" = {
+    device = "hdd/var";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/70E6-1439";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/70E6-1439";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
 
   swapDevices = [ ];
 
