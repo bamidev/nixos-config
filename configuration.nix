@@ -181,11 +181,4 @@ in
   };
 
   security.polkit.enable = true;
-
-  # Initialize the extra-config repo, so that I can manage configuration of some apps outside of Nix.
-  system.activationScripts.extraConfigRepo.text = ''
-    if [ ! -e /etc/xdg/extra-config ]; then
-      ${lib.getExe pkgs.git} clone https://github.com/bamidev/extra-config /etc/xdg/extra-config
-    fi
-  '';
 }
