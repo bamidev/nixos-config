@@ -1,5 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 let
+  editorPkgs = inputs.editorPkgs.legacyPackages."${builtins.currentSystem}";
+
   odooParams = import ./therp/odoo-params.nix;
   preCommitFlake = (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
 
@@ -240,9 +242,15 @@ in {
     );
 
     packages = with pkgs; [
-      black
       claude-code
-    ] ++ [
+    ] ++ (with editorPkgs; [
+      basedpyright
+      black
+      postgres-language-server
+      ruff
+      typescript-language-server
+      vscode-langservers-extracted
+    ]) ++ [
       installPreCommit
       preCommit
       sst
