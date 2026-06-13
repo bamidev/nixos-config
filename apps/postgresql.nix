@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.postgresql = {
-    enable = true;
+    enable = false;
     package = pkgs.postgresql_17;
 
     authentication = pkgs.lib.mkOverride 10 ''

@@ -7,7 +7,6 @@
   inputs,
   lib,
   params,
-  pkgs,
   ...
 }:
 

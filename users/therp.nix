@@ -173,7 +173,7 @@ in
                 system = "${builtins.currentSystem}";
                 config =  {
                   odooVersion = "${toString version}.0";
-                  databaseName = "odoo${toString version}";
+                  database.allow_containerization = true;
 
                   repos.spec = {
                     odoo = {};
@@ -266,6 +266,10 @@ in
         preCommit
         sst
       ];
+
+    sessionVariables = {
+      WAX_CONTAINERIZED_DB = "1";
+    };
   };
 
   programs = {
