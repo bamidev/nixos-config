@@ -6,12 +6,9 @@
 
   home.stateVersion = "24.11";
 
-
   home.activation.updateExtraConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    export GIT_SSH="${pkgs.openssh}/bin/ssh"
-    if [ ! -e /etc/xdg/extra-config ]; then
-      ${lib.getExe pkgs.git} clone https://github.com/bamidev/extra-config /etc/xdg/extra-config
-    else
+    if [ -e /etc/xdg/extra-config ]; then
+      export GIT_SSH="${pkgs.openssh}/bin/ssh"
       ${lib.getExe pkgs.git} -C /etc/xdg/extra-config pull
     fi
   '';

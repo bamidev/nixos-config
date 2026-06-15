@@ -7,6 +7,7 @@
   inputs,
   lib,
   params,
+  pkgs,
   ...
 }:
 
@@ -102,6 +103,17 @@ in
       53
       67
     ];
+  };
+
+  system.activationScripts.initExtraConfig = {
+    deps = [ ];
+    text = ''
+      if [ ! -e /etc/xdg/extra-config ]; then
+        export GIT_SSH="${pkgs.openssh}/bin/ssh"
+        ${lib.getExe pkgs.git} clone https://github.com/bamidev/extra-config /etc/xdg/extra-config
+        chown -R bamilab:users /etc/xdg/extra-config
+      fi
+    '';
   };
 
   # Set your time zone.
