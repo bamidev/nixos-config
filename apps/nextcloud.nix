@@ -11,7 +11,7 @@
     enable = true;
     package = pkgs.nextcloud33;
     hostName = "0.0.0.0";
-    config.adminpassFile = "/root/nextcloud/root.txt";
+    config.adminpassFile = "/root/.password/nextcloud/admin";
     config.dbtype = "sqlite";
 
     extraApps = {
@@ -31,4 +31,6 @@
 
     ${lib.getExe config.services.nextcloud.occ} dav:create-calendar -n bamilab bamilab || true
   '';
+
+  systemd.tmpfiles.rules = [ "f /root/.password/nextcloud/admin 600 root root -" ];
 }
