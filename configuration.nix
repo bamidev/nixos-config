@@ -76,6 +76,8 @@ in
   hardware.enableAllFirmware = lib.mkDefault false;
   hardware.enableRedistributableFirmware = lib.mkDefault false;
 
+  i18n.defaultLocale = "en_US.UTF-8";
+
   nix = {
     extraOptions = ''
       keep-outputs = true
