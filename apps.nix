@@ -19,11 +19,18 @@
 
   environment.systemPackages = with pkgs; [
     bc
-    killall
+    gnused
+    jq
+    lsof
     nix-index
+    nixfmt
     openssh
     pass
+    psmisc
+    rsync
     screen
+    socat
+    sysstat
     w3m
     wget
   ];
