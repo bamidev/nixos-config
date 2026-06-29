@@ -61,4 +61,6 @@
       randomEncryption.enable = true;
     }
   ];
+
+  services.upower.criticalPowerAction = "Hibernate";
 }
