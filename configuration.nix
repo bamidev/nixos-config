@@ -34,13 +34,14 @@ in
     # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
     # supported by my VPN.
     kernelParams = [
-      "console=tty12"
+      #"console=tty12"
       "ipv6.disable=1"
     ];
 
     loader = {
       grub = {
         enable = true;
+        memtest86.enable = true;
       }
       // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
         splashImage = /home/bamilab/Pictures/grub.png;
