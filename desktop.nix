@@ -194,12 +194,18 @@
       enable = true;
       defaultApplications = {
         "text/html" = "librewolf.desktop";
-        "text/plain" = "neovim.desktop";
+        "text/*" = "neovim.desktop";
 
-        "video/mp4" = "totem.desktop";
-        "video/x-matroska" = "totem.desktop";
+        "video/*" = [
+          "totem.desktop"
+          "librewolf.desktop"
+        ];
 
-        "image/jpeg" = "loupe.desktop";
+        "image/*" = [
+          "org.gnome.Loupe.desktop"
+          "gimp.desktop"
+          "librewolf.desktop"
+        ];
 
         "x-scheme-handler/http" = "librewolf.desktop";
         "x-scheme-handler/https" = "librewolf.desktop";
