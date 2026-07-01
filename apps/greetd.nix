@@ -8,7 +8,7 @@
       };
     };
 
-    #useTextGreeter = true;
+    useTextGreeter = true;
   };
 
   environment.etc."greetd/environments".text = ''
