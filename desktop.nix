@@ -193,6 +193,8 @@
     mime = {
       enable = true;
       defaultApplications = {
+        "application/pdf" = "librewolf.desktop";
+
         "text/html" = "librewolf.desktop";
         "text/*" = "neovim.desktop";
 
