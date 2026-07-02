@@ -53,10 +53,10 @@ in
           ]
         ))
       ]
-    ))
-    ++ [
-      newPkgs.docker-language-server
-    ];
+      ++ [
+        newPkgs.docker-language-server
+      ]
+    ));
 
   environment.etc."pylintrc".source = ./etc/pylintrc;
 
