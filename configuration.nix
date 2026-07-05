@@ -138,6 +138,10 @@ in
           "video"
           "wheel" # Enable ‘sudo’ for the user.
         ];
+
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO4gv0OF52jorRoiylqIcsgZRtYp1aRmR9FQD7AwTt6Q bamidev@pm.me"
+        ];
       };
       therp = {
         description = "Work";
