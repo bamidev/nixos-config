@@ -22,8 +22,8 @@ in
   ++ lib.optionals (params.environmentType == "desktop") [
     ./desktop.nix
   ]
-  ++ lib.optionals (params.environmentType == "nas") [
-    ./nas.nix
+  ++ lib.optionals (params.environmentType == "lab") [
+    ./lab.nix
   ];
 
   system.stateVersion = "24.11";
