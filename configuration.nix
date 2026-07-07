@@ -33,8 +33,7 @@ in
 
     # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
     # supported by my VPN.
-    kernelParams = [
-      #"console=tty12"
+    kernelParams = lib.optionals (params.environmentType == "desktop") [
       "ipv6.disable=1"
     ];
 
@@ -98,7 +97,6 @@ in
   };
 
   networking = {
-    enableIPv6 = false;
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
     resolvconf = {
       enable = true;
