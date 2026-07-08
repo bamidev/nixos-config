@@ -15,7 +15,6 @@ if params.environmentType == "desktop" then
       ../apps/hyprland.nix
       ../apps/librewolf.nix
       ../apps/neovim/desktop.nix
-      ../apps/servo.nix
       ../apps/sway/home.nix
       ../apps/todo-txt.nix
       ../apps/wofi.nix
