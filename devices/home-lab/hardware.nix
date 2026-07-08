@@ -1,15 +1,22 @@
 { lib, pkgs, ... }:
 {
   boot = {
-    extraModulePackages = [];
+    extraModulePackages = [ ];
 
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "uas" "usb_storage" "sd_mod" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "ehci_pci"
+        "uas"
+        "usb_storage"
+        "sd_mod"
+      ];
       kernelModules = [ "kvm-amd" ];
       systemd.enable = false;
     };
 
-    kernelModules = [ "kvm-amd" ];  
+    kernelModules = [ "kvm-amd" ];
 
     loader.grub = {
       enable = true;
@@ -27,7 +34,10 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/E9C8-4216";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
   };
 
@@ -62,7 +72,7 @@
       randomEncryption.enable = true;
     }
   ];
- 
+
   # Make sure that when the laptop lid is closed, the system keeps running
   systemd.sleep.settings.Sleep = {
     AllowSuspend = "no";
