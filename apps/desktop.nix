@@ -16,6 +16,7 @@ in
     ./postgresql.nix
     ./protonvpn.nix
     ./sway/system.nix
+    ./syncthing/system.nix
     stonenet
   ]
   ++ lib.optionals params.enableGames [
