@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   boot = {
     extraModulePackages = [];
@@ -36,6 +36,19 @@
     enableRedistributableFirmware = lib.mkForce true;
   };
 
+  # Disable WiFi radiation during sleeptime
+  services = {
+    cron = {
+      enable = true;
+      systemCronJobs = [
+        "0 22 * * * root ${pkgs.util-linux}/bin/rfkill block wifi"
+        "0 9 * * * root ${pkgs.util-linux}/bin/rfkill unblock wifi"
+      ];
+    };
+
+    logind.lidSwitch = "ignore";
+  };
+
   networking = {
     hostId = "b00d1234";
     networkmanager.enable = true;
@@ -49,4 +62,12 @@
       randomEncryption.enable = true;
     }
   ];
+ 
+  # Make sure that when the laptop lid is closed, the system keeps running
+  systemd.sleep.settings.Sleep = {
+    AllowSuspend = "no";
+    AllowHibernation = "no";
+    AllowHybridSleep = "no";
+    AllowSuspendThenHibernate = "no";
+  };
 }

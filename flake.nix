@@ -33,7 +33,9 @@
           modules = [
             ./configuration.nix
             "/etc/nixos/devices/${name}/hardware.nix"
-          ];
+          ] ++ (lib.optionals (builtins.pathExists "/etc/nxs/devices/${name}/configuration.nix") [
+            "/etc/nxs/devices/${name}/configuration.nix"
+          ]);
         }
       ) (builtins.readDir /etc/nixos/devices);
 

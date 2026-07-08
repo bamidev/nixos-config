@@ -13,8 +13,8 @@
   ++ lib.optionals (params.environmentType == "desktop") [
     ./apps/desktop.nix
   ]
-  ++ lib.optionals (params.environmentType == "nas") [
-    ./apps/nas.nix
+  ++ lib.optionals (params.environmentType == "lab") [
+    ./apps/lab.nix
   ];
 
   environment.systemPackages = with pkgs; [
