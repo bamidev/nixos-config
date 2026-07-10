@@ -1,4 +1,0 @@
-{
-  # The name of the device as found in the `device` directory
-  name = "work-laptop";
-}
