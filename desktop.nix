@@ -1,17 +1,79 @@
-{ pkgs, ... }: {
+{ inputs, lib, params, pkgs, ... }: {
   imports = [
     ./apps/desktop.nix
     ./desktop/scripts.nix
   ];
+
+
+    # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
+    # supported by my VPN.
+  boot = {
+    loader = {
+      grub = {
+        enable = true;
+        memtest86.enable = true;
+      }
+      // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
+        splashImage = /home/bamilab/Pictures/grub.png;
+        splashMode = "stretch";
+      };
+      timeout = 2;
+    };
+
+    kernelParams = [
+      "ipv6.disable=1"
+    ];
+  };
 
   fonts.packages = with pkgs; [
     nerd-fonts._0xproto
   ];
 
   hardware.graphics.enable = true;
+  
+  home-manager = {
+    backupFileExtension = "backup";
+    extraSpecialArgs = {
+      inherit inputs;
+      inherit params;
+    };
 
-  # Disable IPv6 because it does not go through the VPN
-  networking.enableIPv6 = false;
+    # Use the `imports` feature because now the imports list of users/defaults.nix is being
+    # overriden by the other files.
+    users = {
+      root =
+        { pkgs, lib, ... }:
+        import ./users/root.nix {
+          pkgs = pkgs;
+          lib = lib;
+        };
+      bamilab =
+        { pkgs, lib, ... }:
+        import ./users/bamilab.nix {
+          pkgs = pkgs;
+          lib = lib;
+          inputs = inputs;
+        };
+      therp =
+        { pkgs, lib, ... }:
+        import ./users/therp.nix {
+          pkgs = pkgs;
+          lib = lib;
+          inputs = inputs;
+        };
+    };
+  };
+
+
+  networking = {
+    # Disable IPv6 because it does not go through the VPN
+    enableIPv6 = false;
+
+    firewall.allowedUDPPorts = [
+      53
+      67
+    ];
+  };
 
   services = {
     gnome.gnome-keyring.enable = true;
@@ -181,6 +243,18 @@
   };
 
   services.gvfs.enable = true;
+
+  users.users.therp = {
+    description = "Work";
+    home = "/home/therp";
+    isNormalUser = true;
+    extraGroups = [
+      "audio"
+      "docker"
+      "video"
+      "wheel"
+    ];
+  };
 
   virtualisation.docker = {
     enable = true;

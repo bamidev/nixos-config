@@ -6,15 +6,8 @@
 }:
 {
   imports = [
-    ./apps/git.nix
-    ./apps/neovim/system.nix
-    ./apps/syncthing/system.nix
-  ]
-  ++ lib.optionals (params.environmentType == "desktop") [
-    ./apps/desktop.nix
-  ]
-  ++ lib.optionals (params.environmentType == "lab") [
-    ./apps/lab.nix
+    ./git.nix
+    ./neovim/system.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -35,14 +28,13 @@
     wget
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
   programs = {
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
     };
+
+    mtr.enable = true;
 
     zoxide = {
       enable = true;

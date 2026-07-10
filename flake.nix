@@ -31,12 +31,10 @@
             hostName = name;
           };
           modules = [
-            ./configuration.nix
+            ./base.nix
             "/etc/nixos/devices/${name}/hardware.nix"
-          ]
-          ++ (lib.optionals (builtins.pathExists "/etc/nxs/devices/${name}/configuration.nix") [
-            "/etc/nxs/devices/${name}/configuration.nix"
-          ]);
+            "/etc/nixos/devices/${name}/configuration.nix"
+          ];
         }
       ) (builtins.readDir /etc/nixos/devices);
 
@@ -49,7 +47,7 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = [ pkgs.nixfmt ];
+          packages = [ pkgs.nixfmt-tree ];
         };
       }
     );
