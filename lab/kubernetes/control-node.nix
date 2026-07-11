@@ -18,9 +18,11 @@ in
       vrrpInstances.my_vrrp = {
         interface = "eth0";
         priority = 1; # FIXME: Put the priority from config.nix here
-        virtualIps = [{
-          addr = "${config.homelab.sharedControlIp}/24";
-        }];
+        virtualIps = [
+          {
+            addr = "${config.homelab.sharedControlIp}/24";
+          }
+        ];
         virtualRouterId = 77;
       };
     };

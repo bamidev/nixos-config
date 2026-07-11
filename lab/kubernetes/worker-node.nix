@@ -9,11 +9,15 @@
     kubelet.enable = true;
     proxy.enable = true;
   };
-  
+
   # Mount the NAS to just /mnt
   fileSystems."/mnt" = {
     device = "${config.homelab.nas.ip}:/var/nas";
     fsType = "nfs4";
-    options = [ "x-systemd.automount" "noatime" "rw" ];
+    options = [
+      "x-systemd.automount"
+      "noatime"
+      "rw"
+    ];
   };
 }
