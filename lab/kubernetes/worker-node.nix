@@ -6,8 +6,7 @@
 
   # Kubernetes with kubelet and the proxy.
   services.kubernetes = {
-    kubelet.enable = true;
-    proxy.enable = true;
+    roles = [ "node" ];
   };
 
   # Mount the NAS to just /mnt

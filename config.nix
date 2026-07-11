@@ -5,7 +5,7 @@
     homelab = {
       sharedControlIp = lib.mkOption {
         type = lib.types.str;
-        default = "192.168.1.77";
+        default = "192.168.0.77";
       };
 
       controlNode = {

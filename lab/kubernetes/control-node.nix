@@ -30,11 +30,7 @@ in
     # Kubernetes with an apiserver, controler-manager & scheduler.
     kubernetes = {
       roles = [ "master" ];
-      masterAddress = config.homelab.sharedControlIp;
-
-      apiserver.enable = true;
-      controllerManager.enable = true;
-      scheduler.enable = true;
+      masterAddress = "192.168.0.254";
     };
   };
 
