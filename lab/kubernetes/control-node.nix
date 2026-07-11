@@ -1,11 +1,19 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   kubesPort = 6443;
+
+  createCaCertScript = pkgs.writers.writeBashBin "" (with pkgs; ''
+    ${openssl}/bin/openssl ecparam -name secp384r1 -out /root/certs/ecparams.pem
+    ${openssl}/bin/openssl req -x509 -new -nodes -newkey ec:/root/certs/ecparams.pem -days 3650 -out /root/certs/ca.pem -keyout /root/certs/ca-key.pem -subj "/CN=homelab-ca"
+  '');
 in
 {
   imports = [
     ./base.nix
   ];
+
+  # Add a script on the control nodes to ease the creation of the CA certificate.
+  environment.systemPackages = [ createCaCertScript ];
 
   networking.firewall.allowedTCPPorts = [ kubesPort ];
 
@@ -30,7 +38,9 @@ in
     # Kubernetes with an apiserver, controler-manager & scheduler.
     kubernetes = {
       roles = [ "master" ];
+      # Don't use the floating ip adress for the moment
       masterAddress = "192.168.0.254";
+      easyCerts = false;
     };
   };
 
