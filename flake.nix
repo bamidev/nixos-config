@@ -44,10 +44,21 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages."${system}";
+        testImageScript = pkgs.writers.writeBashBin "test-image" ''
+          set -ex
+          nix build .#$1
+          docker container rm $1 || true
+          docker image rm $1 || true
+          docker tag $(docker load -i ./result --quiet | cut -d ' ' -f 3) $1
+          docker run -i -t $1
+        '';
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = [ pkgs.nixfmt-tree ];
+          packages = [
+            pkgs.nixfmt-tree
+            testImageScript
+          ];
         };
 
         packages = import lab/pods.nix { pkgs = pkgs; };
