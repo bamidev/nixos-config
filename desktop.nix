@@ -1,12 +1,18 @@
-{ inputs, lib, params, pkgs, ... }: {
+{
+  inputs,
+  lib,
+  params,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ./apps/desktop.nix
     ./desktop/scripts.nix
   ];
 
-
-    # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
-    # supported by my VPN.
+  # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
+  # supported by my VPN.
   boot = {
     loader = {
       grub = {
@@ -30,7 +36,7 @@
   ];
 
   hardware.graphics.enable = true;
-  
+
   home-manager = {
     backupFileExtension = "backup";
     extraSpecialArgs = {
@@ -63,7 +69,6 @@
         };
     };
   };
-
 
   networking = {
     # Disable IPv6 because it does not go through the VPN

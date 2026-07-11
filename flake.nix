@@ -49,6 +49,8 @@
         devShells.default = pkgs.mkShell {
           packages = [ pkgs.nixfmt-tree ];
         };
+
+        packages = import lab/pods.nix { pkgs = pkgs; };
       }
     );
 }

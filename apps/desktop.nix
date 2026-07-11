@@ -7,7 +7,7 @@
 }:
 let
   stonenet =
-      (builtins.getFlake "github:bamidev/stonenet/main").nixosModules.${builtins.currentSystem}.default;
+    (builtins.getFlake "github:bamidev/stonenet/main").nixosModules.${builtins.currentSystem}.default;
 in
 {
   imports = [
@@ -47,6 +47,5 @@ in
         bucket_size = 6;
       };
     };
-
   };
 }

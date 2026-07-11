@@ -12,6 +12,7 @@ let
 in
 {
   imports = [
+    ./config.nix
     inputs.homeManager.nixosModules.default
     ./apps/base.nix
   ];
@@ -57,7 +58,7 @@ in
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 90d";
+      options = "--delete-older-than 30d";
     };
 
     settings.experimental-features = [
@@ -108,7 +109,6 @@ in
       };
     };
   };
-
 
   # An unaccessible dir for storing plain passwords for when there is no other way to keep things
   # declarative.
