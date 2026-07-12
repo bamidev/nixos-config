@@ -16,8 +16,8 @@ let
   createCertScript = pkgs.writers.writeBashBin "create-cert" (
     with pkgs;
     ''
-      ${openssl}/bin/openssl req -new -nodes -newkey ec:/root/certs/ecparam.pem -days 3650 -out /root/certs/$1.csr -keyout /root/certs/$1-key.pem -subj "/CN=kube-$1/O=$2"
-      ${openssl}/bin/openssl x509 -req -CA /root/certs/ca.pem -CAkey /root/certs/ca-key.pem -CAcreateserial -out /root/certs/$1.pem -extensions v3_ext
+      ${openssl}/bin/openssl req -new -nodes -newkey ec:/var/lib/kubernetes/secrets/ecparam.pem -days 3650 -out /var/lib/kubernetes/secrets/$1.csr -keyout /var/lib/kubernetes/secrets/$1.pem -subj "/CN=kube-$1/O=$2"
+      ${openssl}/bin/openssl x509 -req -CA /var/lib/kubernetes/secrets/ca.pem -CAkey /var/lib/kubernetes/secrets/ca-key.pem -CAcreateserial -out /var/lib/kubernetes/$1.pem -extensions v3_ext
     ''
   );
 in
@@ -66,6 +66,8 @@ in
   system.activationScripts.controlNodeCerts = {
     deps = [ "ecParam" ];
     text = ''
+      ${pkgs.openssl}/bin/openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out /var/lib/kubernetes/secrets/apiserver.secret
+
       ${createCertScript}/bin/create-cert apiserver
     '';
   };
