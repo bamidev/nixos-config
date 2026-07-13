@@ -1,74 +1,125 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  kubesPort = 6443;
-
-  createCaCertScript = pkgs.writers.writeBashBin "create-ca-cert" (
-    with pkgs;
-    ''
-      if [ ! -f /root/certs/ca.pem ]; then
-        ${openssl}/bin/openssl req -x509 -new -nodes -newkey ec:/root/certs/ecparams.pem -days 3650 -out /root/certs/ca.pem -keyout /root/certs/ca-key.pem -subj "/CN=homelab-ca"
-      else
-        echo CA certificate /root/certs/ca.pem already exists!
-      fi
-    ''
-  );
-
-  createCertScript = pkgs.writers.writeBashBin "create-cert" (
-    with pkgs;
-    ''
-      ${openssl}/bin/openssl req -new -nodes -newkey ec:/var/lib/kubernetes/secrets/ecparam.pem -days 3650 -out /var/lib/kubernetes/secrets/$1.csr -keyout /var/lib/kubernetes/secrets/$1.pem -subj "/CN=kube-$1/O=$2"
-      ${openssl}/bin/openssl x509 -req -CA /var/lib/kubernetes/secrets/ca.pem -CAkey /var/lib/kubernetes/secrets/ca-key.pem -CAcreateserial -out /var/lib/kubernetes/$1.pem -extensions v3_ext
-    ''
-  );
+  ports = {
+    apiServer = 6443;
+    etcd = {
+      clientUrls = 2379;
+      peerUrls = 2380;
+    };
+  };
+  secretsPath = config.services.kubernetes.secretsPath;
 in
 {
   imports = [
     ./base.nix
   ];
 
-  # Add a script on the control nodes to ease the creation of the CA certificate.
-  environment.systemPackages = [
-    createCaCertScript
-    createCertScript
-  ];
+  options.homelab.mainNetworkInterface = lib.mkOption {
+    type = lib.types.str;
+    default = "eth0";
+  };
 
-  networking.firewall.allowedTCPPorts = [ kubesPort ];
+  config = {
+    networking.firewall.allowedTCPPorts = with ports; [
+      apiServer
+      etcd.clientUrls
+      etcd.peerUrls
+    ];
 
-  services = {
-    # Keepalived for 'sharing' an IP address between the 3 'control nodes'.
-    keepalived = {
-      enable = true;
-      openFirewall = true;
+    services = rec {
+      # Keepalived for 'sharing' an IP address between the 3 'control nodes'.
+      keepalived = {
+        enable = true;
+        openFirewall = true;
 
-      vrrpInstances.my_vrrp = {
-        interface = "eth0";
-        priority = 1; # FIXME: Put the priority from config.nix here
-        virtualIps = [
-          {
-            addr = "${config.homelab.sharedControlIp}/24";
-          }
-        ];
-        virtualRouterId = 77;
+        vrrpInstances.my_vrrp = {
+          interface = config.homelab.mainNetworkInterface;
+          priority = config.homelab.controlNodeId;
+          virtualIps = [
+            {
+              addr = "${config.homelab.sharedControlIp}/24";
+            }
+          ];
+          virtualRouterId = 77;
+        };
+      };
+
+      # Not sure why, but the service.apiserver.etcd config does not set the certificates appropriately.
+      etcd = {
+        peerCertFile = kubernetes.apiserver.etcd.certFile;
+        peerKeyFile = kubernetes.apiserver.etcd.keyFile;
+        peerTrustedCaFile = kubernetes.apiserver.etcd.caFile;
+        certFile = kubernetes.apiserver.etcd.certFile;
+        keyFile = kubernetes.apiserver.etcd.keyFile;
+        trustedCaFile = kubernetes.apiserver.etcd.caFile;
+        peerClientCertAuth = true;
+      };
+
+      # Kubernetes with an apiserver, controler-manager & scheduler.
+      kubernetes = {
+        roles = [ "master" ];
+        # Don't use the floating ip adress for the moment
+        masterAddress = config.homelab.controlNode.one.ip;
+        easyCerts = false;
+
+        apiserver = {
+          enable = true;
+
+          clientCaFile = "${secretsPath}/ca.pem";
+          tlsCertFile = "${secretsPath}/apiserver.pem";
+          tlsKeyFile = "${secretsPath}/apiserver-key.pem";
+
+          etcd = {
+            caFile = "${secretsPath}/ca.pem";
+            certFile = "${secretsPath}/etcd.pem";
+            keyFile = "${secretsPath}/etcd-key.pem";
+
+            servers = [
+              "https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.clientUrls}"
+              #"https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
+              #"https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.clientUrls}"
+            ];
+          };
+
+          serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
+          serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-signing-privkey.pem";
+        };
+
+        controllerManager = {
+          enable = true;
+
+          rootCaFile = "${secretsPath}/ca.pem";
+          tlsCertFile = "${secretsPath}/controller-manager.pem";
+          tlsKeyFile = "${secretsPath}/controller-manager-key.pem";
+        };
+
+        proxy = {
+          enable = true;
+
+          kubeconfig = {
+            caFile = "${secretsPath}/ca.pem";
+            certFile = "${secretsPath}/scheduler.pem";
+            keyFile = "${secretsPath}/scheduler-key.pem";
+          };
+        };
+
+        scheduler = {
+          enable = true;
+
+          kubeconfig = {
+            caFile = "${secretsPath}/ca.pem";
+            certFile = "${secretsPath}/scheduler.pem";
+            keyFile = "${secretsPath}/scheduler-key.pem";
+          };
+        };
       };
     };
 
-    # Kubernetes with an apiserver, controler-manager & scheduler.
-    kubernetes = {
-      roles = [ "master" ];
-      # Don't use the floating ip adress for the moment
-      masterAddress = "192.168.0.254";
-      easyCerts = false;
-    };
-  };
-
-  swapDevices = [ ];
-
-  system.activationScripts.controlNodeCerts = {
-    deps = [ "ecParam" ];
-    text = ''
-      ${pkgs.openssl}/bin/openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out /var/lib/kubernetes/secrets/apiserver.secret
-
-      ${createCertScript}/bin/create-cert apiserver
-    '';
+    swapDevices = [ ];
   };
 }
