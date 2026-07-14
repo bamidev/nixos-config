@@ -62,5 +62,13 @@
         };
       };
     };
+
+    myvpn = {
+      currentDeviceId = lib.mkOption {
+        type = lib.types.int;
+        default = 1;
+        description = "The last part of the IPv4 address for the device in the VPN.";
+      };
+    };
   };
 }

@@ -6,8 +6,12 @@
     ../../lab/kubernetes/worker-node.nix
   ];
 
-  config.homelab = {
-    controlNodeId = 1;
-    mainNetworkInterface = "wlp2s0";
+  config = {
+    myvpn.currentDeviceId = 100;
+
+    homelab = {
+      controlNodeId = 1;
+      mainNetworkInterface = "wlp2s0";
+    };
   };
 }
