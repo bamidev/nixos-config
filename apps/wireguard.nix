@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
   port = 51820;
-in {
+in
+{
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 
   networking = {
