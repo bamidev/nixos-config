@@ -116,6 +116,17 @@ if params.environmentType == "desktop" then
         };
       };
 
+      ssh = {
+        enable = true;
+        settings = {
+          home-lab-tunnel = {
+            HostName = "10.0.0.1";
+            ForwardAgent = "yes";
+            ProxyJump = "10.0.0.100";
+          };
+        };
+      };
+
       thunderbird = {
         enable = true;
 
