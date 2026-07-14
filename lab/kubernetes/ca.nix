@@ -20,7 +20,6 @@ let
       }
     }
   '';
-
   caCsr = pkgs.writers.writeText "ca-csr.json" ''
     {
       "CN": "Kubernetes Root CA",
@@ -94,13 +93,21 @@ let
       with pkgs;
       ''
         set -ex
+
+        if [ -z "$1" ]; then
+          echo Hostname argument is missing.
+        fi
+        if [ -z "$2" ]; then
+          echo IP address argument is missing.
+        fi
+
         trap kubes-unload-ca-cert EXIT
         kubes-load-ca-cert
 
-        ${openssl}/bin/openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out ./apiserver-account-privkey.pem
-        ${openssl}/bin/openssl pkey -in ./apiserver-account-privkey.pem -out ./apiserver-account-pubkey.pem
-        ${openssl}/bin/openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out ./apiserver-account-signing-privkey.pem
-        ${openssl}/bin/openssl pkey -in ./apiserver-account-signing-privkey.pem -out ./apiserver-account-signing-pubkey.pem
+        ${openssl}/bin/openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ./apiserver-account-privkey.pem
+        ${openssl}/bin/openssl pkey -in ./apiserver-account-privkey.pem -pubout -out ./apiserver-account-pubkey.pem
+        ${openssl}/bin/openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ./apiserver-account-signing-privkey.pem
+        ${openssl}/bin/openssl pkey -in ./apiserver-account-signing-privkey.pem -pubout -out ./apiserver-account-signing-pubkey.pem
         kubes-gen-cert $1 $2 admin ${certCsr "admin" "system:masters"}
         kubes-gen-cert $1 $2 apiserver ${componentCsr "apiserver"}
         kubes-gen-cert $1 $2 controller-manager ${componentCsr "controller-manager"}
