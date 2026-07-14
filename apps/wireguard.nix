@@ -17,19 +17,19 @@ in
         # vps
         {
           publicKey = "1U1LwQYOeOT1HOGAtWSOfxPy6055tG8/xOb2wcnXskY=";
-          allowedIPs = [ "10.0.0.0/24" ];
+          allowedIPs = [ "10.0.0.100/32" ];
           endpoint = "2.59.21.91:${toString port}";
         }
         # old-laptop1
         {
           publicKey = "6GswTjhFuA9xggeiw/1mzHi/DCYGBNUKFi6zd6k19zQ=";
-          allowedIPs = [ "10.0.0.0/24" ];
+          allowedIPs = [ "10.0.0.1/32" ];
           persistentKeepalive = 25;
         }
         # work-laptop
         {
           publicKey = "zFi+hWmuEDThYzCZOC8p+u4h9ZuNIkReI81L1ycNHVI=";
-          allowedIPs = [ "10.0.0.0/24" ];
+          allowedIPs = [ "10.0.0.10/32" ];
           persistentKeepalive = 25;
         }
       ];
