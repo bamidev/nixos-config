@@ -14,7 +14,6 @@ in
 
     masterAddress = "192.168.0.254";
     clusterCidr = "172.0.0.0/16";
-    serviceClusterIpRange = "172.1.0.0/16";
 
     # Trying to fix flannel configuration:
     kubeconfig = {

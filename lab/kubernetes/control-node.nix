@@ -70,6 +70,8 @@ in
         apiserver = {
           enable = true;
 
+          serviceClusterIpRange = "172.1.0.0/16";
+
           clientCaFile = "${secretsPath}/ca.pem";
           tlsCertFile = "${secretsPath}/apiserver.pem";
           tlsKeyFile = "${secretsPath}/apiserver-key.pem";

@@ -70,6 +70,10 @@ in
     networkmanager.enable = lib.mkDefault true;
     resolvconf.enable = lib.mkDefault true;
     hostName = hostName;
+
+    extraHosts = ''
+      192.168.0.254 old-laptop1
+    '';
   };
 
   security.polkit.enable = true;
