@@ -6,5 +6,5 @@
     #../../lab/kubernetes/control-node.nix
   ];
 
-  config.myvpn.currentDeviceId = 1;
+  config.myvpn.currentDeviceId = 10;
 }

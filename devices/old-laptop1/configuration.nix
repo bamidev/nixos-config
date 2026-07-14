@@ -7,7 +7,7 @@
   ];
 
   config = {
-    myvpn.currentDeviceId = 100;
+    myvpn.currentDeviceId = 1;
 
     homelab = {
       controlNodeId = 1;
