@@ -20,7 +20,7 @@ in
     };
 
     script = with pkgs; ''
-      # Create the user if it do
+      # Create the user if it does not exist yet
       if ! ${headscale}/bin/headscale users list | grep -q "${username}"; then
         ${headscale}/bin/headscale users create "${username}"
       fi

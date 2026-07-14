@@ -6,6 +6,10 @@
 
   home.stateVersion = "24.11";
 
+  home.packages = with pkgs; [
+    kubectl
+  ];
+
   programs.git.settings = {
     user = {
       name = "Bamidev";

@@ -112,6 +112,7 @@ let
         kubes-gen-cert $1 $2 apiserver ${componentCsr "apiserver"}
         kubes-gen-cert $1 $2 controller-manager ${componentCsr "controller-manager"}
         kubes-gen-cert $1 $2 etcd ${componentCsr "etcd"}
+        kubes-gen-cert $1 $2 kubelet ${componentCsr "kubelet"}
         kubes-gen-cert $1 $2 proxy ${componentCsr "proxy"}
         kubes-gen-cert $1 $2 scheduler ${componentCsr "scheduler"}
       ''
@@ -141,6 +142,7 @@ let
         deploy-pair $1 apiserver
         deploy-pair $1 controller-manager
         deploy-pair $1 etcd
+        deploy-pair $1 kubelet
         deploy-pair $1 proxy
         deploy-pair $1 scheduler
       ''

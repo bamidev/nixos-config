@@ -63,13 +63,6 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-partuuid/2e5daa3d-08fb-4472-9abd-5bca3b05745c";
-      randomEncryption.enable = true;
-    }
-  ];
-
   # Make sure that when the laptop lid is closed, the system keeps running
   systemd.sleep.settings.Sleep = {
     AllowSuspend = "no";

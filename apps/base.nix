@@ -1,7 +1,7 @@
 {
-  params,
-  pkgs,
+  hostName,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -9,7 +9,9 @@
     ./git.nix
     ./neovim/system.nix
     ./wireguard.nix
-  ];
+  ] ++ (lib.optionals (hostName != "vps") [
+    #./tailscale.nix
+  ]);
 
   environment.systemPackages = with pkgs; [
     bc
