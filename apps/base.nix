@@ -8,7 +8,6 @@
   imports = [
     ./git.nix
     ./neovim/system.nix
-    ./wireguard.nix
   ];
 
   environment.systemPackages = with pkgs; [

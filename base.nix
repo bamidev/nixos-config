@@ -2,7 +2,6 @@
   hostName,
   inputs,
   lib,
-  params,
   pkgs,
   ...
 }:
@@ -68,8 +67,8 @@ in
   };
 
   networking = {
-    networkmanager.enable = true;
-    resolvconf.enable = true;
+    networkmanager.enable = lib.mkDefault true;
+    resolvconf.enable = lib.mkDefault true;
     hostName = hostName;
   };
 

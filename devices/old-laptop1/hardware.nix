@@ -59,10 +59,7 @@
     logind.lidSwitch = "ignore";
   };
 
-  networking = {
-    hostId = "b00d1234";
-    networkmanager.enable = true;
-  };
+  networking.hostId = "b00d1234";
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
