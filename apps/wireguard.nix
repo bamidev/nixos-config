@@ -14,11 +14,17 @@ in
       listenPort = port;
 
       peers = [
+        # vps
+        {
+          publicKey = "1U1LwQYOeOT1HOGAtWSOfxPy6055tG8/xOb2wcnXskY=";
+          allowedIPs = [ "10.0.0.0/24" ];
+          endpoint = "2.59.21.91:${toString port}";
+        }
         # old-laptop1
         {
           publicKey = "6GswTjhFuA9xggeiw/1mzHi/DCYGBNUKFi6zd6k19zQ=";
           allowedIPs = [ "10.0.0.0/24" ];
-          endpoint = "192.168.0.254:${toString port}";
+          persistentKeepalive = 25;
         }
         # work-laptop
         {
