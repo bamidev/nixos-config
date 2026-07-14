@@ -1,5 +1,7 @@
 { config, ... }:
-{
+let
+  secretsPath = config.services.kubernetes.secretsPath;
+in {
   imports = [
     ./base.nix
   ];
@@ -11,7 +13,11 @@
     kubelet = {
       enable = true;
 
-      kubeconfig = config.services.kubernetes.kubeconfig;
+      kubeconfig = {
+        caFile = "${secretsPath}/ca.pem";
+        certFile = "${secretsPath}/kubelet.pem";
+        keyFile = "${secretsPath}/kubelet-key.pem";
+      };
     };
   };
 

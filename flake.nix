@@ -64,7 +64,7 @@
         };
 
         # All container images are provided as the flake's packages
-        packages = import lab/pods.nix { pkgs = pkgs; };
+        packages = import lab/images.nix { pkgs = pkgs; };
       }
     );
 }

@@ -98,6 +98,11 @@ in
           rootCaFile = "${secretsPath}/ca.pem";
           tlsCertFile = "${secretsPath}/controller-manager.pem";
           tlsKeyFile = "${secretsPath}/controller-manager-key.pem";
+          kubeconfig = {
+            caFile = "${secretsPath}/ca.pem";
+            certFile = "${secretsPath}/controller-manager.pem";
+            keyFile = "${secretsPath}/controller-manager-key.pem";
+          };
         };
 
         proxy = {
