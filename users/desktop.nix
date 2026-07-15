@@ -1,4 +1,4 @@
-{ params, pkgs, ... }:
+{ nixosConfig, params, pkgs, ... }:
 let
   nixLocateCached = pkgs.writers.writeBashBin "nix-locate-cached" ''
     set -e
@@ -122,7 +122,12 @@ if params.environmentType == "desktop" then
           home-lab-tunnel = {
             HostName = "10.0.0.1";
             ForwardAgent = "yes";
-            ProxyJump = "10.0.0.100";
+            ProxyJump = nixosConfig.homelab.vps.ip;
+          };
+
+          vps = {
+            HostName = nixosConfig.homelab.vps.ip;
+            ForwardAgent = "yes";
           };
         };
       };

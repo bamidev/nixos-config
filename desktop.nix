@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   params,
@@ -42,6 +43,7 @@
     extraSpecialArgs = {
       inherit inputs;
       inherit params;
+      nixosConfig = config;
     };
 
     # Use the `imports` feature because now the imports list of users/defaults.nix is being

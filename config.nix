@@ -7,6 +7,10 @@
         type = lib.types.str;
         default = "192.168.0.254";
       };
+      vps.ip = lib.mkOption {
+        type = lib.types.str;
+        default = "2.59.21.91";
+      };
 
       sharedControlIp = lib.mkOption {
         type = lib.types.str;
