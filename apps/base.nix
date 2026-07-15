@@ -11,6 +11,8 @@
     ./wireguard.nix
   ] ++ (lib.optionals (hostName != "vps") [
     #./tailscale.nix
+  ]) ++ (lib.optionals (hostName == "vps") [
+    ./headscale.nix
   ]);
 
   environment.systemPackages = with pkgs; [

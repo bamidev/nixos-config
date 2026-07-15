@@ -6,9 +6,22 @@ in
 {
   services.headscale = {
     enable = true;
+
+    address = "2.59.21.91";
+
+    settings = {
+      dns = {
+        base_domain = "mesh.local";
+
+        nameservers.global = [
+          "9.9.9.9"
+          "149.112.112.112"
+        ];
+      };
+    };
   };
 
-  systemd.services.headscale-init = {
+  /*systemd.services.headscale-init = {
     description = "Create the headscale user and key";
 
     after = [ "headscale.service" ];
@@ -31,5 +44,5 @@ in
 
       chmod 600 "${secretsPath}"
     '';
-  };
+  };*/
 }
