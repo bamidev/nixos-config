@@ -13,6 +13,35 @@ let
     };
   };
   secretsPath = config.services.kubernetes.secretsPath;
+
+  kubeConfig = pkgs.writers.writeText "kubeconfig" ''
+    {
+      "apiVersion":"v1",
+      "clusters": [{
+        "cluster": {
+          "certificate-authority":"${secretsPath}/ca.pem",
+          "server":"https://${config.homelab.kubesEntryIp}:6443"
+        },
+        "name":"local"
+      }],
+      "contexts": [{
+        "context":{
+          "cluster": "local",
+          "user":"kube-controller-manager"
+        },
+        "name":"local"
+      }],
+      "current-context": "local",
+      "kind": "Config",
+      "users": [{
+        "name":"kube-controller-manager",
+        "user": {
+          "client-certificate":"${secretsPath}/controller-manager.pem",
+          "client-key":"${secretsPath}/controller-manager-key.pem"
+        }
+      }]
+    }
+  '';
 in
 {
   imports = [
@@ -70,6 +99,8 @@ in
         apiserver = {
           enable = true;
 
+          serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
+          serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-signing-privkey.pem";
           serviceClusterIpRange = "172.1.0.0/16";
 
           clientCaFile = "${secretsPath}/ca.pem";
@@ -88,21 +119,26 @@ in
             ];
           };
 
-          serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
-          serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-signing-privkey.pem";
         };
 
         controllerManager = {
           enable = true;
 
+          serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
+
           rootCaFile = "${secretsPath}/ca.pem";
           tlsCertFile = "${secretsPath}/controller-manager.pem";
           tlsKeyFile = "${secretsPath}/controller-manager-key.pem";
           kubeconfig = {
+            server = "https://192.168.0.254:6443";
             caFile = "${secretsPath}/ca.pem";
             certFile = "${secretsPath}/controller-manager.pem";
             keyFile = "${secretsPath}/controller-manager-key.pem";
           };
+
+          extraOpts = ''
+            --authentication-kubeconfig=${kubeConfig} --authorization-kubeconfig=${kubeConfig}
+          '';
         };
 
         proxy = {

@@ -73,9 +73,7 @@ let
     catch_workers_output = yes
     decorate_workers_output = no
 
-    ; FIXME: This doesn't seem to work yet:
     php_admin_value[short_open_tag] = On
-    ; I am still seeing the PHP code in the browser
   '';
 
   entryPointScript = pkgs.writers.writeBashBin "entrypoint" ''
