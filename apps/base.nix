@@ -9,9 +9,11 @@
     ./git.nix
     ./neovim/system.nix
     ./wireguard.nix
-  ] ++ (lib.optionals (hostName != "vps") [
+  ]
+  ++ (lib.optionals (hostName != "vps") [
     ./tailscale.nix
-  ]) ++ (lib.optionals (hostName == "vps") [
+  ])
+  ++ (lib.optionals (hostName == "vps") [
     ./headscale.nix
   ]);
 

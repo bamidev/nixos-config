@@ -1,7 +1,8 @@
 { config, ... }:
 let
   secretsPath = config.services.kubernetes.secretsPath;
-in {
+in
+{
   imports = [
     ./base.nix
   ];

@@ -3,12 +3,20 @@ let
   username = "bamilab";
 in
 {
-  security.sudo.extraRules.commands = [
-    {
-      command = "headscale";
-      options = [ "NOPASSWD" ];
-    }
-  ];
+  security.sudo = {
+    enable = true;
+    extraRules = [
+      {
+        commands = [
+          {
+            command = "${pkgs.headscale}/bin/headscale";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+        users = [ "bamilab" ];
+      }
+    ];
+  };
 
   services.headscale = {
     enable = true;
