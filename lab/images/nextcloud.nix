@@ -2,7 +2,7 @@
 # Apache is used because Nextcloud uses an .htaccess file.
 { pkgs, ... }:
 let
-  nextcloud = pkgs.nextcloud33;
+  nextcloud = pkgs.nextcloud34;
   php = pkgs.php85;
 
   apacheConfig = pkgs.writeText "httpd.conf" (
@@ -14,6 +14,8 @@ let
 
       User httpd
       Group httpd
+
+      SetEnv NEXTCLOUD_CONFIG_DIR /var/nextcloud/config
 
       LoadModule authn_core_module ${apacheHttpd}/modules/mod_authn_core.so
       LoadModule authz_core_module ${apacheHttpd}/modules/mod_authz_core.so
@@ -27,7 +29,7 @@ let
       LoadModule proxy_fcgi_module ${apacheHttpd}/modules/mod_proxy_fcgi.so
 
       <FilesMatch \.php$>
-          SetHandler "proxy:unix:/var/run/phpfpm.sock"
+          SetHandler "proxy:unix:/var/run/php-fpm.sock|fcgi://localhost/"
       </FilesMatch>
 
       <Directory "${nextcloud}">
@@ -42,6 +44,8 @@ let
       TypesConfig ${pkgs.apacheHttpd}/conf/mime.types
     ''
   );
+
+  nextcloudConfig = import ./nextcloud/config.php.nix { inherit nextcloud; };
 
   phpFpmConfig = pkgs.writeText "php-fpm.conf" ''
     [global]
@@ -69,9 +73,9 @@ let
     catch_workers_output = yes
     decorate_workers_output = no
 
-    # FIXME: This doesn't seem to work yet:
+    ; FIXME: This doesn't seem to work yet:
     php_admin_value[short_open_tag] = On
-    # I am still seeing the PHP code in the browser
+    ; I am still seeing the PHP code in the browser
   '';
 
   entryPointScript = pkgs.writers.writeBashBin "entrypoint" ''
@@ -79,7 +83,8 @@ let
     trap "kill 0" EXIT
 
     ${php}/bin/php-fpm -F -O --fpm-config ${phpFpmConfig} &
-    exec ${pkgs.apacheHttpd}/bin/httpd -D FOREGROUND -f ${apacheConfig}
+    ${pkgs.apacheHttpd}/bin/httpd -D FOREGROUND -f ${apacheConfig} &
+    wait -n
   '';
 in
 pkgs.dockerTools.buildImage {
@@ -90,13 +95,30 @@ pkgs.dockerTools.buildImage {
     groupadd -r httpd
     useradd -r httpd -g httpd
     mkdir -p /var/lib/httpd/logs
-    chown -R httpd /var/lib/httpd
+    chown -R httpd:httpd /var/lib/httpd
 
     mkdir -p /var/run
+    mkdir -p /var/nextcloud/apps
+    mkdir -p /var/nextcloud/config
+    mkdir -p /var/nextcloud/data
+    chown -R httpd:httpd /var/nextcloud
+    chmod -R 0750 /var/nextcloud/
+    chmod 0640 /var/nextcloud/config/config.php
   '';
+
+  contents = with pkgs; [
+    bash
+    coreutils
+    ps
+
+    (writeTextDir "var/nextcloud/config/config.php" (nextcloudConfig))
+  ];
 
   config = {
     Cmd = [ "${entryPointScript}/bin/entrypoint" ];
+    Env = [
+      "NEXTCLOUD_CONFIG_DIR=/var/nextcloud/config"
+    ];
     ExposedPorts = {
       "8080/tcp" = { };
     };

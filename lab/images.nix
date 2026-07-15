@@ -1,3 +1,3 @@
 { pkgs }: {
-  nextcloud = import ./pods/nextcloud.nix { pkgs = pkgs; };
+  nextcloud = import ./images/nextcloud.nix { pkgs = pkgs; };
 }

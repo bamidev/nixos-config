@@ -42,7 +42,7 @@ in
           priority = config.homelab.controlNodeId;
           virtualIps = [
             {
-              addr = "${config.homelab.sharedControlIp}/24";
+              addr = "192.168.0.77/24";
             }
           ];
           virtualRouterId = 77;
