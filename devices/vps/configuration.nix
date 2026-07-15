@@ -5,7 +5,7 @@
 
   config.myvpn.currentDeviceId = 100;
 
-  boot.kernel.sysctl = {
+  config.boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
   };
 }

@@ -10,7 +10,7 @@
     ./neovim/system.nix
     ./wireguard.nix
   ] ++ (lib.optionals (hostName != "vps") [
-    #./tailscale.nix
+    ./tailscale.nix
   ]) ++ (lib.optionals (hostName == "vps") [
     ./headscale.nix
   ]);

@@ -7,7 +7,8 @@ in
   services.headscale = {
     enable = true;
 
-    address = "2.59.21.91";
+    address = "0.0.0.0";
+    port = 8080;
 
     settings = {
       dns = {
@@ -20,6 +21,8 @@ in
       };
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 8080 ];
 
   /*systemd.services.headscale-init = {
     description = "Create the headscale user and key";
