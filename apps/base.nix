@@ -15,6 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     bc
+    git
     gnused
     jq
     lsof
