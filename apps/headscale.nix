@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
   username = "bamilab";
-  secretsPath = "/var/lib/headscale/secrets";
 in
 {
   services.headscale = {
@@ -24,7 +23,7 @@ in
 
   networking.firewall.allowedTCPPorts = [ 8080 ];
 
-  /*systemd.services.headscale-init = {
+  systemd.services.headscale-init = {
     description = "Create the headscale user and key";
 
     after = [ "headscale.service" ];
@@ -40,12 +39,6 @@ in
       if ! ${headscale}/bin/headscale users list | grep -q "${username}"; then
         ${headscale}/bin/headscale users create "${username}"
       fi
-
-      mkdir -p "${secretsPath}"
-      ${headscale}/bin/headscale preauthkeys create -u "${username}" --reusable \
-        > "${secretsPath}"
-
-      chmod 600 "${secretsPath}"
     '';
-  };*/
+  };
 }
