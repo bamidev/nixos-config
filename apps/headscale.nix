@@ -3,6 +3,13 @@ let
   username = "bamilab";
 in
 {
+  security.sudo.extraRules.commands = [
+    {
+      command = "headscale";
+      options = [ "NOPASSWD" ];
+    }
+  ];
+
   services.headscale = {
     enable = true;
 
