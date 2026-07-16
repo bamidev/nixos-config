@@ -1,4 +1,9 @@
-{ nixosConfig, params, pkgs, ... }:
+{
+  nixosConfig,
+  params,
+  pkgs,
+  ...
+}:
 let
   nixLocateCached = pkgs.writers.writeBashBin "nix-locate-cached" ''
     set -e

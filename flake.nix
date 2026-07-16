@@ -44,23 +44,13 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages."${system}";
-
-        # Testrun an image with the command: test-image name port
-        testImageScript = pkgs.writers.writeBashBin "test-image" ''
-          set -ex
-          nix build .#$1
-          docker container rm $1 1>/dev/null || true
-          docker image rm $1 1>/dev/null || true
-          docker tag $(docker load -i ./result --quiet | cut -d ' ' -f 3) $1
-          docker run -p $2:$2 -i -t -l $1 $1
-        '';
       in
       {
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.nixfmt-tree
-            testImageScript
-          ];
+          ]
+          ++ (import ./lab/scripts.nix { inherit pkgs; });
         };
 
         # All container images are provided as the flake's packages
