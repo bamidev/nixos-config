@@ -7,6 +7,11 @@ in
     ./base.nix
   ];
 
+  # Allow all the possible node ports
+  networking.firewall.allowedTCPPortRanges = [
+    { from = 30000; to = 30000; }
+  ];
+
   # Kubernetes with kubelet and the proxy.
   services.kubernetes = {
     roles = [ "node" ];
@@ -27,6 +32,16 @@ in
       # TODO: Change this timeout on a per-device basis
       extraConfig = {
         runtimeRequestTimeout = "15m";
+      };
+    };
+
+    proxy = {
+      enable = true;
+
+      kubeconfig = {
+        caFile = "${secretsPath}/ca.pem";
+        certFile = "${secretsPath}/admin.pem";
+        keyFile = "${secretsPath}/admin-key.pem";
       };
     };
   };

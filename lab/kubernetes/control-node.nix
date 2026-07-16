@@ -101,7 +101,7 @@ in
 
           kubeletClientCaFile = "${secretsPath}/ca.pem";
           kubeletClientCertFile = "${secretsPath}/admin.pem";
-          kubeletClientKeyFile = "${secretsPath}/admin.pem";
+          kubeletClientKeyFile = "${secretsPath}/admin-key.pem";
           serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
           serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-signing-privkey.pem";
           serviceClusterIpRange = "172.1.0.0/16";
@@ -143,16 +143,6 @@ in
             --authentication-kubeconfig=${kubeConfig} --authorization-kubeconfig=${kubeConfig} \
             --use-service-account-credentials=false
           '';
-        };
-
-        proxy = {
-          enable = true;
-
-          kubeconfig = {
-            caFile = "${secretsPath}/ca.pem";
-            certFile = "${secretsPath}/scheduler.pem";
-            keyFile = "${secretsPath}/scheduler-key.pem";
-          };
         };
 
         scheduler = {
