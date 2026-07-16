@@ -8,6 +8,11 @@
 
 let
   theme = import ./theme.nix;
+
+  rebuildScript = pkgs.writers.writeBashBin "rebuild-os" ''
+    set -ex
+    sudo nixos-rebuild switch --impure --flake /etc/nixos
+  '';
 in
 {
   imports = [
@@ -42,6 +47,8 @@ in
     cyan
     white
   ]);
+
+  environment.systemPackages = [ rebuildScript ];
 
   hardware.enableAllFirmware = lib.mkDefault false;
   hardware.enableRedistributableFirmware = lib.mkDefault false;
