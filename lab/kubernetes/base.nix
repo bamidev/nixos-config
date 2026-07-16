@@ -48,15 +48,17 @@ in
         install controller-manager-key
         install etcd
         install etcd-key
+        install kubelet
+        install kubelet-key
         install proxy
         install proxy-key
         install scheduler
         install scheduler-key
 
+        chown kubernetes:kubernetes ${secretsPath}/*.pem
         chown bamilab:kubernetes ${secretsPath}/admin.pem
         chown bamilab:kubernetes ${secretsPath}/admin-key.pem
         chmod 660 ${secretsPath}/admin-key.pem
-        chown kubernetes:kubernetes ${secretsPath}/*.pem
         chown etcd:kubernetes ${secretsPath}/etcd.pem
         chown etcd:kubernetes ${secretsPath}/etcd-key.pem
         chmod 660 ${secretsPath}/etcd-key.pem
