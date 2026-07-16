@@ -99,6 +99,9 @@ in
         apiserver = {
           enable = true;
 
+          kubeletClientCaFile = "${secretsPath}/ca.pem";
+          kubeletClientCertFile = "${secretsPath}/admin.pem";
+          kubeletClientKeyFile = "${secretsPath}/admin.pem";
           serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
           serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-signing-privkey.pem";
           serviceClusterIpRange = "172.1.0.0/16";
