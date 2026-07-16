@@ -1,27 +1,60 @@
 { config, pkgs, ... }:
 let
   secretsPath = config.services.kubernetes.secretsPath;
+
+  # FIXME: Don't use the admin permissions for flannel, properly set it up some day
+  flannelKubeconfig = pkgs.writers.writeText "flannel.kubeconfig" ''
+    apiVersion: v1
+    kind: Config
+
+    clusters:
+    - name: my-cluster
+      cluster:
+        server: https://192.168.0.254:6443
+        certificate-authority: ${secretsPath}/ca.pem
+
+    users:
+    - name: admin
+      user:
+        client-certificate: ${secretsPath}/admin.pem
+        client-key: ${secretsPath}/admin-key.pem
+
+    contexts:
+    - name: admin@my-cluster
+      context:
+        cluster: my-cluster
+        user: admin
+      
+    current-context: admin@my-cluster
+  '';
 in
 {
-  environment = {
-    systemPackages = with pkgs; [
-      kubectl
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    kubectl
+  ];
 
-  services.kubernetes = {
-    caFile = "${secretsPath}/ca.pem";
-
-    masterAddress = "192.168.0.254";
-    clusterCidr = "172.0.0.0/16";
-
-    # Trying to fix flannel configuration:
-    kubeconfig = {
-      server = "https://192.168.0.254:6443";
-
+  services = {
+    kubernetes = {
       caFile = "${secretsPath}/ca.pem";
-      certFile = "${secretsPath}/admin.pem";
-      keyFile = "${secretsPath}/admin-key.pem";
+
+      masterAddress = "192.168.0.254";
+      clusterCidr = "172.0.0.0/16";
+
+      kubeconfig = {
+        server = "https://192.168.0.254:6443";
+        caFile = "${secretsPath}/ca.pem";
+        #certFile = "${secretsPath}/admin.pem";
+        #keyFile = "${secretsPath}/admin-key.pem";
+      };
+
+      flannel = {
+        enable = true;
+        openFirewallPorts = true;
+      };
+    };
+
+    flannel = {
+      kubeconfig = "${flannelKubeconfig}";
     };
   };
 
@@ -48,6 +81,8 @@ in
         install controller-manager-key
         install etcd
         install etcd-key
+        install flannel
+        install flannel-key
         install kubelet
         install kubelet-key
         install proxy

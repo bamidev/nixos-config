@@ -137,7 +137,8 @@ in
           };
 
           extraOpts = ''
-            --authentication-kubeconfig=${kubeConfig} --authorization-kubeconfig=${kubeConfig}
+            --authentication-kubeconfig=${kubeConfig} --authorization-kubeconfig=${kubeConfig} \
+            --use-service-account-credentials=false
           '';
         };
 
