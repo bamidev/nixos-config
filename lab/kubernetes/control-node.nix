@@ -141,7 +141,8 @@ in
 
           extraOpts = ''
             --authentication-kubeconfig=${kubeConfig} --authorization-kubeconfig=${kubeConfig} \
-            --use-service-account-credentials=false
+            --use-service-account-credentials=false \
+            --requestheader-client-ca-file=${secretsPath}/ca.pem
           '';
         };
 
