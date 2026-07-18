@@ -69,6 +69,8 @@ in
           fi
         }
 
+        mkdir -p ${secretsPath}
+
         install ca
         install admin
         install admin-key
@@ -91,7 +93,7 @@ in
         install scheduler
         install scheduler-key
 
-        chown kubernetes:kubernetes ${secretsPath}/*.pem
+        chown -R kubernetes:kubernetes ${secretsPath}
         chown bamilab:kubernetes ${secretsPath}/admin.pem
         chown bamilab:kubernetes ${secretsPath}/admin-key.pem
         chmod 660 ${secretsPath}/admin-key.pem
