@@ -26,7 +26,7 @@
 
   system.activationScripts.nextcloud-setup.text = ''
     # Ensure user
-    export PASS=$(cat /root/nextcloud/bamilab.txt)
+    export PASS=$(cat /root/.secret/nextcloud/bamilab)
     echo -e $PASS\\n$PASS | ${lib.getExe config.services.nextcloud.occ} user:add bamilab || true
 
     ${lib.getExe config.services.nextcloud.occ} dav:create-calendar -n bamilab bamilab || true
