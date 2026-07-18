@@ -251,18 +251,6 @@
 
   services.gvfs.enable = true;
 
-  users.users.therp = {
-    description = "Work";
-    home = "/home/therp";
-    isNormalUser = true;
-    extraGroups = [
-      "audio"
-      "docker"
-      "video"
-      "wheel"
-    ];
-  };
-
   virtualisation.docker = {
     enable = true;
     extraPackages = [

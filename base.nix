@@ -117,6 +117,18 @@ in
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO4gv0OF52jorRoiylqIcsgZRtYp1aRmR9FQD7AwTt6Q bamidev@pm.me"
         ];
       };
+
+      therp = {
+        description = "Work";
+        home = "/home/therp";
+        isNormalUser = true;
+        extraGroups = [
+          "audio"
+          "docker"
+          "video"
+          "wheel"
+        ];
+      };
     };
   };
 
