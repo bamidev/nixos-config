@@ -56,6 +56,10 @@ in
     '';
   };
 
+  systemd.tmpfiles.rules = [
+    "d /mnt/nas 0777 root root -"
+  ];
+
   virtualisation.containerd = {
     enable = true;
     settings = {
@@ -73,8 +77,8 @@ in
   };
 
   # Mount the NAS to just /mnt
-  fileSystems."/mnt" = {
-    device = "${config.homelab.nas.ip}:/var/nas";
+  fileSystems."/mnt/nas" = {
+    device = "${config.homelab.nas.ip}:/hdd";
     fsType = "nfs4";
     options = [
       "x-systemd.automount"

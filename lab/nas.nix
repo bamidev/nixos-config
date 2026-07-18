@@ -1,14 +1,12 @@
 { ... }:
 {
-  services.nfs = {
+  services.nfs.server = {
     enable = true;
 
     exports = ''
-      /var/nas 192.168.0.0/24()
+      /hdd 192.168.0.0/24(rw,sync)
     '';
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/nas 0777 root root -"
-  ];
+  networking.firewall.allowedTCPPorts = [ 2049 ];
 }
