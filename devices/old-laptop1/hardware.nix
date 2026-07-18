@@ -46,11 +46,6 @@
         "dmask=0022"
       ];
     };
-
-    "/hdd" = {
-      device = "hdd/root";
-      fsType = "zfs";
-    };
   };
 
   hardware.enableRedistributableFirmware = lib.mkForce true;
