@@ -1,8 +1,13 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+
 {
   boot = {
-    extraModulePackages = [ ];
-
     initrd = {
       availableKernelModules = [
         "xhci_pci"
@@ -12,10 +17,11 @@
         "usb_storage"
         "sd_mod"
       ];
-      kernelModules = [ "kvm-amd" ];
+      kernelModules = [ ];
       systemd.enable = false;
     };
 
+    extraModulePackages = [ ];
     kernelModules = [ "kvm-amd" ];
 
     loader.grub = {
@@ -28,43 +34,41 @@
 
   fileSystems = {
     "/" = {
-      device = "hdd/root";
+      device = "root/root";
       fsType = "zfs";
     };
+
     "/boot" = {
-      device = "/dev/disk/by-uuid/E9C8-4216";
+      device = "/dev/disk/by-uuid/065D-8C1B";
       fsType = "vfat";
       options = [
         "fmask=0022"
         "dmask=0022"
       ];
     };
-  };
 
-  hardware = rec {
-    cpu.amd.updateMicrocode = enableRedistributableFirmware;
-    enableRedistributableFirmware = lib.mkForce true;
-  };
-
-  # Disable WiFi radiation during sleeptime
-  services = {
-    cron = {
-      enable = true;
-      systemCronJobs = [
-        "0 22 * * * root ${pkgs.util-linux}/bin/rfkill block wifi"
-        "0 9 * * * root ${pkgs.util-linux}/bin/rfkill unblock wifi"
-        "10 9 * * * root ${pkgs.iputils}/bin/ping -c 4 10.0.0.100"
-      ];
+    "/hdd" = {
+      device = "hdd/root";
+      fsType = "zfs";
     };
-
-    logind.lidSwitch = "ignore";
   };
 
-  networking.hostId = "b00d1234";
+  hardware.enableRedistributableFirmware = lib.mkForce true;
 
-  nixpkgs.hostPlatform = "x86_64-linux";
+  swapDevices = [ ];
 
-  # Make sure that when the laptop lid is closed, the system keeps running
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  networking.hostId = "87654321";
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
   systemd.sleep.settings.Sleep = {
     AllowSuspend = "no";
     AllowHibernation = "no";
