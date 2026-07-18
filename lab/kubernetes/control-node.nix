@@ -104,7 +104,6 @@ in
           kubeletClientKeyFile = "${secretsPath}/admin-key.pem";
           serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
           serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-signing-privkey.pem";
-          serviceClusterIpRange = config.service.kubernetes.clusterCidr;
 
           clientCaFile = "${secretsPath}/ca.pem";
           tlsCertFile = "${secretsPath}/apiserver.pem";
