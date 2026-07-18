@@ -12,12 +12,9 @@
     ./desktop/scripts.nix
   ];
 
-  # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
-  # supported by my VPN.
   boot = {
     loader = {
       grub = {
-        enable = true;
         memtest86.enable = true;
       }
       // lib.attrsets.optionalAttrs (builtins.pathExists /home/bamilab/Pictures/grub.png) {
@@ -27,6 +24,8 @@
       timeout = 2;
     };
 
+    # Completely disable the IPv6 stack in order to prevent IPv6 from being used; it is not
+    # supported by my VPN.
     kernelParams = [
       "ipv6.disable=1"
     ];
