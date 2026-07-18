@@ -32,8 +32,8 @@
           };
           modules = [
             ./base.nix
-            "/etc/nixos/devices/${name}/hardware.nix"
-            "/etc/nixos/devices/${name}/configuration.nix"
+            ./devices/${name}/hardware.nix
+            ./devices/${name}/configuration.nix
           ];
         }
       ) (builtins.readDir /etc/nixos/devices);
