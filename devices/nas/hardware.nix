@@ -25,18 +25,25 @@
     efiSupport = true;
   };
 
-  fileSystems."/" = {
-    device = "root/root";
-    fsType = "zfs";
-  };
+  fileSystems = {
+    "/" = {
+      device = "root/root";
+      fsType = "zfs";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/065D-8C1B";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
+    "/boot" = {
+      device = "/dev/disk/by-uuid/065D-8C1B";
+      fsType = "vfat";
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
+    };
+
+    "/hdd" = {
+      device = "hdd/root";
+      fsType = "zfs";
+    };
   };
 
   hardware.enableRedistributableFirmware = lib.mkForce true;
