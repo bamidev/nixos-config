@@ -24,13 +24,13 @@
     };
   };
 
-  system.activationScripts.nextcloud-setup.text = ''
+  /*system.activationScripts.nextcloud-setup.text = ''
     # Ensure user
     export PASS=$(cat /root/.secret/nextcloud/bamilab)
     echo -e $PASS\\n$PASS | ${lib.getExe config.services.nextcloud.occ} user:add bamilab || true
 
     ${lib.getExe config.services.nextcloud.occ} dav:create-calendar -n bamilab bamilab || true
-  '';
+  '';*/
 
   systemd.tmpfiles.rules = [ "f /root/.secret/nextcloud/admin 600 root root -" ];
 }
