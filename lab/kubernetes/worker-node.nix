@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   secretsPath = config.services.kubernetes.secretsPath;
 in
@@ -44,6 +44,16 @@ in
         keyFile = "${secretsPath}/admin-key.pem";
       };
     };
+  };
+
+  systemd.acvtivationScripts.createContainerdSnapshotterPool = {
+    deps = [ ];
+    text = ''
+      SNAPSHOTTER_PATH="/var/lib/containerd/io.containerd.snapshotter.v1.zfs"
+      if [ ! -e "$SNAPSHOTTER_PATH" ]; then
+        ${pkgs.zfs}/bin/zfs create -o mountpoint=$SNAPSHOTTER_PATH root/containerd
+      fi
+    '';
   };
 
   virtualisation.containerd = {

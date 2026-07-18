@@ -102,15 +102,5 @@ in
         chmod 660 ${secretsPath}/etcd-key.pem
       '';
     };
-
-    createContainerdSnapshotterPool = {
-      deps = [ ];
-      text = ''
-        SNAPSHOTTER_PATH="/var/lib/containerd/io.containerd.snapshotter.v1.zfs"
-        if [ ! -e "$SNAPSHOTTER_PATH" ]; then
-          ${pkgs.zfs}/bin/zfs create -o mountpoint=$SNAPSHOTTER_PATH hdd/containerd
-        fi
-      '';
-    };
   };
 }
