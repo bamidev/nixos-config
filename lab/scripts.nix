@@ -2,7 +2,7 @@
 let
   testImageScript = pkgs.writers.writeBashBin "test-image" ''
     set -ex
-    nix build -o /tmp/result .#$1
+    nix build -o /tmp/result .#$1 --show-trace
     docker container rm $1 1>/dev/null || true
     docker image rm $1 1>/dev/null || true
     docker tag $(docker load -i /tmp/result --quiet | cut -d ' ' -f 3) $1
