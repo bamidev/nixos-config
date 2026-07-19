@@ -4,7 +4,7 @@ let
     with pkgs;
     ''
       set -ex
-      AUTHKEY=$(${openssh}/bin/ssh -t vps "sudo /run/current-system/sw/bin/headscale preauthkeys create --user 1 --reusable --expiration 24h")
+      AUTHKEY=$(${openssh}/bin/ssh -t ${config.homelab.vps.ip} "sudo /run/current-system/sw/bin/headscale preauthkeys create --user 1 --reusable --expiration 24h")
       ${tailscale}/bin/tailscale up --login-server http://${config.homelab.vps.ip}:8080 --authkey "$AUTHKEY"
     ''
   );
