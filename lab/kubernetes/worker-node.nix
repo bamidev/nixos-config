@@ -12,6 +12,22 @@ in
     { from = 30000; to = 30000; }
   ];
 
+  security.sudo = {
+    enable = true;
+    extraRules = [
+      {
+        commands = [
+          {
+            command = "/run/current-system/sw/bin/ctr";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+
+        users = [ "bamilab" ];
+      }
+    ];
+  };
+
   # Kubernetes with kubelet and the proxy.
   services.kubernetes = {
     roles = [ "node" ];
