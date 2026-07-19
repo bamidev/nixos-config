@@ -78,8 +78,10 @@ in
     resolvconf.enable = lib.mkDefault true;
     hostName = hostName;
 
+    # TODO: Generate this list from config.nix
     extraHosts = ''
       192.168.0.254 old-laptop1
+      192.168.0.134 old-laptop2
     '';
   };
 
