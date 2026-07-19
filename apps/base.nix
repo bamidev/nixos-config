@@ -8,11 +8,9 @@
   imports = [
     ./git.nix
     ./neovim/system.nix
-    ./wireguard.nix
-  ]
-  ++ (lib.optionals (hostName != "vps") [
+    #./wireguard.nix
     ./tailscale.nix
-  ])
+  ]
   ++ (lib.optionals (hostName == "vps") [
     ./headscale.nix
   ]);
