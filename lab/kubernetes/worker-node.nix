@@ -62,7 +62,7 @@ in
     };
   };
 
-  systemd.acvtivationScripts.createContainerdSnapshotterPool = {
+  system.activationScripts.createContainerdSnapshotterPool = {
     deps = [ ];
     text = ''
       SNAPSHOTTER_PATH="/var/lib/containerd/io.containerd.snapshotter.v1.zfs"

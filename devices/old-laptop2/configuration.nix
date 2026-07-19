@@ -4,6 +4,7 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ../../lab/kubernetes/worker-node.nix
   ];
 
   config = {
