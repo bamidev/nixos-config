@@ -99,8 +99,8 @@ in
           kubeletClientCaFile = "${secretsPath}/ca.pem";
           kubeletClientCertFile = "${secretsPath}/admin.pem";
           kubeletClientKeyFile = "${secretsPath}/admin-key.pem";
-          serviceAccountKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
-          serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-signing-privkey.pem";
+          serviceAccountKeyFile = "${secretsPath}/apiserver-account-pubkey.pem";
+          serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
 
           clientCaFile = "${secretsPath}/ca.pem";
           tlsCertFile = "${secretsPath}/apiserver.pem";
@@ -137,7 +137,6 @@ in
 
           extraOpts = ''
             --authentication-kubeconfig=${kubeConfig} --authorization-kubeconfig=${kubeConfig} \
-            --use-service-account-credentials=false \
             --requestheader-client-ca-file=${secretsPath}/ca.pem
           '';
         };
