@@ -20,7 +20,7 @@ let
       "clusters": [{
         "cluster": {
           "certificate-authority":"${secretsPath}/ca.pem",
-          "server":"https://${config.homelab.kubesEntryIp}:6443"
+          "server":"https://${config.homelab.kubesServerIp}:6443"
         },
         "name":"local"
       }],
@@ -132,7 +132,7 @@ in
           tlsCertFile = "${secretsPath}/controller-manager.pem";
           tlsKeyFile = "${secretsPath}/controller-manager-key.pem";
           kubeconfig = {
-            server = "https://192.168.0.254:6443";
+            server = "https://${config.homelab.kubesServerIp}:6443";
             caFile = "${secretsPath}/ca.pem";
             certFile = "${secretsPath}/controller-manager.pem";
             keyFile = "${secretsPath}/controller-manager-key.pem";

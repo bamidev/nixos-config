@@ -12,9 +12,9 @@
         default = "2.59.21.91";
       };
 
-      kubesEntryIp = lib.mkOption {
+      kubesServerIp = lib.mkOption {
         type = lib.types.str;
-        default = "192.168.0.254";
+        default = "192.168.0.77";
       };
 
       controlNodeId = lib.mkOption {

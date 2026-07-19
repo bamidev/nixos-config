@@ -10,7 +10,7 @@ let
     clusters:
     - name: my-cluster
       cluster:
-        server: https://192.168.0.254:6443
+        server: https://${config.homelab.kubesServerIp}:6443
         certificate-authority: ${secretsPath}/ca.pem
 
     users:
@@ -38,11 +38,11 @@ in
     kubernetes = {
       caFile = "${secretsPath}/ca.pem";
 
-      masterAddress = "192.168.0.254";
+      masterAddress = "${config.homelab.kubesServerIp}";
       clusterCidr = "172.0.0.0/16";
 
       kubeconfig = {
-        server = "https://192.168.0.254:6443";
+        server = "https://${config.homelab.kubesServerIp}:6443";
         caFile = "${secretsPath}/ca.pem";
         #certFile = "${secretsPath}/admin.pem";
         #keyFile = "${secretsPath}/admin-key.pem";
