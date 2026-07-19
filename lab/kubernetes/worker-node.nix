@@ -7,11 +7,6 @@ in
     ./base.nix
   ];
 
-  # Allow all the possible node ports
-  networking.firewall.allowedTCPPortRanges = [
-    { from = 30000; to = 30000; }
-  ];
-
   security.sudo = {
     enable = true;
     extraRules = [
