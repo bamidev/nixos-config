@@ -92,7 +92,6 @@ in
       # Kubernetes with an apiserver, controler-manager & scheduler.
       kubernetes = {
         roles = [ "master" ];
-        easyCerts = false;
 
         apiserver = {
           enable = true;

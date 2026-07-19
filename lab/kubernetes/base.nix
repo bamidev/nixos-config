@@ -36,6 +36,7 @@ in
 
   services = {
     kubernetes = {
+      easyCerts = false;
       caFile = "${secretsPath}/ca.pem";
 
       masterAddress = "${config.homelab.kubesServerIp}";
