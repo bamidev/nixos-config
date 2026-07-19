@@ -83,7 +83,7 @@ let
       ''
         set -ex
         ${cfssl}/bin/cfssl gencert -profile=kubernetes -ca ${secretsPath}/ca.pem \
-          -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,$2" \
+          -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,${config.homelab.kubesServerIp},$2" \
           $4 | ${cfssl}/bin/cfssljson -bare $3
         ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $3.pem
       ''
