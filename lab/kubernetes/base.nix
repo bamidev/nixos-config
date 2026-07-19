@@ -58,6 +58,16 @@ in
         enable = true;
         openFirewallPorts = true;
       };
+
+      proxy = {
+        enable = true;
+
+        kubeconfig = {
+          caFile = "${secretsPath}/ca.pem";
+          certFile = "${secretsPath}/proxy.pem";
+          keyFile = "${secretsPath}/proxy-key.pem";
+        };
+      };
     };
 
     flannel = {

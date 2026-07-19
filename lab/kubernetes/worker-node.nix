@@ -45,16 +45,6 @@ in
         runtimeRequestTimeout = "15m";
       };
     };
-
-    proxy = {
-      enable = true;
-
-      kubeconfig = {
-        caFile = "${secretsPath}/ca.pem";
-        certFile = "${secretsPath}/admin.pem";
-        keyFile = "${secretsPath}/admin-key.pem";
-      };
-    };
   };
 
   system.activationScripts.createContainerdSnapshotterPool = {
