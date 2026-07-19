@@ -92,8 +92,6 @@ in
       # Kubernetes with an apiserver, controler-manager & scheduler.
       kubernetes = {
         roles = [ "master" ];
-        # Don't use the floating ip adress for the moment
-        masterAddress = config.homelab.controlNode.one.ip;
         easyCerts = false;
 
         apiserver = {
