@@ -35,12 +35,18 @@ in
   ];
 
   # Allow all the possible node ports
-  networking.firewall.allowedTCPPortRanges = [
-    {
-      from = 30000;
-      to = 30000;
-    }
-  ];
+  networking.firewall = {
+    allowedTCPPorts = [
+      config.services.kubernetes.kubelet.port
+    ];
+
+    allowedTCPPortRanges = [
+      {
+        from = 30000;
+        to = 30000;
+      }
+    ];
+  };
 
   services = {
     kubernetes = {
