@@ -4,11 +4,15 @@
     ./desktop.nix
   ];
 
-  home.stateVersion = "24.11";
+  home = {
+    stateVersion = "24.11";
 
-  home.packages = with pkgs; [
-    kubectl
-  ];
+    file.".kube/config".source = ./bamilab/kubeconfig;
+
+    packages = with pkgs; [
+      kubectl
+    ];
+  };
 
   programs.git.settings = {
     user = {
