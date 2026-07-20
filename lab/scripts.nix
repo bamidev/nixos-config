@@ -16,8 +16,11 @@ let
       nix build -o /tmp/result .#$1
       scp /tmp/result old-laptop2:/tmp/image
       ssh old-laptop2 chmod +w /tmp/image
-      IMAGE_NAME=$(ssh -t old-laptop2 "sudo /run/current-system/sw/bin/ctr -n k8s.io images import /tmp/image" | grep sha256: | cut -d ' ' -f 2)
-      ssh -t old-laptop2 'sudo /run/current-system/sw/bin/ctr -n k8s.io images tag $IMAGE_NAME $1:latest'
+      IMAGE_ABBREV=$(ssh -t old-laptop2 "sudo /run/current-system/sw/bin/ctr -n k8s.io images \
+        import --index-name $1:latest /tmp/image" | head -n 1 | cut -d ' ' -f 1)
+      IMAGE_ID=$(ssh -t old-laptop2 "sudo /run/current-system/sw/bin/ctr -n k8s.io images list | \
+        head -n 2 | tail -n 1 | cut -d ' ' -f 1" | tr -d '\r')
+      ssh -t old-laptop2 "sudo /run/current-system/sw/bin/ctr -n k8s.io images tag $IMAGE_ID docker.io/library/$1:latest"
     ''
   );
 in
