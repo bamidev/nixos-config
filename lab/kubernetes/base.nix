@@ -71,8 +71,8 @@ in
 
         kubeconfig = {
           caFile = "${secretsPath}/ca.pem";
-          certFile = "${secretsPath}/admin.pem";
-          keyFile = "${secretsPath}/admin-key.pem";
+          certFile = "${secretsPath}/kubelet.pem";
+          keyFile = "${secretsPath}/kubelet-key.pem";
         };
 
         # TODO: Change this timeout on a per-device basis
