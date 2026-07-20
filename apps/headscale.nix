@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   username = "bamilab";
-  
+
   connectScript = pkgs.writers.writeBashBin "connect-tailscale" (
     with pkgs;
     ''
@@ -22,6 +22,7 @@ in
             options = [ "NOPASSWD" ];
           }
         ];
+
         users = [ "bamilab" ];
       }
     ];

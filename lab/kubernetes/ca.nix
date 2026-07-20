@@ -120,6 +120,29 @@ let
       ''
     ))
 
+    (pkgs.writers.writeBashBin "kubes-gen-worker-certs" (
+      with pkgs;
+      ''
+        set -ex
+
+        if [ -z "$1" ]; then
+          echo Hostname argument is missing.
+        fi
+        if [ -z "$2" ]; then
+          echo IP address argument is missing.
+        fi
+
+        trap kubes-unload-ca-cert EXIT
+        kubes-load-ca-cert
+
+        kubes-gen-cert $1 $2 admin ${certCsr "admin" "system:masters"}
+        kubes-gen-cert $1 $2 flannel ${certCsr "system:flannel" "system:nodes"}
+        # TODO: Replace old-laptop1 with a way to put $1 into it (maybe be replacing it?)
+        kubes-gen-cert $1 $2 kubelet ${certCsr "system:node:old-laptop2" "system:nodes"}
+        kubes-gen-cert $1 $2 proxy ${componentCsr "proxy"}
+      ''
+    ))
+
     (pkgs.writers.writeBashBin "kubes-deploy-control-certs" (
       with pkgs;
       ''
@@ -148,6 +171,29 @@ let
         deploy-pair $1 kubelet
         deploy-pair $1 proxy
         deploy-pair $1 scheduler
+      ''
+    ))
+
+    (pkgs.writers.writeBashBin "kubes-deploy-worker-certs" (
+      with pkgs;
+      ''
+        set -ex
+
+        function deploy() {
+          ${openssh}/bin/scp ./$2.pem "$1:~/.certs/$2.pem"
+        }
+
+        function deploy-pair() {
+          deploy $1 $2
+          deploy $1 $2-key
+        }
+
+        ${openssh}/bin/ssh $1 "mkdir -p ~/.certs"
+        ${openssh}/bin/scp "${secretsPath}/ca.pem" "$1:~/.certs/ca.pem"
+        deploy-pair $1 admin
+        deploy-pair $1 flannel
+        deploy-pair $1 kubelet
+        deploy-pair $1 proxy
       ''
     ))
   ];

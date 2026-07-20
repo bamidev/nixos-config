@@ -36,7 +36,10 @@ in
 
   # Allow all the possible node ports
   networking.firewall.allowedTCPPortRanges = [
-    { from = 30000; to = 30000; }
+    {
+      from = 30000;
+      to = 30000;
+    }
   ];
 
   services = {
