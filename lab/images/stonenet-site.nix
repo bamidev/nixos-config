@@ -1,28 +1,31 @@
 { pkgs, ... }:
 let
-  configFile = pkgs.writers.writeText "nginx.conf" (with pkgs; ''
-    user root;
-    error_log /dev/stderr notice;
-    worker_processes 1;
+  configFile = pkgs.writers.writeText "nginx.conf" (
+    with pkgs;
+    ''
+      user root;
+      error_log /dev/stderr notice;
+      worker_processes 1;
 
-    http {
-      include ${nginx}/conf/mime.types;
-      default_type application/octet-stream;
+      http {
+        include ${nginx}/conf/mime.types;
+        default_type application/octet-stream;
 
-      server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        server_name _;
+        server {
+          listen 80 default_server;
+          listen [::]:80 default_server;
+          server_name _;
 
-        root /var/www/public; 
-        index index.html;
+          root /var/www/public; 
+          index index.html;
 
-        location / {
-          try_files $uri $uri/ =404;
+          location / {
+            try_files $uri $uri/ =404;
+          }
         }
       }
-    }
-  '');
+    ''
+  );
 
   stonenetSiteSrc = pkgs.fetchFromGitHub {
     owner = "bamidev";
@@ -31,7 +34,7 @@ let
     hash = "sha256-Fz6ag/7dE6hbmjimQ2Y4WqS4HlAw1k6FMbwloNKBggU=";
   };
 
-  prepareFiles = pkgs.runCommand "prepare-files" {} ''
+  prepareFiles = pkgs.runCommand "prepare-files" { } ''
     mkdir -p $out/var/www
     cp -r ${stonenetSiteSrc}/* $out/var/www/
     (
@@ -48,14 +51,17 @@ in
 pkgs.dockerTools.buildLayeredImage {
   name = "stonenet-site";
 
-  contents = with pkgs; [
-    bash
-    coreutils
-    ps
-  ] ++ [
-    configFile
-    prepareFiles
-  ];
+  contents =
+    with pkgs;
+    [
+      bash
+      coreutils
+      ps
+    ]
+    ++ [
+      configFile
+      prepareFiles
+    ];
 
   config = {
     Cmd = [

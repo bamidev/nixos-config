@@ -10,12 +10,12 @@
   boot = {
     initrd = {
       availableKernelModules = [
-      	"ahci"
-      	"nvme"
-	"sd_mod"
-	"usb_storage"
-	"usbhid"
-	"xhci_pci"
+        "ahci"
+        "nvme"
+        "sd_mod"
+        "usb_storage"
+        "usbhid"
+        "xhci_pci"
       ];
       kernelModules = [ ];
       systemd.enable = false;
