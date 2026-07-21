@@ -1,7 +1,7 @@
 # This laptop has about 64GB of disk space, so not a lot.
 # Therefore, I just use it as a Kubernetes control node, but at the same time I use it as a NAS,
 # with the an old USB HDD attached to it.
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../apps/home-server.nix
@@ -9,8 +9,6 @@
   ];
 
   config = {
-    myvpn.currentDeviceId = 1;
-
     homelab = {
       controlNodeId = 1;
       mainNetworkInterface = "wlp2s0";

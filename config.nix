@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   options = {
     # Some configuration parameters to configure my home-lab.
@@ -13,8 +13,15 @@
       };
 
       kubesServerIp = lib.mkOption {
+        description = "The main IP address to reach the Kubernetes cluster with";
         type = lib.types.str;
         default = "192.168.0.77";
+      };
+
+      kubesVpnServerIp = lib.mkOption {
+        description = "The IP address to reach the Kubernetes cluster with over my VPN";
+        type = lib.types.str;
+        default = config.homevpn.main.ip;
       };
 
       controlNodeId = lib.mkOption {
@@ -67,11 +74,10 @@
       };
     };
 
-    myvpn = {
-      currentDeviceId = lib.mkOption {
-        type = lib.types.int;
-        default = 1;
-        description = "The last part of the IPv4 address for the device in the VPN.";
+    homevpn = {
+      main.ip = lib.mkOption {
+        type = lib.types.str;
+        default = "100.64.0.3";
       };
     };
   };

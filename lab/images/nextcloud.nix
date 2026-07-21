@@ -95,6 +95,7 @@ pkgs.dockerTools.buildImage {
     mkdir -p /var/lib/httpd/logs
     chown -R httpd:httpd /var/lib/httpd
 
+    # FIXME: The data and apps dir need to be hosted on a NAS
     mkdir -p /var/run
     mkdir -p /var/nextcloud/apps
     mkdir -p /var/nextcloud/config
