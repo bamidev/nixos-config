@@ -92,7 +92,7 @@ let
         ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $3.pem
       ''
     ))
-    
+
     (pkgs.writers.writeBashBin "kubes-gen-worker-cert" (
       with pkgs;
       ''

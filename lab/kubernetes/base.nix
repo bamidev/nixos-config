@@ -39,7 +39,6 @@ in
     allowedTCPPorts = [
       config.services.kubernetes.kubelet.port
     ];
-
     allowedTCPPortRanges = [
       {
         from = 30000;

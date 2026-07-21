@@ -107,7 +107,6 @@ let
     # This is needed because the `occ` script uses __DIR__ to find the config file
     mkdir -p /tmp/nextcloud
     cp -r ${nextcloud}/* /tmp/nextcloud
-    #cp /var/nextcloud/config/config.php /tmp/nextcloud/config
     chown -R httpd:httpd /tmp/nextcloud
     su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"$NEXTCLOUD_DB_RW_SERVICE_HOST\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
     rm -r /tmp/nextcloud
@@ -123,7 +122,6 @@ pkgs.dockerTools.buildImage {
     mkdir -p /var/lib/httpd/logs
     chown -R httpd:httpd /var/lib/httpd
 
-    # FIXME: The data and apps dir need to be hosted on a NAS
     mkdir -p /var/run
     mkdir -p /var/nextcloud/config
     chown -R httpd:httpd /var/nextcloud
