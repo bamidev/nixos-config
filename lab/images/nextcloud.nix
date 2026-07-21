@@ -88,6 +88,7 @@ let
     sed -i "s/PASSWORD_SALT/$PASSWORD_SALT/g" /var/nextcloud/config/config.php
 
     chown -R httpd:httpd /mnt
+    chmod -R 777 /tmp
 
     ${php}/bin/php-fpm -F -O --fpm-config ${phpFpmConfig} &
     ${pkgs.apacheHttpd}/bin/httpd -D FOREGROUND -f ${apacheConfig} &
@@ -108,8 +109,8 @@ let
     cp -r ${nextcloud}/* /tmp/nextcloud
     #cp /var/nextcloud/config/config.php /tmp/nextcloud/config
     chown -R httpd:httpd /tmp/nextcloud
-    chmod -R +w /tmp
     su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"$NEXTCLOUD_DB_RW_SERVICE_HOST\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
+    rm -r /tmp/nextcloud
   '';
 in
 pkgs.dockerTools.buildImage {
