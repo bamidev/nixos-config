@@ -122,8 +122,6 @@ in
         install apiserver-key
         install apiserver-account-privkey
         install apiserver-account-pubkey
-        install apiserver-account-signing-privkey
-        install apiserver-account-signing-pubkey
         install controller-manager
         install controller-manager-key
         install etcd

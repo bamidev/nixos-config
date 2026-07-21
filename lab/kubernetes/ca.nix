@@ -65,6 +65,7 @@ let
 
     # Call this from any script that needs to access the root certificate
     (pkgs.writers.writeBashBin "kubes-load-ca-cert" ''
+      set -e
       pass homelab/ca/ca-cert > ${secretsPath}/ca.pem
       pass homelab/ca/ca-key > /tmp/ca-key.pem
       chmod 1600 /tmp/ca-key.pem
@@ -74,11 +75,25 @@ let
     (pkgs.writers.writeBashBin "kubes-unload-ca-cert" (
       with pkgs;
       ''
-        ${busybox}/bin/shred -u /tmp/ca-key.pem
+        set -e
+        if [ -f /tmp/ca-key.pem ]; then
+          ${busybox}/bin/shred -u /tmp/ca-key.pem
+        fi
       ''
     ))
 
-    (pkgs.writers.writeBashBin "kubes-gen-cert" (
+    (pkgs.writers.writeBashBin "kubes-gen-control-cert" (
+      with pkgs;
+      ''
+        set -ex
+        ${cfssl}/bin/cfssl gencert -profile=kubernetes -ca ${secretsPath}/ca.pem \
+          -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,10.0.0.1,${config.homelab.kubesServerIp},$2,${config.homelab.kubesVpnServerIp}" \
+          $4 | ${cfssl}/bin/cfssljson -bare $3
+        ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $3.pem
+      ''
+    ))
+    
+    (pkgs.writers.writeBashBin "kubes-gen-worker-cert" (
       with pkgs;
       ''
         set -ex
@@ -97,8 +112,9 @@ let
         if [ -z "$1" ]; then
           echo Hostname argument is missing.
         fi
-        if [ -z "$2" ]; then
-          echo IP address argument is missing.
+        IP_ADDRESS=$2
+        if [ -z "$IP_ADDRESS" ]; then
+          IP_ADDRESS="${config.homelab.controlNode.one.ip}"
         fi
 
         trap kubes-unload-ca-cert EXIT
@@ -106,17 +122,15 @@ let
 
         ${openssl}/bin/openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ./apiserver-account-privkey.pem
         ${openssl}/bin/openssl pkey -in ./apiserver-account-privkey.pem -pubout -out ./apiserver-account-pubkey.pem
-        ${openssl}/bin/openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ./apiserver-account-signing-privkey.pem
-        ${openssl}/bin/openssl pkey -in ./apiserver-account-signing-privkey.pem -pubout -out ./apiserver-account-signing-pubkey.pem
-        kubes-gen-cert $1 $2 admin ${certCsr "admin" "system:masters"}
-        kubes-gen-cert $1 $2 apiserver ${componentCsr "apiserver"}
-        kubes-gen-cert $1 $2 controller-manager ${componentCsr "controller-manager"}
-        kubes-gen-cert $1 $2 etcd ${componentCsr "etcd"}
-        kubes-gen-cert $1 $2 flannel ${certCsr "system:flannel" "system:nodes"}
+        kubes-gen-control-cert $1 $IP_ADDRESS admin ${certCsr "admin" "system:masters"}
+        kubes-gen-control-cert $1 $IP_ADDRESS apiserver ${componentCsr "apiserver"}
+        kubes-gen-control-cert $1 $IP_ADDRESS controller-manager ${componentCsr "controller-manager"}
+        kubes-gen-control-cert $1 $IP_ADDRESS etcd ${componentCsr "etcd"}
+        kubes-gen-control-cert $1 $IP_ADDRESS flannel ${certCsr "system:flannel" "system:nodes"}
         # TODO: Replace old-laptop1 with a way to put $1 into it (maybe be replacing it?)
-        kubes-gen-cert $1 $2 kubelet ${certCsr "system:node:old-laptop1" "system:nodes"}
-        kubes-gen-cert $1 $2 proxy ${componentCsr "proxy"}
-        kubes-gen-cert $1 $2 scheduler ${componentCsr "scheduler"}
+        kubes-gen-control-cert $1 $IP_ADDRESS kubelet ${certCsr "system:node:old-laptop1" "system:nodes"}
+        kubes-gen-control-cert $1 $IP_ADDRESS proxy ${componentCsr "proxy"}
+        kubes-gen-control-cert $1 $IP_ADDRESS scheduler ${componentCsr "scheduler"}
       ''
     ))
 
@@ -135,11 +149,11 @@ let
         trap kubes-unload-ca-cert EXIT
         kubes-load-ca-cert
 
-        kubes-gen-cert $1 $2 admin ${certCsr "admin" "system:masters"}
-        kubes-gen-cert $1 $2 flannel ${certCsr "system:flannel" "system:nodes"}
+        kubes-gen-worker-cert $1 $2 admin ${certCsr "admin" "system:masters"}
+        kubes-gen-worker-cert $1 $2 flannel ${certCsr "system:flannel" "system:nodes"}
         # TODO: Replace old-laptop1 with a way to put $1 into it (maybe be replacing it?)
-        kubes-gen-cert $1 $2 kubelet ${certCsr "system:node:old-laptop2" "system:nodes"}
-        kubes-gen-cert $1 $2 proxy ${componentCsr "proxy"}
+        kubes-gen-worker-cert $1 $2 kubelet ${certCsr "system:node:old-laptop2" "system:nodes"}
+        kubes-gen-worker-cert $1 $2 proxy ${componentCsr "proxy"}
       ''
     ))
 
@@ -161,8 +175,6 @@ let
         ${openssh}/bin/scp "${secretsPath}/ca.pem" "$1:~/.certs/ca.pem"
         deploy $1 apiserver-account-privkey
         deploy $1 apiserver-account-pubkey
-        deploy $1 apiserver-account-signing-privkey
-        deploy $1 apiserver-account-signing-pubkey
         deploy-pair $1 admin
         deploy-pair $1 apiserver
         deploy-pair $1 controller-manager
