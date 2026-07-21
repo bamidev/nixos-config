@@ -80,6 +80,10 @@ let
     set -ex
     trap "kill 0" EXIT
 
+    # Write the secrets into config.php
+    sed -i "s/POSTGRES_PASSWORD/$POSTGRES_PASSWORD/g" /var/nextcloud/config/config.php
+    sed -i "s/POSTGRES_HOST/$NEXTCLOUD_DB_RW_SERVICE_HOST/g" /var/nextcloud/config/config.php
+
     ${php}/bin/php-fpm -F -O --fpm-config ${phpFpmConfig} &
     ${pkgs.apacheHttpd}/bin/httpd -D FOREGROUND -f ${apacheConfig} &
     wait -n
@@ -108,7 +112,9 @@ pkgs.dockerTools.buildImage {
   contents = with pkgs; [
     bash
     coreutils
+    gnused
     ps
+    vim
 
     (writeTextDir "var/nextcloud/config/config.php" (nextcloudConfig))
   ];

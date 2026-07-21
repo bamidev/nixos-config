@@ -4,11 +4,12 @@
   	// General
   	'instanceid' => 'bamilab777',
   	'serverid' => 0,
-  	'passwordsalt' => getenv('NEXTCLOUD_PASSWORD_SALT'),
-  	'secret' => getenv('NEXTCLOUD_SECRET'),
+  	'passwordsalt' => 'NEXTCLOUD_PASSWORD_SALT',
+  	'secret' => 'NEXTCLOUD_SECRET',
   	'trusted_domains' => [
   		'mesh.local',
-  		'10.0.0.10',
+  		'192.168.0.77',
+  		'100.64.0.3',
   		'[2001:db8::1]'
   	],
   	'cookie_domain' => ''',
@@ -17,10 +18,10 @@
 
   	// Database
   	'dbtype' => 'pgsql',
-  	'dbhost' => '192.168.0.254',
+  	'dbhost' => 'POSTGRES_HOST',
   	'dbname' => 'nextcloud',
   	'dbuser' => 'nextcloud',
-  	'dbpassword' => ''',
+  	'dbpassword' => 'POSTGRES_PASSWORD',
   	'dbtableprefix' => 'oc_',
   	'dbpersistent' => ''',
   	'dbreplica' => [
