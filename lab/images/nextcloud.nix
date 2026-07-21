@@ -1,6 +1,6 @@
 # The Nextcloud container is running with Apache and PHP-FPM.
 # Apache is used because Nextcloud uses an .htaccess file.
-{ pkgs, ... }:
+{ devpkgs, pkgs, ... }:
 let
   nextcloud = pkgs.nextcloud34;
   php = pkgs.php85;
@@ -74,6 +74,7 @@ let
     decorate_workers_output = no
 
     php_admin_value[short_open_tag] = On
+    php_admin_value[memory_limit] = 512M
   '';
 
   entryPointScript = pkgs.writers.writeBashBin "entrypoint" ''
@@ -83,12 +84,32 @@ let
     # Write the secrets into config.php
     sed -i "s/POSTGRES_PASSWORD/$POSTGRES_PASSWORD/g" /var/nextcloud/config/config.php
     sed -i "s/POSTGRES_HOST/$NEXTCLOUD_DB_RW_SERVICE_HOST/g" /var/nextcloud/config/config.php
-    sed -i "s/PASSWORD_ENCRYPTION_KEY/$PASSWORD_ENCRYPTION_KEY/g" /var/nextcloud/config/config.php
+    sed -i "s/NEXTCLOUD_SECRET/$NEXTCLOUD_SECRET/g" /var/nextcloud/config/config.php
     sed -i "s/PASSWORD_SALT/$PASSWORD_SALT/g" /var/nextcloud/config/config.php
+
+    chown -R httpd:httpd /mnt
 
     ${php}/bin/php-fpm -F -O --fpm-config ${phpFpmConfig} &
     ${pkgs.apacheHttpd}/bin/httpd -D FOREGROUND -f ${apacheConfig} &
     wait -n
+  '';
+
+  installScript = pkgs.writers.writeBashBin "nextcloud-install" ''
+    set -ex
+
+    # Create data dirs
+    mkdir -p /mnt/core/skeleton
+    mkdir -p /mnt/data
+    mkdir -p /mnt/apps
+
+    # Run installation command from within a writable directory
+    # This is needed because the `occ` script uses __DIR__ to find the config file
+    mkdir -p /tmp/nextcloud
+    cp -r ${nextcloud}/* /tmp/nextcloud
+    #cp /var/nextcloud/config/config.php /tmp/nextcloud/config
+    chown -R httpd:httpd /tmp/nextcloud
+    chmod -R +w /tmp
+    su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"$NEXTCLOUD_DB_RW_SERVICE_HOST\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
   '';
 in
 pkgs.dockerTools.buildImage {
@@ -97,29 +118,30 @@ pkgs.dockerTools.buildImage {
   runAsRoot = with pkgs; ''
     ${dockerTools.shadowSetup}
     groupadd -r httpd
-    useradd -r httpd -g httpd
+    useradd -r httpd -g httpd -d /var/lib/httpd
     mkdir -p /var/lib/httpd/logs
     chown -R httpd:httpd /var/lib/httpd
 
     # FIXME: The data and apps dir need to be hosted on a NAS
     mkdir -p /var/run
-    mkdir -p /var/nextcloud/apps
     mkdir -p /var/nextcloud/config
-    mkdir -p /var/nextcloud/data
     chown -R httpd:httpd /var/nextcloud
     chmod -R 0750 /var/nextcloud/
     chmod 0640 /var/nextcloud/config/config.php
   '';
 
-  contents = with pkgs; [
-    bash
-    coreutils
-    gnused
-    ps
-    vim
+  contents =
+    with pkgs;
+    [
+      gnused
+      php
+      su
 
-    (writeTextDir "var/nextcloud/config/config.php" (nextcloudConfig))
-  ];
+      (writeTextDir "var/nextcloud/config/config.php" nextcloudConfig)
+
+      installScript
+    ]
+    ++ devpkgs;
 
   config = {
     Cmd = [ "${entryPointScript}/bin/entrypoint" ];

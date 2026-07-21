@@ -2,18 +2,17 @@
   <?php
   $CONFIG = [
   	// General
-  	'instanceid' => 'bamilab777',
+  	'instanceid' => 'ocweuq5tkc76',
   	'serverid' => 0,
   	'passwordsalt' => 'PASSWORD_SALT',
-  	'secret' => 'PASSWORD_ENCRYPTION_KEY',
+  	'secret' => 'NEXTCLOUD_SECRET',
   	'trusted_domains' => [
-  		'mesh.local',
+  		'nextcloud.kubes',
   		'192.168.0.77',
   		'100.64.0.3',
-  		'[2001:db8::1]'
   	],
   	'cookie_domain' => ''',
-  	'datadirectory' => '/var/nextcloud/data',
+  	'datadirectory' => '/mnt/data',
   	'version' => '${nextcloud.version}',
 
   	// Database
@@ -42,7 +41,7 @@
   	'knowledgebaseenabled' => true,
   	'knowledgebase.embedded' => false,
   	'allow_user_to_change_display_name' => true,
-  	'skeletondirectory' => '/var/nextcloud/core/skeleton',
+  	'skeletondirectory' => '/mnt/core/skeleton',
   	'templatedirectory' => ''',
 
   	'remember_login_cookie_lifetime' => 60 * 60 * 24 * 15,
@@ -153,7 +152,7 @@
   	'appsallowlist' => [],
   	'apps_paths' => [
   		[
-  			'path' => '/var/nextcloud/apps',
+  			'path' => '/mnt/apps',
   			'url' => '/apps',
   			'writable' => false,
   		],
@@ -203,13 +202,13 @@
 
   	// Other
   	'dbdriveroptions' => [],
-  	'pgsql_ssl' => [
-  		'mode' => ''',
-  		'cert' => ''',
-  		'rootcert' => ''',
-  		'key' => ''',
-  		'crl' => ''',
-  	],
+    //'pgsql_ssl' => [
+    //		'mode' => 'require',
+  	//	'cert' => ''',
+  	//	'rootcert' => ''',
+  	//	'key' => ''',
+  	//	'crl' => ''',
+  	//],
   	'supportedDatabases' => [
   		'pgsql',
   	],
