@@ -4,8 +4,8 @@
   	// General
   	'instanceid' => 'bamilab777',
   	'serverid' => 0,
-  	'passwordsalt' => 'NEXTCLOUD_PASSWORD_SALT',
-  	'secret' => 'NEXTCLOUD_SECRET',
+  	'passwordsalt' => 'PASSWORD_SALT',
+  	'secret' => 'PASSWORD_ENCRYPTION_KEY',
   	'trusted_domains' => [
   		'mesh.local',
   		'192.168.0.77',

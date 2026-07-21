@@ -83,6 +83,8 @@ let
     # Write the secrets into config.php
     sed -i "s/POSTGRES_PASSWORD/$POSTGRES_PASSWORD/g" /var/nextcloud/config/config.php
     sed -i "s/POSTGRES_HOST/$NEXTCLOUD_DB_RW_SERVICE_HOST/g" /var/nextcloud/config/config.php
+    sed -i "s/PASSWORD_ENCRYPTION_KEY/$PASSWORD_ENCRYPTION_KEY/g" /var/nextcloud/config/config.php
+    sed -i "s/PASSWORD_SALT/$PASSWORD_SALT/g" /var/nextcloud/config/config.php
 
     ${php}/bin/php-fpm -F -O --fpm-config ${phpFpmConfig} &
     ${pkgs.apacheHttpd}/bin/httpd -D FOREGROUND -f ${apacheConfig} &
