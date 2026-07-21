@@ -124,16 +124,29 @@ if params.environmentType == "desktop" then
       ssh = {
         enable = true;
         settings = {
-          home-lab-tunnel = {
-            HostName = "10.0.0.1";
+          myvps = {
+            HostName = nixosConfig.homelab.vps.ip;
+            ForwardAgent = "yes";
+          };
+
+          myvps-tunnel-old-laptop-msi = {
+            HostName = nixosConfig.homevpn.main.ip;
             ForwardAgent = "yes";
             ProxyJump = nixosConfig.homelab.vps.ip;
           };
 
-          vps = {
-            HostName = nixosConfig.homelab.vps.ip;
+          myvpn-old-laptop-msi = {
+            HostName = "100.64.0.3";
             ForwardAgent = "yes";
           };
+
+          myvpn-old-laptop-asus = {
+            HostName = "old-laptop2";
+            ForwardAgent = "yes";
+            # TODO: Remove this line:
+            ProxyJump = "myvpn-old-laptop-msi";
+          };
+
         };
       };
 
