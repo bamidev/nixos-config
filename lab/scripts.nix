@@ -23,9 +23,9 @@ let
       scp /tmp/result $HOST:/tmp/image
       ssh $HOST chmod +w /tmp/image
       IMAGE_ABBREV=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images \
-        import --index-name $1:latest /tmp/image" | head -n 1 | cut -d ' ' -f 1)
-      IMAGE_ID=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images list | \
-        head -n 2 | tail -n 1 | cut -d ' ' -f 1" | tr -d '\r')
+        import /tmp/image" | head -n 1 | cut -d ':' -f 2 | head -c 8)
+      IMAGE_ID=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images list | grep \
+        $IMAGE_ABBREV | head -n 1 | cut -d ' ' -f 1" | tr -d '\r')
       ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images tag $IMAGE_ID docker.io/library/$1:latest"
     ''
   );
