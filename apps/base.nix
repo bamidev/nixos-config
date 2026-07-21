@@ -24,6 +24,7 @@
     nix-index
     nixfmt
     openssh
+    openssl
     pass
     psmisc
     rsync
