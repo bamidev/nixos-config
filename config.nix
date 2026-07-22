@@ -79,6 +79,10 @@
         type = lib.types.str;
         default = "100.64.0.3";
       };
+      nas.ip = lib.mkOption {
+        type = lib.types.str;
+        default = "100.64.0.3";
+      };
     };
   };
 }

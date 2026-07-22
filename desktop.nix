@@ -227,6 +227,17 @@
     ];
   };
 
+  # Mount a folder from the NAS for personal files
+  fileSystems."/mnt/nas" = {
+    device = "${config.homevpn.nas.ip}:/hdd/personal";
+    fsType = "nfs4";
+    options = [
+      "x-systemd.automount"
+      "noatime"
+      "rw"
+    ];
+  };
+
   programs = {
     dconf = {
       enable = true;
