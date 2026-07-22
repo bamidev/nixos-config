@@ -6,19 +6,27 @@ let
     bash
     coreutils
     gnugrep
+    nano
     ps
-    sudo
-    vim
+    su
   ];
-  # TODO: Add these packages afterwards as an 'overlay'
+  extendImage = (
+    baseImage:
+    baseImage.override (oldArgs: {
+      contents = (oldArgs.contents or [ ]) ++ devpkgs;
+    })
+  );
+
+  # All the available images
+  images = [
+    "grafana"
+    "nextcloud"
+    "stonenet-site"
+  ];
 in
-{
-  nextcloud = import ./images/nextcloud.nix {
-    inherit pkgs;
-    inherit devpkgs;
-  };
-  stonenet-site = import ./images/stonenet-site.nix {
-    inherit pkgs;
-    inherit devpkgs;
-  };
-}
+builtins.listToAttrs (
+  map (name: {
+    name = name;
+    value = extendImage (import ./images/${name}.nix { inherit pkgs; });
+  }) images
+)

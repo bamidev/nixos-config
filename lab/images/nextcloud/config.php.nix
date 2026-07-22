@@ -31,6 +31,11 @@
   	'apps_paths' => [
   		[
   			'path' => '${nextcloud}/apps',
+  			'url' => '/coreapps',
+  			'writable' => false,
+  		],
+  		[
+  			'path' => '/var/nextcloud/apps',
   			'url' => '/apps',
   			'writable' => false,
   		],

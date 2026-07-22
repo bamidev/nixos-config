@@ -1,9 +1,10 @@
 # The Nextcloud container is running with Apache and PHP-FPM.
 # Apache is used because Nextcloud uses an .htaccess file.
-{ devpkgs, pkgs, ... }:
+{ pkgs, ... }:
 let
   nextcloud = pkgs.nextcloud34;
   php = pkgs.php85;
+  ncApps = nextcloud.packages.apps;
 
   apacheConfig = pkgs.writeText "httpd.conf" (
     with pkgs;
@@ -104,12 +105,18 @@ let
     mkdir -p /mnt/apps
 
     # Run installation command from within a writable directory
-    # This is needed because the `occ` script uses __DIR__ to find the config file
+    # This is needed because the `occ` script uses __DIR__ to find the config file,
+    # and nextcloud complains if __DIR__ is not writable.
     mkdir -p /tmp/nextcloud
     cp -r ${nextcloud}/* /tmp/nextcloud
     chown -R httpd:httpd /tmp/nextcloud
     su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"$NEXTCLOUD_DB_RW_SERVICE_HOST\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
     rm -r /tmp/nextcloud
+  '';
+
+  occScript = pkgs.writers.writeBashBin "nextcloud-occ" ''
+    set -e
+    su httpd -c "${php}/bin/php ${nextcloud}/occ $@"
   '';
 in
 pkgs.dockerTools.buildImage {
@@ -123,24 +130,28 @@ pkgs.dockerTools.buildImage {
     chown -R httpd:httpd /var/lib/httpd
 
     mkdir -p /var/run
+    mkdir -p /var/nextcloud/apps
     mkdir -p /var/nextcloud/config
+    
+    cp -r ${ncApps.bookmarks} /var/nextcloud/apps/bookmarks
+    cp -r ${ncApps.calendar} /var/nextcloud/apps/calendar
+    cp -r ${ncApps.contacts} /var/nextcloud/apps/contacts
+
     chown -R httpd:httpd /var/nextcloud
     chmod -R 0750 /var/nextcloud/
     chmod 0640 /var/nextcloud/config/config.php
   '';
 
-  contents =
-    with pkgs;
-    [
-      gnused
-      php
-      su
+  contents = with pkgs; [
+    gnused
+    php
+    su
 
-      (writeTextDir "var/nextcloud/config/config.php" nextcloudConfig)
+    (writeTextDir "var/nextcloud/config/config.php" nextcloudConfig)
 
-      installScript
-    ]
-    ++ devpkgs;
+    installScript
+    occScript
+  ];
 
   config = {
     Cmd = [ "${entryPointScript}/bin/entrypoint" ];

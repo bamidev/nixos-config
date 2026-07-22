@@ -1,5 +1,6 @@
 { pkgs }:
 let
+  # A script to test an image locally using docker
   testImageScript = pkgs.writers.writeBashBin "test-image" ''
     set -ex
     nix build -o /tmp/result .#$1 --show-trace
@@ -9,6 +10,7 @@ let
     docker run -p $2:$2 -i -t -l $1 $1
   '';
 
+  # A script to build & deploy an image to my cluster
   loadImageScript = pkgs.writers.writeBashBin "deploy-image" ''
     set -ex
 
