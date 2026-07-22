@@ -9,26 +9,24 @@ let
     docker run -p $2:$2 -i -t -l $1 $1
   '';
 
-  loadImageScript = pkgs.writers.writeBashBin "deploy-image" (
-    with pkgs;
-    ''
-      set -ex
+  loadImageScript = pkgs.writers.writeBashBin "deploy-image" ''
+    set -ex
 
-      HOST=$2
-      if [ -z "$HOST" ]; then
-        HOST="myvpn-old-laptop-asus"
-      fi
+    HOST=$2
+    if [ -z "$HOST" ]; then
+      HOST="myvpn-old-laptop-asus"
+    fi
 
-      nix build -o /tmp/result .#$1
-      scp /tmp/result $HOST:/tmp/image
-      ssh $HOST chmod +w /tmp/image
-      IMAGE_ABBREV=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images \
-        import /tmp/image" | head -n 1 | cut -d ':' -f 2 | head -c 8)
-      IMAGE_ID=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images list | grep \
-        $IMAGE_ABBREV | head -n 1 | cut -d ' ' -f 1" | tr -d '\r')
-      ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images tag $IMAGE_ID docker.io/library/$1:latest"
-    ''
-  );
+    nix build -o /tmp/result .#$1
+    scp /tmp/result $HOST:/tmp/image
+    ssh $HOST chmod +w /tmp/image
+    ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images prune --all"
+    IMAGE_ABBREV=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images \
+      import /tmp/image" | head -n 1 | cut -d ':' -f 2 | head -c 8)
+    IMAGE_ID=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images list | grep \
+      $IMAGE_ABBREV | head -n 1 | cut -d ' ' -f 1" | tr -d '\r')
+    ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images tag $IMAGE_ID docker.io/library/$1:latest"
+  '';
 in
 [
   loadImageScript
