@@ -39,11 +39,6 @@
   			'url' => '/apps',
   			'writable' => false,
   		],
-  		[
-  			'path' => '/mnt/apps',
-  			'url' => '/myapps',
-  			'writable' => false,
-  		],
   	],
 
     'log_type' => 'file',

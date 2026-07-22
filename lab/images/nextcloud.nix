@@ -18,6 +18,7 @@ let
 
       SetEnv NEXTCLOUD_CONFIG_DIR /var/nextcloud/config
 
+      LoadModule alias_module ${apacheHttpd}/modules/mod_alias.so
       LoadModule authn_core_module ${apacheHttpd}/modules/mod_authn_core.so
       LoadModule authz_core_module ${apacheHttpd}/modules/mod_authz_core.so
       LoadModule dir_module ${apacheHttpd}/modules/mod_dir.so
@@ -28,6 +29,7 @@ let
       LoadModule unixd_module ${apacheHttpd}/modules/mod_unixd.so
       LoadModule proxy_module ${apacheHttpd}/modules/mod_proxy.so
       LoadModule proxy_fcgi_module ${apacheHttpd}/modules/mod_proxy_fcgi.so
+      LoadModule rewrite_module ${apacheHttpd}/modules/mod_rewrite.so
 
       <FilesMatch \.php$>
           SetHandler "proxy:unix:/var/run/php-fpm.sock|fcgi://localhost/"
@@ -43,6 +45,10 @@ let
       ErrorLog "/dev/stderr"
       TransferLog "/dev/stdout"
       TypesConfig ${pkgs.apacheHttpd}/conf/mime.types
+
+      # Apache needs to know where to find the apps folders
+      Alias /apps "/var/nextcloud/apps/"
+      Alias /coreapps "${nextcloud}/apps/"
     ''
   );
 
