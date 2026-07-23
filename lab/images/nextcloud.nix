@@ -138,7 +138,7 @@ pkgs.dockerTools.buildImage {
     mkdir -p /var/run
     mkdir -p /var/nextcloud/apps
     mkdir -p /var/nextcloud/config
-    
+
     cp -r ${ncApps.bookmarks} /var/nextcloud/apps/bookmarks
     cp -r ${ncApps.calendar} /var/nextcloud/apps/calendar
     cp -r ${ncApps.contacts} /var/nextcloud/apps/contacts

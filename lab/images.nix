@@ -21,6 +21,7 @@ let
   images = [
     "grafana"
     "nextcloud"
+    "owncast"
     "stonenet-site"
   ];
 in
