@@ -33,9 +33,9 @@ if params.environmentType == "desktop" then
           thunderbird.enable = true;
 
           remote = {
-            passwordCommand = "pass nextcloud/bamilab";
+            passwordCommand = "pass kubernetes/nextcloud/bamilab";
             type = "caldav";
-            url = "http://192.168.0.254/remote.php/dav/calendars/bamilab/bamilab/";
+            url = "http://192.168.0.77:30000/remote.php/dav/calendars/bamilab/personal/";
             userName = "bamilab";
           };
         };
@@ -49,9 +49,9 @@ if params.environmentType == "desktop" then
           };
 
           remote = {
-            passwordCommand = "pass nextcloud/bamilab";
+            passwordCommand = "pass kubernetes/nextcloud/bamilab";
             type = "caldav";
-            url = "http://192.168.0.254/remote.php/dav/calendars/bamilab/contact_birthdays/";
+            url = "http://192.168.0.77:30000/remote.php/dav/calendars/bamilab/contact_birthdays/";
             userName = "bamilab";
           };
         };
@@ -61,9 +61,9 @@ if params.environmentType == "desktop" then
         thunderbird.enable = true;
 
         remote = {
-          passwordCommand = "pass nextcloud/bamilab";
+          passwordCommand = "pass kubernetes/nextcloud/bamilab";
           type = "carddav";
-          url = "http://192.168.0.254/remote.php/dav/addressbooks/users/bamilab/contacts/";
+          url = "http://192.168.0.77:30000/remote.php/dav/addressbooks/users/bamilab/contacts/";
           userName = "bamilab";
         };
       };
