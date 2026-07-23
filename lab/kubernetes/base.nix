@@ -138,9 +138,11 @@ in
         chown bamilab:kubernetes ${secretsPath}/admin.pem
         chown bamilab:kubernetes ${secretsPath}/admin-key.pem
         chmod 660 ${secretsPath}/admin-key.pem
-        chown etcd:kubernetes ${secretsPath}/etcd.pem
-        chown etcd:kubernetes ${secretsPath}/etcd-key.pem
-        chmod 660 ${secretsPath}/etcd-key.pem
+        if [ -f ${secretsPath}/etcd.pem ]; then
+          chown etcd:kubernetes ${secretsPath}/etcd.pem
+          chown etcd:kubernetes ${secretsPath}/etcd-key.pem
+          chmod 660 ${secretsPath}/etcd-key.pem
+        fi
       '';
     };
   };
