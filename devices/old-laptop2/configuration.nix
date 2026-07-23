@@ -12,10 +12,10 @@
     ../../lab/kubernetes/worker-node.nix
   ];
 
-  config = {
+  /*config = {
     homelab = {
       controlNodeId = 2;
       mainNetworkInterface = "enp4s0";
     };
-  };
+  };*/
 }
