@@ -37,39 +37,12 @@
 
   hardware.graphics.enable = true;
 
-  home-manager = {
-    backupFileExtension = "backup";
-    extraSpecialArgs = {
-      inherit inputs;
-      inherit params;
-      nixosConfig = config;
+  home-manager.users.therp = { pkgs, lib, ... }:
+    import ./users/therp.nix {
+      pkgs = pkgs;
+      lib = lib;
+      inputs = inputs;
     };
-
-    # Use the `imports` feature because now the imports list of users/defaults.nix is being
-    # overriden by the other files.
-    users = {
-      root =
-        { pkgs, lib, ... }:
-        import ./users/root.nix {
-          pkgs = pkgs;
-          lib = lib;
-        };
-      bamilab =
-        { pkgs, lib, ... }:
-        import ./users/bamilab.nix {
-          pkgs = pkgs;
-          lib = lib;
-          inputs = inputs;
-        };
-      therp =
-        { pkgs, lib, ... }:
-        import ./users/therp.nix {
-          pkgs = pkgs;
-          lib = lib;
-          inputs = inputs;
-        };
-    };
-  };
 
   networking = {
     # Disable IPv6 because it does not go through the VPN

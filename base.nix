@@ -1,7 +1,9 @@
 {
+  config,
   hostName,
   inputs,
   lib,
+  params,
   pkgs,
   ...
 }:
@@ -52,6 +54,33 @@ in
 
   hardware.enableAllFirmware = lib.mkDefault false;
   hardware.enableRedistributableFirmware = lib.mkDefault false;
+
+  home-manager = {
+    backupFileExtension = "backup";
+    extraSpecialArgs = {
+      inherit inputs;
+      inherit params;
+      nixosConfig = config;
+    };
+
+    # Use the `imports` feature because now the imports list of users/defaults.nix is being
+    # overriden by the other files.
+    users = {
+      root =
+        { pkgs, lib, ... }:
+        import ./users/root.nix {
+          pkgs = pkgs;
+          lib = lib;
+        };
+      bamilab =
+        { pkgs, lib, ... }:
+        import ./users/bamilab.nix {
+          pkgs = pkgs;
+          lib = lib;
+          inputs = inputs;
+        };
+    };
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
