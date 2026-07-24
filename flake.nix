@@ -1,5 +1,5 @@
 {
-  description = "Your flake description...";
+  description = "The NixOS configuration for all my devices, incluing my work-laptop, gaming pc, and my home-lab Kubernetes cluster.";
 
   inputs = {
     # Take all editor-related packages from the previous release, so that they don't regularely update and accidentally break
