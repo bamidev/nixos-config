@@ -7,6 +7,10 @@
     flake-utils.url = "github:numtide/flake-utils";
     homeManager.url = "github:nix-community/home-manager/release-26.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

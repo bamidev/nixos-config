@@ -15,6 +15,10 @@ let
     set -ex
     sudo nixos-rebuild switch --impure --flake /etc/nixos
   '';
+  buildPiImageScript = pkgs.writers.writeBashBin "build-pi-image" ''
+    set -ex
+    nix build /etc/nixos#nixosConfigurations.rpi.config.system.build.sdImage --impure
+  '';
 in
 {
   imports = [
@@ -50,7 +54,10 @@ in
     white
   ]);
 
-  environment.systemPackages = [ rebuildScript ];
+  environment.systemPackages = [
+    buildPiImageScript
+    rebuildScript
+  ];
 
   hardware.enableAllFirmware = lib.mkDefault false;
   hardware.enableRedistributableFirmware = lib.mkDefault false;
