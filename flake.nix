@@ -23,11 +23,14 @@
     {
       nixosConfigurations = lib.attrsets.mapAttrs (
         name: type:
+        let
+          params = import "/etc/nixos/devices/${name}/params.nix";
+        in
         lib.nixosSystem {
-          system = builtins.currentSystem;
+          system = params.system;
           specialArgs = {
             inherit inputs;
-            params = import "/etc/nixos/devices/${name}/params.nix";
+            inherit params;
             hostName = name;
           };
           modules = [

@@ -1,62 +1,26 @@
 {
   lib,
   inputs,
-  params,
   ...
 }:
 let
   pkgs = inputs.editorPkgs.legacyPackages.${builtins.currentSystem};
-  newPkgs = inputs.nixpkgs.legacyPackages.${builtins.currentSystem};
 in
 {
-  environment.systemPackages =
-    with pkgs;
-    [
-      gcc # Needed for the treesitter plugin, to be able to compile language parsers.
-      nodejs_24
-      ripgrep # Needed for the telescope plugin
-      tree-sitter # Needed for nvim-treesitter
+  environment.systemPackages = with pkgs; [
+    gcc # Needed for the treesitter plugin, to be able to compile language parsers.
+    nodejs_24
+    ripgrep # Needed for the telescope plugin
+    tree-sitter # Needed for nvim-treesitter
 
-      # Install language servers globally so that the default LSP configurations may work within a
-      # non-Nix environment as well. (Such as my VM's.)
-      bash-language-server
-      nixd
-      systemd-language-server
-      vscode-json-languageserver
-      yaml-language-server
-    ]
-    ++ (lib.optionals (params.environmentType == "desktop") (
-      with pkgs;
-      [
-        basedpyright
-        docker-compose-language-service
-        #docker-language-server
-        ltex-ls
-        lua-language-server
-        vim-language-server
-
-        # pylsp with everything it needs, and debugpy
-        (python3.withPackages (
-          python-pkgs: with python-pkgs; [
-            black
-            debugpy
-            flake8
-            jedi
-            mccabe
-            pydocstyle
-            pylint
-            pyls-isort
-            pyls-memestra
-            pylsp-mypy
-            python-lsp-server
-            rope
-          ]
-        ))
-      ]
-      ++ [
-        newPkgs.docker-language-server
-      ]
-    ));
+    # Install language servers globally so that the default LSP configurations may work within a
+    # non-Nix environment as well. (Such as my VM's.)
+    bash-language-server
+    nixd
+    systemd-language-server
+    vscode-json-languageserver
+    yaml-language-server
+  ];
 
   environment.etc."pylintrc".source = ./etc/pylintrc;
 

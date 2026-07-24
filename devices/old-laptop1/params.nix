@@ -1,5 +1,4 @@
 {
-  enableGames = false;
-  environmentType = "nas";
+  system = "x86_64-linux";
   syncthingId = "YQT6FYO-OGJHF6Q-WEMZWGM-QP3MJLF-F5VJ3IM-QYEEGW3-QULYD7H-ZP7OFAJ";
 }

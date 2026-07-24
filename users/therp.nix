@@ -253,14 +253,6 @@ in
       [
         claude-code
       ]
-      ++ (with editorPkgs; [
-        basedpyright
-        black
-        postgres-language-server
-        ruff
-        typescript-language-server
-        vscode-langservers-extracted
-      ])
       ++ [
         installPreCommit
         preCommit

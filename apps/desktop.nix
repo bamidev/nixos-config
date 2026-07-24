@@ -18,9 +18,6 @@ in
     ./sway/system.nix
     ./syncthing/system.nix
     stonenet
-  ]
-  ++ lib.optionals params.enableGames [
-    ./steam.nix
   ];
 
   environment.systemPackages =

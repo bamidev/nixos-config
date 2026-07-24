@@ -37,7 +37,8 @@
 
   hardware.graphics.enable = true;
 
-  home-manager.users.therp = { pkgs, lib, ... }:
+  home-manager.users.therp =
+    { pkgs, lib, ... }:
     import ./users/therp.nix {
       pkgs = pkgs;
       lib = lib;
