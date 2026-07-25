@@ -1,5 +1,3 @@
 {
-  enableGames = false;
-  environmentType = "server";
-  syncthingId = "";
+  system = "x86_64-linux";
 }
