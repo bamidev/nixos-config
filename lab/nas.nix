@@ -4,7 +4,7 @@
     enable = true;
 
     exports = ''
-      /hdd 192.168.0.0/24(rw,sync,no_root_squash)
+      /exhdd 192.168.0.0/24(rw,sync,no_root_squash)
     '';
   };
 
