@@ -43,7 +43,7 @@
         two = {
           ip = lib.mkOption {
             type = lib.types.str;
-            default = "192.168.0.134";
+            default = "192.168.0.250";
           };
           prio = lib.mkOption {
             type = lib.types.int;
@@ -53,7 +53,7 @@
         three = {
           ip = lib.mkOption {
             type = lib.types.str;
-            default = "192.168.1.4";
+            default = "192.168.0.134";
           };
           prio = lib.mkOption {
             type = lib.types.int;
