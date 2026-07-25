@@ -4,9 +4,11 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../apps/home-server.nix
     ../../lab/kubernetes/control-node.nix
     ../../lab/nas.nix
+    
+    # TODO: Move syncthing to the Kubernetes cluster
+    ../../apps/syncthing/system.nix
   ];
 
   config = {
