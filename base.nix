@@ -117,8 +117,11 @@ in
     # TODO: Generate this list from config.nix
     extraHosts = ''
       192.168.0.77 nextcloud.kubes
-      192.168.0.254 old-laptop1
-      192.168.0.134 old-laptop2
+      192.168.0.77 grafana.kubes
+
+      192.168.0.254 old-laptop-msi
+      192.168.0.134 old-laptop-asus
+      192.168.0.250 thinkcentre
     '';
   };
 
