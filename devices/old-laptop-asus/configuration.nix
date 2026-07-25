@@ -7,17 +7,14 @@
 { ... }:
 {
   imports = [
-    # TODO: Turn this machine into a control plane node as well, once I have a 3rd machine as well.
-    #../../lab/kubernetes/control-node.nix
+    ../../lab/kubernetes/control-node.nix
     ../../lab/kubernetes/worker-node.nix
   ];
 
-  /*
-    config = {
-      homelab = {
-        controlNodeId = 2;
-        mainNetworkInterface = "enp4s0";
-      };
+  config = {
+    homelab = {
+      controlNodeId = 3;
+      mainNetworkInterface = "enp4s0";
     };
-  */
+  };
 }
