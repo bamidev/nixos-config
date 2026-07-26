@@ -36,13 +36,24 @@
 
   hardware.graphics.enable = true;
 
-  home-manager.users.therp =
-    { pkgs, lib, ... }:
-    import ./users/therp.nix {
-      pkgs = pkgs;
-      lib = lib;
-      inputs = inputs;
-    };
+  home-manager.users = {
+    # Override module with one that also imports
+    bamilab =
+      { ... }:
+      {
+        imports = [
+          ./users/bamilab.nix
+          ./users/desktop.nix
+        ];
+      };
+    therp =
+      { pkgs, lib, ... }:
+      import ./users/therp.nix {
+        pkgs = pkgs;
+        lib = lib;
+        inherit inputs;
+      };
+  };
 
   networking = {
     # Disable IPv6 because it does not go through the VPN

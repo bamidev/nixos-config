@@ -1,9 +1,5 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
-  imports = [
-    ./desktop.nix
-  ];
-
   home = {
     stateVersion = "24.11";
 

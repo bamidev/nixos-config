@@ -3,12 +3,18 @@
 {
   boot = {
     initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
       kernelModules = [ ];
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
-  
+
     loader.grub = {
       enable = true;
       device = "nodev";
@@ -26,7 +32,10 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/3266-1FE2";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
   };
 

@@ -25,25 +25,32 @@
       lib = nixpkgs.lib;
     in
     {
-      nixosConfigurations = lib.attrsets.mapAttrs (
-        name: type:
-        let
-          params = import "/etc/nixos/devices/${name}/params.nix";
-        in
-        lib.nixosSystem {
-          system = params.system;
-          specialArgs = {
-            inherit inputs;
-            inherit params;
-            hostName = name;
-          };
-          modules = [
-            ./base.nix
-            ./devices/${name}/hardware.nix
-            ./devices/${name}/configuration.nix
-          ];
-        }
-      ) (builtins.readDir /etc/nixos/devices);
+      nixosConfigurations =
+        lib.attrsets.mapAttrs
+          (
+            name: type:
+            let
+              params = import "/etc/nixos/devices/${name}/params.nix";
+            in
+            lib.nixosSystem {
+              system = params.system;
+              specialArgs = {
+                inherit inputs;
+                inherit params;
+                hostName = name;
+              };
+              modules = [
+                ./base.nix
+                ./devices/${name}/hardware.nix
+                ./devices/${name}/configuration.nix
+              ];
+            }
+          )
+          (
+            lib.attrsets.filterAttrs (name: _: builtins.readFileType ./devices/${name} == "directory") (
+              builtins.readDir /etc/nixos/devices
+            )
+          );
 
       # Add a devShell that provides nixfmt for formatting
     }
