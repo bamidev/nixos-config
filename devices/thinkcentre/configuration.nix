@@ -10,6 +10,7 @@
     homelab = {
       controlNodeId = 2;
       mainNetworkInterface = "wlp2s0";
+      deviceZpool = "main";
     };
   };
 }
