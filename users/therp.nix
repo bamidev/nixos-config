@@ -1,12 +1,9 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
-  editorPkgs = inputs.editorPkgs.legacyPackages."${builtins.currentSystem}";
-
   odooParams = import ./therp/odoo-params.nix;
   preCommitFlake =
     (builtins.getFlake "github:ddejong-therp/therp-pre-commit").apps.${builtins.currentSystem};
