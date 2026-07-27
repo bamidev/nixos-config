@@ -48,10 +48,11 @@
     };
 
     "/exhdd" = {
-      device = "hdd/root";
+      device = "hdd";
       fsType = "zfs";
       options = [
         "nofail"
+        "x-systemd.device-timeout=30s"
       ];
     };
   };
