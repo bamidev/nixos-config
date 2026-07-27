@@ -16,5 +16,5 @@
     mainNetworkInterface = "enp4s0";
   };
 
-  homevpn.deviceId = 10;
+  homevpn.deviceId = 11;
 }
