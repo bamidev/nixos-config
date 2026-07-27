@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ../../apps/netbird/server.nix
+    #../../apps/netbird/server.nix
   ];
 
   boot.kernel.sysctl = {

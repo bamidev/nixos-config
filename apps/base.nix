@@ -9,7 +9,6 @@
     ./git.nix
     ./neovim/system.nix
     ./wireguard.nix
-    ./tailscale.nix
   ];
 
   environment.systemPackages = with pkgs; [

@@ -82,6 +82,7 @@ let
       ''
     ))
 
+    # This script generates a new control node certificate, which needs to include the virtual IP as well.
     (pkgs.writers.writeBashBin "kubes-gen-control-cert" (
       with pkgs;
       ''
