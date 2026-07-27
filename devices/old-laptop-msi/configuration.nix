@@ -5,17 +5,17 @@
 {
   imports = [
     ../wifi.nix
-    ../../lab/kubernetes/control-node.nix
+    ../../lab/kubernetes/worker-node.nix
     ../../lab/nas.nix
 
     # TODO: Move syncthing to the Kubernetes cluster
     ../../apps/syncthing/system.nix
   ];
 
-  homelab = {
-    controlNodeId = 1;
-    mainNetworkInterface = "wlp2s0";
-  };
+  #homelab = {
+  #  controlNodeId = 1;
+  #  mainNetworkInterface = "wlp2s0";
+  #};
 
   homevpn.deviceId = 10;
 }
