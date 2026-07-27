@@ -69,10 +69,10 @@ in
 
         vrrpInstances.my_vrrp = {
           interface = config.homelab.mainNetworkInterface;
-          priority = config.homelab.controlNodeId;
+          priority = 255 - config.homelab.controlNodeId * 10;
           virtualIps = [
             {
-              addr = "192.168.0.77/24";
+              addr = "192.168.0.77";
             }
           ];
           virtualRouterId = 77;

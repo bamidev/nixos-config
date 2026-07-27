@@ -115,10 +115,12 @@ let
 
       if [ -z "$1" ]; then
         echo Hostname argument is missing.
+        exit 1
       fi
       IP_ADDRESS=$2
       if [ -z "$IP_ADDRESS" ]; then
-        IP_ADDRESS="${config.homelab.controlNode.one.ip}"
+        echo IP address argument is missing.
+        exit 1
       fi
 
       trap kubes-unload-ca-cert EXIT
@@ -157,8 +159,9 @@ let
 
       kubes-gen-worker-cert $1 $2 admin ${certCsr "admin" "system:masters"}
       kubes-gen-worker-cert $1 $2 flannel ${certCsr "system:flannel" "system:nodes"}
-      # TODO: Replace old-laptop1 with a way to put $1 into it (maybe be replacing it?)
-      kubes-gen-worker-cert $1 $2 kubelet ${certCsr "system:node:old-laptop2" "system:nodes"}
+      cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
+      sed -i s/XXX/$1/g /tmp/node-cert.csr
+      kubes-gen-control-cert $1 $2 kubelet /tmp/node-cert.csr
       kubes-gen-worker-cert $1 $2 proxy ${componentCsr "proxy"}
     ''
   );
