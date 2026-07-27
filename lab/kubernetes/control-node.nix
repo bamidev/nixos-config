@@ -5,6 +5,7 @@
   ...
 }:
 let
+  # All the port numbers that will be used to open up the firewall
   ports = {
     apiServer = 6443;
     etcd = {
