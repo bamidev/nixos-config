@@ -72,6 +72,15 @@
               three;
         };
       };
+
+      workerNodes = lib.mkOption {
+        description = "A list of domain names for all the available worker nodes";
+        type = lib.types.listOf lib.types.str;
+        default = [
+          "old-laptop-asus"
+          "thinkcentre"
+        ];
+      };
     };
 
     homevpn = {

@@ -63,12 +63,8 @@
         devShells.default = pkgs.mkShell {
           packages = [
             pkgs.nixfmt-tree
-          ]
-          ++ (import ./lab/scripts.nix { inherit pkgs; });
+          ];
         };
-
-        # All container images are provided as the flake's packages
-        packages = import lab/images.nix { pkgs = pkgs; };
       }
     );
 }

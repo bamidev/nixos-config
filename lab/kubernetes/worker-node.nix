@@ -68,15 +68,18 @@
       };
     };
 
-    # Mount the NAS to just /mnt
-    fileSystems."/mnt/nas" = {
-      device = "${config.homelab.nas.ip}:/exhdd";
-      fsType = "nfs4";
-      options = [
-        "x-systemd.automount"
-        "noatime"
-        "rw"
-      ];
-    };
+    # Mount the NAS to /mnt/nas
+    /*
+      fileSystems."/mnt/nas" = {
+        device = "${config.homelab.nas.ip}:/exhdd";
+        fsType = "nfs4";
+        options = [
+          "x-systemd.automount"
+          "noatime"
+          "rw"
+        ];
+      };
+    */
+    # TODO: Fix the VPN connections first
   };
 }

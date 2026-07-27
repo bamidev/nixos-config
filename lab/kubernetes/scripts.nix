@@ -1,6 +1,7 @@
-{ pkgs }:
+{ config, pkgs, ... }:
 let
   # A script to test an image locally using docker
+  # $1 - The name of the image as it is been given by the ./images.nix
   testImageScript = pkgs.writers.writeBashBin "test-image" ''
     set -ex
     nix build -o /tmp/result .#$1 --show-trace
@@ -10,14 +11,28 @@ let
     docker run -p $2:$2 -i -t -l $1 $1
   '';
 
-  # A script to build & deploy an image to my cluster
-  loadImageScript = pkgs.writers.writeBashBin "deploy-image" ''
+  # A script to build & deploy an image to all worker nodes of my cluster.
+  # No arguments needed.
+  loadImageScript = pkgs.writers.writeBashBin "deploy-image" (
+    ''
+      set -ex
+
+    ''
+    + pkgs.lib.concatLines (
+      pkgs.lib.map (
+        name: "${loadImageToScript}/bin/deploy-image-to \"$1\" ${name}"
+      ) config.homelab.workerNodes
+    )
+  );
+
+  # A script to build & deploy an image to my cluster.
+  # Arguments:
+  # $1 - The name of the image to build (check ../images.nix).
+  # $2 - The SSH hostname to use to transmit the image to the node.
+  loadImageToScript = pkgs.writers.writeBashBin "deploy-image-to" ''
     set -ex
 
     HOST=$2
-    if [ -z "$HOST" ]; then
-      HOST="myvpn-old-laptop-asus"
-    fi
 
     nix build -o /tmp/result .#$1
     scp /tmp/result $HOST:/tmp/image
@@ -30,7 +45,10 @@ let
     ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images tag $IMAGE_ID docker.io/library/$1:latest"
   '';
 in
-[
-  loadImageScript
-  testImageScript
-]
+{
+  environment.systemPackages = [
+    loadImageScript
+    loadImageToScript
+    testImageScript
+  ];
+}

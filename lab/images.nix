@@ -1,4 +1,4 @@
-{ pkgs }:
+{ config, pkgs }:
 let
   # All the packages that will be added to all container images to be able to inspect and manipulate
   # the containers.
@@ -28,6 +28,11 @@ in
 builtins.listToAttrs (
   map (name: {
     name = name;
-    value = extendImage (import ./images/${name}.nix { inherit pkgs; });
+    value = extendImage (
+      import ./images/${name}.nix {
+        inherit config;
+        inherit pkgs;
+      }
+    );
   }) images
 )
