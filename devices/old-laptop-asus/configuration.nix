@@ -11,10 +11,10 @@
     ../../lab/kubernetes/worker-node.nix
   ];
 
-  config = {
-    homelab = {
-      controlNodeId = 3;
-      mainNetworkInterface = "enp4s0";
-    };
+  homelab = {
+    controlNodeId = 3;
+    mainNetworkInterface = "enp4s0";
   };
+
+  homevpn.deviceId = 10;
 }
