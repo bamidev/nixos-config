@@ -53,7 +53,7 @@ in
       caFile = "${secretsPath}/ca.pem";
 
       masterAddress = "${config.homelab.kubesServerIp}";
-      clusterCidr = "172.0.0.0/16";
+      #clusterCidr = "172.0.0.0/16";
 
       kubeconfig = {
         server = "https://${config.homelab.kubesServerIp}:6443";

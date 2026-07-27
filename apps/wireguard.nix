@@ -7,7 +7,7 @@ in
 
   networking = {
     wg-quick.interfaces.wg0 = {
-      address = [ "10.0.0.?/24" ];
+      address = [ "172.0.0.0/24" ];
       autostart = true;
       generatePrivateKeyFile = true;
       privateKeyFile = "/root/.secret/wireguard-key";
@@ -18,9 +18,9 @@ in
         {
           publicKey = "1U1LwQYOeOT1HOGAtWSOfxPy6055tG8/xOb2wcnXskY=";
           allowedIPs = [ "10.0.0.100/32" ];
-          endpoint = "2.59.21.91:${toString port}";
+          endpoint = "${config.homelab.vps.ip}:${toString port}";
         }
-        # old-laptop1
+        # old-laptop-msi
         {
           publicKey = "6GswTjhFuA9xggeiw/1mzHi/DCYGBNUKFi6zd6k19zQ=";
           allowedIPs = [ "10.0.0.1/32" ];

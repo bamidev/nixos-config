@@ -8,12 +8,9 @@
   imports = [
     ./git.nix
     ./neovim/system.nix
-    #./wireguard.nix
+    ./wireguard.nix
     ./tailscale.nix
-  ]
-  ++ (lib.optionals (hostName == "vps") [
-    ./headscale.nix
-  ]);
+  ];
 
   environment.systemPackages = with pkgs; [
     bc
