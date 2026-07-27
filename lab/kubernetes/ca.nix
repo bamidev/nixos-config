@@ -128,7 +128,9 @@ let
         kubes-gen-control-cert $1 $IP_ADDRESS etcd ${componentCsr "etcd"}
         kubes-gen-control-cert $1 $IP_ADDRESS flannel ${certCsr "system:flannel" "system:nodes"}
         # TODO: Replace old-laptop1 with a way to put $1 into it (maybe be replacing it?)
-        kubes-gen-control-cert $1 $IP_ADDRESS kubelet ${certCsr "system:node:old-laptop1" "system:nodes"}
+        cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.pem
+        sed -i s/XXX/$1/g /tmp/node-cert.pem
+        kubes-gen-control-cert $1 $IP_ADDRESS kubelet /tmp/node-cert.pem
         kubes-gen-control-cert $1 $IP_ADDRESS proxy ${componentCsr "proxy"}
         kubes-gen-control-cert $1 $IP_ADDRESS scheduler ${componentCsr "scheduler"}
       ''
