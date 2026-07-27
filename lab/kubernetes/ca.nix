@@ -93,6 +93,7 @@ let
       ''
     ))
 
+    # Generate a certificate meant for a worker node
     (pkgs.writers.writeBashBin "kubes-gen-worker-cert" (
       with pkgs;
       ''
@@ -104,6 +105,7 @@ let
       ''
     ))
 
+    # Generate a certificate meant for a control node
     (pkgs.writers.writeBashBin "kubes-gen-control-certs" (
       with pkgs;
       ''
@@ -127,15 +129,15 @@ let
         kubes-gen-control-cert $1 $IP_ADDRESS controller-manager ${componentCsr "controller-manager"}
         kubes-gen-control-cert $1 $IP_ADDRESS etcd ${componentCsr "etcd"}
         kubes-gen-control-cert $1 $IP_ADDRESS flannel ${certCsr "system:flannel" "system:nodes"}
-        # TODO: Replace old-laptop1 with a way to put $1 into it (maybe be replacing it?)
-        cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.pem
-        sed -i s/XXX/$1/g /tmp/node-cert.pem
-        kubes-gen-control-cert $1 $IP_ADDRESS kubelet /tmp/node-cert.pem
+        cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
+        sed -i s/XXX/$1/g /tmp/node-cert.csr
+        kubes-gen-control-cert $1 $IP_ADDRESS kubelet /tmp/node-cert.csr
         kubes-gen-control-cert $1 $IP_ADDRESS proxy ${componentCsr "proxy"}
         kubes-gen-control-cert $1 $IP_ADDRESS scheduler ${componentCsr "scheduler"}
       ''
     ))
 
+    # Generate all the certificates a worker node needs
     (pkgs.writers.writeBashBin "kubes-gen-worker-certs" (
       with pkgs;
       ''
@@ -159,6 +161,7 @@ let
       ''
     ))
 
+    # Deploy all the control node's certificates
     (pkgs.writers.writeBashBin "kubes-deploy-control-certs" (
       with pkgs;
       ''
@@ -188,6 +191,7 @@ let
       ''
     ))
 
+    # Deploy all the worker node's certificates
     (pkgs.writers.writeBashBin "kubes-deploy-worker-certs" (
       with pkgs;
       ''
