@@ -10,7 +10,7 @@ let
     clusters:
     - name: my-cluster
       cluster:
-        server: https://${config.homelab.kubesServerIp}:6443
+        server: https://172.0.0.11:6443
         certificate-authority: ${secretsPath}/ca.pem
 
     users:
