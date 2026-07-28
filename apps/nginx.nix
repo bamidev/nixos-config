@@ -1,6 +1,6 @@
 { ... }:
 {
-  # We have to accept the
+  # We have to accept the ToS of Let's Encrypt
   security.acme.acceptTerms = true;
 
   services.nginx = {
@@ -17,4 +17,6 @@
       };
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }
