@@ -65,6 +65,11 @@
             pkgs.nixfmt-tree
           ];
         };
+
+        packages = import ./lab/images.nix {
+          inherit pkgs;
+          config = self.nixosConfiguration.work-laptop.config;
+        };
       }
     );
 }

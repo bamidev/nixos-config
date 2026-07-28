@@ -37,7 +37,6 @@ let
     nix build -o /tmp/result .#$1
     scp /tmp/result $HOST:/tmp/image
     ssh $HOST chmod +w /tmp/image
-    ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images prune --all"
     IMAGE_ABBREV=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images \
       import /tmp/image" | head -n 1 | cut -d ':' -f 2 | head -c 8)
     IMAGE_ID=$(ssh -t $HOST "sudo /run/current-system/sw/bin/ctr -n k8s.io images list | grep \
