@@ -9,8 +9,22 @@
   ...
 }:
 let
-  homeKeepaliveInterval = 10;
+  homeKeepaliveInterval = 25;
   port = 51820;
+  subnet = "172.0.0";
+
+  # The last number of each IPv4 address
+  ids = lib.attrsets.filterAttrs (n: value: value != -1) (
+    builtins.listToAttrs (
+      map (deviceName: {
+        name = deviceName;
+        value = config.homevpn.deviceId or (-1);
+      }) config.myDevices
+    )
+  );
+
+  # All the IP addresses of the devices part of the VPN
+  ips = builtins.mapAttrs (_: value: "${subnet}.${toString value}") ids;
 in
 {
   options = {
@@ -24,58 +38,67 @@ in
 
     networking = {
       wg-quick.interfaces.wg0 = {
-        address = [ "172.0.0.${toString config.homevpn.deviceId}/24" ];
+        address = [ "${subnet}.${toString config.homevpn.deviceId}/24" ];
         autostart = true;
         generatePrivateKeyFile = true;
         privateKeyFile = "/root/.secret/wireguard-key";
         listenPort = port;
 
         peers =
+          # The VPS peer directs all the traffic to other peers according to a specific IP address
           if hostName == "vps" then
             [
               # vps
               {
                 publicKey = "1U1LwQYOeOT1HOGAtWSOfxPy6055tG8/xOb2wcnXskY=";
-                allowedIPs = [ "172.0.0.100/32" ];
+                allowedIPs = [ "${ips.vps}/32" ];
               }
               # old-laptop-msi
               {
                 publicKey = "6GswTjhFuA9xggeiw/1mzHi/DCYGBNUKFi6zd6k19zQ=";
-                allowedIPs = [ "172.0.0.10/32" ];
+                allowedIPs = [ "${ips.old-laptop-msi}/32" ];
                 persistentKeepalive = homeKeepaliveInterval;
               }
               # old-laptop-asus
               {
                 publicKey = "Biu59vkCyQnkOgMP88m8hLZf6yxTuM7CAjbnmTRPZHY=";
-                allowedIPs = [ "172.0.0.11/32" ];
+                allowedIPs = [ "${ips.old-laptop-asus}/32" ];
                 persistentKeepalive = homeKeepaliveInterval;
               }
               # thinkcentre
               {
                 publicKey = "rcizmz3S2CU2+7ElqLeWepozVWct5/UB75gOZ9zxty4=";
-                allowedIPs = [ "172.0.0.12/32" ];
+                allowedIPs = [ "${ips.thinkcentre}/32" ];
                 persistentKeepalive = homeKeepaliveInterval;
               }
               # work-laptop
               {
                 publicKey = "zFi+hWmuEDThYzCZOC8p+u4h9ZuNIkReI81L1ycNHVI=";
-                allowedIPs = [ "172.0.0.1/32" ];
+                allowedIPs = [ "${ips.work-laptop}/32" ];
                 persistentKeepalive = homeKeepaliveInterval;
               }
             ]
           else
+            # All other peers route all traffic targeted at the subnet to the VPS peer
             [
-              # Route all packets through the VPS
               {
                 publicKey = "1U1LwQYOeOT1HOGAtWSOfxPy6055tG8/xOb2wcnXskY=";
-                allowedIPs = [ "172.0.0.0/24" ];
+                allowedIPs = [ "${subnet}.0/24" ];
                 endpoint = "${config.homelab.vps.ip}:${toString port}";
               }
-
             ];
       };
 
       firewall.allowedUDPPorts = [ port ];
+    };
+
+    # Each peer will ping the VPS peer every hour, so that the hole will re-open in the NAS if it
+    # has been closed, or the WireGuard session will re-open if it was closed down already.
+    services.cron = {
+      enable = true;
+      systemCronJobs = [
+        "0 * * * * root ${pkgs.iputils}/bin/ping -c 1 ${ips.vps}"
+      ];
     };
   };
 }
