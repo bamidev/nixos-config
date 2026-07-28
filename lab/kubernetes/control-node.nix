@@ -98,6 +98,7 @@ in
         apiserver = {
           enable = true;
 
+          allowPrivileged = true; # Needed for Longhorn
           kubeletClientCaFile = "${secretsPath}/ca.pem";
           kubeletClientCertFile = "${secretsPath}/admin.pem";
           kubeletClientKeyFile = "${secretsPath}/admin-key.pem";
