@@ -30,6 +30,11 @@ in
         peers =
           if hostName == "vps" then
             [
+              # vps
+              {
+                publicKey = "1U1LwQYOeOT1HOGAtWSOfxPy6055tG8/xOb2wcnXskY=";
+                allowedIPs = [ "172.0.0.100/32" ];
+              }
               # old-laptop-msi
               {
                 publicKey = "6GswTjhFuA9xggeiw/1mzHi/DCYGBNUKFi6zd6k19zQ=";
@@ -57,7 +62,7 @@ in
             ]
           else
             [
-              # vps
+              # Route all packets through the VPS
               {
                 publicKey = "1U1LwQYOeOT1HOGAtWSOfxPy6055tG8/xOb2wcnXskY=";
                 allowedIPs = [ "172.0.0.0/24" ];
