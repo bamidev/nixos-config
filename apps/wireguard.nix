@@ -1,3 +1,6 @@
+# WireGuard is set up using wg-quick on all my devices, and they route their traffic via a
+# publically accessible VPS, so that I can reach any device of my network from anywhere.
+
 {
   config,
   hostName,

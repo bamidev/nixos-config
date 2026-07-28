@@ -5,11 +5,7 @@ let
       (name: type: {
         id = (import "/etc/nixos/devices/${name}/params.nix").syncthingId or "";
       })
-      (
-        lib.attrsets.filterAttrs (
-          name: _: builtins.readFileType /etc/nixos/devices/${name} == "directory"
-        ) (builtins.readDir /etc/nixos/devices)
-      )
+      (lib.attrsets.filterAttrs (name: value: value == "directory") (builtins.readDir /etc/nixos/devices))
   );
   defaultVersioning = {
     type = "staggered";

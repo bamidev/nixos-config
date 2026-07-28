@@ -86,11 +86,11 @@
     homevpn = {
       main.ip = lib.mkOption {
         type = lib.types.str;
-        default = "100.64.0.3";
+        default = "172.0.0.11";
       };
       nas.ip = lib.mkOption {
         type = lib.types.str;
-        default = "100.64.0.3";
+        default = "172.0.0.10";
       };
     };
   };
