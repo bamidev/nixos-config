@@ -1,5 +1,8 @@
 { ... }:
 {
+  # We have to accept the
+  security.acme.acceptTerms = true;
+
   services.nginx = {
     enable = true;
 
