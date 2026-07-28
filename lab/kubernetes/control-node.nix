@@ -81,13 +81,14 @@ in
 
       # Not sure why, but the service.apiserver.etcd config does not set the certificates appropriately.
       etcd = {
+        certFile = kubernetes.apiserver.etcd.certFile;
+        openFirewall = true;
         peerCertFile = kubernetes.apiserver.etcd.certFile;
+        peerClientCertAuth = true;
         peerKeyFile = kubernetes.apiserver.etcd.keyFile;
         peerTrustedCaFile = kubernetes.apiserver.etcd.caFile;
-        certFile = kubernetes.apiserver.etcd.certFile;
         keyFile = kubernetes.apiserver.etcd.keyFile;
         trustedCaFile = kubernetes.apiserver.etcd.caFile;
-        peerClientCertAuth = true;
       };
 
       # Kubernetes with an apiserver, controler-manager & scheduler.
