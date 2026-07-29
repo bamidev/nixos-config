@@ -109,6 +109,7 @@ let
     mkdir -p /mnt/core/skeleton
     mkdir -p /mnt/data
     mkdir -p /mnt/apps
+    chown -R httpd:httpd /mnt
 
     # Run installation command from within a writable directory
     # This is needed because the `occ` script uses __DIR__ to find the config file,
