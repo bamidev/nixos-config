@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ../../apps/nginx.nix
@@ -9,4 +9,9 @@
   };
 
   homevpn.deviceId = 100;
+
+  nix.gc = {
+    dates = lib.mkForce "daily";
+    options = lib.mkForce "--delete-older-than 1d";
+  };
 }
