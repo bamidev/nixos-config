@@ -20,6 +20,7 @@ let
           listen 8080 default_server;
           server_name _;
           access_log /dev/stderr;
+          port_in_redirect off;
 
           root /var/www/public; 
           index index.html;
