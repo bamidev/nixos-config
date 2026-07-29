@@ -6,6 +6,7 @@
   hostName,
   lib,
   pkgs,
+  self,
   ...
 }:
 let
@@ -14,14 +15,13 @@ let
   subnet = "172.0.0";
 
   # The last number of each IPv4 address
-  ids = lib.attrsets.filterAttrs (n: value: value != -1) (
-    builtins.listToAttrs (
-      map (deviceName: {
-        name = deviceName;
-        value = config.homevpn.deviceId or (-1);
-      }) config.myDevices
-    )
-  );
+  ids = {
+    old-laptop-msi = 10;
+    old-laptop-asus = 11;
+    thinkcentre = 12;
+    vps = 100;
+    work-laptop = 1;
+  };
 
   # All the IP addresses of the devices part of the VPN
   ips = builtins.mapAttrs (_: value: "${subnet}.${toString value}") ids;
