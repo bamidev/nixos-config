@@ -55,7 +55,7 @@ in
               }
               # old-laptop-msi
               {
-                publicKey = "6GswTjhFuA9xggeiw/1mzHi/DCYGBNUKFi6zd6k19zQ=";
+                publicKey = "eG7lOh7RAGzRoh5T0M4clw9D1IpyBRfBtOxxOal+1QM=";
                 allowedIPs = [ "${ips.old-laptop-msi}/32" ];
                 persistentKeepalive = homeKeepaliveInterval;
               }
