@@ -75,10 +75,20 @@
 
       workerNodes = lib.mkOption {
         description = "A list of domain names for all the available worker nodes";
-        type = lib.types.listOf lib.types.str;
+        type = lib.types.listOf lib.types.attrs;
         default = [
-          "old-laptop-asus"
-          "thinkcentre"
+          {
+            domain = "old-laptop-asus";
+            vpnIp = "172.0.0.11";
+          } # The old-laptop-asus device is put on top so that deploy-image deploy to that first
+          {
+            domain = "old-laptop-msi";
+            vpnIp = "172.0.0.10";
+          }
+          {
+            domain = "thinkcentre";
+            vpnIp = "172.0.0.12";
+          }
         ];
       };
     };

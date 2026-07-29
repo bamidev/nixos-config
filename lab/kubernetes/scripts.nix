@@ -20,7 +20,7 @@ let
     ''
     + pkgs.lib.concatLines (
       pkgs.lib.map (
-        name: "${loadImageToScript}/bin/deploy-image-to \"$1\" ${name}"
+        workerNode: "${loadImageToScript}/bin/deploy-image-to \"$1\" ${workerNode.vpnIp}"
       ) config.homelab.workerNodes
     )
   );
