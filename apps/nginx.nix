@@ -3,7 +3,8 @@
 { ... }:
 let
   kubernetesEndpoint = "172.0.0.11";
-in {
+in
+{
   # We have to accept the ToS of Let's Encrypt
   security.acme.acceptTerms = true;
 

@@ -52,6 +52,8 @@ in
       easyCerts = false;
       caFile = "${secretsPath}/ca.pem";
 
+      addons.dns.enable = true;
+
       masterAddress = "${config.homelab.kubesServerIp}";
       #clusterCidr = "172.0.0.0/16";
 

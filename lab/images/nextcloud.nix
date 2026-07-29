@@ -119,7 +119,7 @@ let
     chown -R httpd:httpd /tmp/nextcloud
     chmod -R +w /tmp/nextcloud/config
     su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"$NEXTCLOUD_DB_RW_SERVICE_HOST\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
-    
+
     # Cleanup
     rm -r /tmp/nextcloud
   '';
