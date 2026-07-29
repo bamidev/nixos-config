@@ -16,11 +16,12 @@ in {
         enableACME = true;
         locations."/" = {
           # Access the stonenet-site server on my Kubernetes cluster through old-laptop-asus
-          proxyPass = "http://${kubernetesEndpoint}:30001/";
+          proxyPass = "http://${kubernetesEndpoint}:30001";
 
           extraConfig = ''
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           '';
         };
       };
