@@ -116,7 +116,7 @@ in
 
             servers = [
               "https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.clientUrls}"
-              #"https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
+              "https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
               #"https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.clientUrls}"
             ];
           };
