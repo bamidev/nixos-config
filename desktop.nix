@@ -218,6 +218,7 @@
     options = [
       "x-systemd.automount"
       "noatime"
+      "nofail"
       "rw"
     ];
   };
