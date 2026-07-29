@@ -17,6 +17,17 @@
   };
 
   config = {
+    # These need to be available for Longhorn to work
+    environment.systemPackages = with pkgs; [
+      bash
+      curl
+      gawk
+      gnugrep
+      nfs-utils
+      openiscsi
+      util-linux
+    ];
+
     security.sudo = {
       enable = true;
       extraRules = [

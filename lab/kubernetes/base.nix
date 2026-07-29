@@ -55,13 +55,10 @@ in
       addons.dns.enable = true;
 
       masterAddress = "${config.homelab.kubesServerIp}";
-      #clusterCidr = "172.0.0.0/16";
 
       kubeconfig = {
         server = "https://${config.homelab.kubesServerIp}:6443";
         caFile = "${secretsPath}/ca.pem";
-        #certFile = "${secretsPath}/admin.pem";
-        #keyFile = "${secretsPath}/admin-key.pem";
       };
 
       flannel = {
