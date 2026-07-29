@@ -88,8 +88,12 @@ let
     with pkgs;
     ''
       set -ex
+      # The following IP addresses are added as a valid hostname:
+      # * 10.0.0.1 - This is needed because because the API server is often reached at this IP from several components.
+      # * The IP address from the internal network (in 192.168.0.0/24).
+      # * The IP address from my home VPN (in 172.0.0.0/24).
       ${cfssl}/bin/cfssl gencert -profile=kubernetes -ca ${secretsPath}/ca.pem \
-        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,10.0.0.1,${config.homelab.kubesServerIp},$2,${config.homelab.kubesVpnServerIp}" \
+        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,10.0.0.1,${config.homelab.kubesServerIp},${config.homelab.kubesVpnServerIp},$2" \
         $4 | ${cfssl}/bin/cfssljson -bare $3
       ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $3.pem
     ''
@@ -101,7 +105,7 @@ let
     ''
       set -ex
       ${cfssl}/bin/cfssl gencert -profile=kubernetes -ca ${secretsPath}/ca.pem \
-        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,${config.homelab.kubesServerIp},$2" \
+        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,10.0.0.1,${config.homelab.kubesServerIp},${config.homelab.kubesVpnServerIp},$2" \
         $4 | ${cfssl}/bin/cfssljson -bare $3
       ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $3.pem
     ''
@@ -134,6 +138,7 @@ let
       kubes-gen-control-cert $1 $IP_ADDRESS etcd ${componentCsr "etcd"}
       kubes-gen-control-cert $1 $IP_ADDRESS flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
+      chmod 664 /tmp/node-cert.csr
       sed -i s/XXX/$1/g /tmp/node-cert.csr
       kubes-gen-control-cert $1 $IP_ADDRESS kubelet /tmp/node-cert.csr
       kubes-gen-control-cert $1 $IP_ADDRESS proxy ${componentCsr "proxy"}
@@ -160,6 +165,7 @@ let
       kubes-gen-worker-cert $1 $2 admin ${certCsr "admin" "system:masters"}
       kubes-gen-worker-cert $1 $2 flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
+      chmod 664 /tmp/node-cert.csr
       sed -i s/XXX/$1/g /tmp/node-cert.csr
       kubes-gen-control-cert $1 $2 kubelet /tmp/node-cert.csr
       kubes-gen-worker-cert $1 $2 proxy ${componentCsr "proxy"}
