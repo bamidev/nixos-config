@@ -8,10 +8,11 @@
     'trusted_domains' => [
       'nextcloud.kubes',
       '192.168.0.77',
-      '100.64.0.3',
+      '172.0.0.11',
     ],
     'trusted_proxies' => [
-      '172.0.1.0/24'
+      '10.0.0.0/16',
+      '172.0.0.0/24',
     ],
     'overwrite.cli.url' => 'http://localhost',
     'datadirectory' => '/mnt/data',

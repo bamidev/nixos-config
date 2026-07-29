@@ -113,12 +113,14 @@ let
 
     # Run installation command from within a writable directory
     # This is needed because the `occ` script uses __DIR__ to find the config file,
-    # and nextcloud complains if __DIR__ is not writable.
+    # and nextcloud complains if __DIR__/config is not writable.
     mkdir -p /tmp/nextcloud
     cp -r ${nextcloud}/* /tmp/nextcloud
     chown -R httpd:httpd /tmp/nextcloud
     chmod -R +w /tmp/nextcloud/config
     su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"$NEXTCLOUD_DB_RW_SERVICE_HOST\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
+    
+    # Cleanup
     rm -r /tmp/nextcloud
   '';
 
