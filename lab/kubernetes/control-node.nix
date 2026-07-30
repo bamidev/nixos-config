@@ -105,10 +105,10 @@ in
         initialAdvertisePeerUrls = [ "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}" ];
         # But listen on all IPs:
         listenClientUrls = [
-          "https://0.0.0.0:${toString ports.etcd.clientUrls}"
+          "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.clientUrls}"
         ];
         listenPeerUrls = [
-          "http://0.0.0.0:${toString ports.etcd.peerUrls}"
+          "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}"
         ];
         initialCluster = [
           "old-laptop-asus=https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.peerUrls}"
