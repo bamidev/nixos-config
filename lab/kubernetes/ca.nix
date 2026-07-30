@@ -84,30 +84,22 @@ let
   );
 
   # This script generates a new control node certificate, which needs to include the virtual IP as well.
-  kubesGenControlCert = pkgs.writers.writeBashBin "kubes-gen-control-cert" (
+  kubesGenCert = pkgs.writers.writeBashBin "kubes-gen-cert" (
     with pkgs;
     ''
       set -ex
+      HOSTNAMES=$1
+      CERTNAME=$2
+      CSR_FILE=$3
+
       # The following IP addresses are added as a valid hostname:
       # * 10.0.0.1 - This is needed because because the API server is often reached at this IP from several components.
       # * The IP address from the internal network (in 192.168.0.0/24).
       # * The IP address from my home VPN (in 172.0.0.0/24).
       ${cfssl}/bin/cfssl gencert -profile=kubernetes -ca ${secretsPath}/ca.pem \
-        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,10.0.0.1,${config.homelab.kubesServerIp},${config.homelab.kubesVpnServerIp},$2" \
-        $4 | ${cfssl}/bin/cfssljson -bare $3
-      ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $3.pem
-    ''
-  );
-
-  # Generate a certificate meant for a worker node
-  kubesGenWorkerCert = pkgs.writers.writeBashBin "kubes-gen-worker-cert" (
-    with pkgs;
-    ''
-      set -ex
-      ${cfssl}/bin/cfssl gencert -profile=kubernetes -ca ${secretsPath}/ca.pem \
-        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,10.0.0.1,${config.homelab.kubesServerIp},${config.homelab.kubesVpnServerIp},$2" \
-        $4 | ${cfssl}/bin/cfssljson -bare $3
-      ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $3.pem
+        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,127.0.0.1,10.0.0.1,${config.homelab.kubesServerIp},${config.homelab.kubesVpnServerIp}" \
+        $CSR_FILE | ${cfssl}/bin/cfssljson -bare $CERTNAME
+      ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $CERTNAME.pem
     ''
   );
 
@@ -117,13 +109,9 @@ let
     ''
       set -ex
 
+      HOSTNAMES=$1
       if [ -z "$1" ]; then
-        echo Hostname argument is missing.
-        exit 1
-      fi
-      IP_ADDRESS=$2
-      if [ -z "$IP_ADDRESS" ]; then
-        echo IP address argument is missing.
+        echo Hostnames argument is missing
         exit 1
       fi
 
@@ -132,17 +120,17 @@ let
 
       ${openssl}/bin/openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ./apiserver-account-privkey.pem
       ${openssl}/bin/openssl pkey -in ./apiserver-account-privkey.pem -pubout -out ./apiserver-account-pubkey.pem
-      kubes-gen-control-cert $1 $IP_ADDRESS admin ${certCsr "admin" "system:masters"}
-      kubes-gen-control-cert $1 $IP_ADDRESS apiserver ${componentCsr "apiserver"}
-      kubes-gen-control-cert $1 $IP_ADDRESS controller-manager ${componentCsr "controller-manager"}
-      kubes-gen-control-cert $1 $IP_ADDRESS etcd ${componentCsr "etcd"}
-      kubes-gen-control-cert $1 $IP_ADDRESS flannel ${certCsr "system:flannel" "system:nodes"}
+      kubes-gen-cert $HOSTNAMES admin ${certCsr "admin" "system:masters"}
+      kubes-gen-cert $HOSTNAMES apiserver ${componentCsr "apiserver"}
+      kubes-gen-cert $HOSTNAMES controller-manager ${componentCsr "controller-manager"}
+      kubes-gen-cert $HOSTNAMES,127.0.0.1 etcd ${componentCsr "etcd"}
+      kubes-gen-cert $HOSTNAMES flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
       chmod 664 /tmp/node-cert.csr
       sed -i s/XXX/$1/g /tmp/node-cert.csr
-      kubes-gen-control-cert $1 $IP_ADDRESS kubelet /tmp/node-cert.csr
-      kubes-gen-control-cert $1 $IP_ADDRESS proxy ${componentCsr "proxy"}
-      kubes-gen-control-cert $1 $IP_ADDRESS scheduler ${componentCsr "scheduler"}
+      kubes-gen-cert $HOSTNAMES kubelet /tmp/node-cert.csr
+      kubes-gen-cert $HOSTNAMES proxy ${componentCsr "proxy"}
+      kubes-gen-cert $HOSTNAMES scheduler ${componentCsr "scheduler"}
     ''
   );
 
@@ -152,23 +140,22 @@ let
     ''
       set -ex
 
+      HOSTNAMES=$1
       if [ -z "$1" ]; then
-        echo Hostname argument is missing.
-      fi
-      if [ -z "$2" ]; then
-        echo IP address argument is missing.
+        echo Hostnames argument is missing
+        exit 1
       fi
 
       trap kubes-unload-ca-cert EXIT
       kubes-load-ca-cert
 
-      kubes-gen-worker-cert $1 $2 admin ${certCsr "admin" "system:masters"}
-      kubes-gen-worker-cert $1 $2 flannel ${certCsr "system:flannel" "system:nodes"}
+      kubes-gen-worker-cert $HOSTNAMES admin ${certCsr "admin" "system:masters"}
+      kubes-gen-worker-cert $HOSTNAMES flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
       chmod 664 /tmp/node-cert.csr
       sed -i s/XXX/$1/g /tmp/node-cert.csr
-      kubes-gen-control-cert $1 $2 kubelet /tmp/node-cert.csr
-      kubes-gen-worker-cert $1 $2 proxy ${componentCsr "proxy"}
+      kubes-gen-control-cert $HOSTNAMES kubelet /tmp/node-cert.csr
+      kubes-gen-worker-cert $HOSTNAMES proxy ${componentCsr "proxy"}
     ''
   );
 
