@@ -68,9 +68,9 @@
         current = lib.mkOption {
           type = lib.types.attrs;
           default =
-            if controlNodeId == 1 then
+            if config.homelab.controlNodeId == 1 then
               config.homelab.controlNode.one
-            else if controlNodeId == 2 then
+            else if config.homelab.controlNodeId == 2 then
               config.homelab.controlNode.two
             else
               config.homelab.controlNode.three;
