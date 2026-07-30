@@ -29,7 +29,7 @@
         default = 2;
       };
 
-      controlNode = rec {
+      controlNode = {
         one = {
           ip = lib.mkOption {
             type = lib.types.str;
@@ -65,11 +65,11 @@
           type = lib.types.attrs;
           default =
             if controlNodeId == 1 then
-              one
+              config.homelab.controlNode.one
             else if controlNodeId == 2 then
-              two
+              config.homelab.controlNode.two
             else
-              three;
+              config.homelab.controlNode.three;
         };
       };
 

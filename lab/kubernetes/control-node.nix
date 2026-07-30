@@ -99,6 +99,21 @@ in
         peerTrustedCaFile = kubernetes.apiserver.etcd.caFile;
         keyFile = kubernetes.apiserver.etcd.keyFile;
         trustedCaFile = kubernetes.apiserver.etcd.caFile;
+
+        # Advertise url client and peer URLs to the other control nodes with out local area network IP:
+        advertiseClientUrls = [ "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.clientUrls}" ];
+        initialAdvertisePeerUrls = [ "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}" ];
+        # But listen on all IPs:
+        listenClientUrls = [
+          "https://0.0.0.0:${toString ports.etcd.clientUrls}"
+        ];
+        listenPeerUrls = [
+          "http://0.0.0.0:${toString ports.etcd.peerUrls}"
+        ];
+        initialCluster = [
+          "old-laptop-asus=https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.peerUrls}"
+          "thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
+        ];
       };
 
       # Kubernetes with an apiserver, controler-manager & scheduler.
