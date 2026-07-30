@@ -59,6 +59,7 @@ in
       systemPackages = [ pkgs.etcd ];
 
       variables = {
+        ETCDCTL_ENDPOINTS = "https://127.0.0.1:${toString ports.etcd.clientUrls}";
         ETCDCTL_CACERT = "${secretsPath}/ca.pem";
         ETCDCTL_CERT = "${secretsPath}/etcd.pem";
         ETCDCTL_KEY = "${secretsPath}/etcd-key.pem";
