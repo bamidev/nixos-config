@@ -58,11 +58,8 @@ in
     environment = {
       systemPackages = [ pkgs.etcd ];
 
-      variables = {
+      sessionVariables = {
         ETCDCTL_ENDPOINTS = "https://127.0.0.1:${toString ports.etcd.clientUrls}";
-        ETCDCTL_CACERT = "${secretsPath}/ca.pem";
-        ETCDCTL_CERT = "${secretsPath}/etcd.pem";
-        ETCDCTL_KEY = "${secretsPath}/etcd-key.pem";
       };
     };
 
@@ -102,11 +99,16 @@ in
         trustedCaFile = kubernetes.apiserver.etcd.caFile;
 
         # Advertise url client and peer URLs to the other control nodes with out local area network IP:
-        advertiseClientUrls = [ "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.clientUrls}" ];
-        initialAdvertisePeerUrls = [ "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}" ];
+        advertiseClientUrls = [
+          "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.clientUrls}"
+        ];
+        initialAdvertisePeerUrls = [
+          "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}"
+        ];
         # But listen on all IPs:
         listenClientUrls = [
           "https://0.0.0.0:${toString ports.etcd.clientUrls}"
+          "http://127.0.0.1:2378" # Also listen locally without TLS for ease of use
         ];
         listenPeerUrls = [
           "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}"
