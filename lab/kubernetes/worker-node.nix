@@ -68,14 +68,12 @@
       settings = {
         # Make sure the unpack platform exists for ZFS, because otherwise we can't download images
         plugins."io.containerd.grpc.v1.cri".containerd.snapshotter = "zfs";
-        plugins."io.containerd.transfer.v1.local" = {
-          unpack_config = [
-            {
-              platform = "linux/amd64";
-              snapshotter = "zfs";
-            }
-          ];
-        };
+        plugins."io.containerd.transfer.v1.local".unpack_config = [
+          {
+            platform = "linux/amd64";
+            snapshotter = "zfs";
+          }
+        ];
       };
     };
 
