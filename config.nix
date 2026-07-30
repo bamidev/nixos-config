@@ -49,11 +49,15 @@
             type = lib.types.int;
             default = 2;
           };
+          vpnIp = lib.mkOption {
+            type = lib.types.str;
+            default = "172.0.0.12";
+          };
         };
         three = {
           ip = lib.mkOption {
             type = lib.types.str;
-            default = "192.168.0.254";
+            default = "192.168.0.0";
           };
           prio = lib.mkOption {
             type = lib.types.int;

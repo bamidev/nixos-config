@@ -12,7 +12,7 @@
   ];
 
   homelab = {
-    controlNodeId = 3;
+    controlNodeId = 1;
     mainNetworkInterface = "enp4s0";
   };
 
