@@ -105,7 +105,7 @@ in
         initialAdvertisePeerUrls = [ "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}" ];
         # But listen on all IPs:
         listenClientUrls = [
-          "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.clientUrls}"
+          "https://0.0.0.0:${toString ports.etcd.clientUrls}"
         ];
         listenPeerUrls = [
           "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}"
