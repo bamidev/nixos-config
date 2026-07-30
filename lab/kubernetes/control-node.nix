@@ -55,6 +55,16 @@ in
   };
 
   config = {
+    environment = {
+      systemPackages = [ pkgs.etcd ];
+
+      variables = {
+        ETCDCTL_CACERT = "${secretsPath}/ca.pem";
+        ETCDCTL_CERT = "${secretsPath}/etcd.pem";
+        ETCDCTL_KEY = "${secretsPath}/etcd-key.pem";
+      };
+    };
+
     networking.firewall.allowedTCPPorts = with ports; [
       apiServer
       etcd.clientUrls

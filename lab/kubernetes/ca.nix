@@ -235,9 +235,8 @@ in
     kubesDeployControlCerts
     kubesDeployWorkerCerts
     kubesGenCaCert
-    kubesGenControlCert
+    kubesGenCert
     kubesGenControlCerts
-    kubesGenWorkerCert
     kubesGenWorkerCerts
     kubesLoadCaCert
     kubesUnloadCaCert
