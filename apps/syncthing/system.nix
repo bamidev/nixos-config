@@ -1,11 +1,9 @@
 { pkgs, lib, ... }:
 let
   devices = lib.attrsets.filterAttrs (n: value: value != "") (
-    lib.attrsets.mapAttrs
-      (name: type: {
-        id = (import "/etc/nixos/devices/${name}/params.nix").syncthingId or "";
-      })
-      (lib.attrsets.filterAttrs (name: value: value == "directory") (builtins.readDir /etc/nixos/devices))
+    lib.attrsets.mapAttrs (name: type: {
+      id = (import ../../devices/${name}/params.nix).syncthingId or "";
+    }) (lib.attrsets.filterAttrs (name: value: value == "directory") (builtins.readDir ../../devices))
   );
   defaultVersioning = {
     type = "staggered";

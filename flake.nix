@@ -48,7 +48,7 @@
           )
           (
             lib.attrsets.filterAttrs (name: _: builtins.readFileType ./devices/${name} == "directory") (
-              builtins.readDir /etc/nixos/devices
+              builtins.readDir ./devices
             )
           );
 
