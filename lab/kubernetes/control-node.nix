@@ -9,6 +9,7 @@ let
   ports = {
     apiServer = 6443;
     etcd = {
+      localClient = 2378;
       clientUrls = 2379;
       peerUrls = 2380;
     };
@@ -59,7 +60,7 @@ in
       systemPackages = [ pkgs.etcd ];
 
       sessionVariables = {
-        ETCDCTL_ENDPOINTS = "https://127.0.0.1:${toString ports.etcd.clientUrls}";
+        ETCDCTL_ENDPOINTS = "http://127.0.0.1:${toString ports.etcd.localClient}";
       };
     };
 
@@ -144,6 +145,18 @@ in
           clientCaFile = "${secretsPath}/ca.pem";
           tlsCertFile = "${secretsPath}/apiserver.pem";
           tlsKeyFile = "${secretsPath}/apiserver-key.pem";
+
+          etcd = {
+            caFile = "${secretsPath}/ca.pem";
+            certFile = "${secretsPath}/apiserver.pem";
+            keyFile = "${secretsPath}/apiserver-key.pem";
+
+            servers = [
+              "https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.clientUrls}"
+              #"https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
+              #"https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.clientUrls}"
+            ];
+          };
         };
 
         controllerManager = {
