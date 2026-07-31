@@ -117,6 +117,8 @@ in
           "old-laptop-asus=https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.peerUrls}"
           #"thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
         ];
+
+        initialClusterState = if config.homelab.controlNodeId == 1 then "new" else "existing";
       };
 
       # Kubernetes with an apiserver, controler-manager & scheduler.
