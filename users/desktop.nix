@@ -1,6 +1,5 @@
 {
   nixosConfig,
-  params,
   pkgs,
   ...
 }:

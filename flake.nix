@@ -30,7 +30,7 @@
           (
             name: type:
             let
-              params = import "/etc/nixos/devices/${name}/params.nix";
+              params = import ./devices/${name}/params.nix;
             in
             lib.nixosSystem {
               system = params.system;

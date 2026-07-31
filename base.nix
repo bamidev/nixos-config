@@ -92,6 +92,7 @@ in
         bamilab =
           { pkgs, lib, ... }:
           import ./users/bamilab.nix {
+            nixosConfig = config;
             pkgs = pkgs;
             lib = lib;
             inputs = inputs;
