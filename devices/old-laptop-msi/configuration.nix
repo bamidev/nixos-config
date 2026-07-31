@@ -5,6 +5,7 @@
 {
   imports = [
     ../wifi.nix
+    ../../lab/kubernetes/control-node.nix
     ../../lab/kubernetes/worker-node.nix
     ../../lab/nas.nix
 
@@ -12,10 +13,11 @@
     ../../apps/syncthing/system.nix
   ];
 
-  #homelab = {
-  #  controlNodeId = 1;
-  #  mainNetworkInterface = "wlp2s0";
-  #};
+  homelab = {
+    controlNodeId = 3;
+    mainNetworkInterface = "wlp2s0";
+    enableKeepalived = false; # This device is not receiving the VRRP packets very well.
+  };
 
   homevpn.deviceId = 10;
 }

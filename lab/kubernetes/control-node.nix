@@ -73,7 +73,7 @@ in
     services = rec {
       # Keepalived for 'sharing' an IP address between the 3 'control nodes'.
       keepalived = {
-        enable = true;
+        enable = config.homelab.enableKeepalived;
         openFirewall = true;
 
         vrrpInstances.my_vrrp = {

@@ -24,6 +24,12 @@
         default = config.homevpn.main.ip;
       };
 
+      enableKeepalived = lib.mkOption {
+        description = "Whether to enable keepalived when this node is a control node.";
+        type = lib.types.bool;
+        default = true;
+      };
+
       controlNodeId = lib.mkOption {
         type = lib.types.int;
         default = 2;
