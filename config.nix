@@ -45,6 +45,10 @@
             type = lib.types.int;
             default = 1;
           };
+          vpnIp = lib.mkOption {
+            type = lib.types.str;
+            default = "172.0.0.11";
+          };
         };
         two = {
           ip = lib.mkOption {
