@@ -132,7 +132,7 @@ in
 
         192.168.0.254 old-laptop-msi
         192.168.0.134 old-laptop-asus
-        192.168.0.250 thinkcentre
+        192.168.0.148 thinkcentre
       '';
     };
 
