@@ -121,8 +121,8 @@ in
         ];
         initialCluster = [
           "old-laptop-asus=https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.peerUrls}"
-          #"thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
-          #"somethingelse=https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.peerUrls}"
+          "thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
+          "old-laptop-msi=https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.peerUrls}"
         ];
 
         initialClusterState = if config.homelab.controlNodeId == 1 then "new" else "existing";
@@ -153,8 +153,8 @@ in
 
             servers = [
               "https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.clientUrls}"
-              #"https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
-              #"https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.clientUrls}"
+              "https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
+              "https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.clientUrls}"
             ];
           };
         };
