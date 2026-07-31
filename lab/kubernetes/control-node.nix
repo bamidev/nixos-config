@@ -89,16 +89,21 @@ in
 
       # Not sure why, but the service.apiserver.etcd config does not set the certificates appropriately.
       etcd = {
-        certFile = kubernetes.apiserver.etcd.certFile;
-        openFirewall = true;
-        peerCertFile = kubernetes.apiserver.etcd.certFile;
-        peerClientCertAuth = true;
-        peerKeyFile = kubernetes.apiserver.etcd.keyFile;
-        peerTrustedCaFile = kubernetes.apiserver.etcd.caFile;
-        keyFile = kubernetes.apiserver.etcd.keyFile;
-        trustedCaFile = kubernetes.apiserver.etcd.caFile;
+        enable = true;
 
-        # Advertise url client and peer URLs to the other control nodes with out local area network IP:
+        name = config.networking.hostName;
+        openFirewall = true;
+        peerClientCertAuth = true;
+
+        # Certificate files
+        certFile = "${secretsPath}/etcd.pem";
+        peerCertFile = "${secretsPath}/etcd.pem";
+        peerKeyFile = "${secretsPath}/etcd-key.pem";
+        peerTrustedCaFile = "${secretsPath}/ca.pem";
+        keyFile = "${secretsPath}/etcd-key.pem";
+        trustedCaFile = "${secretsPath}/ca.pem";
+
+        # Use the LAN IP to advertise outselves
         advertiseClientUrls = [
           "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.clientUrls}"
         ];
@@ -116,6 +121,7 @@ in
         initialCluster = [
           "old-laptop-asus=https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.peerUrls}"
           #"thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
+          #"somethingelse=https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.peerUrls}"
         ];
 
         initialClusterState = if config.homelab.controlNodeId == 1 then "new" else "existing";
@@ -130,27 +136,14 @@ in
 
           allowPrivileged = true; # Needed for Longhorn
           kubeletClientCaFile = "${secretsPath}/ca.pem";
-          kubeletClientCertFile = "${secretsPath}/admin.pem";
-          kubeletClientKeyFile = "${secretsPath}/admin-key.pem";
+          kubeletClientCertFile = "${secretsPath}/apiserver.pem";
+          kubeletClientKeyFile = "${secretsPath}/apiserver-key.pem";
           serviceAccountKeyFile = "${secretsPath}/apiserver-account-pubkey.pem";
           serviceAccountSigningKeyFile = "${secretsPath}/apiserver-account-privkey.pem";
 
           clientCaFile = "${secretsPath}/ca.pem";
           tlsCertFile = "${secretsPath}/apiserver.pem";
           tlsKeyFile = "${secretsPath}/apiserver-key.pem";
-
-          etcd = {
-            caFile = "${secretsPath}/ca.pem";
-            certFile = "${secretsPath}/etcd.pem";
-            keyFile = "${secretsPath}/etcd-key.pem";
-
-            servers = [
-              "https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.clientUrls}"
-              "https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
-              #"https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.clientUrls}"
-            ];
-          };
-
         };
 
         controllerManager = {
