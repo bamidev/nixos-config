@@ -88,16 +88,17 @@ let
     with pkgs;
     ''
       set -ex
-      HOSTNAMES=$1
-      CERTNAME=$2
-      CSR_FILE=$3
+      HOSTNAME=$1
+      ADDRESSES=$2
+      CERTNAME=$3
+      CSR_FILE=$4
 
       # The following IP addresses are added as a valid hostname:
       # * 10.0.0.1 - This is needed because because the API server is often reached at this IP from several components.
       # * The IP address from the internal network (in 192.168.0.0/24).
       # * The IP address from my home VPN (in 172.0.0.0/24).
       ${cfssl}/bin/cfssl gencert -profile=kubernetes -ca ${secretsPath}/ca.pem \
-        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$1,127.0.0.1,10.0.0.1,${config.homelab.kubesServerIp},${config.homelab.kubesVpnServerIp}" \
+        -ca-key /tmp/ca-key.pem -config "${caConfig}" "-hostname=$HOSTNAME,127.0.0.1,10.0.0.1,${config.homelab.kubesServerIp},$ADDRESSES" \
         $CSR_FILE | ${cfssl}/bin/cfssljson -bare $CERTNAME
       ${openssl}/bin/openssl verify -CAfile ${secretsPath}/ca.pem $CERTNAME.pem
     ''
@@ -109,9 +110,14 @@ let
     ''
       set -ex
 
-      HOSTNAMES=$1
+      HOSTNAME=$1
       if [ -z "$1" ]; then
-        echo Hostnames argument is missing
+        echo Hostname argument is missing
+        exit 1
+      fi
+      ADDRESSES=$2
+      if [ -z "$2" ]; then
+        echo IP Addresses argument is missing
         exit 1
       fi
 
@@ -120,17 +126,17 @@ let
 
       ${openssl}/bin/openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ./apiserver-account-privkey.pem
       ${openssl}/bin/openssl pkey -in ./apiserver-account-privkey.pem -pubout -out ./apiserver-account-pubkey.pem
-      kubes-gen-cert $HOSTNAMES admin ${certCsr "admin" "system:masters"}
-      kubes-gen-cert $HOSTNAMES apiserver ${componentCsr "apiserver"}
-      kubes-gen-cert $HOSTNAMES controller-manager ${componentCsr "controller-manager"}
-      kubes-gen-cert $HOSTNAMES,127.0.0.1 etcd ${componentCsr "etcd"}
-      kubes-gen-cert $HOSTNAMES flannel ${certCsr "system:flannel" "system:nodes"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES admin ${certCsr "admin" "system:masters"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES apiserver ${componentCsr "apiserver"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES controller-manager ${componentCsr "controller-manager"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES etcd ${componentCsr "etcd"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
       chmod 664 /tmp/node-cert.csr
       sed -i s/XXX/$1/g /tmp/node-cert.csr
-      kubes-gen-cert $HOSTNAMES kubelet /tmp/node-cert.csr
-      kubes-gen-cert $HOSTNAMES proxy ${componentCsr "proxy"}
-      kubes-gen-cert $HOSTNAMES scheduler ${componentCsr "scheduler"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES kubelet /tmp/node-cert.csr
+      kubes-gen-cert $HOSTNAME $ADDRESSES proxy ${componentCsr "proxy"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES scheduler ${componentCsr "scheduler"}
     ''
   );
 
@@ -140,22 +146,27 @@ let
     ''
       set -ex
 
-      HOSTNAMES=$1
+      HOSTNAME=$1
       if [ -z "$1" ]; then
         echo Hostnames argument is missing
+        exit 1
+      fi
+      ADDRESSES=$2
+      if [ -z "$2" ]; then
+        echo IP Addresses argument is missing
         exit 1
       fi
 
       trap kubes-unload-ca-cert EXIT
       kubes-load-ca-cert
 
-      kubes-gen-worker-cert $HOSTNAMES admin ${certCsr "admin" "system:masters"}
-      kubes-gen-worker-cert $HOSTNAMES flannel ${certCsr "system:flannel" "system:nodes"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES admin ${certCsr "admin" "system:masters"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
       chmod 664 /tmp/node-cert.csr
       sed -i s/XXX/$1/g /tmp/node-cert.csr
-      kubes-gen-control-cert $HOSTNAMES kubelet /tmp/node-cert.csr
-      kubes-gen-worker-cert $HOSTNAMES proxy ${componentCsr "proxy"}
+      kubes-gen-cert $HOSTNAME $ADDRESSES kubelet /tmp/node-cert.csr
+      kubes-gen-cert $HOSTNAME $ADDRESSES proxy ${componentCsr "proxy"}
     ''
   );
 
