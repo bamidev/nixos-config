@@ -115,7 +115,7 @@ in
         ];
         initialCluster = [
           "old-laptop-asus=https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.peerUrls}"
-          "thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
+          #"thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
         ];
       };
 
