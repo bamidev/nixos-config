@@ -14,7 +14,8 @@ in
     upstreams.kubes = {
       servers = {
         "${config.homelab.controlNode.one.vpnIp}:${toString stonenetSitePort}" = { };
-        "${config.homelab.controlNode.two.vpnIp}:${toString stonenetSitePort}" = { };
+        #"${config.homelab.controlNode.two.vpnIp}:${toString stonenetSitePort}" = { };
+        #"${config.homelab.controlNode.three.vpnIp}:${toString stonenetSitePort}" = { };
       };
 
       # Sticky session type of load balancing:
