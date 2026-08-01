@@ -1,13 +1,13 @@
 { ... }:
 {
   imports = [
-    #../../lab/kubernetes/control-node.nix
+    ../../lab/kubernetes/control-node.nix
     ../../lab/kubernetes/worker-node.nix
   ];
 
   homelab = {
-    #controlNodeId = 2;
-    #mainNetworkInterface = "enp1s0f1";
+    controlNodeId = 2;
+    mainNetworkInterface = "enp1s0f1";
     deviceZpool = "main";
   };
 
