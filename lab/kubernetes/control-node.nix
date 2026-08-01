@@ -125,7 +125,7 @@ in
           "controlnode3=https://controlnode3:${toString ports.etcd.peerUrls}"
         ];
 
-        initialClusterState = if config.homelab.controlNodeId == 1 then "new" else "existing";
+        initialClusterState = "new";
       };
 
       # Kubernetes with an apiserver, controler-manager & scheduler.
