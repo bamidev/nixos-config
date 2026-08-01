@@ -92,7 +92,7 @@ in
       etcd = {
         enable = true;
 
-        name = config.networking.hostName;
+        name = "controlnode${toString config.homelab.controlNodeId}";
         openFirewall = true;
         peerClientCertAuth = true;
 
@@ -125,7 +125,7 @@ in
           "controlnode3=https://controlnode3:${toString ports.etcd.peerUrls}"
         ];
 
-        initialClusterState = "new"; # if config.homelab.controlNodeId == 1 then "new" else "existing";
+        initialClusterState = if config.homelab.controlNodeId == 1 then "new" else "existing";
       };
 
       # Kubernetes with an apiserver, controler-manager & scheduler.

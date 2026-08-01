@@ -115,8 +115,13 @@ let
         echo Hostname argument is missing
         exit 1
       fi
-      ADDRESSES=$2
-      if [ -z "$2" ]; then
+      NODE_ID=$2
+      if [ -z "$NODE_ID" ]; then
+        echo Node ID argument missing
+        exit 1
+      fi
+      ADDRESSES=$3
+      if [ -z "$ADDRESSES" ]; then
         echo IP Addresses argument is missing
         exit 1
       fi
@@ -129,7 +134,7 @@ let
       kubes-gen-cert $HOSTNAME $ADDRESSES admin ${certCsr "admin" "system:masters"}
       kubes-gen-cert $HOSTNAME $ADDRESSES apiserver ${componentCsr "apiserver"}
       kubes-gen-cert $HOSTNAME $ADDRESSES controller-manager ${componentCsr "controller-manager"}
-      kubes-gen-cert $HOSTNAME $ADDRESSES etcd ${componentCsr "etcd"}
+      kubes-gen-cert controlnode$NODE_ID $ADDRESSES etcd ${componentCsr "etcd"}
       kubes-gen-cert $HOSTNAME $ADDRESSES flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
       chmod 664 /tmp/node-cert.csr
