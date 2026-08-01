@@ -106,10 +106,10 @@ in
 
         # Use the LAN IP to advertise outselves
         advertiseClientUrls = [
-          "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.clientUrls}"
+          "https://controlnode${toString config.homelab.controlNodeId}:${toString ports.etcd.clientUrls}"
         ];
         initialAdvertisePeerUrls = [
-          "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}"
+          "https://controlnode${toString config.homelab.controlNodeId}:${toString ports.etcd.peerUrls}"
         ];
         # But listen on all IPs:
         listenClientUrls = [
