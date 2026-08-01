@@ -120,12 +120,12 @@ in
           "https://${config.homelab.controlNode.current.ip}:${toString ports.etcd.peerUrls}"
         ];
         initialCluster = [
-          "old-laptop-asus=https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.peerUrls}"
-          "thinkcentre=https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.peerUrls}"
-          "old-laptop-msi=https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.peerUrls}"
+          "controlnode1=https://controlnode1:${toString ports.etcd.peerUrls}"
+          "controlnode2=https://controlnode2:${toString ports.etcd.peerUrls}"
+          "controlnode3=https://controlnode3:${toString ports.etcd.peerUrls}"
         ];
 
-        initialClusterState = if config.homelab.controlNodeId == 1 then "new" else "existing";
+        initialClusterState = "new"; # if config.homelab.controlNodeId == 1 then "new" else "existing";
       };
 
       # Kubernetes with an apiserver, controler-manager & scheduler.
@@ -152,9 +152,9 @@ in
             keyFile = "${secretsPath}/apiserver-key.pem";
 
             servers = [
-              "https://${config.homelab.controlNode.one.ip}:${toString ports.etcd.clientUrls}"
-              "https://${config.homelab.controlNode.two.ip}:${toString ports.etcd.clientUrls}"
-              #"https://${config.homelab.controlNode.three.ip}:${toString ports.etcd.clientUrls}"
+              "https://controlnode1:${toString ports.etcd.clientUrls}"
+              "https://controlnode2:${toString ports.etcd.clientUrls}"
+              "https://controlnode3:${toString ports.etcd.clientUrls}"
             ];
           };
         };

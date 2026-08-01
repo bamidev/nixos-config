@@ -130,6 +130,10 @@ in
         192.168.0.77 nextcloud.kubes
         192.168.0.77 grafana.kubes
 
+        ${config.homelab.controlNode.one.ip} controlnode1
+        ${config.homelab.controlNode.two.ip} controlnode2
+        ${config.homelab.controlNode.three.ip} controlnode3
+
         192.168.0.254 old-laptop-msi
         192.168.0.134 old-laptop-asus
         192.168.0.148 thinkcentre
