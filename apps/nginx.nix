@@ -1,8 +1,8 @@
 # Nginx is used on my VPS to route the stonenet.org website to a pod on my homelab Kubernetes
 # cluster.
-{ ... }:
+{ config, ... }:
 let
-  kubernetesEndpoint = "172.0.0.11";
+  stonenetSitePort = 30001;
 in
 {
   # We have to accept the ToS of Let's Encrypt
@@ -11,13 +11,20 @@ in
   services.nginx = {
     enable = true;
 
+    upstreams.kubes = {
+      servers = {
+        "${config.homelab.controlNode.one.vpnIp}:${toString stonenetSitePort}" = { };
+        "${config.homelab.controlNode.two.vpnIp}:${toString stonenetSitePort}" = { };
+      };
+    };
+
     virtualHosts = {
       "stonenet.org" = {
         forceSSL = true;
         enableACME = true;
         locations."/" = {
           # Access the stonenet-site server on my Kubernetes cluster through old-laptop-asus
-          proxyPass = "http://${kubernetesEndpoint}:30001";
+          proxyPass = "http://kubes";
 
           extraConfig = ''
             proxy_set_header Host $host;
