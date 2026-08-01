@@ -5,7 +5,7 @@
     homelab = rec {
       nas.ip = lib.mkOption {
         type = lib.types.str;
-        default = "192.168.0.254";
+        default = "192.168.0.123";
       };
       vps.ip = lib.mkOption {
         type = lib.types.str;
@@ -67,7 +67,7 @@
         three = {
           ip = lib.mkOption {
             type = lib.types.str;
-            default = "192.168.0.254";
+            default = "192.168.0.123";
           };
           prio = lib.mkOption {
             type = lib.types.int;
