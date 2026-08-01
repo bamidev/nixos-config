@@ -16,6 +16,11 @@ in
         "${config.homelab.controlNode.one.vpnIp}:${toString stonenetSitePort}" = { };
         "${config.homelab.controlNode.two.vpnIp}:${toString stonenetSitePort}" = { };
       };
+
+      # Sticky session type of load balancing:
+      extraConfig = ''
+        ip_hash;
+      '';
     };
 
     virtualHosts = {
