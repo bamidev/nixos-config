@@ -100,10 +100,6 @@
             vpnIp = "172.0.0.11";
           } # The old-laptop-asus device is put on top so that deploy-image deploy to that first
           {
-            domain = "old-laptop-msi";
-            vpnIp = "172.0.0.10";
-          }
-          {
             domain = "thinkcentre";
             vpnIp = "172.0.0.12";
           }
