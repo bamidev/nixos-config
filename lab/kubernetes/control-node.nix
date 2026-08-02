@@ -126,6 +126,11 @@ in
         ];
 
         initialClusterState = "new";
+
+        extraConf = {
+          "HEARTBEAT_INTERVAL" = "1000";
+          "ELECTION_TIMEOUT" = "10000";
+        };
       };
 
       # Kubernetes with an apiserver, controler-manager & scheduler.
