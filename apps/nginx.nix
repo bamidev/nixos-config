@@ -1,8 +1,39 @@
 # Nginx is used on my VPS to route the stonenet.org website to a pod on my homelab Kubernetes
 # cluster.
+# The connections are load-balanced over my 3 Kubernetes control nodes.
 { config, ... }:
 let
-  stonenetSitePort = 30001;
+  ports = {
+    stonenetSite = 30001;
+    owncast = 30003;
+  };
+
+  upstream = port: {
+    servers = {
+      "${config.homelab.controlNode.one.vpnIp}:${toString port}" = { };
+      "${config.homelab.controlNode.two.vpnIp}:${toString port}" = { };
+      "${config.homelab.controlNode.three.vpnIp}:${toString port}" = { };
+    };
+
+    # Sticky session type of load balancing:
+    extraConfig = ''
+      ip_hash;
+    '';
+  };
+
+  virtualHost = upstream: {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "http://${upstream}";
+
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      '';
+    };
+  };
 in
 {
   # We have to accept the ToS of Let's Encrypt
@@ -11,34 +42,14 @@ in
   services.nginx = {
     enable = true;
 
-    upstreams.kubes = {
-      servers = {
-        "${config.homelab.controlNode.one.vpnIp}:${toString stonenetSitePort}" = { };
-        "${config.homelab.controlNode.two.vpnIp}:${toString stonenetSitePort}" = { };
-        "${config.homelab.controlNode.three.vpnIp}:${toString stonenetSitePort}" = { };
-      };
-
-      # Sticky session type of load balancing:
-      extraConfig = ''
-        ip_hash;
-      '';
+    upstreams = {
+      kubes-stonenet-site = upstream ports.stonenetSite;
+      kubes-owncast = upstream ports.owncast;
     };
 
     virtualHosts = {
-      "stonenet.org" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          # Access the stonenet-site server on my Kubernetes cluster through old-laptop-asus
-          proxyPass = "http://kubes";
-
-          extraConfig = ''
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          '';
-        };
-      };
+      "stonenet.org" = virtualHost "kubes-stonenet-site";
+      "stream.bami.stonenet.org" = virtualHost "kubes-owncast";
     };
   };
 
