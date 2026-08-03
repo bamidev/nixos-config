@@ -10,9 +10,20 @@ let
 
   upstream = port: {
     servers = {
-      "${config.homelab.controlNode.one.vpnIp}:${toString port}" = { };
-      "${config.homelab.controlNode.two.vpnIp}:${toString port}" = { };
-      "${config.homelab.controlNode.three.vpnIp}:${toString port}" = { };
+      "${config.homelab.controlNode.one.vpnIp}:${toString port}" = {
+        # Give the first control node a lower fail_timeout, because it is generally the most
+        # reliable one.
+        fail_timeout = "15m";
+        max_fails = 1;
+      };
+      "${config.homelab.controlNode.two.vpnIp}:${toString port}" = {
+        fail_timeout = "1h";
+        max_fails = 2;
+      };
+      "${config.homelab.controlNode.three.vpnIp}:${toString port}" = {
+        fail_timeout = "1h";
+        max_fails = 3;
+      };
     };
 
     # Sticky session type of load balancing:
@@ -28,6 +39,8 @@ let
       proxyPass = "http://${upstream}";
 
       extraConfig = ''
+        proxy_connect_timeout 10s;
+
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
