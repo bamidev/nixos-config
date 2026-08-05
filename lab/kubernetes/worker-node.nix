@@ -4,7 +4,9 @@
   pkgs,
   ...
 }:
-{
+let
+  ports.admissionWebhooks = 9443;
+in {
   imports = [
     ./base.nix
   ];
@@ -27,6 +29,8 @@
       openiscsi
       util-linux
     ];
+
+    networking.firewall.allowedTCPPorts = [ ports.admissionWebhooks ];
 
     security.sudo = {
       enable = true;
