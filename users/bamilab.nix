@@ -15,6 +15,7 @@ in
 
     packages = with pkgs; [
       etcd # for etcdctl
+      kubernetes-helm
       kubectl
       kubectl-cnpg
     ];
