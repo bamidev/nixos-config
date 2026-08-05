@@ -12,7 +12,7 @@
   options = {
     homelab.deviceZpool = lib.mkOption {
       type = lib.types.str;
-      default = "root";
+      default = "tank";
     };
   };
 

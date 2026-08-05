@@ -25,7 +25,7 @@
 
   fileSystems = {
     "/" = {
-      device = "main/root";
+      device = "tank/root";
       fsType = "zfs";
     };
 

@@ -34,7 +34,7 @@
 
   fileSystems = {
     "/" = {
-      device = "root/root";
+      device = "tank/root";
       fsType = "zfs";
     };
 
