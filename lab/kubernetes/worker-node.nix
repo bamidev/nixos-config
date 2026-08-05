@@ -5,7 +5,10 @@
   ...
 }:
 let
-  ports.admissionWebhooks = 9443;
+  ports = {
+    admissionWebhooks = 9443;
+    dns = 53;
+  };
 in {
   imports = [
     ./base.nix
@@ -30,7 +33,10 @@ in {
       util-linux
     ];
 
-    networking.firewall.allowedTCPPorts = [ ports.admissionWebhooks ];
+    networking.firewall.allowedTCPPorts = with ports; [
+      admissionWebhooks
+      dns
+    ];
 
     security.sudo = {
       enable = true;
