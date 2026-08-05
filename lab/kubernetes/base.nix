@@ -52,7 +52,12 @@ in
       easyCerts = false;
       caFile = "${secretsPath}/ca.pem";
 
-      addons.dns.enable = true;
+      # Install CoreDNS manually because this is deprecated
+      addons.dns.enable = false;
+      # I don't need the addon manager for anything.
+      # When I do, keep in mind to set the KUBERNETES_MASTER & KUBECONFIG environment variables to
+      # make the addon manager service work.
+      addonManager.enable = false;
 
       masterAddress = "${config.homelab.kubesServerIp}";
 
