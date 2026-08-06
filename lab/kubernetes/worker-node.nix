@@ -33,10 +33,13 @@ in {
       util-linux
     ];
 
-    networking.firewall.allowedTCPPorts = with ports; [
-      admissionWebhooks
-      dns
-    ];
+    networking.firewall = {
+      allowedTCPPorts = with ports; [
+        admissionWebhooks
+        dns
+      ];
+      allowedUDPPorts = with ports; [ dns ];
+    };
 
     security.sudo = {
       enable = true;
