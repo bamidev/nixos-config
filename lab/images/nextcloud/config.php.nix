@@ -20,7 +20,7 @@
 
     // Database
     'dbtype' => 'pgsql',
-    'dbhost' => 'POSTGRES_HOST',
+    'dbhost' => 'production-database-rw',
     'dbname' => 'nextcloud',
     'dbuser' => 'nextcloud',
     'dbpassword' => 'POSTGRES_PASSWORD',

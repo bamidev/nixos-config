@@ -90,7 +90,6 @@ let
 
     # Write the secrets into config.php
     sed -i "s/POSTGRES_PASSWORD/$POSTGRES_PASSWORD/g" /var/nextcloud/config/config.php
-    sed -i "s/POSTGRES_HOST/$NEXTCLOUD_DB_RW_SERVICE_HOST/g" /var/nextcloud/config/config.php
     sed -i "s/NEXTCLOUD_SECRET/$NEXTCLOUD_SECRET/g" /var/nextcloud/config/config.php
     sed -i "s/PASSWORD_SALT/$PASSWORD_SALT/g" /var/nextcloud/config/config.php
 
@@ -118,7 +117,7 @@ let
     cp -r ${nextcloud}/* /tmp/nextcloud
     chown -R httpd:httpd /tmp/nextcloud
     chmod -R +w /tmp/nextcloud/config
-    su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"$NEXTCLOUD_DB_RW_SERVICE_HOST\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
+    su - httpd -c "${php}/bin/php /tmp/nextcloud/occ maintenance:install --database=pgsql --database-name=nextcloud --database-host=\"production-database-rw\" --database-user=nextcloud --database-pass=\"$POSTGRES_PASSWORD\" --data-dir=/mnt/data --password-salt=\"$PASSWORD_SALT\" --server-secret=\"$NEXTCLOUD_SECRET\""
 
     # Cleanup
     rm -r /tmp/nextcloud
