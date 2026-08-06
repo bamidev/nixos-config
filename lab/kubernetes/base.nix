@@ -84,6 +84,8 @@ in
           keyFile = "${secretsPath}/kubelet-key.pem";
         };
 
+        clusterDns = [ "10.0.0.10" ];
+
         # TODO: Change this timeout on a per-device basis
         extraConfig = {
           runtimeRequestTimeout = "15m";
