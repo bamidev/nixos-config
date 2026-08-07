@@ -91,7 +91,7 @@ in {
     };
 
     # Mount the NAS to /mnt/nas
-    fileSystems."/mnt/nas" = {
+    /*fileSystems."/mnt/nas" = {
       device = "${config.homelab.nas.ip}:/exhdd";
       fsType = "nfs4";
       options = [
@@ -100,6 +100,6 @@ in {
         "nofail"
         "rw"
       ];
-    };
+    };*/
   };
 }
