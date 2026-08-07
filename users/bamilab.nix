@@ -9,6 +9,9 @@
 
     file.".kube/config".source = ./bamilab/kubeconfig;
 
+    shellAliases = {
+      k = "sudo -E kubectl";
+    };
   };
 
   programs.git.settings = {
