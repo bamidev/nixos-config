@@ -8,6 +8,9 @@ let
     set -e
     nix run github:nix-community/nix-index-database $1
   '';
+
+  etcdClientPort = 2379;
+  kubesSecretsPath = nixosConfig.services.kubernetes.secretsPath;
 in
 {
   imports = [
@@ -88,7 +91,31 @@ in
     };
   };
 
-  home.packages = [ nixLocateCached ];
+  home = {
+    packages = with pkgs; [
+      etcd # for etcdctl
+      helmfile
+      kubectl
+      kubectl-cnpg
+
+      # Helm
+      (wrapHelm kubernetes-helm {
+        plugins = with pkgs.kubernetes-helmPlugins; [
+          helm-diff
+        ];
+      })
+      # A script that works like nix-locate, but uses a cached index so it doesn't need manual
+      # indexing, which requires a lot of RAM therefore may fail on some of my devices.
+    ] ++ [ nixLocateCached ];
+
+    # Set up etcdctl locally to access the etcd cluster of my Kubernetes cluster.
+    sessionVariables = {
+      ETCDCTL_ENDPOINTS = "https://${nixosConfig.homelab.controlNode.one.vpnIp}:${toString etcdClientPort}";
+      ETCDCTL_CACERT = "${kubesSecretsPath}/ca.pem";
+      ETCDCTL_CERT = "${kubesSecretsPath}/admin.pem";
+      ETCDCTL_KEY = "${kubesSecretsPath}/admin-key.pem";
+    };
+  };
 
   programs = {
     bash = {
