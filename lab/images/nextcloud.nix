@@ -110,6 +110,9 @@ let
     mkdir -p /mnt/apps
     chown -R httpd:httpd /mnt
 
+    # Remove existing admin user files, because it will block the installation
+    rm -rf /mnt/data/admin
+
     # Run installation command from within a writable directory
     # This is needed because the `occ` script uses __DIR__ to find the config file,
     # and nextcloud complains if __DIR__/config is not writable.
