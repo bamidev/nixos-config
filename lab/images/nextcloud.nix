@@ -166,7 +166,15 @@ pkgs.dockerTools.buildImage {
   ];
 
   config = {
-    Cmd = [ "${entryPointScript}/bin/entrypoint" ];
+    Cmd = [
+      # Make sure to exclusively lock the mounted NFS folder, so that no second Nextcloud pod can
+      # mount it, and we won't get data corruption if Nextcloud doesn't lock its files very well.
+      "${pkgs.flock}/bin/flock"
+      "--verbose"
+      "-n"
+      "/mnt"
+      "${entryPointScript}/bin/entrypoint"
+    ];
     Env = [
       "NEXTCLOUD_CONFIG_DIR=/var/nextcloud/config"
     ];
