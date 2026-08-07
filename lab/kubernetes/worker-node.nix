@@ -9,7 +9,8 @@ let
     admissionWebhooks = 9443;
     dns = 53;
   };
-in {
+in
+{
   imports = [
     ./base.nix
   ];
@@ -91,15 +92,17 @@ in {
     };
 
     # Mount the NAS to /mnt/nas
-    /*fileSystems."/mnt/nas" = {
-      device = "${config.homelab.nas.ip}:/exhdd";
-      fsType = "nfs4";
-      options = [
-        "x-systemd.automount"
-        "noatime"
-        "nofail"
-        "rw"
-      ];
-    };*/
+    /*
+      fileSystems."/mnt/nas" = {
+        device = "${config.homelab.nas.ip}:/exhdd";
+        fsType = "nfs4";
+        options = [
+          "x-systemd.automount"
+          "noatime"
+          "nofail"
+          "rw"
+        ];
+      };
+    */
   };
 }

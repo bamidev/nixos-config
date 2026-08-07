@@ -92,21 +92,24 @@ in
   };
 
   home = {
-    packages = with pkgs; [
-      etcd # for etcdctl
-      helmfile
-      kubectl
-      kubectl-cnpg
+    packages =
+      with pkgs;
+      [
+        etcd # for etcdctl
+        helmfile
+        kubectl
+        kubectl-cnpg
 
-      # Helm
-      (wrapHelm kubernetes-helm {
-        plugins = with pkgs.kubernetes-helmPlugins; [
-          helm-diff
-        ];
-      })
-      # A script that works like nix-locate, but uses a cached index so it doesn't need manual
-      # indexing, which requires a lot of RAM therefore may fail on some of my devices.
-    ] ++ [ nixLocateCached ];
+        # Helm
+        (wrapHelm kubernetes-helm {
+          plugins = with pkgs.kubernetes-helmPlugins; [
+            helm-diff
+          ];
+        })
+        # A script that works like nix-locate, but uses a cached index so it doesn't need manual
+        # indexing, which requires a lot of RAM therefore may fail on some of my devices.
+      ]
+      ++ [ nixLocateCached ];
 
     # Set up etcdctl locally to access the etcd cluster of my Kubernetes cluster.
     sessionVariables = {
