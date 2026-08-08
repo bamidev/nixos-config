@@ -85,7 +85,7 @@ in
         };
 
         clusterDns = [ "10.0.0.10" ];
-        clusterDomain = "cluster.kubes";
+        clusterDomain = "cluster.local";
 
         # TODO: Change this timeout on a per-device basis
         extraConfig = {
