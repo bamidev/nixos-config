@@ -32,6 +32,7 @@ in
   environment.systemPackages = with pkgs; [
     containerd
     kubectl
+    prometheus-node-exporter
   ];
 
   # Allow all the possible node ports
