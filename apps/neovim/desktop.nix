@@ -16,7 +16,8 @@ in
     [
       basedpyright
       docker-compose-language-service
-      #docker-language-server
+      #docker-language-server <--- old package is unsafe!
+      helm-ls
       ltex-ls
       lua-language-server
       vim-language-server
