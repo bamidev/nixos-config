@@ -2,8 +2,7 @@
 let
   secretsPath = config.services.kubernetes.secretsPath;
 
-  # FIXME: Don't use the admin permissions for flannel, properly set it up some day
-  flannelKubeconfig = pkgs.writers.writeText "flannel.kubeconfig" ''
+  adminKubeconfig = pkgs.writers.writeText "admin.kubeconfig" ''
     apiVersion: v1
     kind: Config
 
@@ -27,6 +26,8 @@ let
       
     current-context: admin@my-cluster
   '';
+  # FIXME: Don't use the admin permissions for flannel and addon-manager, properly set it up some day
+  flannelKubeconfig = adminKubeconfig;
 in
 {
   environment.systemPackages = with pkgs; [
