@@ -28,6 +28,8 @@ let
   '';
   # FIXME: Don't use the admin permissions for flannel and addon-manager, properly set it up some day
   flannelKubeconfig = adminKubeconfig;
+
+  nodeExporterPort = 9100;
 in
 {
   environment.systemPackages = with pkgs; [
@@ -39,12 +41,7 @@ in
   networking.firewall = {
     allowedTCPPorts = [
       config.services.kubernetes.kubelet.port
-    ];
-    allowedTCPPortRanges = [
-      {
-        from = 30000;
-        to = 30000;
-      }
+      nodeExporterPort
     ];
   };
 
