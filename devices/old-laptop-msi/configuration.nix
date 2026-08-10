@@ -5,11 +5,7 @@
 {
   imports = [
     ../../lab/kubernetes/control-node.nix
-    #../../lab/kubernetes/worker-node.nix
     ../../lab/nas.nix
-
-    # TODO: Move syncthing to the Kubernetes cluster
-    ../../apps/syncthing/system.nix
   ];
 
   homelab = {

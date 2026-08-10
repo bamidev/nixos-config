@@ -9,6 +9,9 @@
   imports = [
     ../../lab/kubernetes/control-node.nix
     ../../lab/kubernetes/worker-node.nix
+
+    # This device has seas of free disk space, so lets run syncthing from here
+    ../../apps/syncthing/system.nix
   ];
 
   homelab = {
