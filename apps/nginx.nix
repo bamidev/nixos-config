@@ -62,7 +62,7 @@ in
 
     virtualHosts = {
       "stonenet.org" = virtualHost "kubes-stonenet-site";
-      "stream.bami.stonenet.org" = virtualHost "kubes-owncast";
+      "stream.bamilab.space" = virtualHost "kubes-owncast";
     };
   };
 
