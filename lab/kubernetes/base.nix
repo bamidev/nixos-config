@@ -9,7 +9,7 @@ let
     clusters:
     - name: my-cluster
       cluster:
-        server: https://172.0.0.11:6443
+        server: https://192.168.0.77:6443
         certificate-authority: ${secretsPath}/ca.pem
 
     users:
