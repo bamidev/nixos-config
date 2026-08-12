@@ -36,7 +36,7 @@ in
         remote = {
           passwordCommand = "pass kubernetes/nextcloud/bamilab";
           type = "caldav";
-          url = "http://${nixosConfig.homevpn.main.ip}:30000/remote.php/dav/calendars/bamilab/personal/";
+          url = "http://nextcloud.bamilab.space/remote.php/dav/calendars/bamilab/personal/";
           userName = "bamilab";
         };
       };
@@ -52,7 +52,7 @@ in
         remote = {
           passwordCommand = "pass kubernetes/nextcloud/bamilab";
           type = "caldav";
-          url = "http://${nixosConfig.homevpn.main.ip}:30000/remote.php/dav/calendars/bamilab/contact_birthdays/";
+          url = "http://nextcloud.bamilab.space/remote.php/dav/calendars/bamilab/contact_birthdays/";
           userName = "bamilab";
         };
       };
@@ -64,7 +64,7 @@ in
       remote = {
         passwordCommand = "pass kubernetes/nextcloud/bamilab";
         type = "carddav";
-        url = "http://${nixosConfig.homevpn.main.ip}:30000/remote.php/dav/addressbooks/users/bamilab/contacts/";
+        url = "http://nextcloud.bamilab.space/remote.php/dav/addressbooks/users/bamilab/contacts/";
         userName = "bamilab";
       };
     };
