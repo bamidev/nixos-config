@@ -1,3 +1,4 @@
 {
   system = "x86_64-linux";
+  syncthingId = "UWWTTYQ-RFP6GHX-XH7VMGQ-VLRUASK-I34G7DI-5JX7TW5-2IQE4ZG-NBQAIA5";
 }
