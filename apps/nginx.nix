@@ -6,8 +6,11 @@ let
   ports = {
     stonenetSite = 30001;
     owncast = 30003;
+    synapse = 30005;
   };
 
+  # A template for each upstream definition that uses all three Kubernetes control nodes as the
+  # servers.
   upstream = port: {
     servers = {
       "${config.homelab.controlNode.one.vpnIp}:${toString port}" = {
@@ -58,11 +61,13 @@ in
     upstreams = {
       kubes-stonenet-site = upstream ports.stonenetSite;
       kubes-owncast = upstream ports.owncast;
+      kubes-synapse = upstream ports.synapse;
     };
 
     virtualHosts = {
       "stonenet.org" = virtualHost "kubes-stonenet-site";
       "stream.bamilab.space" = virtualHost "kubes-owncast";
+      "matrix.bamilab.space" = virtualHost "kubes-synapse";
     };
   };
 
