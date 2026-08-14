@@ -11,7 +11,6 @@
   homelab = {
     controlNodeId = 3;
     mainNetworkInterface = "enp3s0";
-    enableKeepalived = false; # This device is not receiving the VRRP packets very well.
   };
 
   homevpn.deviceId = 10;
