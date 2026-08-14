@@ -11,6 +11,7 @@
   homelab = {
     controlNodeId = 3;
     mainNetworkInterface = "enp3s0";
+    enableKeepalived = false; # TODO: Debug why this device is wrongly claiming the floating ip address as well
   };
 
   homevpn.deviceId = 10;
