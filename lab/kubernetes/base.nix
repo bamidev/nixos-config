@@ -2,32 +2,30 @@
 let
   secretsPath = config.services.kubernetes.secretsPath;
 
-  adminKubeconfig = pkgs.writers.writeText "admin.kubeconfig" ''
+  flannelKubeconfig = pkgs.writers.writeText "flannel.kubeconfig" ''
     apiVersion: v1
     kind: Config
 
     clusters:
     - name: my-cluster
       cluster:
-        server: https://192.168.0.77:6443
+        server: https://${config.homelab.kubesServerIp}:6443
         certificate-authority: ${secretsPath}/ca.pem
 
     users:
-    - name: admin
+    - name: flannel
       user:
-        client-certificate: ${secretsPath}/admin.pem
-        client-key: ${secretsPath}/admin-key.pem
+        client-certificate: ${secretsPath}/flannel.pem
+        client-key: ${secretsPath}/flannel-key.pem
 
     contexts:
-    - name: admin@my-cluster
+    - name: flannel@my-cluster
       context:
         cluster: my-cluster
-        user: admin
+        user: flannel
       
-    current-context: admin@my-cluster
+    current-context: flannel@my-cluster
   '';
-  # FIXME: Don't use the admin permissions for flannel and addon-manager, properly set it up some day
-  flannelKubeconfig = adminKubeconfig;
 
   nodeExporterPort = 9100;
 in
@@ -102,9 +100,9 @@ in
       };
     };
 
-    flannel = {
-      kubeconfig = "${flannelKubeconfig}";
-    };
+    # Configure the client certificate that flannel uses to talk to the apiserver in a .kubeconfig
+    # file
+    flannel.kubeconfig = "${flannelKubeconfig}";
 
     prometheus.exporters.node = {
       enable = true;
