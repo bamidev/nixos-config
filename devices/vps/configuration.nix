@@ -1,7 +1,8 @@
 { lib, ... }:
 {
   imports = [
-    ../../apps/nginx.nix
+    ../../apps/lab/fail2ban.nix
+    ../../apps/lab/nginx.nix
   ];
 
   boot.kernel.sysctl = {
