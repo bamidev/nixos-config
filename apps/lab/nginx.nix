@@ -16,7 +16,7 @@ let
       "${config.homelab.controlNode.one.vpnIp}:${toString port}" = {
         # Give the first control node a lower fail_timeout, because it is generally the most
         # reliable one.
-        fail_timeout = "15m";
+        fail_timeout = "5m";
         max_fails = 1;
       };
       "${config.homelab.controlNode.two.vpnIp}:${toString port}" = {
