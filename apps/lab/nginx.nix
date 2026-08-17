@@ -66,6 +66,7 @@ in
 
     virtualHosts = {
       "stonenet.org" = virtualHost "kubes-stonenet-site";
+      "get.stonenet.org" = virtualHost "kubes-stonenet-site";
       "stream.bamilab.space" = virtualHost "kubes-owncast";
       "matrix.bamilab.space" = virtualHost "kubes-synapse";
     };
