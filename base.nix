@@ -15,17 +15,19 @@ let
     set -ex
     sudo nixos-rebuild switch --impure --flake /etc/nixos
   '';
-  rebuildSwapScript = pkgs.writers.writeBashBin "rebuild-os-with-swap" (with pkgs; ''
-    set -ex
-    ${util-linux}/bin/fallocate -l 8G /swapfile
-    ${coreutils}/bin/chmod 0600 /swapfile
-    sudo ${coreutils}/bin/chown root:root /swapfile
-    sudo ${util-linux}/bin/mkswap /swapfile
-    sudo ${util-linux}/bin/swapon /swapfile
-    ${rebuildScript}/bin/rebuild-os
-    sudo ${util-linux}/bin/swapoff /swapfile
-    sudo rm /swapfile
-  '');
+  rebuildSwapScript = pkgs.writers.writeBashBin "rebuild-os-with-swap" (
+    with pkgs;
+    ''
+      set -ex
+      sudo zfs destroy tank/swap || true
+      sudo zfs create -V 8G tank/swap
+      sudo ${util-linux}/bin/mkswap /dev/zvol/tank/swap
+      sudo ${util-linux}/bin/swapon /dev/zvol/tank/swap
+      ${rebuildScript}/bin/rebuild-os
+      sudo ${util-linux}/bin/swapoff /dev/zvol/tank/swap
+      sudo zfs destroy tank/swap
+    ''
+  );
   buildPiImageScript = pkgs.writers.writeBashBin "build-pi-image" ''
     set -ex
     nix build /etc/nixos#nixosConfigurations.rpi.config.system.build.sdImage --impure
