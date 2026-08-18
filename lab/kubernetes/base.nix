@@ -35,6 +35,12 @@ in
     kubectl
   ];
 
+  home-manager.users.bamilab.home.file.".kube/config".text =
+    import ../../users/bamilab/kubeconfig.nix
+      {
+        host = config.homelab.kubesServerIp;
+      };
+
   # Allow all the possible node ports
   networking.firewall = {
     allowedTCPPorts = [

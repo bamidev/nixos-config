@@ -1,0 +1,24 @@
+{ host }: ''
+  apiVersion: v1
+  kind: Config
+
+  clusters:
+    - name: my-cluster
+      cluster:
+      server: https://${host}:6443
+      certificate-authority: /var/lib/kubernetes/secrets/ca.pem
+
+  users:
+    - name: admin
+      user:
+      client-certificate: /var/lib/kubernetes/secrets/admin.pem
+      client-key: /var/lib/kubernetes/secrets/admin-key.pem
+
+  contexts:
+    - name: admin@my-cluster
+      context:
+      cluster: my-cluster
+      user: admin
+
+  current-context: admin@my-cluster
+''
