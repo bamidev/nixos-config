@@ -131,7 +131,7 @@ let
 
       ${openssl}/bin/openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out ./apiserver-account-privkey.pem
       ${openssl}/bin/openssl pkey -in ./apiserver-account-privkey.pem -pubout -out ./apiserver-account-pubkey.pem
-      kubes-gen-cert $HOSTNAME $ADDRESSES admin ${certCsr "admin" "system:masters"}
+      #kubes-gen-cert $HOSTNAME $ADDRESSES admin ${certCsr "admin" "system:masters"}
       kubes-gen-cert $HOSTNAME $ADDRESSES apiserver ${componentCsr "apiserver"}
       kubes-gen-cert $HOSTNAME $ADDRESSES controller-manager ${componentCsr "controller-manager"}
       kubes-gen-cert controlnode$NODE_ID $ADDRESSES etcd ${componentCsr "etcd"}
@@ -165,7 +165,7 @@ let
       trap kubes-unload-ca-cert EXIT
       kubes-load-ca-cert
 
-      kubes-gen-cert $HOSTNAME $ADDRESSES admin ${certCsr "admin" "system:masters"}
+      #kubes-gen-cert $HOSTNAME $ADDRESSES admin ${certCsr "admin" "system:masters"}
       kubes-gen-cert $HOSTNAME $ADDRESSES flannel ${certCsr "system:flannel" "system:nodes"}
       cp ${certCsr "system:node:XXX" "system:nodes"} /tmp/node-cert.csr
       chmod 664 /tmp/node-cert.csr
@@ -194,7 +194,7 @@ let
       ${openssh}/bin/scp "${secretsPath}/ca.pem" "$1:~/.certs/ca.pem"
       deploy $1 apiserver-account-privkey
       deploy $1 apiserver-account-pubkey
-      deploy-pair $1 admin
+      #deploy-pair $1 admin
       deploy-pair $1 apiserver
       deploy-pair $1 controller-manager
       deploy-pair $1 etcd
