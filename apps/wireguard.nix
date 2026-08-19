@@ -97,7 +97,7 @@ in
     services.cron = {
       enable = true;
       systemCronJobs = [
-        "0 * * * * root ${pkgs.iputils}/bin/ping -c 1 ${ips.vps}"
+        "*/10 * * * * root ${pkgs.iputils}/bin/ping -c 1 ${ips.vps}"
       ];
     };
   };
