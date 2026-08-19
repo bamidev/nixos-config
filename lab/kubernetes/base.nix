@@ -128,8 +128,6 @@ in
         mkdir -p ${secretsPath}
 
         install ca
-        install admin
-        install admin-key
         install apiserver
         install apiserver-key
         install apiserver-account-privkey
@@ -148,9 +146,6 @@ in
         install scheduler-key
 
         chown -R kubernetes:kubernetes ${secretsPath}
-        chown bamilab:kubernetes ${secretsPath}/admin.pem
-        chown bamilab:kubernetes ${secretsPath}/admin-key.pem
-        chmod 660 ${secretsPath}/admin-key.pem
         if [ -f ${secretsPath}/etcd.pem ]; then
           chown etcd:kubernetes ${secretsPath}/etcd.pem
           chown etcd:kubernetes ${secretsPath}/etcd-key.pem
