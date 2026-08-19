@@ -15,6 +15,8 @@ let
     set -ex
     sudo nixos-rebuild switch --impure --flake /etc/nixos
   '';
+  # Rebuilds the NixOS like `rebuild-os`, but temporarily enabled 8GB of swap in order to make it succeed.
+  # This script is here because on my Kubernetes control nodes I need to have swap disabled, yet for rebuilds it is somethimes necessary.
   rebuildSwapScript = pkgs.writers.writeBashBin "rebuild-os-with-swap" (
     with pkgs;
     ''
