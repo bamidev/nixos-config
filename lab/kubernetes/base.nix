@@ -40,11 +40,11 @@ in
     kubectl
   ];
 
-  home-manager.users.bamilab.home.file.".kube/config".text =
-    lib.mkForce import ../../users/bamilab/kubeconfig.nix
-      {
-        host = config.homelab.kubesServerIp;
-      };
+  home-manager.users.bamilab.home.file.".kube/config".text = lib.mkForce (
+    import ../../users/bamilab/kubeconfig.nix {
+      host = config.homelab.kubesServerIp;
+    }
+  );
 
   # Allow all the possible node ports
   networking.firewall = {
