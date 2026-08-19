@@ -59,8 +59,17 @@ in
     };
 
     # Kubernetes with kubelet and the proxy.
-    services.kubernetes = {
-      roles = [ "node" ];
+    services = {
+      kubernetes = {
+        roles = [ "node" ];
+      };
+
+      # Needed to make Longhorn work on NixOS.
+      # Credits: https://github.com/longhorn/longhorn/issues/2166#issuecomment-2994323945
+      openiscsi = {
+        enable = true;
+        name = "${config.networking.hostName}-initiatorhost";
+      };
     };
 
     system.activationScripts.createContainerdSnapshotterPool = {
@@ -76,6 +85,13 @@ in
     systemd.tmpfiles.rules = [
       "d /mnt/nas 0777 root root -"
     ];
+
+    # Needed to make Longhorn work on NixOS.
+    # Credits: https://github.com/longhorn/longhorn/issues/2166#issuecomment-2994323945
+    systemd.services.iscsid.serviceConfig = {
+      PrivateMounts = "yes";
+      BindPaths = "/run/current-system/sw/bin:/bin";
+    };
 
     virtualisation.containerd = {
       enable = true;
