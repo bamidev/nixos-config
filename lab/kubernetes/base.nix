@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   secretsPath = config.services.kubernetes.secretsPath;
 
@@ -36,7 +41,7 @@ in
   ];
 
   home-manager.users.bamilab.home.file.".kube/config".text =
-    import ../../users/bamilab/kubeconfig.nix
+    lib.mkForce import ../../users/bamilab/kubeconfig.nix
       {
         host = config.homelab.kubesServerIp;
       };
