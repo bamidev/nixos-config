@@ -64,6 +64,9 @@ in
       };
     };
 
+    # The kubeconfig file is configured to use the admin certicate, but for security reasons it is not located on the nodes.
+    home-manager.users.bamilab.home.file.".kube/config".enable = false;
+
     networking.firewall.allowedTCPPorts = with ports; [
       apiServer
       etcd.clientUrls
