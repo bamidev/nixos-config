@@ -72,14 +72,30 @@ in
       };
     };
 
-    system.activationScripts.createContainerdSnapshotterPool = {
-      deps = [ ];
-      text = ''
-        SNAPSHOTTER_PATH="/var/lib/containerd/io.containerd.snapshotter.v1.zfs"
-        if [ ! -e "$SNAPSHOTTER_PATH" ]; then
-          ${pkgs.zfs}/bin/zfs create -o mountpoint=$SNAPSHOTTER_PATH ${config.homelab.deviceZpool}/containerd
-        fi
-      '';
+    system.activationScripts = {
+      createContainerdSnapshotterPool = {
+        deps = [ ];
+        text = ''
+          SNAPSHOTTER_PATH="/var/lib/containerd/io.containerd.snapshotter.v1.zfs"
+          if [ ! -e "$SNAPSHOTTER_PATH" ]; then
+            ${pkgs.zfs}/bin/zfs create -o mountpoint=$SNAPSHOTTER_PATH ${config.homelab.deviceZpool}/containerd
+          fi
+        '';
+      };
+
+      createLonghornVolume = {
+        deps = [ ];
+        text = with pkgs; ''
+          LONGHORN_DATA_PATH=/var/lib/longhorn
+          if [ ! -e /dev/zvol/tank/longhorn ]; then
+            SIZE=$(${zfs}/bin/zpool list -Hp -o size tank)
+            ${zfs}/bin/zfs create -V $((SIZE / 2)) -o mountpoint=none tank/longhorn
+            ${e2fsprogs}/bin/mkfs.ext4 /dev/zvol/tank/longhorn
+            ${util-linux}/bin/rm -rf "$LONGHORN_DATA_PATH"
+            ${util-linux}/bin/mount -o noatime,discard /dev/zvol/tank/longhorn "$LONGHORN_DATA_PATH"
+          fi
+        '';
+      };
     };
 
     systemd.tmpfiles.rules = [
