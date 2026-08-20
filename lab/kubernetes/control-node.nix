@@ -153,6 +153,9 @@ in
           tlsCertFile = "${secretsPath}/apiserver.pem";
           tlsKeyFile = "${secretsPath}/apiserver-key.pem";
 
+          # Longhorn needs privileged containers
+          allowPrivileged = true;
+
           etcd = {
             caFile = "${secretsPath}/ca.pem";
             certFile = "${secretsPath}/apiserver.pem";
