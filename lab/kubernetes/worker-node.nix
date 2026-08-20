@@ -23,6 +23,12 @@ in
   };
 
   config = {
+    # Longhorn's V2 data engine needs 2GB of hugepages
+    boot.kernelParams = [
+      "hugepagesz=2M"
+      "hugepages=1024"
+    ];
+
     # These need to be available for Longhorn to work
     environment.systemPackages = with pkgs; [
       bash
