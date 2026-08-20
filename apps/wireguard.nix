@@ -10,7 +10,7 @@
   ...
 }:
 let
-  homeKeepaliveInterval = 25;
+  homeKeepaliveInterval = 10;
   port = 51820;
   subnet = "172.0.0";
 
