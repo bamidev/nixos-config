@@ -111,6 +111,8 @@ in
 
     systemd.tmpfiles.rules = [
       "d /mnt/nas 0777 root root -"
+      # The Linstor Satellite pods are configured to mount this folder:
+      "d /usr/src 0777 root root -"
     ];
 
     # Needed to make Longhorn work on NixOS.
