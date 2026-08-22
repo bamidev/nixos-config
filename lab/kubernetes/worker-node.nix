@@ -8,6 +8,7 @@ let
   ports = {
     admissionWebhooks = 9443;
     dns = 53;
+    linstorControllerRestApi = 3370;
   };
 in
 {
@@ -49,6 +50,8 @@ in
         dns
       ];
       allowedUDPPorts = with ports; [ dns ];
+
+      interfaces.mynet.allowedTCPPorts = with ports; [ linstorControllerRestApi ];
     };
 
     security.sudo = {
