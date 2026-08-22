@@ -23,6 +23,13 @@ in
   };
 
   config = {
+    # The DRBD kernel module is necessary for Linstor, which is used by Piraeus Operator
+    boot = {
+      extraModulePackages = [ config.boot.kernelPackages.drbd ];
+
+      kernelModules = [ "drbd" ];
+    };
+
     # These need to be available for Longhorn to work
     environment.systemPackages = with pkgs; [
       bash
@@ -32,6 +39,8 @@ in
       nfs-utils
       openiscsi
       util-linux
+
+      drbd
     ];
 
     networking.firewall = {
