@@ -26,6 +26,10 @@ in
   config = {
     # The DRBD kernel module is necessary for Linstor, which is used by Piraeus Operator
     boot = {
+      extraModprobeConfig = ''
+        options drbd usermode_helper=disabled
+      '';
+
       extraModulePackages = [ config.boot.kernelPackages.drbd ];
 
       kernelModules = [ "drbd" ];
