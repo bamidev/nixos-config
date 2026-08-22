@@ -91,9 +91,8 @@ in
             SIZE=$(${zfs}/bin/zpool list -Hp -o size tank)
             ${zfs}/bin/zfs create -V $((SIZE / 2)) -o mountpoint=none tank/longhorn
             ${e2fsprogs}/bin/mkfs.ext4 /dev/zvol/tank/longhorn
-            ${util-linux}/bin/rm -rf "$LONGHORN_DATA_PATH"
-            ${util-linux}/bin/mount -o noatime,discard /dev/zvol/tank/longhorn "$LONGHORN_DATA_PATH"
           fi
+          ${util-linux}/bin/mount -o noatime,discard /dev/zvol/tank/longhorn "$LONGHORN_DATA_PATH"
         '';
       };
     };
