@@ -51,11 +51,15 @@ in
     networking.firewall = {
       allowedTCPPorts = with ports; [
         admissionWebhooks
-        dns
       ];
-      allowedUDPPorts = with ports; [ dns ];
 
-      interfaces.mynet.allowedTCPPorts = with ports; [ linstorControllerRestApi ];
+      interfaces.mynet = {
+        allowedTCPPorts = with ports; [
+          dns
+          linstorControllerRestApi
+        ];
+        allowedUDPPorts = with ports; [ dns ];
+      };
     };
 
     security.sudo = {
