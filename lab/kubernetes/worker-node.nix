@@ -106,19 +106,6 @@ in
           fi
         '';
       };
-
-      createLonghornVolume = {
-        deps = [ ];
-        text = with pkgs; ''
-          LONGHORN_DATA_PATH=/var/lib/longhorn
-          if [ ! -e /dev/zvol/tank/longhorn ]; then
-            SIZE=$(${zfs}/bin/zpool list -Hp -o size tank)
-            ${zfs}/bin/zfs create -V $((SIZE / 2)) -o mountpoint=none tank/longhorn
-            ${e2fsprogs}/bin/mkfs.ext4 /dev/zvol/tank/longhorn
-          fi
-          ${util-linux}/bin/mount -o noatime,discard /dev/zvol/tank/longhorn "$LONGHORN_DATA_PATH"
-        '';
-      };
     };
 
     systemd.tmpfiles.rules = [
