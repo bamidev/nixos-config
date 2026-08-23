@@ -7,7 +7,9 @@
 let
   ports = {
     admissionWebhooks = 9443;
+    cnpg.database = 8000;
     dns = 53;
+    https = 443;
     linstor = {
       controllerRestApi = 3370;
       satellite = 3366;
@@ -58,7 +60,9 @@ in
 
       interfaces.mynet = {
         allowedTCPPorts = with ports; [
+          cnpg.database
           dns
+          https
           linstor.controllerRestApi
           linstor.satellite
         ];
