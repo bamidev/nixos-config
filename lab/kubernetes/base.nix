@@ -92,6 +92,12 @@ in
         extraConfig = {
           runtimeRequestTimeout = "15m";
         };
+        # The linstor-csi-pod needs access to kubelet's data directory of the host system, but by
+        # default it is the same as Kubernetes' data directory. It is safer if the Linstor pod does
+        # not have access to all of Kubernetes' data.
+        extraOpts = ''
+          "--root-dir=/var/lib/kubelet"
+        '';
       };
 
       proxy = {
