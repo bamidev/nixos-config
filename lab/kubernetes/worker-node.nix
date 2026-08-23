@@ -8,7 +8,10 @@ let
   ports = {
     admissionWebhooks = 9443;
     dns = 53;
-    linstorControllerRestApi = 3370;
+    linstor = {
+      controllerRestApi = 3370;
+      satellite = 3366;
+    };
   };
 in
 {
@@ -56,7 +59,8 @@ in
       interfaces.mynet = {
         allowedTCPPorts = with ports; [
           dns
-          linstorControllerRestApi
+          linstor.controllerRestApi
+          linstor.satellite
         ];
         allowedUDPPorts = with ports; [ dns ];
       };
