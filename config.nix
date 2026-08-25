@@ -103,6 +103,10 @@
             domain = "thinkcentre";
             vpnIp = "172.0.0.12";
           }
+          {
+            domain = "old-laptop-msi";
+            vpnIp = "172.0.0.10";
+          }
         ];
       };
     };
