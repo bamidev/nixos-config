@@ -9,12 +9,12 @@ let
     admissionWebhooks = 9443;
     cnpg.database = 8000;
     dns = 53;
-    https = 443;
     linstor = {
       nfs = 1000; # The NFS server used for RWX volume claims
       controllerRestApi = 3370;
       satellite = 3366;
     };
+    piraeus.metrics = 8443;
   };
 in
 {
@@ -63,10 +63,10 @@ in
         allowedTCPPorts = with ports; [
           cnpg.database
           dns
-          https
           linstor.controllerRestApi
           linstor.nfs
           linstor.satellite
+          piraeus.metrics
         ];
         allowedUDPPorts = with ports; [ dns ];
       };
