@@ -11,6 +11,7 @@ let
     dns = 53;
     https = 443;
     linstor = {
+      nfs = 1000; # The NFS server used for RWX volume claims
       controllerRestApi = 3370;
       satellite = 3366;
     };
@@ -64,6 +65,7 @@ in
           dns
           https
           linstor.controllerRestApi
+          linstor.nfs
           linstor.satellite
         ];
         allowedUDPPorts = with ports; [ dns ];
