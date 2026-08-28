@@ -28,8 +28,9 @@ in
       mplayer
       obs-studio
       quodlibet
-      # Install texlive and texpresso from the same source as all other editor packages
+      super-productivity
     ]
+    # Install texlive and texpresso from the same source as all other editor packages
     ++ (with inputs.editorPkgs; [
       texliveFull
       texpresso
