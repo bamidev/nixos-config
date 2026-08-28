@@ -1,4 +1,4 @@
-{ ... }:
+{ nixosConfig, ... }:
 {
   imports = [
     ./default.nix
@@ -7,10 +7,14 @@
   home = {
     stateVersion = "24.11";
 
-    file.".kube/config".text = import ./bamilab/kubeconfig.nix { host = "172.0.0.10"; };
+    file = {
+      ".kube/config".text = import ./bamilab/kubeconfig.nix { host = "172.0.0.10"; };
+      ".kube/config-local".text = import ./bamilab/kubeconfig.nix { host = nixosConfig.homelab.kubesServerIp; };
+    };
 
     shellAliases = {
       k = "sudo -E kubectl";
+      kl = "sudo -E kubectl --kubeconfig=~/.kube/config-local";
     };
   };
 
