@@ -38,14 +38,15 @@
 
   home-manager.users = {
     # Override module with one that also imports
-    bamilab =
+    bamilab = lib.mkForce (
       { ... }:
       {
         imports = [
           ./users/bamilab.nix
           ./users/desktop.nix
         ];
-      };
+      }
+    );
     therp =
       { pkgs, lib, ... }:
       import ./users/therp.nix {
