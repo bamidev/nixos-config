@@ -8,7 +8,7 @@
     stateVersion = "24.11";
 
     file = {
-      ".kube/config".text = import ./bamilab/kubeconfig.nix { host = "172.0.0.10"; };
+      ".kube/config".text = import ./bamilab/kubeconfig.nix { host = "private.bamilab.space"; };
       ".kube/config-local".text = import ./bamilab/kubeconfig.nix {
         host = nixosConfig.homelab.kubesServerIp;
       };
