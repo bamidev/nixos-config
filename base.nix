@@ -144,9 +144,6 @@ in
       # TODO: Generate this list from config.nix
       extraHosts = ''
         192.168.0.123 nas.kubes
-        192.168.0.77 nextcloud.kubes
-        192.168.0.77 grafana.kubes
-        192.168.0.77 traefik.kubes
 
         ${config.homelab.controlNode.one.ip} controlnode1
         ${config.homelab.controlNode.two.ip} controlnode2
