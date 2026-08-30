@@ -60,6 +60,7 @@
     # Disable IPv6 because it does not go through the VPN
     enableIPv6 = false;
 
+    # TODO: Review if I really need these ports open, and if so, add comments for explanaition
     firewall.allowedUDPPorts = [
       53
       67

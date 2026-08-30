@@ -125,6 +125,7 @@ let
         echo IP Addresses argument is missing
         exit 1
       fi
+      ADDRESSES="$ADDRESSES,private.bamilab.space"
 
       trap kubes-unload-ca-cert EXIT
       kubes-load-ca-cert
