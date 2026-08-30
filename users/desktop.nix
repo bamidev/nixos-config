@@ -97,7 +97,6 @@ in
       [
         etcd # for etcdctl
         helmfile
-        gparted
         kubectl
         kubectl-cnpg
 

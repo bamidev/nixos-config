@@ -187,29 +187,6 @@
       TERMINAL = "${alacritty}/bin/alacritty";
       VISUAL = EDITOR;
     };
-
-    systemPackages = with pkgs; [
-      alacritty
-      # The regular dmenu is buggy (probably only on wayland), and dmenu-rs uses no absolute paths
-      # in it's shell file dmenu_run. So I need to install it globally rather than keeping it's
-      # installation implied.
-      dmenu-rs
-      file-roller
-      gimp
-      libheif # For nautilus image preview
-      mako
-      nautilus
-      pavucontrol
-      protonmail-bridge-gui
-      session-desktop
-      signal-desktop
-      todo-txt-cli
-      tor-browser
-      totem
-      transmission_4-gtk
-      vial
-      wl-clipboard-rs
-    ];
   };
 
   # Mount a folder from the NAS for personal files
