@@ -153,7 +153,7 @@ in
           tlsCertFile = "${secretsPath}/apiserver.pem";
           tlsKeyFile = "${secretsPath}/apiserver-key.pem";
 
-          # Longhorn needs privileged containers
+          # The Piraeus Operator satellite pods need to be privileged
           allowPrivileged = true;
 
           etcd = {

@@ -41,16 +41,8 @@ in
       kernelModules = [ "drbd" ];
     };
 
-    # These need to be available for Longhorn to work
+    # These need to be available for Piraeus Operator to work on the host
     environment.systemPackages = with pkgs; [
-      bash
-      curl
-      gawk
-      gnugrep
-      nfs-utils
-      openiscsi
-      util-linux
-
       drbd
     ];
 
@@ -88,19 +80,7 @@ in
       ];
     };
 
-    # Kubernetes with kubelet and the proxy.
-    services = {
-      kubernetes = {
-        roles = [ "node" ];
-      };
-
-      # Needed to make Longhorn work on NixOS.
-      # Credits: https://github.com/longhorn/longhorn/issues/2166#issuecomment-2994323945
-      openiscsi = {
-        enable = true;
-        name = "${config.networking.hostName}-initiatorhost";
-      };
-    };
+    services.kubernetes.roles = [ "node" ];
 
     system.activationScripts = {
       createContainerdSnapshotterPool = {
@@ -119,13 +99,6 @@ in
       # The Linstor Satellite pods are configured to mount this folder:
       "d /usr/src 0777 root root -"
     ];
-
-    # Needed to make Longhorn work on NixOS.
-    # Credits: https://github.com/longhorn/longhorn/issues/2166#issuecomment-2994323945
-    systemd.services.iscsid.serviceConfig = {
-      PrivateMounts = "yes";
-      BindPaths = "/run/current-system/sw/bin:/bin";
-    };
 
     virtualisation.containerd = {
       enable = true;
