@@ -17,6 +17,7 @@ in
     ./protonvpn.nix
     ./sway/system.nix
     ./syncthing/system.nix
+    ./vikunja/system.nix
     stonenet
   ];
 
@@ -47,7 +48,6 @@ in
       totem
       transmission_4-gtk
       vial
-      vikunja-desktop
       wl-clipboard-rs
       quodlibet
     ]

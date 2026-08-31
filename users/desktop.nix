@@ -23,6 +23,7 @@ in
     ../apps/neovim/desktop.nix
     ../apps/sway/home.nix
     ../apps/todo-txt.nix
+    ../apps/vikunja/home.nix
     ../apps/wofi.nix
   ];
 
