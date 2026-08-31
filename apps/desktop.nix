@@ -42,8 +42,6 @@ in
       protonmail-bridge-gui
       session-desktop
       signal-desktop
-      super-productivity
-      todo-txt-cli
       tor-browser
       totem
       transmission_4-gtk
