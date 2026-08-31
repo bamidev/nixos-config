@@ -21,6 +21,7 @@ in
     ../apps/hyprland.nix
     ../apps/librewolf.nix
     ../apps/neovim/desktop.nix
+    ../apps/quodlibet/home.nix
     ../apps/sway/home.nix
     ../apps/todo-txt.nix
     ../apps/vikunja/home.nix
