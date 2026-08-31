@@ -58,6 +58,22 @@ in
           userName = "bamilab";
         };
       };
+
+      "ToDo" = {
+        primary = false;
+
+        thunderbird = {
+          enable = true;
+          readOnly = true;
+        };
+
+        remote = {
+          passwordCommand = "pass kubernetes/nextcloud/bamilab";
+          type = "caldav";
+          url = "http://vikunja.bamilab.space/dav/principals/bamilab/";
+          userName = "bamilab";
+        };
+      };
     };
 
     contact.accounts.Personal = {
