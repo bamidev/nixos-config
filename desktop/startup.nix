@@ -7,8 +7,9 @@
   "${lib.getExe pkgs.protonmail-bridge} -n"
 
   # GUI applications
-  "thunderbird"
-  "element-desktop --hidden"
-  "session-desktop"
-  "signal-desktop --use-tray-icon"
+  "thunderbird"                     # Email
+  "element-desktop --hidden"        # Private federated messaging
+  "session-desktop"                 # Private P2P messaging
+  "signal-desktop --use-tray-icon"  # Private messaging
+  "vikunja-desktop"                 # Todo lists
 ]
