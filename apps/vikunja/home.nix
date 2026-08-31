@@ -5,10 +5,11 @@
     Name=Vikunja
     GenericName=Todo App
     Comment=Manage todo items
-    Exec=${lib.getExe pkgs.vikunja-desktop}
+    Exec=${lib.getExe pkgs.vikunja-desktop} %U
     Type=Application
     Keywords=vikunja;todo;
     Icon=vikunja
     Categories=Utility;
+    MimeType=x-scheme-handler/vikunja-desktop;
   '';
 }
