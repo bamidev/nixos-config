@@ -36,7 +36,7 @@ in
         thunderbird.enable = true;
 
         remote = {
-          passwordCommand = "pass kubernetes/nextcloud/bamilab";
+          passwordCommand = "pass homelab/nextcloud/bamilab";
           type = "caldav";
           url = "http://nextcloud.bamilab.space/remote.php/dav/calendars/bamilab/personal/";
           userName = "bamilab";
@@ -52,7 +52,7 @@ in
         };
 
         remote = {
-          passwordCommand = "pass kubernetes/nextcloud/bamilab";
+          passwordCommand = "pass homelab/nextcloud/bamilab";
           type = "caldav";
           url = "http://nextcloud.bamilab.space/remote.php/dav/calendars/bamilab/contact_birthdays/";
           userName = "bamilab";
@@ -68,7 +68,7 @@ in
         };
 
         remote = {
-          passwordCommand = "pass kubernetes/nextcloud/bamilab";
+          passwordCommand = "pass homelab/nextcloud/bamilab";
           type = "caldav";
           url = "http://vikunja.bamilab.space/dav/principals/bamilab/";
           userName = "bamilab";
@@ -80,7 +80,7 @@ in
       thunderbird.enable = true;
 
       remote = {
-        passwordCommand = "pass kubernetes/nextcloud/bamilab";
+        passwordCommand = "pass homelab/nextcloud/bamilab";
         type = "carddav";
         url = "http://nextcloud.bamilab.space/remote.php/dav/addressbooks/users/bamilab/contacts/";
         userName = "bamilab";
