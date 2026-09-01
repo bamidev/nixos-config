@@ -23,6 +23,7 @@ in
 
     file = {
       ".config/gtk-3.0/bookmarks".text = ''
+        dav://nextcloud.local.bamilab.space/remote.php/dav/files/bamilab/
         dav://nextcloud.bamilab.space/remote.php/dav/files/bamilab/Music
       '';
 
