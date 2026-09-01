@@ -9,6 +9,7 @@ let
     admissionWebhooks = 9443;
     cnpg.database = 8000;
     dns = 53;
+    drbd.replication = 7000;
     linstor = {
       nfs = 1000; # The NFS server used for RWX volume claims
       controllerRestApi = 3370;
@@ -55,6 +56,7 @@ in
         allowedTCPPorts = with ports; [
           cnpg.database
           dns
+          drbd.replication
           linstor.controllerRestApi
           linstor.nfs
           linstor.satellite
