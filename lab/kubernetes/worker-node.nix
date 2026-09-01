@@ -50,16 +50,16 @@ in
     networking.firewall = {
       allowedTCPPorts = with ports; [
         admissionWebhooks
+        drbd.replication
+        linstor.satellite
       ];
 
       interfaces.mynet = {
         allowedTCPPorts = with ports; [
           cnpg.database
           dns
-          drbd.replication
           linstor.controllerRestApi
           linstor.nfs
-          linstor.satellite
           piraeus.metrics
         ];
         allowedUDPPorts = with ports; [ dns ];
