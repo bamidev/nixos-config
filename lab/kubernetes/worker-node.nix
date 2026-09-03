@@ -54,15 +54,20 @@ in
         linstor.satellite
       ];
 
-      interfaces.mynet = {
-        allowedTCPPorts = with ports; [
-          cnpg.database
-          dns
-          linstor.controllerRestApi
-          linstor.nfs
-          piraeus.metrics
-        ];
-        allowedUDPPorts = with ports; [ dns ];
+      interfaces = {
+        "flannel.1" = {
+          allowedTCPPorts = [ ports.dns ];
+          allowedUDPPorts = [ ports.dns ];
+        };
+
+        mynet = {
+          allowedTCPPorts = with ports; [
+            cnpg.database
+            linstor.controllerRestApi
+            linstor.nfs
+            piraeus.metrics
+          ];
+        };
       };
     };
 
