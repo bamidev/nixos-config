@@ -97,8 +97,7 @@ in
     };
 
     systemd.tmpfiles.rules = [
-      "d /mnt/nas 0777 root root -"
-      # The Linstor Satellite pods are configured to mount this folder:
+      # The Linstor Satellite pods are configured to mount this folder, so lets precreate it:
       "d /usr/src 0777 root root -"
     ];
 
@@ -115,19 +114,5 @@ in
         ];
       };
     };
-
-    # Mount the NAS to /mnt/nas
-    /*
-      fileSystems."/mnt/nas" = {
-        device = "${config.homelab.nas.ip}:/exhdd";
-        fsType = "nfs4";
-        options = [
-          "x-systemd.automount"
-          "noatime"
-          "nofail"
-          "rw"
-        ];
-      };
-    */
   };
 }
