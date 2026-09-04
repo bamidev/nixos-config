@@ -63,10 +63,12 @@ in
         mynet = {
           allowedTCPPorts = with ports; [
             cnpg.database
+            dns
             linstor.controllerRestApi
             linstor.nfs
             piraeus.metrics
           ];
+          allowedUDPPorts = [ ports.dns ];
         };
       };
     };
