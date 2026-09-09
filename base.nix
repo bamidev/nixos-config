@@ -180,7 +180,6 @@ in
           isNormalUser = true;
           extraGroups = [
             "audio"
-            "docker"
             "video"
             "wheel" # Enable ‘sudo’ for the user.
           ];
@@ -196,7 +195,6 @@ in
           isNormalUser = true;
           extraGroups = [
             "audio"
-            "docker"
             "video"
             "wheel"
           ];
