@@ -225,11 +225,12 @@
 
   services.gvfs.enable = true;
 
-  virtualisation.docker = {
+  virtualisation.podman = {
     enable = true;
-    extraPackages = [
-      pkgs.docker-buildx
-    ];
+
+    autoPrune.enable = true;
+    dockerCompat = true;
+    dockerSocket.enable = true;
   };
 
   xdg = {
