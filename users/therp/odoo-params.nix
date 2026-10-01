@@ -3,7 +3,7 @@
   lspEnterpriseRepoUrl = "git@gitlab.therp.nl:therp/enterprise.git";
   lspVersions = {
     start = 9;
-    stop = 19;
+    stop = 20;
   };
 
   lspOcaRepos = [
