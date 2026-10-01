@@ -21,5 +21,5 @@ vim.lsp.config('pylsp', {
 	cmd = {command},
 	filetypes = {'python'},
 	settings = settings,
-	root_markers = {'flake.nix', '.git'}
+	root_markers = {'flake.nix', '.git'},
 })
