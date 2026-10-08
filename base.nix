@@ -189,6 +189,17 @@ in
           ];
         };
 
+        odoo = {
+          description = "Odoo development";
+          home = "/home/odoo";
+          isNormalUser = true;
+          extraGroups = [
+            "audio"
+            "video"
+            "wheel"
+          ];
+        };
+
         therp = {
           description = "Work";
           home = "/home/therp";

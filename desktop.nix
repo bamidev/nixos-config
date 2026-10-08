@@ -47,13 +47,24 @@
         ];
       }
     );
-    therp =
-      { pkgs, lib, ... }:
-      import ./users/therp.nix {
-        pkgs = pkgs;
-        lib = lib;
-        inherit inputs;
-      };
+    odoo = lib.mkForce (
+      { ... }:
+      {
+        imports = [
+          ./users/odoo.nix
+          ./users/desktop.nix
+        ];
+      }
+    );
+    therp = lib.mkForce (
+      { ... }:
+      {
+        imports = [
+          ./users/therp.nix
+          ./users/desktop.nix
+        ];
+      }
+    );
   };
 
   networking = {
@@ -224,6 +235,11 @@
   };
 
   services.gvfs.enable = true;
+
+  services.tigerbeetle = {
+    enable = true;
+    addresses = ["3000"];
+  };
 
   virtualisation.podman = {
     enable = true;
