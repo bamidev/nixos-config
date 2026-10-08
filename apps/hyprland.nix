@@ -37,6 +37,7 @@ in
       };
     };
 
+    # Some packages that are part of the Hyprland ecosystem/experience
     packages = with pkgs; [
       hyprshot
       hyprshutdown
@@ -48,6 +49,8 @@ in
     xwayland.enable = true;
     configType = "lua";
 
+    # Preload some Lua variables in the config whose values have info that is available in Nix.
+    # This Nix-generated config then imports the actual configuration afterwards.
     extraConfig = ''
       -- Load additional Lua packages
       package.path = package.path .. ";${pkgs.lua55Packages.dkjson}/share/lua/5.5/?.lua"
