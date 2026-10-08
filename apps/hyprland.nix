@@ -16,6 +16,7 @@ in
     # Manage the main of the hyprland configuration in a seperate repo rather than Nix.
     activation.linkExtraConfig = lib.hm.dag.entryAfter [ "updateExtraConfig" ] ''
       if [ ! -h ~/.config/hypr/lib ]; then
+        mkdir -p ~/.config/hypr
         ln -s /etc/xdg/extra-config/hyprland ~/.config/hypr/lib
       fi
     '';
