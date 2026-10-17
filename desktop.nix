@@ -238,7 +238,7 @@
 
   services.tigerbeetle = {
     enable = true;
-    addresses = ["3000"];
+    addresses = [ "3000" ];
   };
 
   virtualisation.podman = {
