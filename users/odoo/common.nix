@@ -221,6 +221,7 @@ in
       with pkgs;
       [
         claude-code
+        ruff
       ]
       ++ [
         installPreCommit
