@@ -15,7 +15,7 @@ settings.pylsp.plugins.rope_autoimport.enabled = false
 local command = 'pylsp'
 -- TODO: If not in a git repo, check if ./__manifest__.py exists, and parse the Odoo version from there...
 if odoo_version ~= nil then
-	command = '/home/therp/wax/' .. odoo_version .. '.0/wax/venv/bin/pylsp'
+	command = '~/wax/' .. odoo_version .. '.0/wax/venv/bin/pylsp'
 end
 vim.lsp.config('pylsp', {
 	cmd = {command},

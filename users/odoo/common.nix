@@ -30,6 +30,10 @@ in
   home = {
     stateVersion = "24.11";
 
+    activation.createFolders = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p ~/lsp/odoo-ls-logs
+    '';
+
     file = {
       ".init.sh" = {
         executable = true;

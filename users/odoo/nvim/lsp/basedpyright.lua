@@ -17,7 +17,7 @@ if odoo_version ~= nil then
 			},
 		},
 		python = {
-			pythonPath = '/home/therp/wax/' .. odoo_version .. '.0/wax/venv/bin/python';
+			pythonPath = '~/wax/' .. odoo_version .. '.0/wax/venv/bin/python';
 		},
 	}
 end

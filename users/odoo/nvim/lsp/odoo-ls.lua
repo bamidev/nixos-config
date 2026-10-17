@@ -13,8 +13,8 @@ return {
 	name = "odoo-ls",
 	cmd  = {
 		'odoo_ls_server',
-		'--config-path', '/home/therp/.config/odools.toml',
-		'--logs-directory', '/home/therp/lsp/odoo-ls-logs',
+		'--config-path', '~/.config/odools.toml',
+		'--logs-directory', '~/lsp/odoo-ls-logs',
 	},
 	filetypes = {'csv', 'python', 'xml'},
 	on_attach = function(client, _)

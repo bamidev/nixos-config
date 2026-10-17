@@ -4,7 +4,7 @@ if odoo_version == nil or odoo_version >= 16 then return {} end
 
 
 local project_dir = vim.fs.root(0, {'.git'})
-local wax_dir = '/home/therp/wax/' .. odoo_version .. '.0/wax/addons'
+local wax_dir = '~/wax/' .. odoo_version .. '.0/wax/addons'
 return {
 	name = 'odoo-lsp',
 	cmd = {'odoo-lsp'},
