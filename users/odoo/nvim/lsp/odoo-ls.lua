@@ -6,15 +6,16 @@ local odoo_profile = 'setup-base'
 if odoo_version ~= nil then
 	odoo_profile = 'setup-' .. odoo_version .. '.0'
 end
-
+local home_dir = vim.uv.os_homedir()
 
 
 return {
 	name = "odoo-ls",
 	cmd  = {
 		'odoo_ls_server',
-		'--config-path', '~/.config/odools.toml',
-		'--logs-directory', '~/lsp/odoo-ls-logs',
+		-- The odoo-ls lsp server doesn't recognize the tilde sign, so we need to specify the full path:
+		'--config-path', home_dir .. '/.config/odools.toml',
+		'--logs-directory', home_dir .. '/lsp/odoo-ls-logs',
 	},
 	filetypes = {'csv', 'python', 'xml'},
 	on_attach = function(client, _)
